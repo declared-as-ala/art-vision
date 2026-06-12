@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-navy: #2D2966;
+  --color-brand-purple-dark: #150933;
+  --color-brand-purple: #6348E5;
+  --color-brand-magenta: #BA3184;
+  --color-brand-orange: #CD7942;
+  --color-brand-white: #EDEDED;
+  --color-brand-gray-light: #EDEDED;
+  --color-brand-text-dark: #171625;
+
+  --font-sora: var(--font-sora);
+  --font-inter: var(--font-inter);
+  --font-designer: var(--font-designer);
+  --font-futura-book: var(--font-futura-book);
+  --font-futura-light: var(--font-futura-light);
+}
+
+:root {
+  --background: #2D2966; /* Client's official deep violet/blue background */
+  --foreground: #EDEDED;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-futura-book), var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-designer), var(--font-sora), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Custom Premium Utilities */
+.glassmorphism {
+  background: rgba(8, 5, 31, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(108, 43, 217, 0.15);
+}
+
+.glow-magenta {
+  box-shadow: 0 0 40px -5px rgba(215, 40, 136, 0.3);
+}
+
+.glow-purple {
+  box-shadow: 0 0 40px -5px rgba(108, 43, 217, 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #F8F7FC 30%, #D72888 70%, #FF6A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-purple-magenta {
+  background: linear-gradient(135deg, #6C2BD9 0%, #D72888 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(180deg, #08051F 0%, #1A1238 100%);
+}
+
+/* Hide scrollbars but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #08051F;
+}
+::-webkit-scrollbar-thumb {
+  background: #1A1238;
+  border-radius: 4px;
+  border: 2px solid #2D2966;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6348E5;
+}
+
+/* EXACT IMAGE DESIGN GRADIENTS */
+.hero-gradient {
+  background-color: #2D2966;
+  background-image: 
+    radial-gradient(ellipse 65% 55% at 75% 25%, rgba(186, 49, 132, 0.45) 0%, rgba(186, 49, 132, 0.08) 55%, transparent 100%), /* Neon pink/magenta glow */
+    radial-gradient(ellipse 45% 45% at 100% 50%, rgba(6, 182, 212, 0.35) 0%, rgba(6, 182, 212, 0) 70%), /* Cyan light ray */
+    radial-gradient(circle at 15% 75%, rgba(99, 72, 229, 0.3) 0%, transparent 60%), /* Deep violet glow */
+    linear-gradient(135deg, #09031c 0%, #150933 35%, #2D2966 70%, #050314 100%);
+}
+
+.promo-banner-gradient {
+  background: linear-gradient(135deg, #1A052E 0%, #0D0219 100%);
+}
+
+/* LIGHT SECTIONS FOR CONTRAST (Updated to Dark Theme for consistency) */
+.light-section {
+  background-color: #2D2966 !important;
+  color: #EDEDED !important;
+}
+
+.light-section h1,
+.light-section h2,
+.light-section h3,
+.light-section h4,
+.light-section h5,
+.light-section h6 {
+  color: #EDEDED !important;
+}
+
+.light-section p,
+.light-section span {
+  color: rgba(237, 237, 237, 0.8) !important;
+}
+
+/* Form controls inside light sections (Updated to Dark Theme) */
+.light-section input,
+.light-section select,
+.light-section textarea {
+  background-color: rgba(26, 18, 56, 0.6) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(99, 72, 229, 0.3) !important;
+}
+
+.light-section input:focus,
+.light-section select:focus,
+.light-section textarea:focus {
+  border-color: #BA3184 !important;
+  background-color: rgba(26, 18, 56, 0.9) !important;
+}
+
+/* Global Form inputs styling */
+input, select, textarea {
+  background-color: rgba(26, 18, 56, 0.6) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(99, 72, 229, 0.3) !important;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #BA3184 !important;
+  background-color: rgba(26, 18, 56, 0.9) !important;
+  box-shadow: 0 0 0 2px rgba(186, 49, 132, 0.2) !important;
+}
+
+.cms-rich-content h1, .cms-rich-content h2, .cms-rich-content h3 { color: #fff; margin: 1.5em 0 .6em; line-height: 1.2; }
+.cms-rich-content h2 { font-size: 1.75rem; }
+.cms-rich-content h3 { font-size: 1.35rem; }
+.cms-rich-content p, .cms-rich-content ul, .cms-rich-content ol, .cms-rich-content blockquote { margin: 1em 0; }
+.cms-rich-content ul { list-style: disc; padding-left: 1.5rem; }
+.cms-rich-content ol { list-style: decimal; padding-left: 1.5rem; }
+.cms-rich-content a { color: var(--color-brand-orange); text-decoration: underline; }
+.cms-rich-content blockquote { border-left: 3px solid var(--color-brand-magenta); padding-left: 1rem; color: rgba(255,255,255,.7); }
+.cms-rich-content img { border-radius: 1rem; margin: 1.5rem 0; max-width: 100%; height: auto; }
+.cms-rich-content .cms-cta { margin: 2rem 0; border: 1px solid rgba(205,121,66,.4); border-radius: 1.25rem; padding: 2rem; background: rgba(26,18,56,.65); text-align: center; }
+.cms-rich-content .cms-cta a { display: inline-block; margin-top: 1rem; border-radius: 999px; padding: .75rem 1.25rem; background: var(--color-brand-orange); color: white; font-weight: 700; text-decoration: none; }

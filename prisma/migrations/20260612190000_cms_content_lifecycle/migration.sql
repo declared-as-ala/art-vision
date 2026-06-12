@@ -1,0 +1,10 @@
+-- Additive CMS lifecycle fields. Existing content remains published by default.
+ALTER TABLE "Page" ADD COLUMN "contentHtml" TEXT NOT NULL DEFAULT '';
+ALTER TABLE "Page" ADD COLUMN "excerpt" TEXT;
+ALTER TABLE "Page" ADD COLUMN "layout" TEXT NOT NULL DEFAULT 'FULL_WIDTH';
+ALTER TABLE "Page" ADD COLUMN "status" TEXT NOT NULL DEFAULT 'PUBLISHED';
+ALTER TABLE "Page" ADD COLUMN "focusKeyword" TEXT;
+ALTER TABLE "Page" ADD COLUMN "publishedAt" DATETIME;
+
+ALTER TABLE "Service" ADD COLUMN "status" TEXT NOT NULL DEFAULT 'PUBLISHED';
+ALTER TABLE "PortfolioProject" ADD COLUMN "status" TEXT NOT NULL DEFAULT 'PUBLISHED';

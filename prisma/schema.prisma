@@ -1,0 +1,393 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   // "SUPER_ADMIN", "ADMIN", "EDITOR", "SALES", "VIEWER"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSettings {
+  id                        String   @id @default("default")
+  logo                      String   // URL or path to logo
+  brandName                 String   // "Art Vision"
+  slogan                    String   // "L’art au service de votre image."
+  primaryColor              String   // "#08051F"
+  secondaryColor            String   // "#1A1238"
+  accentColor               String   // "#6C2BD9"
+  creativeMagenta           String   // "#D72888"
+  orangeCta                 String   // "#FF6A00"
+  softWhite                 String   // "#F8F7FC"
+  lightGray                 String   // "#EDEAF5"
+  textDark                  String   // "#171625"
+  socialFb                  String?
+  socialIg                  String?
+  socialIn                  String?
+  socialTw                  String?
+  email                     String   // Contact email
+  phone                     String   // Contact phone
+  whatsapp                  String   // Contact whatsapp
+  franceAddress             String   // France address
+  tunisiaAddress            String   // Tunisia address
+  googleAnalyticsId         String?
+  googleTagManagerId        String?
+  searchConsoleVerification String?
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
+
+model Page {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  title          String
+  contentJson    String   // Stores section contents / structure dynamically
+  contentHtml    String   @default("")
+  excerpt        String?
+  layout         String   @default("FULL_WIDTH")
+  status         String   @default("PUBLISHED")
+  focusKeyword   String?
+  isActive       Boolean  @default(true)
+  seoTitle       String?
+  seoDescription String?
+  ogImage        String?
+  canonicalUrl   String?
+  publishedAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Service {
+  id             String           @id @default(cuid())
+  slug           String           @unique
+  name           String
+  icon           String           // e.g. "PenTool", "Video"
+  image          String?          // featured image
+  description    String
+  detailedBody   String           // detailed description / explanation
+  benefits       String           // semicolon separated benefits or json list
+  process        String           // semicolon separated process steps or json list
+  status         String           @default("PUBLISHED")
+  seoTitle       String?
+  seoDescription String?
+  packages       PricingPackage[]
+  faqs           FAQ[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model PricingPackage {
+  id        String   @id @default(cuid())
+  serviceId String
+  service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  name      String   // "Basic", "Standard", "Premium"
+  price     String   // e.g. "à partir de 70€"
+  features  String   // semicolon separated features
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PortfolioProject {
+  id                String            @id @default(cuid())
+  slug              String            @unique
+  title             String
+  client            String
+  industry          String
+  objective         String
+  challenge         String
+  solution          String
+  result            String
+  testimonial       String?
+  testimonialRole   String?
+  testimonialAuthor String?
+  images            String            // semicolon-separated URLs or json array
+  videoUrl          String?
+  status            String            @default("PUBLISHED")
+  seoTitle          String?
+  seoDescription    String?
+  categoryId        String
+  category          PortfolioCategory @relation(fields: [categoryId], references: [id])
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+}
+
+model PortfolioCategory {
+  id        String             @id @default(cuid())
+  slug      String             @unique
+  name      String
+  projects  PortfolioProject[]
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+}
+
+model BlogPost {
+  id             String       @id @default(cuid())
+  slug           String       @unique
+  title          String
+  content        String
+  featuredImage  String
+  author         String
+  status         String       // "DRAFT", "PUBLISHED"
+  tags           String       // comma-separated tags
+  seoTitle       String?
+  seoDescription String?
+  readingTime    Int          @default(5)
+  categoryId     String
+  category       BlogCategory @relation(fields: [categoryId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model BlogCategory {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  posts     BlogPost[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  name         String
+  role         String
+  rating       Int      @default(5)
+  message      String
+  image        String?  // avatar image
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model QuoteRequest {
+  id        String   @id @default(cuid())
+  service   String
+  details   String
+  budget    String
+  deadline  String
+  fileUrl   String?  // uploaded briefing/file
+  name      String
+  email     String
+  phone     String
+  company   String?
+  consent   Boolean  @default(false)
+  status    String   @default("NEW") // "NEW", "CONTACTED", "IN_PROGRESS", "WON", "LOST"
+  notes     String?  // Admin notes
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PrintProduct {
+  id        String        @id @default(cuid())
+  slug      String        @unique
+  name      String        // e.g. "Flyers"
+  options   PrintOption[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model PrintOption {
+  id            String       @id @default(cuid())
+  productId     String
+  product       PrintProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+  type          String       // "FORMAT", "PAPER", "FINISH", "QUANTITY"
+  name          String       // e.g. "A4", "350g Mat", "100"
+  priceModifier Float        @default(0.0) // Flat price or scaling factor
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model CVTemplate {
+  id          String        @id @default(cuid())
+  name        String        // "Creative Agency", "Modern Tech", "Executive Corporate"
+  layout      String        // JSON configuration of styling (colors, sizes, layout style)
+  thumbnail   String?
+  generatedCV GeneratedCV[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model GeneratedCV {
+  id          String     @id @default(cuid())
+  templateId  String
+  template    CVTemplate @relation(fields: [templateId], references: [id])
+  name        String
+  profession  String
+  phone       String
+  email       String
+  address     String
+  about       String
+  skills      String     // JSON array
+  languages   String     // JSON array
+  experiences String     // JSON array
+  education   String     // JSON array
+  projects    String     // JSON array
+  photoUrl    String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model BusinessCardTemplate {
+  id             String                  @id @default(cuid())
+  name           String                  // "Modern Minimalist", "Creative Gradient", "Elegant Corporate"
+  layout         String                  // JSON configuration
+  thumbnail      String?
+  generatedCards GeneratedBusinessCard[]
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+}
+
+model GeneratedBusinessCard {
+  id         String               @id @default(cuid())
+  templateId String
+  template   BusinessCardTemplate @relation(fields: [templateId], references: [id])
+  name       String
+  jobTitle   String
+  phone      String
+  email      String
+  address    String?
+  website    String?
+  socials    String?              // JSON object/string
+  logoUrl    String?
+  qrData     String?
+  colors     String?              // Selected colors (JSON)
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  fileName  String   @default("")
+  fileType  String?  // old compat
+  altText   String?
+  title     String?
+  caption   String?
+  width     Int      @default(800)
+  height    Int      @default(600)
+  size      Int
+  mimeType  String   @default("image/jpeg")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SEOSettings {
+  id                        String   @id @default("default")
+  globalTitle               String?
+  globalDesc                String?
+  sitemapXml                String?
+  robotsTxt                 String?
+  googleSearchCons          String?
+  
+  // Page-specific SEO metadata
+  pageType                  String?  // "GLOBAL", "SERVICE", "POST", "PROJECT", "PAGE", "SEO_LANDING"
+  pageId                    String?
+  title                     String?
+  description               String?
+  focusKeyword              String?
+  secondaryKeywords         String?
+  slug                      String?  @unique
+  canonicalUrl              String?
+  ogTitle                   String?
+  ogDescription             String?
+  ogImage                   String?
+  twitterTitle              String?
+  twitterDescription        String?
+  twitterImage              String?
+  indexable                 Boolean  @default(true)
+  follow                    Boolean  @default(true)
+  schemaType                String?  @default("WebPage")
+  customJsonLd              String?
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
+
+model Redirect {
+  id         String   @id @default(cuid())
+  fromPath   String?  @unique // old compat
+  toPath     String?  // old compat
+  sourceUrl  String   @unique
+  targetUrl  String
+  statusCode Int      @default(301)
+  active     Boolean  @default(true)
+  hitCount   Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model FAQ {
+  id            String   @id @default(cuid())
+  pageType      String   @default("SERVICE") // "SERVICE", "POST", "PROJECT", "PAGE", "SEO_LANDING"
+  pageId        String   @default("")
+  question      String
+  answer        String
+  order         Int      @default(0)
+  schemaEnabled Boolean  @default(true)
+  serviceId     String?
+  service       Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SeoLandingPage {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  h1               String
+  keyword          String
+  city             String?
+  pageType         String   @default("GENERIC") // "GENERIC", "LOCAL"
+  intro            String
+  content          String   // Long copy blocks in HTML/text
+  faq              String?  // JSON string
+  relatedServices  String?  // comma-separated slugs
+  relatedPortfolio String?  // comma-separated slugs
+  status           String   @default("PUBLISHED") // "DRAFT", "PUBLISHED"
+  seoTitle         String?
+  metaDescription  String?
+  canonicalUrl     String?
+  ogImage          String?
+  indexable        Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model SitemapEntry {
+  id              String   @id @default(cuid())
+  url             String   @unique
+  priority        Float    @default(0.5)
+  changeFrequency String   @default("weekly")
+  included        Boolean  @default(true)
+  lastModified    DateTime @default(now())
+}
+
+// Real visitor tracking — one row per day per page
+model PageView {
+  id        String   @id @default(cuid())
+  path      String   // e.g. "/", "/blog/some-post"
+  date      DateTime // stored as start-of-day (UTC midnight)
+  count     Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([path, date])
+  @@index([date])
+}
