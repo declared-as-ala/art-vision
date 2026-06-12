@@ -1,8 +1,13 @@
+import path from "path";
+import { pathToFileURL } from "url";
 import { PrismaClient } from "@prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import bcrypt from "bcryptjs";
 
-const adapter = new PrismaBetterSqlite3({ url: "file:dev.db" });
+const sqliteUrl =
+  process.env.DATABASE_URL ??
+  pathToFileURL(path.join(process.cwd(), "dev.db")).href;
+const adapter = new PrismaBetterSqlite3({ url: sqliteUrl });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
