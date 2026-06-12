@@ -15,6 +15,8 @@ const sqliteUrl = rawSqliteUrl.startsWith("file:")
 const dbFilePath = sqliteUrl.startsWith("file:")
   ? fileURLToPath(sqliteUrl)
   : sqliteUrl;
+console.log("Seeding using sqliteUrl=", sqliteUrl);
+console.log("Seeding using dbFilePath=", dbFilePath);
 fs.mkdirSync(path.dirname(dbFilePath), { recursive: true });
 
 const adapter = new PrismaBetterSqlite3({ url: sqliteUrl });
