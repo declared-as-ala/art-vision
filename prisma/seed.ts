@@ -7,17 +7,12 @@ import bcrypt from "bcryptjs";
 
 const root = process.cwd();
 const defaultDbPath = path.join(root, "dev.db");
-const defaultDbUrl = pathToFileURL(defaultDbPath).href;
-const rawSqliteUrl = process.env.DATABASE_URL ?? defaultDbUrl;
-const sqliteUrl = rawSqliteUrl.startsWith("file:")
-  ? new URL(rawSqliteUrl, pathToFileURL(root + path.sep)).href
-  : rawSqliteUrl;
-const dbFilePath = sqliteUrl.startsWith("file:")
-  ? fileURLToPath(sqliteUrl)
-  : sqliteUrl;
+const rawSqliteUrl = process.env.DATABASE_URL;
+const sqliteUrl = rawSqliteUrl?.startsWith("file:")
+  ? fileURLToPath(new URL(rawSqliteUrl, pathToFileURL(root + path.sep)))
+  : rawSqliteUrl || defaultDbPath;
 console.log("Seeding using sqliteUrl=", sqliteUrl);
-console.log("Seeding using dbFilePath=", dbFilePath);
-fs.mkdirSync(path.dirname(dbFilePath), { recursive: true });
+fs.mkdirSync(path.dirname(sqliteUrl), { recursive: true });
 
 const adapter = new PrismaBetterSqlite3({ url: sqliteUrl });
 const prisma = new PrismaClient({ adapter });
@@ -319,8 +314,10 @@ async function main() {
   ];
 
   for (const service of servicesData) {
-    await prisma.service.create({
-      data: service,
+    await prisma.service.upsert({
+      where: { slug: service.slug },
+      update: service,
+      create: service,
     });
   }
   console.log("Services seeded successfully.");

@@ -7,18 +7,15 @@ import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 const root = process.cwd();
 const rootDbPath = path.join(root, "dev.db");
 const nextDbPath = path.join(root, ".next", "server", "dev.db");
-const defaultDbUrl = pathToFileURL(rootDbPath).href;
-const rawSqliteUrl = process.env.DATABASE_URL ?? defaultDbUrl;
-let sqliteUrl = rawSqliteUrl.startsWith("file:")
-  ? new URL(rawSqliteUrl, pathToFileURL(root + path.sep)).href
-  : rawSqliteUrl;
+const rawSqliteUrl = process.env.DATABASE_URL;
+let sqliteUrl = rawSqliteUrl?.startsWith("file:")
+  ? fileURLToPath(new URL(rawSqliteUrl, pathToFileURL(root + path.sep)))
+  : rawSqliteUrl || rootDbPath;
 
-const dbFilePath = sqliteUrl.startsWith("file:")
-  ? fileURLToPath(sqliteUrl)
-  : sqliteUrl;
+const dbFilePath = sqliteUrl;
 
 if (!fs.existsSync(dbFilePath) && fs.existsSync(nextDbPath)) {
-  sqliteUrl = pathToFileURL(nextDbPath).href;
+  sqliteUrl = nextDbPath;
 }
 
 const adapter = new PrismaBetterSqlite3({ url: sqliteUrl });
