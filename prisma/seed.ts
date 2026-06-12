@@ -1,12 +1,22 @@
+import fs from "fs";
 import path from "path";
-import { pathToFileURL } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import { PrismaClient } from "@prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import bcrypt from "bcryptjs";
 
-const sqliteUrl =
-  process.env.DATABASE_URL ??
-  pathToFileURL(path.join(process.cwd(), "dev.db")).href;
+const root = process.cwd();
+const defaultDbPath = path.join(root, "dev.db");
+const defaultDbUrl = pathToFileURL(defaultDbPath).href;
+const rawSqliteUrl = process.env.DATABASE_URL ?? defaultDbUrl;
+const sqliteUrl = rawSqliteUrl.startsWith("file:")
+  ? new URL(rawSqliteUrl, pathToFileURL(root + path.sep)).href
+  : rawSqliteUrl;
+const dbFilePath = sqliteUrl.startsWith("file:")
+  ? fileURLToPath(sqliteUrl)
+  : sqliteUrl;
+fs.mkdirSync(path.dirname(dbFilePath), { recursive: true });
+
 const adapter = new PrismaBetterSqlite3({ url: sqliteUrl });
 const prisma = new PrismaClient({ adapter });
 
