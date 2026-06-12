@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push --url file:./dev.db && next build",
+    "seed": "tsx prisma/seed.ts",
+    "build": "prisma generate && prisma db push --schema prisma/schema.prisma && npm run seed && next build && node scripts/copy-db-to-next.js",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate"
