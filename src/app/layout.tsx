@@ -16,7 +16,15 @@ const futuraLight = localFont({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const metadataBase = new URL(process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr");
+  // Tolerate NEXT_PUBLIC_APP_URL set without a protocol (e.g. "site.vercel.app").
+  const rawAppUrl = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+  const appUrl = /^https?:\/\//.test(rawAppUrl) ? rawAppUrl : `https://${rawAppUrl}`;
+  let metadataBase: URL;
+  try {
+    metadataBase = new URL(appUrl);
+  } catch {
+    metadataBase = new URL("https://art-visions.fr");
+  }
   try {
     const settings = await prisma.siteSettings.findUnique({ where: { id: "default" } });
     const seo = await prisma.sEOSettings.findUnique({ where: { id: "default" } });
