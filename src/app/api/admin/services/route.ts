@@ -18,11 +18,11 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, icon, image, description, detailedBody, benefits, process, status } = body;
+    const { name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, status } = body;
     const slug = normalizeSlug(body.slug || name);
-    
+
     // Check if slug exists
-    if (await slugExists(slug)) {
+    if (await slugExists(slug, { type: "SERVICE" })) {
       return NextResponse.json({ success: false, error: "Un service avec ce slug (URL) existe déjà." }, { status: 400 });
     }
 
@@ -32,10 +32,14 @@ export async function POST(req: Request) {
         slug,
         icon: icon || "Palette",
         image: image || null,
+        heroTagline: heroTagline || null,
+        introHeading: introHeading || null,
         description,
         detailedBody: detailedBody || "Description détaillée de la prestation.",
         benefits: benefits || "Avantage 1;Avantage 2;Avantage 3",
         process: process || "Cadrage & Briefing;Direction Artistique;Validation & BAT;Livraison",
+        gallery: typeof gallery === "string" ? gallery : JSON.stringify(gallery || []),
+        videos: typeof videos === "string" ? videos : JSON.stringify(videos || []),
         status: status || "PUBLISHED",
       }
     });
@@ -50,7 +54,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, name, icon, image, description, detailedBody, benefits, process, status } = body;
+    const { id, name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, status } = body;
     const slug = normalizeSlug(body.slug || name);
     const previous = await prisma.service.findUnique({ where: { id } });
     if (await slugExists(slug, { type: "SERVICE", id })) return NextResponse.json({ success: false, error: "Ce slug est déjà utilisé." }, { status: 400 });
@@ -61,10 +65,14 @@ export async function PUT(req: Request) {
         slug,
         icon,
         image,
+        heroTagline: heroTagline ?? null,
+        introHeading: introHeading ?? null,
         description,
         detailedBody,
         benefits,
         process,
+        ...(gallery !== undefined ? { gallery: typeof gallery === "string" ? gallery : JSON.stringify(gallery) } : {}),
+        ...(videos !== undefined ? { videos: typeof videos === "string" ? videos : JSON.stringify(videos) } : {}),
         status: status || "PUBLISHED"
       }
     });

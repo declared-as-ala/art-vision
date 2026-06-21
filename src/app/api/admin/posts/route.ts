@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const slug = normalizeSlug(body.slug || title);
     
     // Check if slug exists
-    if (await slugExists(slug)) {
+    if (await slugExists(slug, { type: "POST" })) {
       return NextResponse.json({ success: false, error: "Un article avec ce slug (URL) existe déjà." }, { status: 400 });
     }
 

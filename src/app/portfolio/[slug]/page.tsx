@@ -57,7 +57,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const imagesList = project.images.split(";").filter((img: string) => img.trim() !== "");
 
   return (
-    <div className="min-h-screen bg-brand-navy pt-32 pb-20 px-4">
+    <div className="min-h-screen hero-gradient pt-32 pb-20 px-4">
       {/* Glow */}
       <div className="absolute top-20 left-10 w-96 h-96 bg-brand-purple/15 rounded-full filter blur-[100px] -z-10 animate-pulse"></div>
 

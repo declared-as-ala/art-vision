@@ -56,8 +56,13 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("Admin login error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Erreur interne du serveur.";
+    const publicError = errorMessage.includes("JWT_SECRET")
+      ? "JWT_SECRET non configuré en production. Vérifiez les variables d'environnement."
+      : "Erreur interne du serveur.";
+
     return NextResponse.json(
-      { success: false, error: "Erreur interne du serveur." },
+      { success: false, error: publicError },
       { status: 500 }
     );
   }

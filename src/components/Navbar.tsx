@@ -34,7 +34,7 @@ export default function Navbar() {
     { name: "Identité Visuelle", href: "/identite-visuelle" },
     { name: "Conception Logo", href: "/creation-logo-professionnel" },
     { name: "Projet Graphique", href: "/design-graphique" },
-    { name: "Impression", href: "/impression-publicitaire" },
+    { name: "Impression", href: "/impression" },
     { name: "Projet Vidéo", href: "/video-publicitaire" },
     { name: "Motion Design", href: "/motion-design" },
     { name: "3D & Produit", href: "/modelisation-3d-rendu-produit" },
@@ -43,8 +43,14 @@ export default function Navbar() {
   ];
 
   const freeTools = [
-    { name: "Générateur de CV", href: "/cv-modeles-gratuits" },
-    { name: "Générateur de Cartes", href: "/carte-de-visite-gratuite" },
+    { name: "Tous les outils gratuits", href: "/outils-gratuits" },
+    { name: "Générateur de CV", href: "/outils-gratuits/cv-gratuit" },
+    { name: "Carte de visite", href: "/outils-gratuits/carte-de-visite-gratuite" },
+    { name: "Générateur de QR Code", href: "/outils-gratuits/generateur-qr-code" },
+    { name: "Palette de couleurs", href: "/outils-gratuits/generateur-palette-couleurs" },
+    { name: "Générateur de slogan", href: "/outils-gratuits/generateur-slogan" },
+    { name: "Créateur de flyer", href: "/outils-gratuits/creer-flyer" },
+    { name: "Calculateur d'impression", href: "/outils-gratuits/calculateur-impression" },
   ];
 
   return (
@@ -58,8 +64,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <img src="/logo.svg" alt="Art Vision Logo" className="h-9 object-contain" />
+          <Link href="/" className="flex items-center space-x-2.5">
+            <img src="/logo-mark.svg" alt="Art Vision Logo" className="h-10 w-auto object-contain" />
             <span className="font-sora font-extrabold text-xl tracking-wider text-white flex items-center">
               ART <span className="text-brand-magenta">VISION</span>
             </span>
@@ -181,7 +187,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between mb-8 mt-4">
           <div className="flex items-center space-x-2">
-            <img src="/logo.svg" alt="Art Vision Logo" className="h-8 object-contain" />
+            <img src="/logo-mark.svg" alt="Art Vision Logo" className="h-8 w-auto object-contain" />
             <span className="font-sora font-extrabold text-lg text-white">
               ART <span className="text-brand-magenta">VISION</span>
             </span>

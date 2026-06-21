@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         "/devis-sur-mesure",
         "/carte-de-visite-gratuite",
         "/cv-modeles-gratuits",
-        "/impression-publicitaire"
+        "/impression"
       ];
 
       // 2. Fetch service slugs

@@ -9,18 +9,33 @@ interface PricingPackage {
   price: string;
 }
 
+interface MediaImg { url: string; alt: string }
+interface MediaVid { url: string; title: string }
+
 interface Service {
   id: string;
   slug: string;
   name: string;
   icon: string;
   image?: string;
+  heroTagline?: string;
+  introHeading?: string;
   description: string;
   detailedBody: string;
   benefits: string;
   process: string;
+  gallery?: string;
+  videos?: string;
   packages: PricingPackage[];
 }
+
+const parseArr = (v?: string): any[] => {
+  try { const a = JSON.parse(v || "[]"); return Array.isArray(a) ? a : []; } catch { return []; }
+};
+const normImgs = (v?: string): MediaImg[] =>
+  parseArr(v).map((x) => (typeof x === "string" ? { url: x, alt: "" } : { url: x.url, alt: x.alt || "" }));
+const normVids = (v?: string): MediaVid[] =>
+  parseArr(v).map((x) => (typeof x === "string" ? { url: x, title: "" } : { url: x.url, title: x.title || "" }));
 
 export default function AdminServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
@@ -43,6 +58,44 @@ export default function AdminServicesPage() {
   const [image, setImage] = useState("");
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // New media + intro fields
+  const [heroTagline, setHeroTagline] = useState("");
+  const [introHeading, setIntroHeading] = useState("");
+  const [gallery, setGallery] = useState<MediaImg[]>([]);
+  const [videos, setVideos] = useState<MediaVid[]>([]);
+  const [galleryUploading, setGalleryUploading] = useState(false);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
+  const [newVideoUrl, setNewVideoUrl] = useState("");
+  const [newVideoTitle, setNewVideoTitle] = useState("");
+
+  const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    setGalleryUploading(true);
+    for (const file of files) {
+      const fd = new FormData();
+      fd.append("file", file);
+      try {
+        const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+        const data = await res.json();
+        if (data.success) setGallery((g) => [...g, { url: data.url, alt: "" }]);
+        else alert(data.error || "Erreur d'upload");
+      } catch {
+        alert("Erreur de connexion lors de l'upload");
+      }
+    }
+    setGalleryUploading(false);
+    e.target.value = "";
+  };
+
+  const addVideo = () => {
+    const url = newVideoUrl.trim();
+    if (!url) return;
+    setVideos((v) => [...v, { url, title: newVideoTitle.trim() }]);
+    setNewVideoUrl("");
+    setNewVideoTitle("");
+  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -96,6 +149,10 @@ export default function AdminServicesPage() {
     setSlug(service.slug);
     setIcon(service.icon);
     setImage(service.image || "");
+    setHeroTagline(service.heroTagline || "");
+    setIntroHeading(service.introHeading || "");
+    setGallery(normImgs(service.gallery));
+    setVideos(normVids(service.videos));
     setDescription(service.description);
     setDetailedBody(service.detailedBody || "");
     setBenefits(service.benefits || "");
@@ -110,6 +167,10 @@ export default function AdminServicesPage() {
     setSlug("");
     setIcon("Palette");
     setImage("");
+    setHeroTagline("L'Âme de Votre Marque");
+    setIntroHeading("De l'idée à la réalisation");
+    setGallery([]);
+    setVideos([]);
     setDescription("");
     setDetailedBody("");
     setBenefits("");
@@ -128,9 +189,15 @@ export default function AdminServicesPage() {
     setErrorMsg("");
 
     const method = isNew ? "POST" : "PUT";
-    const bodyData = isNew 
-      ? { name, slug, icon, image, description, detailedBody, benefits, process }
-      : { id: selectedService?.id, name, slug, icon, image, description, detailedBody, benefits, process };
+    const media = {
+      heroTagline,
+      introHeading,
+      gallery: JSON.stringify(gallery),
+      videos: JSON.stringify(videos),
+    };
+    const bodyData = isNew
+      ? { name, slug, icon, image, description, detailedBody, benefits, process, ...media }
+      : { id: selectedService?.id, name, slug, icon, image, description, detailedBody, benefits, process, ...media };
 
     try {
       const response = await fetch("/api/admin/services", {
@@ -314,8 +381,31 @@ export default function AdminServicesPage() {
                 />
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-xs text-white/70">Tagline (au-dessus du titre)</label>
+                  <input
+                    type="text"
+                    value={heroTagline}
+                    onChange={(e) => setHeroTagline(e.target.value)}
+                    placeholder="L'Âme de Votre Marque"
+                    className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-magenta"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-white/70">Titre de la présentation</label>
+                  <input
+                    type="text"
+                    value={introHeading}
+                    onChange={(e) => setIntroHeading(e.target.value)}
+                    placeholder="De l'idée à l'identité"
+                    className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-magenta"
+                  />
+                </div>
+              </div>
+
               <div className="space-y-2">
-                <label className="text-xs text-white/70 block font-semibold">Image du service</label>
+                <label className="text-xs text-white/70 block font-semibold">Image du service (vignette)</label>
                 <div className="flex items-center space-x-4">
                   {image && (
                     <div className="w-16 h-16 rounded-lg border border-brand-purple/20 overflow-hidden shrink-0 bg-[#050314] flex items-center justify-center relative group">
@@ -369,6 +459,94 @@ export default function AdminServicesPage() {
                   rows={4}
                   className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-brand-magenta resize-none"
                 />
+              </div>
+
+              {/* Gallery manager */}
+              <div className="space-y-2 border-t border-brand-purple/20 pt-4">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs text-white/70 font-semibold">Galerie d'images ({gallery.length})</label>
+                  <button
+                    type="button"
+                    onClick={() => galleryInputRef.current?.click()}
+                    className="flex items-center space-x-1.5 bg-brand-purple/10 hover:bg-brand-purple/25 text-white border border-brand-purple/30 px-3 py-1.5 rounded-lg text-[11px] transition cursor-pointer"
+                  >
+                    <Upload size={12} />
+                    <span>{galleryUploading ? "Téléchargement..." : "Ajouter des images"}</span>
+                  </button>
+                  <input ref={galleryInputRef} type="file" accept="image/*" multiple onChange={handleGalleryUpload} className="hidden" />
+                </div>
+                {gallery.length === 0 ? (
+                  <p className="text-[10px] text-white/40">Aucune image. Importez des visuels pour la galerie publique.</p>
+                ) : (
+                  <div className="grid grid-cols-3 gap-2">
+                    {gallery.map((img, idx) => (
+                      <div key={idx} className="space-y-1">
+                        <div className="aspect-[4/3] rounded-lg border border-brand-purple/20 overflow-hidden relative group bg-[#050314]">
+                          <img src={img.url} alt={img.alt} className="w-full h-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => setGallery((g) => g.filter((_, i) => i !== idx))}
+                            className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-red-400 font-bold text-[10px]"
+                          >
+                            Retirer
+                          </button>
+                        </div>
+                        <input
+                          type="text"
+                          value={img.alt}
+                          onChange={(e) => setGallery((g) => g.map((m, i) => (i === idx ? { ...m, alt: e.target.value } : m)))}
+                          placeholder="Texte alternatif (SEO)"
+                          className="w-full bg-brand-navy border border-brand-purple/30 rounded px-2 py-1 text-[10px] text-white focus:outline-none focus:border-brand-magenta"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Video manager */}
+              <div className="space-y-2 border-t border-brand-purple/20 pt-4">
+                <label className="text-xs text-white/70 font-semibold block">Vidéos ({videos.length})</label>
+                <p className="text-[10px] text-white/40">Collez un lien YouTube, Vimeo ou un fichier .mp4.</p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newVideoUrl}
+                    onChange={(e) => setNewVideoUrl(e.target.value)}
+                    placeholder="https://youtube.com/watch?v=..."
+                    className="flex-1 bg-brand-navy border border-brand-purple/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-magenta"
+                  />
+                  <input
+                    type="text"
+                    value={newVideoTitle}
+                    onChange={(e) => setNewVideoTitle(e.target.value)}
+                    placeholder="Titre (option)"
+                    className="w-28 bg-brand-navy border border-brand-purple/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-magenta"
+                  />
+                  <button
+                    type="button"
+                    onClick={addVideo}
+                    className="bg-brand-purple/20 hover:bg-brand-purple/40 border border-brand-purple/30 text-white px-3 rounded-lg text-xs font-semibold transition cursor-pointer shrink-0"
+                  >
+                    <Plus size={14} />
+                  </button>
+                </div>
+                {videos.length > 0 && (
+                  <div className="space-y-1.5">
+                    {videos.map((v, idx) => (
+                      <div key={idx} className="flex items-center gap-2 bg-brand-navy/60 border border-brand-purple/20 rounded-lg px-3 py-1.5">
+                        <span className="text-[10px] text-white/70 truncate flex-1">{v.title || v.url}</span>
+                        <button
+                          type="button"
+                          onClick={() => setVideos((vs) => vs.filter((_, i) => i !== idx))}
+                          className="text-white/40 hover:text-red-400 transition shrink-0"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="space-y-1">

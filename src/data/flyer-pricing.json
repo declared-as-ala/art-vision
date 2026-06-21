@@ -1,0 +1,1112 @@
+{
+  "source": "https://www.impressionflyers.com/impression_flyers.cfm",
+  "scrapedAt": "2026-06-21T00:32:31.667Z",
+  "fileGuidelines": {
+    "acceptedFormats": [
+      "PDF",
+      "JPG",
+      "TIF",
+      "EPS",
+      "AI",
+      "BMP"
+    ],
+    "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
+    "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
+    "technicalCheck": "Vérification technique gratuite du fichier.",
+    "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
+    "shipping": "1 à 3 jours ouvrables.",
+    "express": "Production express possible avec supplément."
+  },
+  "categories": [
+    {
+      "id": "130-grs-m2-fsc",
+      "title": "Flyers - 130 grs/m² FSC - Recto / Verso",
+      "name": "130 grs/m² FSC",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "70 €",
+            "1000 ex": "70 €",
+            "2500 ex": "75 €",
+            "5000 ex": "85 €"
+          }
+        },
+        {
+          "format": "A6 Carré",
+          "dimension": "10,5 x 10,5 cm",
+          "prices": {
+            "500 ex": "56 €",
+            "1000 ex": "57 €",
+            "2500 ex": "75 €",
+            "5000 ex": "87 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "48 €",
+            "1000 ex": "50 €",
+            "2500 ex": "74 €",
+            "5000 ex": "88 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "65 €",
+            "1000 ex": "69 €",
+            "2500 ex": "88 €",
+            "5000 ex": "102 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "70 €",
+            "1000 ex": "75 €",
+            "2500 ex": "94 €",
+            "5000 ex": "124 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "91 €",
+            "1000 ex": "97 €",
+            "2500 ex": "143 €",
+            "5000 ex": "194 €"
+          }
+        },
+        {
+          "format": "A3",
+          "dimension": "29,7 x 42 cm",
+          "prices": {
+            "500 ex": "133 €",
+            "1000 ex": "153 €",
+            "2500 ex": "315 €",
+            "5000 ex": "426 €"
+          }
+        },
+        {
+          "format": "Rond 9,5 cm",
+          "dimension": "9.5 cm de diamètre",
+          "prices": {
+            "500 ex": "75 €",
+            "1000 ex": "78 €",
+            "2500 ex": "109 €",
+            "5000 ex": "115 €"
+          }
+        },
+        {
+          "format": "A5 carré",
+          "dimension": "14,8 x 14,8 cm",
+          "prices": {
+            "500 ex": "72 €",
+            "1000 ex": "76 €",
+            "2500 ex": "89 €",
+            "5000 ex": "105 €"
+          }
+        },
+        {
+          "format": "A4 carré",
+          "dimension": "21 x 21 cm",
+          "prices": {
+            "500 ex": "83 €",
+            "1000 ex": "83 €",
+            "2500 ex": "120 €",
+            "5000 ex": "167 €"
+          }
+        },
+        {
+          "format": "Demi A5",
+          "dimension": "7,2x21 cm",
+          "prices": {
+            "500 ex": "73 €",
+            "1000 ex": "75 €",
+            "2500 ex": "92 €",
+            "5000 ex": "107 €"
+          }
+        },
+        {
+          "format": "Rond 14,8 cm",
+          "dimension": "14,8 cm de diamètre",
+          "prices": {
+            "500 ex": "86 €",
+            "1000 ex": "89 €",
+            "2500 ex": "136 €",
+            "5000 ex": "183 €"
+          }
+        },
+        {
+          "format": "Rond 21 cm",
+          "dimension": "21 cm de diamètre",
+          "prices": {
+            "500 ex": "111 €",
+            "1000 ex": "144 €",
+            "2500 ex": "228 €",
+            "5000 ex": "288 €"
+          }
+        },
+        {
+          "format": "A3 carré",
+          "dimension": "29,7 x 29,7 cm",
+          "prices": {
+            "500 ex": "115 €",
+            "1000 ex": "158 €",
+            "2500 ex": "263 €",
+            "5000 ex": "339 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "170-gr-m2-fsc",
+      "title": "Flyers - 170 gr/m² FSC - Recto / Verso",
+      "name": "170 gr/m² FSC",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "59 €",
+            "1000 ex": "70 €",
+            "2500 ex": "83 €",
+            "5000 ex": "101 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "62 €",
+            "1000 ex": "64 €",
+            "2500 ex": "75 €",
+            "5000 ex": "87 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "73 €",
+            "1000 ex": "75 €",
+            "2500 ex": "90 €",
+            "5000 ex": "111 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "80 €",
+            "1000 ex": "85 €",
+            "2500 ex": "105 €",
+            "5000 ex": "132 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "101 €",
+            "1000 ex": "116 €",
+            "2500 ex": "170 €",
+            "5000 ex": "247 €"
+          }
+        },
+        {
+          "format": "A3",
+          "dimension": "29,7 x 42 cm",
+          "prices": {
+            "500 ex": "140 €",
+            "1000 ex": "167 €",
+            "2500 ex": "333 €",
+            "5000 ex": "452 €"
+          }
+        },
+        {
+          "format": "Rond 9,5 cm",
+          "dimension": "9.5 cm de diamètre",
+          "prices": {
+            "500 ex": "80 €",
+            "1000 ex": "90 €",
+            "2500 ex": "113 €",
+            "5000 ex": "124 €"
+          }
+        },
+        {
+          "format": "A5 carré",
+          "dimension": "14,8 x 14,8 cm",
+          "prices": {
+            "500 ex": "75 €",
+            "1000 ex": "85 €",
+            "2500 ex": "103 €",
+            "5000 ex": "126 €"
+          }
+        },
+        {
+          "format": "A4 carré",
+          "dimension": "21 x 21 cm",
+          "prices": {
+            "500 ex": "87 €",
+            "1000 ex": "103 €",
+            "2500 ex": "146 €",
+            "5000 ex": "206 €"
+          }
+        },
+        {
+          "format": "Rond 14,8 cm",
+          "dimension": "14,8 cm de diamètre",
+          "prices": {
+            "500 ex": "92 €",
+            "1000 ex": "107 €",
+            "2500 ex": "154 €",
+            "5000 ex": "195 €"
+          }
+        },
+        {
+          "format": "Rond 21 cm",
+          "dimension": "21 cm de diamètre",
+          "prices": {
+            "500 ex": "119 €",
+            "1000 ex": "152 €",
+            "2500 ex": "263 €",
+            "5000 ex": "322 €"
+          }
+        },
+        {
+          "format": "A3 carré",
+          "dimension": "29,7 x 29,7 cm",
+          "prices": {
+            "500 ex": "122 €",
+            "1000 ex": "172 €",
+            "2500 ex": "299 €",
+            "5000 ex": "451 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "250grs-m2-fsc",
+      "title": "Flyers - 250grs/m² FSC - Recto / Verso",
+      "name": "250grs/m² FSC",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "60 €",
+            "1000 ex": "66 €",
+            "2500 ex": "85 €",
+            "5000 ex": "100 €"
+          }
+        },
+        {
+          "format": "A6 Carré",
+          "dimension": "10,5 x 10,5 cm",
+          "prices": {
+            "500 ex": "61 €",
+            "1000 ex": "69 €",
+            "2500 ex": "88 €",
+            "5000 ex": "94 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "67 €",
+            "1000 ex": "70 €",
+            "2500 ex": "83 €",
+            "5000 ex": "97 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "73 €",
+            "1000 ex": "78 €",
+            "2500 ex": "100 €",
+            "5000 ex": "134 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "78 €",
+            "1000 ex": "87 €",
+            "2500 ex": "119 €",
+            "5000 ex": "153 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "112 €",
+            "1000 ex": "138 €",
+            "2500 ex": "209 €",
+            "5000 ex": "301 €"
+          }
+        },
+        {
+          "format": "A8",
+          "dimension": "7,4 x 5,25 cm",
+          "prices": {
+            "500 ex": "55 €",
+            "1000 ex": "57 €",
+            "2500 ex": "76 €",
+            "5000 ex": "85 €"
+          }
+        },
+        {
+          "format": "Rond 9,5 cm",
+          "dimension": "9.5 cm de diamètre",
+          "prices": {
+            "500 ex": "81 €",
+            "1000 ex": "90 €",
+            "2500 ex": "115 €",
+            "5000 ex": "120 €"
+          }
+        },
+        {
+          "format": "A5 carré",
+          "dimension": "14,8 x 14,8 cm",
+          "prices": {
+            "500 ex": "75 €",
+            "1000 ex": "84 €",
+            "2500 ex": "115 €",
+            "5000 ex": "151 €"
+          }
+        },
+        {
+          "format": "A4 carré",
+          "dimension": "21 x 21 cm",
+          "prices": {
+            "500 ex": "96 €",
+            "1000 ex": "115 €",
+            "2500 ex": "172 €",
+            "5000 ex": "256 €"
+          }
+        },
+        {
+          "format": "Rond 14,8 cm",
+          "dimension": "14,8 cm de diamètre",
+          "prices": {
+            "500 ex": "97 €",
+            "1000 ex": "109 €",
+            "2500 ex": "158 €",
+            "5000 ex": "235 €"
+          }
+        },
+        {
+          "format": "Rond 21 cm",
+          "dimension": "21 cm de diamètre",
+          "prices": {
+            "500 ex": "126 €",
+            "1000 ex": "156 €",
+            "2500 ex": "282 €",
+            "5000 ex": "401 €"
+          }
+        },
+        {
+          "format": "A3 carré",
+          "dimension": "29,7 x 29,7 cm",
+          "prices": {
+            "500 ex": "135 €",
+            "1000 ex": "196 €",
+            "2500 ex": "322 €",
+            "5000 ex": "514 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "300grs-m2-fsc",
+      "title": "Flyers - 300grs/m² FSC - Recto / Verso",
+      "name": "300grs/m² FSC",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "67 €",
+            "1000 ex": "69 €",
+            "2500 ex": "90 €",
+            "5000 ex": "109 €"
+          }
+        },
+        {
+          "format": "A6 Carré",
+          "dimension": "10,5 x 10,5 cm",
+          "prices": {
+            "500 ex": "72 €",
+            "1000 ex": "75 €",
+            "2500 ex": "96 €",
+            "5000 ex": "132 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "67 €",
+            "1000 ex": "75 €",
+            "2500 ex": "89 €",
+            "5000 ex": "127 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "75 €",
+            "1000 ex": "88 €",
+            "2500 ex": "108 €",
+            "5000 ex": "170 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "82 €",
+            "1000 ex": "102 €",
+            "2500 ex": "146 €",
+            "5000 ex": "186 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "120 €",
+            "1000 ex": "152 €",
+            "2500 ex": "235 €",
+            "5000 ex": "327 €"
+          }
+        },
+        {
+          "format": "Rond 9,5 cm",
+          "dimension": "9.5 cm de diamètre",
+          "prices": {
+            "500 ex": "86 €",
+            "1000 ex": "99 €",
+            "2500 ex": "132 €",
+            "5000 ex": "196 €"
+          }
+        },
+        {
+          "format": "A5 carré",
+          "dimension": "14,8 x 14,8 cm",
+          "prices": {
+            "500 ex": "73 €",
+            "1000 ex": "92 €",
+            "2500 ex": "122 €",
+            "5000 ex": "187 €"
+          }
+        },
+        {
+          "format": "A4 carré",
+          "dimension": "21 x 21 cm",
+          "prices": {
+            "500 ex": "102 €",
+            "1000 ex": "124 €",
+            "2500 ex": "191 €",
+            "5000 ex": "281 €"
+          }
+        },
+        {
+          "format": "Rond 14,8 cm",
+          "dimension": "14,8 cm de diamètre",
+          "prices": {
+            "500 ex": "101 €",
+            "1000 ex": "112 €",
+            "2500 ex": "196 €",
+            "5000 ex": "303 €"
+          }
+        },
+        {
+          "format": "Rond 21 cm",
+          "dimension": "21 cm de diamètre",
+          "prices": {
+            "500 ex": "134 €",
+            "1000 ex": "178 €",
+            "2500 ex": "335 €",
+            "5000 ex": "530 €"
+          }
+        },
+        {
+          "format": "A3 carré",
+          "dimension": "29,7 x 29,7 cm",
+          "prices": {
+            "500 ex": "145 €",
+            "1000 ex": "232 €",
+            "2500 ex": "410 €",
+            "5000 ex": "672 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "80grs-m2-papier-recycle",
+      "title": "Flyers - 80grs / m² - Papier recyclé - Recto / Verso",
+      "name": "80grs / m² - Papier recyclé",
+      "quantities": [
+        "250 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "250 ex": "54 €",
+            "1000 ex": "64 €",
+            "2500 ex": "85 €",
+            "5000 ex": "87 €"
+          }
+        },
+        {
+          "format": "A6 Carré",
+          "dimension": "10,5 x 10,5 cm",
+          "prices": {
+            "250 ex": "60 €",
+            "1000 ex": "73 €",
+            "2500 ex": "94 €",
+            "5000 ex": "107 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "250 ex": "63 €",
+            "1000 ex": "88 €",
+            "2500 ex": "91 €",
+            "5000 ex": "119 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "250 ex": "80 €",
+            "1000 ex": "87 €",
+            "2500 ex": "106 €",
+            "5000 ex": "126 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "250 ex": "85 €",
+            "1000 ex": "94 €",
+            "2500 ex": "121 €",
+            "5000 ex": "160 €"
+          }
+        },
+        {
+          "format": "A3",
+          "dimension": "29,7 x 42 cm",
+          "prices": {
+            "250 ex": "160 €",
+            "1000 ex": "206 €",
+            "2500 ex": "406 €",
+            "5000 ex": "579 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "240 X 310 mm",
+          "prices": {
+            "250 ex": "109 €",
+            "1000 ex": "140 €",
+            "2500 ex": "184 €",
+            "5000 ex": "284 €"
+          }
+        },
+        {
+          "format": "A5 carré",
+          "dimension": "14,8 x 14,8 cm",
+          "prices": {
+            "250 ex": "85 €",
+            "1000 ex": "99 €",
+            "2500 ex": "113 €",
+            "5000 ex": "140 €"
+          }
+        },
+        {
+          "format": "A4 carré",
+          "dimension": "21 x 21 cm",
+          "prices": {
+            "250 ex": "92 €",
+            "1000 ex": "142 €",
+            "2500 ex": "173 €",
+            "5000 ex": "216 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "300grs-m2-vernis-uv",
+      "title": "Flyers - 300grs / m² + Vernis UV - Recto / Verso",
+      "name": "300grs / m² + Vernis UV",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "78 €",
+            "1000 ex": "85 €",
+            "2500 ex": "101 €",
+            "5000 ex": "124 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "85 €",
+            "1000 ex": "97 €",
+            "2500 ex": "130 €",
+            "5000 ex": "204 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "85 €",
+            "1000 ex": "110 €",
+            "2500 ex": "156 €",
+            "5000 ex": "252 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "101 €",
+            "1000 ex": "121 €",
+            "2500 ex": "209 €",
+            "5000 ex": "302 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "150 €",
+            "1000 ex": "200 €",
+            "2500 ex": "344 €",
+            "5000 ex": "561 €"
+          }
+        },
+        {
+          "format": "Rond 9,5 cm",
+          "dimension": "9.5 cm de diamètre",
+          "prices": {
+            "500 ex": "66 €",
+            "1000 ex": "85 €",
+            "2500 ex": "104 €",
+            "5000 ex": "151 €"
+          }
+        },
+        {
+          "format": "Rond 14,8 cm",
+          "dimension": "14,8 cm de diamètre",
+          "prices": {
+            "500 ex": "109 €",
+            "1000 ex": "128 €",
+            "2500 ex": "218 €",
+            "5000 ex": "320 €"
+          }
+        },
+        {
+          "format": "Rond 21 cm",
+          "dimension": "21 cm de diamètre",
+          "prices": {
+            "500 ex": "156 €",
+            "1000 ex": "209 €",
+            "2500 ex": "364 €",
+            "5000 ex": "593 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "400grs-m2",
+      "title": "Flyers - 400grs / m² - Recto / Verso",
+      "name": "400grs / m²",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "75 €",
+            "1000 ex": "83 €",
+            "2500 ex": "115 €",
+            "5000 ex": "138 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "83 €",
+            "1000 ex": "99 €",
+            "2500 ex": "121 €",
+            "5000 ex": "181 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "88 €",
+            "1000 ex": "102 €",
+            "2500 ex": "146 €",
+            "5000 ex": "238 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "103 €",
+            "1000 ex": "130 €",
+            "2500 ex": "188 €",
+            "5000 ex": "249 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "139 €",
+            "1000 ex": "172 €",
+            "2500 ex": "288 €",
+            "5000 ex": "401 €"
+          }
+        },
+        {
+          "format": "A8",
+          "dimension": "7,4 x 5,25 cm",
+          "prices": {
+            "500 ex": "64 €",
+            "1000 ex": "75 €",
+            "2500 ex": "94 €",
+            "5000 ex": "115 €"
+          }
+        },
+        {
+          "format": "Rond 9,5 cm",
+          "dimension": "9.5 cm de diamètre",
+          "prices": {
+            "500 ex": "90 €",
+            "1000 ex": "117 €",
+            "2500 ex": "181 €",
+            "5000 ex": "284 €"
+          }
+        },
+        {
+          "format": "Rond 14,8 cm",
+          "dimension": "14,8 cm de diamètre",
+          "prices": {
+            "500 ex": "109 €",
+            "1000 ex": "169 €",
+            "2500 ex": "440 €",
+            "5000 ex": "452 €"
+          }
+        },
+        {
+          "format": "Rond 21 cm",
+          "dimension": "21 cm de diamètre",
+          "prices": {
+            "500 ex": "158 €",
+            "1000 ex": "245 €",
+            "2500 ex": "536 €",
+            "5000 ex": "854 €"
+          }
+        },
+        {
+          "format": "A3 carré",
+          "dimension": "29,7 x 29,7 cm",
+          "prices": {
+            "500 ex": "170 €",
+            "1000 ex": "334 €",
+            "2500 ex": "665 €",
+            "5000 ex": "1117 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "400grs-m2-vernis-uv",
+      "title": "Flyers - 400grs / m² + Vernis UV - Recto / Verso",
+      "name": "400grs / m² + Vernis UV",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "85 €",
+            "1000 ex": "92 €",
+            "2500 ex": "122 €",
+            "5000 ex": "171 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "85 €",
+            "1000 ex": "113 €",
+            "2500 ex": "179 €",
+            "5000 ex": "294 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "94 €",
+            "1000 ex": "136 €",
+            "2500 ex": "253 €",
+            "5000 ex": "352 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "115 €",
+            "1000 ex": "172 €",
+            "2500 ex": "313 €",
+            "5000 ex": "452 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "176 €",
+            "1000 ex": "294 €",
+            "2500 ex": "534 €",
+            "5000 ex": "855 €"
+          }
+        },
+        {
+          "format": "Rond 9,5 cm",
+          "dimension": "9.5 cm de diamètre",
+          "prices": {
+            "500 ex": "92 €",
+            "1000 ex": "123 €",
+            "2500 ex": "188 €",
+            "5000 ex": "300 €"
+          }
+        },
+        {
+          "format": "Rond 14,8 cm",
+          "dimension": "14,8 cm de diamètre",
+          "prices": {
+            "500 ex": "121 €",
+            "1000 ex": "179 €",
+            "2500 ex": "308 €",
+            "5000 ex": "478 €"
+          }
+        },
+        {
+          "format": "Rond 21 cm",
+          "dimension": "21 cm de diamètre",
+          "prices": {
+            "500 ex": "177 €",
+            "1000 ex": "309 €",
+            "2500 ex": "565 €",
+            "5000 ex": "903 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "inscriptible-250-gr-m2-offset",
+      "title": "Flyers - Inscriptible - 250 gr /m² offset - - Recto / Verso",
+      "name": "Inscriptible - 250 gr /m² offset",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "70 €",
+            "1000 ex": "80 €",
+            "2500 ex": "101 €",
+            "5000 ex": "122 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "85 €",
+            "1000 ex": "94 €",
+            "2500 ex": "117 €",
+            "5000 ex": "172 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "92 €",
+            "1000 ex": "105 €",
+            "2500 ex": "150 €",
+            "5000 ex": "234 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "121 €",
+            "1000 ex": "130 €",
+            "2500 ex": "181 €",
+            "5000 ex": "232 €"
+          }
+        },
+        {
+          "format": "A4",
+          "dimension": "21 x 29,7 cm",
+          "prices": {
+            "500 ex": "265 €",
+            "1000 ex": "310 €",
+            "2500 ex": "429 €",
+            "5000 ex": "629 €"
+          }
+        }
+      ]
+    },
+    {
+      "id": "eco-300-gr-m2-carton-recycle",
+      "title": "Flyers - Eco - 300 gr / m² - Carton Recyclé - Recto / Verso",
+      "name": "Eco - 300 gr / m² - Carton Recyclé",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rows": [
+        {
+          "format": "A7",
+          "dimension": "10,5 x 7,4 cm",
+          "prices": {
+            "500 ex": "73 €",
+            "1000 ex": "78 €",
+            "2500 ex": "110 €",
+            "5000 ex": "142 €"
+          }
+        },
+        {
+          "format": "A6",
+          "dimension": "10,5 x 14,8 cm",
+          "prices": {
+            "500 ex": "75 €",
+            "1000 ex": "101 €",
+            "2500 ex": "152 €",
+            "5000 ex": "255 €"
+          }
+        },
+        {
+          "format": "US",
+          "dimension": "10,5 x 21 cm",
+          "prices": {
+            "500 ex": "85 €",
+            "1000 ex": "119 €",
+            "2500 ex": "186 €",
+            "5000 ex": "298 €"
+          }
+        },
+        {
+          "format": "A5",
+          "dimension": "14,8 x 21 cm",
+          "prices": {
+            "500 ex": "99 €",
+            "1000 ex": "146 €",
+            "2500 ex": "265 €",
+            "5000 ex": "400 €"
+          }
+        },
+        {
+          "format": "US (1/3 d'A4)",
+          "dimension": "9,9 x 21 cm",
+          "prices": {
+            "500 ex": "88 €",
+            "1000 ex": "113 €",
+            "2500 ex": "179 €",
+            "5000 ex": "282 €"
+          }
+        }
+      ]
+    }
+  ]
+}

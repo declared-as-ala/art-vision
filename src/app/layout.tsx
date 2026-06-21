@@ -1,27 +1,9 @@
 import type { Metadata } from "next";
-import { Sora, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import GoogleTrackers from "@/components/trackers/GoogleTrackers";
 import PublicShell from "@/components/PublicShell";
 import prisma from "@/lib/prisma";
-
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const designer = localFont({
-  src: "./fonts/Designer.otf",
-  variable: "--font-designer",
-});
 
 const futuraBook = localFont({
   src: "./fonts/Futura-Book Book.ttf",
@@ -75,8 +57,8 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="fr" className={`${sora.variable} ${inter.variable} ${designer.variable} ${futuraBook.variable} ${futuraLight.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-brand-navy text-brand-white">
+    <html lang="fr" className={`${futuraBook.variable} ${futuraLight.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col hero-gradient text-brand-white">
         <GoogleTrackers gaId={gaId} gtmId={gtmId} />
         <PublicShell>{children}</PublicShell>
       </body>

@@ -8,7 +8,7 @@ export default function Footer() {
     { name: "Identité Visuelle", href: "/identite-visuelle" },
     { name: "Conception Logo", href: "/creation-logo-professionnel" },
     { name: "Projet Graphique", href: "/design-graphique" },
-    { name: "Impression", href: "/impression-publicitaire" },
+    { name: "Impression", href: "/impression" },
     { name: "Projet Vidéo", href: "/video-publicitaire" },
     { name: "Motion Design", href: "/motion-design" },
     { name: "3D & Produit", href: "/modelisation-3d-rendu-produit" },
@@ -19,7 +19,7 @@ export default function Footer() {
   const tools = [
     { name: "Créer un CV Gratuit", href: "/cv-modeles-gratuits" },
     { name: "Créer une Carte de Visite", href: "/carte-de-visite-gratuite" },
-    { name: "Estimation Impression", href: "/impression-publicitaire" },
+    { name: "Estimation Impression", href: "/impression" },
   ];
 
   const cities = [

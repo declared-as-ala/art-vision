@@ -184,7 +184,7 @@ export default function CVGenerator() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-navy pt-32 pb-20 px-4 print:bg-white print:p-0 print:pt-0">
+    <div className="min-h-screen hero-gradient pt-32 pb-20 px-4 print:bg-white print:p-0 print:pt-0">
       {/* Background glow in non-print mode */}
       <div className="absolute top-20 right-10 w-96 h-96 bg-brand-purple/20 rounded-full filter blur-[100px] -z-10 print:hidden animate-pulse"></div>
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-brand-magenta/10 rounded-full filter blur-[100px] -z-10 print:hidden"></div>

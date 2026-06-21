@@ -26,7 +26,7 @@ const FALLBACK_SERVICES = [
   { slug: "identite-visuelle", name: "Identité visuelle", description: "Création d’une image unique, cohérente et mémorable pour votre marque.", icon: Palette },
   { slug: "creation-logo-professionnel", name: "Conception logo", description: "Un logo professionnel, distinctif et adapté à tous vos supports.", icon: PenTool },
   { slug: "design-graphique", name: "Projet graphique", description: "Supports visuels modernes pour vos campagnes, réseaux sociaux et documents commerciaux.", icon: Layout },
-  { slug: "impression-publicitaire", name: "Impression", description: "Supports imprimés de haute qualité pour flyers, affiches, bâches, catalogues, panneaux et cartes de visite.", icon: Printer },
+  { slug: "impression", name: "Impression", description: "Supports imprimés de haute qualité pour flyers, affiches, bâches, catalogues, panneaux et cartes de visite.", icon: Printer },
   { slug: "video-publicitaire", name: "Projet vidéo", description: "Vidéos impactantes pour présenter votre marque, vos produits ou vos services.", icon: Video },
   { slug: "motion-design", name: "Motion design", description: "Animations dynamiques pour capter l’attention et renforcer votre communication.", icon: Sparkles },
   { slug: "modelisation-3d-rendu-produit", name: "3D & Design produit", description: "Modélisation 3D, rendu produit, packshot 3D, visualisation 3D et CGI publicitaire.", icon: Box },
@@ -85,21 +85,21 @@ export default async function HomePage() {
   ];
 
   return (
-    <div className="relative">
+    <div className="relative hero-gradient">
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[90vh] flex items-center pt-32 pb-16 overflow-hidden hero-gradient">
+      <section className="relative min-h-[88vh] flex items-center pt-28 sm:pt-32 pb-16 overflow-hidden">
         {/* Vector Background grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(108,43,217,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(108,43,217,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] -z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Hero Left Content */}
             <div className="lg:col-span-7 space-y-6 text-left">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-white/90 block">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-white/90 block">
                 Agence de design graphique, vidéo & impression en France
               </span>
-              
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-sora font-extrabold text-white leading-none tracking-tight">
+
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sora font-extrabold text-white leading-[1.05] tracking-tight">
                 CRÉATION, DESIGN <br />
                 <span className="text-white">ET PRODUCTION</span>
               </h1>
@@ -124,11 +124,21 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Hero Right Visual: Giant AV monogram */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end select-none">
-              <span className="font-sora font-black text-[13rem] sm:text-[18rem] md:text-[23rem] lg:text-[25rem] xl:text-[28rem] text-white leading-none tracking-tighter drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)] animate-pulse">
-                AV
-              </span>
+            {/* Hero Right Visual: Art Vision AV monogram */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end items-center select-none">
+              <div className="relative animate-logo-float">
+                {/* Rotating light arc */}
+                <div className="absolute -inset-10 -z-20 rounded-full logo-ring" aria-hidden></div>
+                {/* Pulsing core glow */}
+                <div className="absolute inset-0 -z-10 bg-brand-magenta/30 blur-[90px] rounded-full animate-logo-glow" aria-hidden></div>
+                <img
+                  src="/logo-mark.svg"
+                  alt="Art Vision"
+                  className="relative w-56 sm:w-72 md:w-80 lg:w-[24rem] h-auto object-contain drop-shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
+                />
+                {/* Sheen sweep, masked to the logo shape */}
+                <div className="absolute inset-0 logo-shine pointer-events-none" aria-hidden></div>
+              </div>
             </div>
           </div>
 
@@ -158,7 +168,7 @@ export default async function HomePage() {
       </section>
 
       {/* 2. SERVICES OVERVIEW */}
-      <section id="services" className="py-24 bg-brand-navy relative border-t border-brand-purple/20">
+      <section id="services" className="py-16 md:py-24 relative border-t border-brand-purple/20">
         {/* Soft background glows */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-purple/10 rounded-full filter blur-[120px] -z-10 pointer-events-none"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-magenta/5 rounded-full filter blur-[120px] -z-10 pointer-events-none"></div>
@@ -209,7 +219,7 @@ export default async function HomePage() {
       </section>
 
       {/* 3. FREE CREATIVE TOOLS HERO CARDS */}
-      <section className="py-24 bg-brand-navy">
+      <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glassmorphism rounded-3xl p-8 md:p-12 border border-brand-magenta/30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-6 space-y-6">
@@ -258,7 +268,7 @@ export default async function HomePage() {
       </section>
 
       {/* 4. WORKFLOW PROCESS */}
-      <section className="py-24 bg-brand-navy relative">
+      <section className="py-16 md:py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-3xl md:text-4xl font-sora font-extrabold">
@@ -269,7 +279,7 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {processSteps.map((step, idx) => (
               <div key={idx} className="glassmorphism rounded-xl p-5 border border-brand-purple/15 relative">
                 <span className="text-4xl font-sora font-extrabold text-brand-purple/20 absolute top-4 right-4">{step.num}</span>
@@ -283,7 +293,7 @@ export default async function HomePage() {
 
       {/* 5. PORTFOLIO CASE STUDIES */}
       {dbProjects.length > 0 && (
-        <section className="py-24 bg-brand-navy">
+        <section className="py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-16 space-y-4 sm:space-y-0">
               <div className="space-y-3">
@@ -333,7 +343,7 @@ export default async function HomePage() {
 
       {/* 6. TESTIMONIALS */}
       {dbTestimonials.length > 0 && (
-        <section className="py-24 bg-brand-navy">
+        <section className="py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-sora font-extrabold mb-16">Ils nous font confiance</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -355,7 +365,7 @@ export default async function HomePage() {
       )}
 
       {/* 7. WHY CHOOSE ART VISION */}
-      <section className="py-24 bg-brand-navy">
+      <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-5 space-y-6 text-left">
@@ -389,7 +399,7 @@ export default async function HomePage() {
       </section>
 
       {/* 8. FAQ ACCORDION */}
-      <section className="py-24 bg-brand-navy">
+      <section className="py-16 md:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-12">
           <h2 className="text-3xl font-sora font-extrabold">Foire Aux Questions</h2>
           <div className="space-y-4">
@@ -407,7 +417,7 @@ export default async function HomePage() {
       </section>
 
       {/* 9. FINAL CTA CONTACT */}
-      <section className="py-24 bg-brand-navy border-t border-brand-purple/20">
+      <section className="py-16 md:py-24 border-t border-brand-purple/20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-8">
           <h2 className="text-3xl md:text-5xl font-sora font-extrabold tracking-tight leading-tight">
             Prêt à donner une nouvelle dimension <br className="hidden md:inline" /> à votre communication ?

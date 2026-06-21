@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     // Clean and validate slug
     const cleanSlug = normalizeSlug(slug || title);
 
-    if (await slugExists(cleanSlug)) {
+    if (await slugExists(cleanSlug, { type: "SEO_LANDING" })) {
       return NextResponse.json({ success: false, error: "A page with this URL slug already exists." }, { status: 400 });
     }
 

@@ -38,18 +38,24 @@ export async function POST(req: Request) {
       .toLowerCase();
     const uniqueFileName = `${timestamp}-${safeFileName}`;
 
-    // Upload folder in public directory
-    const uploadDir = join(process.cwd(), "public", "uploads");
-    
-    // Ensure dir exists
-    await mkdir(uploadDir, { recursive: true });
-
-    // Write file to path
-    const filePath = join(uploadDir, uniqueFileName);
-    await writeFile(filePath, buffer);
+    // Store to Vercel Blob in production (serverless FS is read-only/ephemeral);
+    // fall back to the local public/uploads folder for local development.
+    let url: string;
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const { put } = await import("@vercel/blob");
+      const blob = await put(`uploads/${uniqueFileName}`, buffer, {
+        access: "public",
+        contentType: file.type || "application/octet-stream",
+      });
+      url = blob.url;
+    } else {
+      const uploadDir = join(process.cwd(), "public", "uploads");
+      await mkdir(uploadDir, { recursive: true });
+      await writeFile(join(uploadDir, uniqueFileName), buffer);
+      url = `/uploads/${uniqueFileName}`;
+    }
 
     // Save record to DB Media table
-    const url = `/uploads/${uniqueFileName}`;
     const media = await prisma.media.create({
       data: {
         url,

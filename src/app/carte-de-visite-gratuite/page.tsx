@@ -20,7 +20,14 @@ import {
   Share2
 } from "lucide-react";
 
-type TemplateType = "modern" | "creative" | "corporate";
+type TemplateType = "modern" | "creative" | "corporate" | "split";
+
+// Many quick-pick accent colours for the divider / icons.
+const PRESET_ACCENTS = [
+  "#C9A227", "#D72888", "#6C2BD9", "#FF6A00", "#0EA5E9", "#10B981",
+  "#EF4444", "#F59E0B", "#E11D48", "#14B8A6", "#8B5CF6", "#3B82F6",
+  "#84CC16", "#EC4899", "#F8F7FC", "#111827",
+];
 
 export default function BusinessCardGenerator() {
   // Form fields
@@ -33,7 +40,7 @@ export default function BusinessCardGenerator() {
   const [socials, setSocials] = useState("@artvision");
   
   // Customization
-  const [template, setTemplate] = useState<TemplateType>("creative");
+  const [template, setTemplate] = useState<TemplateType>("split");
   const [primaryColor, setPrimaryColor] = useState("#6C2BD9");
   const [secondaryColor, setSecondaryColor] = useState("#D72888");
   const [textColor, setTextColor] = useState("#FFFFFF");
@@ -98,6 +105,11 @@ END:VCARD`;
       setSecondaryColor("#D95200");
       setTextColor("#FFFFFF");
       setBgColor("#1A1238");
+    } else if (template === "split") {
+      setPrimaryColor("#C9A227"); // gold divider / accent
+      setSecondaryColor("#C9A227");
+      setTextColor("#FFFFFF"); // used on the dark back side
+      setBgColor("#1F1F27"); // dark left panel
     }
   }, [template]);
 
@@ -128,56 +140,98 @@ END:VCARD`;
 
     // We will draw standard background & colors
     // Page 1: Front
-    doc.setFillColor(bgColor);
-    doc.rect(0, 0, 85, 55, "F");
-
-    if (template === "creative") {
-      // Draw decorative gradient line
+    if (template === "split") {
+      // White card with a dark left panel + accent divider
+      doc.setFillColor("#FFFFFF");
+      doc.rect(0, 0, 85, 55, "F");
+      doc.setFillColor(bgColor);
+      doc.rect(0, 0, 30, 55, "F");
       doc.setFillColor(primaryColor);
-      doc.rect(0, 52, 85, 3, "F");
-      doc.setFillColor(secondaryColor);
-      doc.rect(0, 53, 40, 2, "F");
-    } else if (template === "corporate") {
-      doc.setFillColor(secondaryColor); // Orange accent
-      doc.rect(0, 0, 3, 55, "F");
-    }
+      doc.rect(30, 0, 1.6, 55, "F");
 
-    // Logo
-    if (logoUrl) {
-      try {
-        doc.addImage(logoUrl, "PNG", 8, 8, 14, 14);
-      } catch (e) {
-        // Fallback placeholder
+      // Logo / monogram in the panel
+      if (logoUrl) {
+        try { doc.addImage(logoUrl, "PNG", 7, 19, 16, 16); } catch (e) {}
+      } else {
+        doc.setTextColor("#FFFFFF");
+        doc.setFont("Helvetica", "bold");
+        doc.setFontSize(18);
+        doc.text("AV", 9, 31);
       }
-    } else {
-      // Draw generic AV logo
-      doc.setFillColor(primaryColor === bgColor ? "#D72888" : primaryColor);
-      doc.circle(13, 13, 5, "F");
-      doc.setTextColor("#FFFFFF");
+
+      // Name & title
+      doc.setTextColor("#1A1A22");
+      doc.setFont("Helvetica", "bold");
+      doc.setFontSize(13);
+      doc.text(name, 37, 16);
+      doc.setFont("Helvetica", "normal");
       doc.setFontSize(8);
-      doc.text("AV", 11, 15);
+      doc.setTextColor("#6B6B75");
+      doc.text(jobTitle, 37, 21.5);
+
+      // Contact lines
+      doc.setFontSize(7.5);
+      const rows = [email, phone, address, website].filter(Boolean);
+      let ry = 32;
+      rows.forEach((line) => {
+        doc.setFillColor(primaryColor);
+        doc.circle(38, ry - 1.1, 0.9, "F"); // accent bullet
+        doc.setTextColor("#33333A");
+        doc.text(String(line), 41, ry);
+        ry += 5.2;
+      });
+    } else {
+      doc.setFillColor(bgColor);
+      doc.rect(0, 0, 85, 55, "F");
+
+      if (template === "creative") {
+        // Draw decorative gradient line
+        doc.setFillColor(primaryColor);
+        doc.rect(0, 52, 85, 3, "F");
+        doc.setFillColor(secondaryColor);
+        doc.rect(0, 53, 40, 2, "F");
+      } else if (template === "corporate") {
+        doc.setFillColor(secondaryColor); // Orange accent
+        doc.rect(0, 0, 3, 55, "F");
+      }
+
+      // Logo
+      if (logoUrl) {
+        try {
+          doc.addImage(logoUrl, "PNG", 8, 8, 14, 14);
+        } catch (e) {
+          // Fallback placeholder
+        }
+      } else {
+        // Draw generic AV logo
+        doc.setFillColor(primaryColor === bgColor ? "#D72888" : primaryColor);
+        doc.circle(13, 13, 5, "F");
+        doc.setTextColor("#FFFFFF");
+        doc.setFontSize(8);
+        doc.text("AV", 11, 15);
+      }
+
+      // Name & Title
+      doc.setTextColor(textColor);
+      doc.setFont("Helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text(name, 28, 12);
+
+      doc.setFont("Helvetica", "normal");
+      doc.setFontSize(7);
+      doc.setTextColor(template === "modern" ? "#6C2BD9" : secondaryColor);
+      doc.text(jobTitle, 28, 16);
+
+      // Contact Details
+      doc.setTextColor(textColor);
+      doc.setFontSize(6.5);
+      let yPos = 24;
+
+      doc.text(`T: ${phone}`, 28, yPos);
+      doc.text(`M: ${email}`, 28, yPos + 4);
+      doc.text(`W: ${website}`, 28, yPos + 8);
+      doc.text(`A: ${address}`, 28, yPos + 12);
     }
-
-    // Name & Title
-    doc.setTextColor(textColor);
-    doc.setFont("Helvetica", "bold");
-    doc.setFontSize(11);
-    doc.text(name, 28, 12);
-    
-    doc.setFont("Helvetica", "normal");
-    doc.setFontSize(7);
-    doc.setTextColor(template === "modern" ? "#6C2BD9" : secondaryColor);
-    doc.text(jobTitle, 28, 16);
-
-    // Contact Details
-    doc.setTextColor(textColor);
-    doc.setFontSize(6.5);
-    let yPos = 24;
-    
-    doc.text(`T: ${phone}`, 28, yPos);
-    doc.text(`M: ${email}`, 28, yPos + 4);
-    doc.text(`W: ${website}`, 28, yPos + 8);
-    doc.text(`A: ${address}`, 28, yPos + 12);
 
     // Add page 2: Back
     doc.addPage([85, 55], "landscape");
@@ -242,7 +296,7 @@ END:VCARD`;
   };
 
   return (
-    <div className="min-h-screen bg-brand-navy pt-32 pb-20 px-4">
+    <div className="min-h-screen hero-gradient pt-32 pb-20 px-4">
       {/* Background glows */}
       <div className="absolute top-20 left-10 w-96 h-96 bg-brand-purple/20 rounded-full filter blur-[100px] -z-10 animate-pulse"></div>
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-brand-magenta/10 rounded-full filter blur-[100px] -z-10"></div>
@@ -274,8 +328,9 @@ END:VCARD`;
               <label className="text-xs text-white/60 font-semibold uppercase tracking-wider block">
                 Choix du Modèle
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[
+                  { id: "split", name: "Élégant" },
                   { id: "creative", name: "Créatif" },
                   { id: "modern", name: "Minimaliste" },
                   { id: "corporate", name: "Corporate" }
@@ -440,16 +495,53 @@ END:VCARD`;
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-xs text-white/60 block">Couleur Texte</label>
+                  <label className="text-xs text-white/60 block">{template === "split" ? "Couleur Panneau" : "Couleur Texte"}</label>
                   <div className="flex items-center space-x-2">
                     <input
                       type="color"
-                      value={textColor}
-                      onChange={(e) => setTextColor(e.target.value)}
+                      value={template === "split" ? bgColor : textColor}
+                      onChange={(e) => (template === "split" ? setBgColor(e.target.value) : setTextColor(e.target.value))}
                       className="w-8 h-8 rounded border border-white/20 bg-transparent cursor-pointer"
                     />
-                    <span className="text-xs uppercase text-white/80">{textColor}</span>
+                    <span className="text-xs uppercase text-white/80">{template === "split" ? bgColor : textColor}</span>
                   </div>
+                </div>
+              </div>
+
+              {/* Accent color palette — many quick choices */}
+              <div className="space-y-2">
+                <label className="text-xs text-white/60 block">
+                  Couleur d'accent {template === "split" && <span className="text-white/40">(séparateur & icônes)</span>}
+                </label>
+                <div className="flex flex-wrap items-center gap-2">
+                  {PRESET_ACCENTS.map((c) => {
+                    const active = primaryColor.toLowerCase() === c.toLowerCase();
+                    return (
+                      <button
+                        key={c}
+                        type="button"
+                        title={c}
+                        onClick={() => { setPrimaryColor(c); setSecondaryColor(c); }}
+                        style={{ backgroundColor: c }}
+                        className={`w-7 h-7 rounded-full border-2 transition cursor-pointer ${
+                          active ? "border-white scale-110 shadow-md shadow-black/30" : "border-white/20 hover:scale-105"
+                        }`}
+                        aria-label={`Accent ${c}`}
+                      />
+                    );
+                  })}
+                  <label
+                    className="w-7 h-7 rounded-full border border-dashed border-white/40 flex items-center justify-center cursor-pointer overflow-hidden relative"
+                    title="Couleur personnalisée"
+                  >
+                    <span className="text-[10px] text-white/70">+</span>
+                    <input
+                      type="color"
+                      value={primaryColor}
+                      onChange={(e) => { setPrimaryColor(e.target.value); setSecondaryColor(e.target.value); }}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                  </label>
                 </div>
               </div>
 
@@ -511,13 +603,55 @@ END:VCARD`;
                   width: "100%",
                   maxWidth: "480px",
                   aspectRatio: "85 / 55",
-                  backgroundColor: bgColor,
-                  color: textColor,
+                  backgroundColor: template === "split" ? (activeSide === "back" ? bgColor : "#FFFFFF") : bgColor,
+                  color: template === "split" ? (activeSide === "back" ? "#FFFFFF" : "#1A1A22") : textColor,
                   borderColor: "rgba(108, 43, 217, 0.25)",
                 }}
-                className="relative rounded-2xl shadow-2xl p-6 border overflow-hidden flex flex-col justify-between transition-all duration-300"
+                className={`relative rounded-2xl shadow-2xl border overflow-hidden flex flex-col justify-between transition-all duration-300 ${
+                  template === "split" && activeSide === "front" ? "p-0" : "p-6"
+                }`}
               >
                 {activeSide === "front" ? (
+                  template === "split" ? (
+                    // Recto — Élégant : panneau sombre + séparateur + coordonnées
+                    <div className="flex h-full w-full">
+                      <div
+                        style={{ backgroundColor: bgColor }}
+                        className="relative w-[36%] flex items-center justify-center p-3"
+                      >
+                        {logoUrl ? (
+                          <img src={logoUrl} alt="Logo" className="max-w-[80%] max-h-[70%] object-contain" />
+                        ) : (
+                          <span className="font-sora font-extrabold text-2xl text-white">AV</span>
+                        )}
+                        <div
+                          style={{ backgroundColor: primaryColor }}
+                          className="absolute top-0 right-0 h-full w-[5px]"
+                        ></div>
+                      </div>
+                      <div className="flex-1 px-4 sm:px-5 py-3 flex flex-col justify-center min-w-0">
+                        <h3 className="font-sora font-extrabold text-lg sm:text-xl leading-tight" style={{ color: "#1A1A22" }}>
+                          {name || "Votre Nom"}
+                        </h3>
+                        <p className="text-xs sm:text-sm mt-0.5" style={{ color: "#6B6B75" }}>
+                          {jobTitle || "Votre Poste"}
+                        </p>
+                        <div className="mt-3 space-y-1.5">
+                          {[
+                            { Icon: Mail, val: email || "email@entreprise.com" },
+                            { Icon: Phone, val: phone || "+33 6 00 00 00 00" },
+                            { Icon: MapPin, val: address || "Ville" },
+                            { Icon: Globe, val: website || "www.entreprise.com" },
+                          ].map(({ Icon, val }, i) => (
+                            <div key={i} className="flex items-center gap-2 min-w-0">
+                              <Icon size={13} style={{ color: primaryColor }} className="shrink-0" />
+                              <span className="text-[11px] sm:text-xs truncate" style={{ color: "#33333A" }}>{val}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
                   // Recto / Front design
                   <>
                     {/* Decorative templates */}
@@ -585,6 +719,7 @@ END:VCARD`;
                       </p>
                     </div>
                   </>
+                  )
                 ) : (
                   // Verso / Back design
                   <div className="flex flex-col items-center justify-center h-full space-y-4">
@@ -627,8 +762,14 @@ END:VCARD`;
             </div>
 
             {/* Template Card Showcase */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
+                {
+                  id: "split",
+                  name: "Élégant (Panneau)",
+                  colors: "Panneau sombre + accent",
+                  desc: "Panneau latéral sombre, séparateur coloré et coordonnées avec icônes. Couleur d'accent personnalisable."
+                },
                 {
                   id: "creative",
                   name: "Créatif Moderne",

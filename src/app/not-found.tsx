@@ -13,7 +13,7 @@ export default function NotFound() {
   ];
 
   return (
-    <div className="min-h-screen bg-brand-navy flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen hero-gradient flex items-center justify-center pt-24 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl w-full text-center space-y-8 glassmorphism rounded-3xl p-8 md:p-12 border border-brand-purple/20 relative overflow-hidden">
         {/* Glow effects */}
         <div className="absolute top-0 right-0 w-40 h-40 bg-brand-magenta/10 rounded-full filter blur-3xl pointer-events-none" />

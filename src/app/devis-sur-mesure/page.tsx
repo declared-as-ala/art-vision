@@ -169,7 +169,7 @@ function QuoteRequestFormContent() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-navy pt-32 pb-20 px-4">
+    <div className="min-h-screen hero-gradient pt-32 pb-20 px-4">
       {/* Background glow */}
       <div className="absolute top-40 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-purple/10 rounded-full filter blur-[100px] -z-10 animate-pulse"></div>
 
@@ -482,7 +482,7 @@ function QuoteRequestFormContent() {
 
 export default function QuoteRequestForm() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-brand-navy pt-32 text-center text-white/50">Chargement du formulaire...</div>}>
+    <Suspense fallback={<div className="min-h-screen hero-gradient pt-32 text-center text-white/50">Chargement du formulaire...</div>}>
       <QuoteRequestFormContent />
     </Suspense>
   );

@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-navy flex flex-col justify-center items-center px-4 relative">
+    <div className="min-h-screen hero-gradient flex flex-col justify-center items-center px-4 relative">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-brand-purple/20 rounded-full filter blur-[80px] -z-10 animate-pulse"></div>
 

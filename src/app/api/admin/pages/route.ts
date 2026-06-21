@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     }
 
     // Check if slug exists
-    if (await slugExists(slug)) {
+    if (await slugExists(slug, { type: "PAGE" })) {
       return NextResponse.json({ success: false, error: "Une page avec ce slug (URL) existe déjà." }, { status: 400 });
     }
 

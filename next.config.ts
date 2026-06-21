@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  // Don't bundle the DB driver / Prisma adapters into serverless functions.
+  serverExternalPackages: ["@libsql/client", "@prisma/adapter-libsql", "@prisma/client"],
 };
 
 export default nextConfig;

@@ -56,19 +56,43 @@ export function sanitizeHtml(html: string) {
     .replace(/javascript:/gi, "");
 }
 
-export async function slugExists(slug: string, current?: { type: ContentType; id: string }) {
+// Content types that share a URL namespace must have unique slugs against each
+// other. Pages and services both resolve at the top level (/slug), so they
+// collide. Posts (/blog/), projects (/portfolio/) and SEO landings (/seo/) each
+// have their own prefix and may safely reuse a slug used elsewhere.
+const SLUG_NAMESPACE: Record<ContentType, ContentType[]> = {
+  PAGE: ["PAGE", "SERVICE"],
+  SERVICE: ["PAGE", "SERVICE"],
+  POST: ["POST"],
+  PROJECT: ["PROJECT"],
+  SEO_LANDING: ["SEO_LANDING"],
+};
+
+const ALL_TYPES: ContentType[] = ["PAGE", "SERVICE", "POST", "PROJECT", "SEO_LANDING"];
+
+async function findBySlug(type: ContentType, slug: string): Promise<{ id: string } | null> {
+  switch (type) {
+    case "PAGE": return prisma.page.findUnique({ where: { slug }, select: { id: true } });
+    case "SERVICE": return prisma.service.findUnique({ where: { slug }, select: { id: true } });
+    case "POST": return prisma.blogPost.findUnique({ where: { slug }, select: { id: true } });
+    case "PROJECT": return prisma.portfolioProject.findUnique({ where: { slug }, select: { id: true } });
+    case "SEO_LANDING": return prisma.seoLandingPage.findUnique({ where: { slug }, select: { id: true } });
+    default: return null;
+  }
+}
+
+/**
+ * Returns true if `slug` is already taken within the URL namespace of the
+ * target content type. Pass `current` (type + optional id) so that editing a
+ * record does not collide with itself.
+ */
+export async function slugExists(slug: string, current?: { type: ContentType; id?: string }) {
   const cleanSlug = normalizeSlug(slug);
-  const [page, service, post, project, landing] = await Promise.all([
-    prisma.page.findUnique({ where: { slug: cleanSlug }, select: { id: true } }),
-    prisma.service.findUnique({ where: { slug: cleanSlug }, select: { id: true } }),
-    prisma.blogPost.findUnique({ where: { slug: cleanSlug }, select: { id: true } }),
-    prisma.portfolioProject.findUnique({ where: { slug: cleanSlug }, select: { id: true } }),
-    prisma.seoLandingPage.findUnique({ where: { slug: cleanSlug }, select: { id: true } }),
-  ]);
-  const matches: Array<[ContentType, { id: string } | null]> = [
-    ["PAGE", page], ["SERVICE", service], ["POST", post], ["PROJECT", project], ["SEO_LANDING", landing],
-  ];
-  return matches.some(([type, item]) => item && !(current?.type === type && current.id === item.id));
+  const group = current?.type ? SLUG_NAMESPACE[current.type] : ALL_TYPES;
+  const results = await Promise.all(
+    group.map(async (type) => [type, await findBySlug(type, cleanSlug)] as [ContentType, { id: string } | null])
+  );
+  return results.some(([type, item]) => item && !(current?.type === type && current.id === item.id));
 }
 
 export function parseContent(contentJson: string, contentHtml = "") {

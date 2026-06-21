@@ -25,14 +25,25 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-futura-book), var(--font-inter), sans-serif;
+  font-family: var(--font-futura-book), var(--font-futura-light), sans-serif;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-designer), var(--font-sora), sans-serif;
+  font-family: var(--font-futura-book), var(--font-futura-light), sans-serif;
   font-weight: 700;
+  /* Only Book/Light cuts are bundled — let the browser synthesize bold weights. */
+  font-synthesis: weight;
   letter-spacing: -0.01em;
+}
+
+/* Force Futura across the whole app — overrides the Tailwind font-* utilities
+   (font-sora / font-inter / font-designer) used throughout the components.
+   These rules are unlayered, so they win over Tailwind's @layer utilities. */
+.font-sora,
+.font-inter,
+.font-designer {
+  font-family: var(--font-futura-book), var(--font-futura-light), sans-serif;
 }
 
 /* Custom Premium Utilities */
@@ -62,6 +73,62 @@ h1, h2, h3, h4, h5, h6 {
 
 .gradient-dark {
   background: linear-gradient(180deg, #08051F 0%, #1A1238 100%);
+}
+
+/* Hero logo animation */
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-22px) rotate(-2deg) scale(1.03); }
+}
+@keyframes logo-glow {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.18); }
+}
+@keyframes logo-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes logo-shine {
+  0% { background-position: -160% 0; }
+  55%, 100% { background-position: 160% 0; }
+}
+.animate-logo-float {
+  animation: logo-float 4.5s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-logo-glow {
+  animation: logo-glow 3.5s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+/* Rotating light arc behind the logo */
+.logo-ring {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 55%,
+    rgba(215, 40, 136, 0.55) 70%,
+    rgba(108, 43, 217, 0.55) 82%,
+    rgba(255, 106, 0, 0.45) 90%,
+    transparent 100%
+  );
+  filter: blur(22px);
+  animation: logo-spin 7s linear infinite;
+  will-change: transform;
+}
+/* Glint sweeping across the logo silhouette */
+.logo-shine {
+  -webkit-mask: url(/logo-mark.svg) center / contain no-repeat;
+  mask: url(/logo-mark.svg) center / contain no-repeat;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.9) 50%, transparent 62%);
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  animation: logo-shine 3.8s ease-in-out infinite;
+  will-change: background-position;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-logo-float,
+  .animate-logo-glow,
+  .logo-ring,
+  .logo-shine { animation: none; }
 }
 
 /* Hide scrollbars but keep functionality */
@@ -157,7 +224,7 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 2px rgba(186, 49, 132, 0.2) !important;
 }
 
-.cms-rich-content h1, .cms-rich-content h2, .cms-rich-content h3 { color: #fff; margin: 1.5em 0 .6em; line-height: 1.2; }
+.cms-rich-content h1, .cms-rich-content h2, .cms-rich-content h3 { color: #fff; margin: 1.5em 0 .6em; line-height: 1.2; scroll-margin-top: 7rem; }
 .cms-rich-content h2 { font-size: 1.75rem; }
 .cms-rich-content h3 { font-size: 1.35rem; }
 .cms-rich-content p, .cms-rich-content ul, .cms-rich-content ol, .cms-rich-content blockquote { margin: 1em 0; }

@@ -1,33 +1,23 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath, pathToFileURL } from "url";
 import { PrismaClient } from "@prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaLibSql } from "@prisma/adapter-libsql";
 
-const root = process.cwd();
-const rootDbPath = path.join(root, "dev.db");
-const nextDbPath = path.join(root, ".next", "server", "dev.db");
-const rawSqliteUrl = process.env.DATABASE_URL;
-let sqliteUrl = rawSqliteUrl?.startsWith("file:")
-  ? fileURLToPath(new URL(rawSqliteUrl, pathToFileURL(root + path.sep)))
-  : rawSqliteUrl || rootDbPath;
+// libSQL works the same locally (file:./dev.db) and in production (Turso).
+//  - Local dev / build: DATABASE_URL = "file:./dev.db" (no token)
+//  - Production (Vercel): TURSO_DATABASE_URL = "libsql://<db>.turso.io" + TURSO_AUTH_TOKEN
+const url =
+  process.env.TURSO_DATABASE_URL ||
+  process.env.DATABASE_URL ||
+  "file:./dev.db";
+const authToken = process.env.TURSO_AUTH_TOKEN;
 
-const dbFilePath = sqliteUrl;
-
-if (!fs.existsSync(dbFilePath) && fs.existsSync(nextDbPath)) {
-  sqliteUrl = nextDbPath;
-}
-
-const adapter = new PrismaBetterSqlite3({ url: sqliteUrl });
+const adapter = new PrismaLibSql({ url, authToken });
 
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient({ adapter });
 } else {
-  const globalWithPrisma = global as typeof globalThis & {
-    prisma?: PrismaClient;
-  };
+  const globalWithPrisma = global as typeof globalThis & { prisma?: PrismaClient };
   if (!globalWithPrisma.prisma) {
     globalWithPrisma.prisma = new PrismaClient({ adapter });
   }

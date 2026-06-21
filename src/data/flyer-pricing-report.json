@@ -1,0 +1,118 @@
+{
+  "source": "https://www.impressionflyers.com/impression_flyers.cfm",
+  "scrapedAt": "2026-06-21T00:32:31.667Z",
+  "categoryCount": 10,
+  "rowCount": 96,
+  "categories": [
+    {
+      "id": "130-grs-m2-fsc",
+      "title": "Flyers - 130 grs/m² FSC - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 14
+    },
+    {
+      "id": "170-gr-m2-fsc",
+      "title": "Flyers - 170 gr/m² FSC - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 12
+    },
+    {
+      "id": "250grs-m2-fsc",
+      "title": "Flyers - 250grs/m² FSC - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 13
+    },
+    {
+      "id": "300grs-m2-fsc",
+      "title": "Flyers - 300grs/m² FSC - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 12
+    },
+    {
+      "id": "80grs-m2-papier-recycle",
+      "title": "Flyers - 80grs / m² - Papier recyclé - Recto / Verso",
+      "quantities": [
+        "250 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 9
+    },
+    {
+      "id": "300grs-m2-vernis-uv",
+      "title": "Flyers - 300grs / m² + Vernis UV - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 8
+    },
+    {
+      "id": "400grs-m2",
+      "title": "Flyers - 400grs / m² - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 10
+    },
+    {
+      "id": "400grs-m2-vernis-uv",
+      "title": "Flyers - 400grs / m² + Vernis UV - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 8
+    },
+    {
+      "id": "inscriptible-250-gr-m2-offset",
+      "title": "Flyers - Inscriptible - 250 gr /m² offset - - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 5
+    },
+    {
+      "id": "eco-300-gr-m2-carton-recycle",
+      "title": "Flyers - Eco - 300 gr / m² - Carton Recyclé - Recto / Verso",
+      "quantities": [
+        "500 ex",
+        "1000 ex",
+        "2500 ex",
+        "5000 ex"
+      ],
+      "rowCount": 5
+    }
+  ]
+}

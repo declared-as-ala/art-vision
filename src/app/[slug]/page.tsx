@@ -13,6 +13,40 @@ interface PageProps {
 
 export const revalidate = 60;
 
+// Parse an admin-managed JSON media array safely.
+function parseMedia(v: string | null | undefined): any[] {
+  try {
+    const a = JSON.parse(v || "[]");
+    return Array.isArray(a) ? a.filter(Boolean) : [];
+  } catch {
+    return [];
+  }
+}
+
+// Resolve a video URL (YouTube / Vimeo / direct file) into an embeddable source.
+function videoEmbed(url: string): { type: "youtube" | "vimeo" | "file"; src: string } {
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([\w-]{6,})/);
+  if (yt) return { type: "youtube", src: `https://www.youtube.com/embed/${yt[1]}` };
+  const vm = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vm) return { type: "vimeo", src: `https://player.vimeo.com/video/${vm[1]}` };
+  return { type: "file", src: url };
+}
+
+// Map a service slug to relevant portfolio category slugs for "Nos Réalisations".
+const SERVICE_PORTFOLIO_CATS: Record<string, string[]> = {
+  "identite-visuelle": ["identite-visuelle", "logo"],
+  "creation-logo-professionnel": ["logo", "identite-visuelle"],
+  "design-graphique": ["design-graphique"],
+  "impression": ["design-graphique"],
+  "impression-publicitaire": ["design-graphique"],
+  "video-publicitaire": ["video"],
+  "montage-video": ["video"],
+  "motion-design": ["video", "3d"],
+  "modelisation-3d-rendu-produit": ["3d"],
+  "community-management": ["design-graphique"],
+  "creation-site-vitrine": ["design-graphique"],
+};
+
 // Dynamic Metadata Generator for Technical SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -181,7 +215,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
   const page = await prisma.page.findUnique({ where: { slug } });
   if (page && ((page.status === "PUBLISHED" && page.isActive) || isPreview)) {
     return (
-      <main className="min-h-screen bg-brand-navy pt-32 pb-20">
+      <main className="min-h-screen hero-gradient pt-32 pb-20">
         {isPreview && (
           <div className="fixed inset-x-0 top-0 z-50 bg-brand-orange px-4 py-2 text-center text-xs font-bold text-white">
             Mode aperçu actif
@@ -263,8 +297,32 @@ export default async function DynamicSlugPage({ params }: PageProps) {
       }))
     } : null;
 
+    // Admin-managed media + related portfolio for "Nos Réalisations".
+    const gallery = parseMedia(service.gallery);
+    const videos = parseMedia(service.videos);
+    const tagline = service.heroTagline || "L'Âme de Votre Marque";
+    const introHeading = service.introHeading || "De l'idée à la réalisation";
+    const firstGalleryImg = gallery.length ? (typeof gallery[0] === "string" ? gallery[0] : gallery[0].url) : "";
+    // Use the featured image, falling back to the first gallery image. Local
+    // /images/services/* paths from old seeds don't exist, so ignore them.
+    const heroImage = service.image && !service.image.startsWith("/images/services/") ? service.image : firstGalleryImg;
+
+    let relatedProjects: any[] = [];
+    try {
+      const catSlugs = SERVICE_PORTFOLIO_CATS[slug] || [];
+      relatedProjects = await prisma.portfolioProject.findMany({
+        where: {
+          status: "PUBLISHED",
+          ...(catSlugs.length ? { category: { slug: { in: catSlugs } } } : {}),
+        },
+        include: { category: true },
+        take: 3,
+        orderBy: { createdAt: "desc" },
+      });
+    } catch (e) {}
+
     return (
-      <div className="min-h-screen bg-brand-navy pt-32 pb-20 text-left">
+      <div className="min-h-screen hero-gradient pt-32 pb-20 text-left">
         {/* Schema Markup Injection */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
@@ -280,30 +338,29 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           </nav>
 
           {/* Hero Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <span className="bg-brand-purple/30 border border-brand-purple/40 text-brand-magenta text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                Prestation Premium
-              </span>
-              <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight text-white leading-tight">
-                {service.seoTitle || `Prestation : ${service.name}`}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+            <div className="lg:col-span-7 space-y-5 text-left">
+              <span className="text-brand-magenta text-xs font-bold uppercase tracking-[0.2em]">{tagline}</span>
+              <h1 className="text-4xl md:text-6xl font-sora font-extrabold tracking-tight text-white leading-[1.05]">
+                {service.name}
               </h1>
-              <p className="text-base sm:text-lg text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed max-w-xl">
                 {service.description}
               </p>
               <div className="pt-2">
                 <Link
                   href={`/devis-sur-mesure?service=${encodeURIComponent(service.name)}`}
                   data-tracking="devis_click"
-                  className="bg-brand-orange hover:bg-brand-orange/95 text-white px-8 py-3.5 rounded-full font-bold text-sm transition"
+                  className="inline-block bg-brand-orange hover:bg-brand-orange/95 text-white px-8 py-3.5 rounded-full font-bold text-sm transition hover:scale-[1.02]"
                 >
-                  Démarrer votre projet
+                  Démarrer Votre Projet
                 </Link>
               </div>
             </div>
-            <div className="lg:col-span-5 aspect-[4/3] bg-[#1A1238]/40 rounded-2xl overflow-hidden border border-brand-purple/15">
-              {service.image ? (
-                <img src={service.image} alt={service.name} className="w-full h-full object-cover" loading="lazy" />
+            <div className="lg:col-span-5 aspect-[4/3] bg-[#1A1238]/40 rounded-2xl overflow-hidden border border-brand-purple/15 relative">
+              <div className="absolute -inset-6 -z-10 bg-brand-magenta/15 blur-[80px] rounded-full" aria-hidden></div>
+              {heroImage ? (
+                <img src={heroImage} alt={service.name} className="w-full h-full object-cover" loading="lazy" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-white/20 font-sora text-2xl font-bold bg-gradient-dark">
                   ART VISION
@@ -315,8 +372,8 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* Details & Benefits */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20 border-t border-brand-purple/15 pt-16">
             <div className="lg:col-span-7 space-y-4 text-left">
-              <h2 className="font-sora font-bold text-2xl text-white">Pourquoi nous faire confiance ?</h2>
-              <p className="text-sm text-white/75 leading-relaxed">{service.detailedBody}</p>
+              <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">{introHeading}</h2>
+              <p className="text-sm text-white/75 leading-relaxed whitespace-pre-line">{service.detailedBody}</p>
             </div>
             
             <div className="lg:col-span-5 bg-[#1A1238]/40 border border-brand-purple/15 p-6 rounded-2xl text-left space-y-4">
@@ -349,7 +406,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* Pricing Packages */}
           {service.packages.length > 0 && (
             <div className="mb-20 space-y-12 border-t border-brand-purple/15 pt-16 text-center">
-              <h2 className="font-sora font-bold text-2xl text-white">Nos Tarifs & Formules</h2>
+              <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Le forfait qui vous fait avancer</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {service.packages.map((pkg: any) => {
                   const feats = pkg.features.split(";").filter((f: string) => f.trim() !== "");
@@ -380,6 +437,95 @@ export default async function DynamicSlugPage({ params }: PageProps) {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+          )}
+
+          {/* Gallery (admin-managed images) */}
+          {gallery.length > 0 && (
+            <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16">
+              <div className="text-center space-y-2">
+                <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Galerie</h2>
+                <p className="text-sm text-white/55">Un aperçu de notre travail en {service.name.toLowerCase()}.</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {gallery.map((img: any, i: number) => (
+                  <div key={i} className="aspect-[4/3] rounded-2xl overflow-hidden border border-brand-purple/15 bg-[#1A1238]/40 group">
+                    <img
+                      src={typeof img === "string" ? img : img.url}
+                      alt={(typeof img === "object" && img.alt) || `${service.name} — visuel ${i + 1}`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Videos (admin-managed) */}
+          {videos.length > 0 && (
+            <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16">
+              <div className="text-center space-y-2">
+                <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Nos vidéos</h2>
+                <p className="text-sm text-white/55">Découvrez nos réalisations en mouvement.</p>
+              </div>
+              <div className={`grid gap-6 ${videos.length === 1 ? "max-w-3xl mx-auto" : "md:grid-cols-2"}`}>
+                {videos.map((v: any, i: number) => {
+                  const url = typeof v === "string" ? v : v.url;
+                  const title = (typeof v === "object" && v.title) || `${service.name} — vidéo ${i + 1}`;
+                  const embed = videoEmbed(url);
+                  return (
+                    <div key={i} className="space-y-2">
+                      <div className="aspect-video rounded-2xl overflow-hidden border border-brand-purple/15 bg-black">
+                        {embed.type === "file" ? (
+                          <video src={embed.src} controls className="w-full h-full object-cover" />
+                        ) : (
+                          <iframe
+                            src={embed.src}
+                            title={title}
+                            className="w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            loading="lazy"
+                          />
+                        )}
+                      </div>
+                      {typeof v === "object" && v.title && <p className="text-xs text-white/60 text-center">{v.title}</p>}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Nos Réalisations (related portfolio) */}
+          {relatedProjects.length > 0 && (
+            <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16">
+              <div className="flex items-end justify-between flex-wrap gap-3">
+                <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Nos Réalisations</h2>
+                <Link href="/portfolio" className="text-xs font-semibold text-brand-orange hover:text-brand-magenta transition inline-flex items-center gap-1">
+                  Voir tout le portfolio <ArrowRight size={13} />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {relatedProjects.map((project: any) => (
+                  <Link
+                    key={project.id}
+                    href={`/portfolio/${project.slug}`}
+                    data-tracking="portfolio_click"
+                    className="group block bg-[#1A1238]/40 border border-brand-purple/10 rounded-2xl overflow-hidden hover:border-brand-magenta/40 transition-all duration-300"
+                  >
+                    <div className="aspect-[16/10] bg-brand-purple/20 overflow-hidden relative">
+                      <img src={project.images.split(";")[0]} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <span className="absolute top-4 left-4 bg-brand-navy/85 text-brand-magenta text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">{project.category.name}</span>
+                    </div>
+                    <div className="p-5 text-left space-y-1.5">
+                      <h3 className="font-sora font-bold text-sm text-white group-hover:text-brand-magenta transition">{project.title}</h3>
+                      <p className="text-xs text-white/60 line-clamp-2 leading-relaxed">{project.objective}</p>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           )}
@@ -499,7 +645,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
     } : null;
 
     return (
-      <div className="min-h-screen bg-brand-navy pt-32 pb-20 text-left">
+      <div className="min-h-screen hero-gradient pt-32 pb-20 text-left">
         {/* Dynamic Schema Injection */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
         {localBusinessSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />}

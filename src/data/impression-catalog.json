@@ -1,0 +1,326 @@
+{
+  "source": "https://www.impressionflyers.com/",
+  "scrapedAt": "2026-06-21T00:41:54.930Z",
+  "products": [
+    {
+      "slug": "affiches",
+      "label": "Affiches",
+      "sourcePath": "impression_affiches.cfm",
+      "url": "/impression/affiches",
+      "tableCount": 8,
+      "rowCount": 35
+    },
+    {
+      "slug": "affiches-fluo",
+      "label": "Affiches fluo",
+      "sourcePath": "impression_affiches_fluo.cfm",
+      "url": "/impression/affiches-fluo",
+      "tableCount": 5,
+      "rowCount": 27
+    },
+    {
+      "slug": "autocollants",
+      "label": "Autocollants",
+      "sourcePath": "impression_autocollants.cfm",
+      "url": "/impression/autocollants",
+      "tableCount": 5,
+      "rowCount": 38
+    },
+    {
+      "slug": "autocollants-sol",
+      "label": "Autocollants sol",
+      "sourcePath": "marquage_autocollant_de_sol.cfm",
+      "url": "/impression/autocollants-sol",
+      "tableCount": 0,
+      "rowCount": 0
+    },
+    {
+      "slug": "autocopiants",
+      "label": "Autocopiants",
+      "sourcePath": "impression_carnets_autocopiants.cfm",
+      "url": "/impression/autocopiants",
+      "tableCount": 4,
+      "rowCount": 20
+    },
+    {
+      "slug": "baches",
+      "label": "Bâches",
+      "sourcePath": "impression_baches.cfm",
+      "url": "/impression/baches",
+      "tableCount": 0,
+      "rowCount": 0
+    },
+    {
+      "slug": "badges",
+      "label": "Badges",
+      "sourcePath": "imprimerie.cfm?id=91",
+      "url": "/impression/badges",
+      "tableCount": 2,
+      "rowCount": 7
+    },
+    {
+      "slug": "ballons",
+      "label": "Ballons",
+      "sourcePath": "impression_ballons.cfm",
+      "url": "/impression/ballons",
+      "tableCount": 4,
+      "rowCount": 4
+    },
+    {
+      "slug": "beach-flags",
+      "label": "Beach flags",
+      "sourcePath": "beach_flags.cfm",
+      "url": "/impression/beach-flags",
+      "tableCount": 3,
+      "rowCount": 20
+    },
+    {
+      "slug": "bloc-notes",
+      "label": "Bloc-notes",
+      "sourcePath": "impression_blocs_notes.cfm",
+      "url": "/impression/bloc-notes",
+      "tableCount": 3,
+      "rowCount": 15
+    },
+    {
+      "slug": "blocs-adhesifs",
+      "label": "Blocs adhésifs",
+      "sourcePath": "impression_blocs_notes_adhesifs_postit.cfm",
+      "url": "/impression/blocs-adhesifs",
+      "tableCount": 3,
+      "rowCount": 6
+    },
+    {
+      "slug": "bracelets",
+      "label": "Bracelets",
+      "sourcePath": "impression_bracelets_identification_tyvek.cfm",
+      "url": "/impression/bracelets",
+      "tableCount": 3,
+      "rowCount": 3
+    },
+    {
+      "slug": "brochures",
+      "label": "Brochures",
+      "sourcePath": "impression_brochures_magazines.cfm",
+      "url": "/impression/brochures",
+      "tableCount": 1,
+      "rowCount": 8
+    },
+    {
+      "slug": "cachets",
+      "label": "Cachets",
+      "sourcePath": "impression_cachets_tampons.cfm",
+      "url": "/impression/cachets",
+      "tableCount": 3,
+      "rowCount": 18
+    },
+    {
+      "slug": "calendriers",
+      "label": "Calendriers",
+      "sourcePath": "impression_calendriers_de_poche_calendriers_muraux.cfm",
+      "url": "/impression/calendriers",
+      "tableCount": 8,
+      "rowCount": 21
+    },
+    {
+      "slug": "cartes-de-visite",
+      "label": "Cartes de visite",
+      "sourcePath": "impression_cartes_de_visite.cfm",
+      "url": "/impression/cartes-de-visite",
+      "tableCount": 15,
+      "rowCount": 19
+    },
+    {
+      "slug": "cartes-de-voeux",
+      "label": "Cartes de voeux",
+      "sourcePath": "impression_cartes_de_voeux.cfm",
+      "url": "/impression/cartes-de-voeux",
+      "tableCount": 4,
+      "rowCount": 14
+    },
+    {
+      "slug": "cartes-postales",
+      "label": "Cartes postales",
+      "sourcePath": "impression_cartes_postales.cfm",
+      "url": "/impression/cartes-postales",
+      "tableCount": 5,
+      "rowCount": 5
+    },
+    {
+      "slug": "cartes-pvc",
+      "label": "Cartes PVC",
+      "sourcePath": "impression_cartesPVC_personnalisees.cfm",
+      "url": "/impression/cartes-pvc",
+      "tableCount": 5,
+      "rowCount": 5
+    },
+    {
+      "slug": "classeurs",
+      "label": "Classeurs",
+      "sourcePath": "impression_classeurs_fardes.cfm",
+      "url": "/impression/classeurs",
+      "tableCount": 8,
+      "rowCount": 8
+    },
+    {
+      "slug": "cles-usb",
+      "label": "Clés USB",
+      "sourcePath": "impression_clesusb.cfm",
+      "url": "/impression/cles-usb",
+      "tableCount": 11,
+      "rowCount": 61
+    },
+    {
+      "slug": "depliants",
+      "label": "Dépliants",
+      "sourcePath": "impression_depliants_triptiques.cfm",
+      "url": "/impression/depliants",
+      "tableCount": 5,
+      "rowCount": 47
+    },
+    {
+      "slug": "drapeaux",
+      "label": "Drapeaux",
+      "sourcePath": "impression_drapeaux.cfm",
+      "url": "/impression/drapeaux",
+      "tableCount": 0,
+      "rowCount": 0
+    },
+    {
+      "slug": "enveloppes",
+      "label": "Enveloppes",
+      "sourcePath": "impression_enveloppes.cfm",
+      "url": "/impression/enveloppes",
+      "tableCount": 1,
+      "rowCount": 9
+    },
+    {
+      "slug": "etiquettes",
+      "label": "Etiquettes",
+      "sourcePath": "autocollants_sur_mesure.cfm",
+      "url": "/impression/etiquettes",
+      "tableCount": 0,
+      "rowCount": 0
+    },
+    {
+      "slug": "fardes-a-rabats",
+      "label": "Fardes à rabats",
+      "sourcePath": "impression_fardes_a_rabats.cfm",
+      "url": "/impression/fardes-a-rabats",
+      "tableCount": 8,
+      "rowCount": 8
+    },
+    {
+      "slug": "flyers",
+      "label": "Flyers",
+      "sourcePath": "impression_flyers.cfm",
+      "url": "/impression/flyers",
+      "tableCount": 10,
+      "rowCount": 96
+    },
+    {
+      "slug": "marquage-vehicules",
+      "label": "Marquage véhicules",
+      "sourcePath": "imprimerie.cfm?id=90",
+      "url": "/impression/marquage-vehicules",
+      "tableCount": 4,
+      "rowCount": 30
+    },
+    {
+      "slug": "marque-pages",
+      "label": "Marque-pages",
+      "sourcePath": "impression_marque_pages.cfm",
+      "url": "/impression/marque-pages",
+      "tableCount": 3,
+      "rowCount": 6
+    },
+    {
+      "slug": "objets-pub",
+      "label": "Objets pub.",
+      "sourcePath": "objets_publicitaires_gourdes_porte-clefs.cfm",
+      "url": "/impression/objets-pub",
+      "tableCount": 4,
+      "rowCount": 5
+    },
+    {
+      "slug": "panneaux",
+      "label": "Panneaux",
+      "sourcePath": "impression_panneaux.cfm",
+      "url": "/impression/panneaux",
+      "tableCount": 0,
+      "rowCount": 0
+    },
+    {
+      "slug": "panneaux-immo",
+      "label": "PANNEAUX IMMO",
+      "sourcePath": "impression_panneaux_immobiliers_v_a_vendre_a_louer.cfm",
+      "url": "/impression/panneaux-immo",
+      "tableCount": 4,
+      "rowCount": 8
+    },
+    {
+      "slug": "papier-entete",
+      "label": "Papier entête",
+      "sourcePath": "impression_papier_entete.cfm",
+      "url": "/impression/papier-entete",
+      "tableCount": 8,
+      "rowCount": 24
+    },
+    {
+      "slug": "roll-up",
+      "label": "Roll up",
+      "sourcePath": "impression_rollup.cfm",
+      "url": "/impression/roll-up",
+      "tableCount": 3,
+      "rowCount": 9
+    },
+    {
+      "slug": "sous-boc",
+      "label": "Sous-boc",
+      "sourcePath": "impression_sous_boc.cfm",
+      "url": "/impression/sous-boc",
+      "tableCount": 2,
+      "rowCount": 4
+    },
+    {
+      "slug": "sous-mains",
+      "label": "Sous-mains",
+      "sourcePath": "impression_sous-mains.cfm",
+      "url": "/impression/sous-mains",
+      "tableCount": 2,
+      "rowCount": 4
+    },
+    {
+      "slug": "stylos",
+      "label": "Stylos",
+      "sourcePath": "impression_stylos.cfm",
+      "url": "/impression/stylos",
+      "tableCount": 4,
+      "rowCount": 5
+    },
+    {
+      "slug": "textiles",
+      "label": "Textiles",
+      "sourcePath": "impression_textiles_tshirts_polos_pulls.cfm",
+      "url": "/impression/textiles",
+      "tableCount": 2,
+      "rowCount": 8
+    },
+    {
+      "slug": "tickets-entrees",
+      "label": "Tickets entrées",
+      "sourcePath": "impression_tickets_entree_securise_numerotation_perfores.cfm",
+      "url": "/impression/tickets-entrees",
+      "tableCount": 3,
+      "rowCount": 8
+    },
+    {
+      "slug": "tours-de-cou",
+      "label": "Tours de cou",
+      "sourcePath": "impression_tour_de_cous_lanyards.cfm",
+      "url": "/impression/tours-de-cou",
+      "tableCount": 4,
+      "rowCount": 4
+    }
+  ]
+}

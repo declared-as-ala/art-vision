@@ -17,6 +17,7 @@ import {
   Search,
   Layers,
   ChevronRight,
+  Wand2,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -30,12 +31,13 @@ export default function AdminLayout({
 
   // If on login page, render only children
   if (pathname === "/admin/login") {
-    return <div className="min-h-screen bg-brand-navy">{children}</div>;
+    return <div className="min-h-screen hero-gradient">{children}</div>;
   }
 
   const menuItems = [
     { name: "Vue d'ensemble", href: "/admin", icon: LayoutDashboard },
     { name: "Devis / Demandes", href: "/admin/quotes", icon: ClipboardList },
+    { name: "Outils Gratuits", href: "/admin/tools", icon: Wand2 },
     { name: "Pages Site", href: "/admin/pages", icon: Layers },
     { name: "Services", href: "/admin/services", icon: Briefcase },
     { name: "Portfolio", href: "/admin/portfolio", icon: ExternalLink },

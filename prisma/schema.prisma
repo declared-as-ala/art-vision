@@ -71,10 +71,14 @@ model Service {
   name           String
   icon           String           // e.g. "PenTool", "Video"
   image          String?          // featured image
+  heroTagline    String?          // small label above the title, e.g. "L'Âme de Votre Marque"
+  introHeading   String?          // heading for the detailed section, e.g. "De l'idée à l'identité"
   description    String
   detailedBody   String           // detailed description / explanation
   benefits       String           // semicolon separated benefits or json list
   process        String           // semicolon separated process steps or json list
+  gallery        String           @default("[]") // JSON array of { url, alt } images (admin-managed)
+  videos         String           @default("[]") // JSON array of { url, title } videos (admin-managed)
   status         String           @default("PUBLISHED")
   seoTitle       String?
   seoDescription String?
@@ -132,27 +136,56 @@ model BlogPost {
   id             String       @id @default(cuid())
   slug           String       @unique
   title          String
-  content        String
+  content        String       // rich HTML body (or detailed outline for drafts)
+  excerpt        String?      // short summary for cards / meta fallback
   featuredImage  String
+  featuredImageAlt String?    // alt text for the featured image
+  imagePrompt    String?      // generation prompt suggestion (editorial)
   author         String
-  status         String       // "DRAFT", "PUBLISHED"
+  status         String       // "DRAFT", "SCHEDULED", "PUBLISHED", "ARCHIVED"
   tags           String       // comma-separated tags
+  // SEO
   seoTitle       String?
   seoDescription String?
+  focusKeyword   String?
+  secondaryKeywords String?   // comma-separated
+  ogTitle        String?
+  ogDescription  String?
+  ogImage        String?
+  // Rich content modules
+  faqJson        String?      // JSON array of { question, answer }
+  relatedServices  String?    // comma-separated service slugs
+  relatedTools     String?    // comma-separated tool slugs
+  relatedPortfolio String?    // comma-separated portfolio slugs
+  ctaTitle       String?
+  ctaText        String?
+  ctaLabel       String?
+  ctaHref        String?
+  // Scheduling
+  publishedAt    DateTime?
+  scheduledAt    DateTime?
   readingTime    Int          @default(5)
+  views          Int          @default(0)
+  isPillar       Boolean      @default(false)
   categoryId     String
   category       BlogCategory @relation(fields: [categoryId], references: [id])
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+
+  @@index([status])
+  @@index([categoryId])
 }
 
 model BlogCategory {
-  id        String     @id @default(cuid())
-  slug      String     @unique
-  name      String
-  posts     BlogPost[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  name        String
+  description String?
+  icon        String?    // lucide icon name
+  sortOrder   Int        @default(0)
+  posts       BlogPost[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Testimonial {
@@ -377,6 +410,85 @@ model SitemapEntry {
   changeFrequency String   @default("weekly")
   included        Boolean  @default(true)
   lastModified    DateTime @default(now())
+}
+
+// ──────────────────────────────────────────────────────────
+// OUTILS GRATUITS (Free Tools) — lead capture & generations
+// ──────────────────────────────────────────────────────────
+
+// Generic store for every tool generation / lead.
+model ToolSubmission {
+  id               String   @id @default(cuid())
+  toolType         String   // "cv", "carte-de-visite", "qr-code", "palette", "brief-logo", "slogan", "bio-instagram", "caption-instagram", "flyer", "impression"
+  userId           String?  // optional logged-in admin owner
+  email            String?
+  name             String?
+  phone            String?
+  inputData        String   @default("{}") // JSON of the form inputs
+  outputData       String   @default("{}") // JSON of the generated result
+  consentMarketing Boolean  @default(false)
+  status           String   @default("NEW") // "NEW", "CONTACTED", "QUALIFIED", "WON", "LOST"
+  notes            String?  // internal admin notes
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([toolType])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// Admin-editable settings per tool (enable/disable, SEO, CTA, FAQ).
+model ToolSetting {
+  id              String   @id // = toolType slug, e.g. "qr-code"
+  toolType        String   @unique
+  title           String?
+  shortDesc       String?
+  ctaLabel        String?
+  ctaHref         String?
+  seoTitle        String?
+  seoDescription  String?
+  faqJson         String?  // JSON array of {question, answer}
+  relatedServices String? // comma separated service slugs
+  isActive        Boolean  @default(true)
+  indexable       Boolean  @default(true)
+  sortOrder       Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Reusable templates / presets for tools (CV, card, flyer, QR, palette...).
+model ToolTemplate {
+  id           String   @id @default(cuid())
+  toolType     String   // "cv", "carte-de-visite", "flyer", "qr-code", "palette"
+  title        String
+  previewImage String?
+  config       String   @default("{}") // JSON config (colors, layout...)
+  isActive     Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([toolType])
+}
+
+// Pricing rules powering the printing price calculator.
+model PrintPriceRule {
+  id           String   @id @default(cuid())
+  productType  String   // "flyers", "affiches", "baches", "panneaux", "catalogues", "cartes-de-visite"
+  format       String   @default("") // "A6", "A5", "A4", "A3", custom...
+  paperType    String   @default("") // "135g brillant", "350g mat"...
+  finish       String   @default("") // "aucune", "pelliculage mat", "vernis"...
+  side         String   @default("recto") // "recto", "recto-verso"
+  quantityMin  Int      @default(1)
+  quantityMax  Int      @default(1000000)
+  priceBase    Float    @default(0) // fixed setup price for the bracket
+  pricePerUnit Float    @default(0) // per-unit price
+  leadTimeDays Int      @default(5)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([productType])
 }
 
 // Real visitor tracking — one row per day per page

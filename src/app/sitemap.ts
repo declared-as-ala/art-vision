@@ -1,5 +1,8 @@
-import { MetadataRoute } from "next";
+﻿import { MetadataRoute } from "next";
 import prisma from "@/lib/prisma";
+import { toolsByOrder } from "@/lib/tools";
+import flyerPricing from "@/data/flyer-pricing.json";
+import impressionCatalog from "@/data/impression-catalog.json";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
@@ -32,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/devis-sur-mesure",
     "/carte-de-visite-gratuite",
     "/cv-modeles-gratuits",
-    "/impression-publicitaire",
+    "/impression",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -80,6 +83,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
   } catch (e) {}
 
-  const merged = [...routes, ...customRoutes, ...pageRoutes, ...serviceRoutes, ...postRoutes, ...projectRoutes, ...landingRoutes];
+  // Free tools hub + individual tool pages
+  const impressionRoutes: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/impression`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
+    ...impressionCatalog.products.map((product) => ({
+      url: `${baseUrl}${product.url}`,
+      lastModified: new Date(),
+      changeFrequency: product.tableCount > 0 ? "weekly" as const : "monthly" as const,
+      priority: product.tableCount > 0 ? 0.8 : 0.6,
+    })),
+  ];
+  const flyerRoutes: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/impression/flyers`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
+    ...flyerPricing.categories.map((category) => ({
+      url: `${baseUrl}/impression/flyers#${category.id}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+  const toolRoutes: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/outils-gratuits`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.9 },
+    ...toolsByOrder.map((t) => ({
+      url: `${baseUrl}/outils-gratuits/${t.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  const merged = [...routes, ...impressionRoutes, ...flyerRoutes, ...toolRoutes, ...customRoutes, ...pageRoutes, ...serviceRoutes, ...postRoutes, ...projectRoutes, ...landingRoutes];
   return Array.from(new Map(merged.map((entry) => [entry.url, entry])).values());
 }
