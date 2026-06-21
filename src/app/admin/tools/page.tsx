@@ -1,3 +1,6 @@
+// Auth-gated live dashboard — render dynamically (no build-time DB access).
+export const dynamic = "force-dynamic";
+
 import React from "react";
 import prisma from "@/lib/prisma";
 import { Wand2, Sparkles, FileText, CreditCard, QrCode, PenTool, Image as ImageIcon, Calculator, Users, TrendingUp, Trophy } from "lucide-react";
