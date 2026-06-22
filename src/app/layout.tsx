@@ -4,6 +4,13 @@ import "./globals.css";
 import GoogleTrackers from "@/components/trackers/GoogleTrackers";
 import PublicShell from "@/components/PublicShell";
 import prisma from "@/lib/prisma";
+import { cached } from "@/lib/cache";
+
+// Cache the singletons read on every page (rarely change) for 60s.
+const getSettings = () =>
+  cached("siteSettings", 60_000, () => prisma.siteSettings.findUnique({ where: { id: "default" } }));
+const getSeo = () =>
+  cached("seoSettings", 60_000, () => prisma.sEOSettings.findUnique({ where: { id: "default" } }));
 
 const futuraBook = localFont({
   src: "./fonts/Futura-Book Book.ttf",
@@ -26,9 +33,8 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase = new URL("https://art-visions.fr");
   }
   try {
-    const settings = await prisma.siteSettings.findUnique({ where: { id: "default" } });
-    const seo = await prisma.sEOSettings.findUnique({ where: { id: "default" } });
-    
+    const [settings, seo] = await Promise.all([getSettings(), getSeo()]);
+
     return {
       metadataBase,
       title: {
@@ -57,7 +63,7 @@ export default async function RootLayout({
   let gaId = "";
   let gtmId = "";
   try {
-    const settings = await prisma.siteSettings.findUnique({ where: { id: "default" } });
+    const settings = await getSettings();
     gaId = settings?.googleAnalyticsId || "";
     gtmId = settings?.googleTagManagerId || "";
   } catch (e) {

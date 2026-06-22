@@ -47,10 +47,13 @@ export default async function HomePage() {
   let settings: any = null;
 
   try {
-    dbServices = await prisma.service.findMany({ select: { id: true, slug: true, name: true, description: true, icon: true } });
-    dbProjects = await prisma.portfolioProject.findMany({ take: 3, include: { category: true } });
-    dbTestimonials = await prisma.testimonial.findMany({ take: 3, orderBy: { displayOrder: "asc" } });
-    settings = await prisma.siteSettings.findUnique({ where: { id: "default" } });
+    // Run in parallel — one DB round-trip instead of four.
+    [dbServices, dbProjects, dbTestimonials, settings] = await Promise.all([
+      prisma.service.findMany({ select: { id: true, slug: true, name: true, description: true, icon: true } }),
+      prisma.portfolioProject.findMany({ take: 3, include: { category: true } }),
+      prisma.testimonial.findMany({ take: 3, orderBy: { displayOrder: "asc" } }),
+      prisma.siteSettings.findUnique({ where: { id: "default" } }),
+    ]);
   } catch (error) {
     console.error("Home page DB fetch error, using fallbacks:", error);
   }

@@ -1,6 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
+import { cached } from "@/lib/cache";
+
+// Load active redirects once and cache for 5 min, instead of a DB query on
+// every page navigation. Returns a Map keyed by source path.
+async function getRedirects() {
+  return cached("redirects", 5 * 60_000, async () => {
+    const rows = await prisma.redirect.findMany({
+      where: { active: true },
+      select: { sourceUrl: true, targetUrl: true, statusCode: true },
+    });
+    const map = new Map<string, { targetUrl: string; statusCode: number }>();
+    for (const r of rows) map.set(r.sourceUrl.replace(/\/$/, "") || "/", { targetUrl: r.targetUrl, statusCode: r.statusCode || 301 });
+    return map;
+  });
+}
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -25,21 +40,14 @@ export async function proxy(request: NextRequest) {
       const cleanPath = pathname !== "/" && pathname.endsWith("/")
         ? pathname.slice(0, -1)
         : pathname;
-      const redirect = await prisma.redirect.findFirst({
-        where: {
-          active: true,
-          OR: [
-            { sourceUrl: cleanPath },
-            { sourceUrl: cleanPath === "/" ? "/" : `${cleanPath}/` },
-          ],
-        },
-      });
+      const redirects = await getRedirects();
+      const redirect = redirects.get(cleanPath || "/");
 
       if (redirect) {
         const targetUrl = redirect.targetUrl.startsWith("http")
           ? new URL(redirect.targetUrl)
           : new URL(redirect.targetUrl, request.url);
-        return NextResponse.redirect(targetUrl, redirect.statusCode || 301);
+        return NextResponse.redirect(targetUrl, redirect.statusCode);
       }
     } catch (e) {
       console.error("Proxy redirects query failed:", e);
