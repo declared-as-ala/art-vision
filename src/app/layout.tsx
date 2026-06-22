@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import GoogleTrackers from "@/components/trackers/GoogleTrackers";
 import PublicShell from "@/components/PublicShell";
+import NavigationProgress from "@/components/NavigationProgress";
 import prisma from "@/lib/prisma";
 import { cached } from "@/lib/cache";
 
@@ -73,6 +74,7 @@ export default async function RootLayout({
   return (
     <html lang="fr" className={`${futuraBook.variable} ${futuraLight.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col hero-gradient text-brand-white">
+        <NavigationProgress />
         <GoogleTrackers gaId={gaId} gtmId={gtmId} />
         <PublicShell>{children}</PublicShell>
       </body>
