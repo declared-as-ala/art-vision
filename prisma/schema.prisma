@@ -149,6 +149,7 @@ model PortfolioProject {
   testimonialAuthor String?
   images            String // semicolon-separated URLs or json array
   videoUrl          String?
+  customHtml        String?           // admin-managed sanitized HTML block
   status            String            @default("PUBLISHED")
   seoTitle          String?
   seoDescription    String?
@@ -607,6 +608,47 @@ model PriceAuditLog {
 
   @@index([productId])
   @@index([createdAt])
+}
+
+// ──────────────────────────────────────────────────────────
+// ANALYTICS — anonymous events + daily summaries
+// ──────────────────────────────────────────────────────────
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  eventType  String   // page_view | service_view | tool_open | quote_form_submitted | whatsapp_click | cta_click ...
+  pagePath   String   @default("")
+  pageTitle  String?
+  sessionId  String?
+  visitorId  String?
+  country    String?
+  city       String?
+  deviceType String?  // desktop | mobile | tablet
+  browser    String?
+  referrer   String?
+  source     String?  // direct | organic | social | referral | paid | email
+  medium     String?
+  campaign   String?
+  createdAt  DateTime @default(now())
+
+  @@index([eventType])
+  @@index([createdAt])
+  @@index([visitorId])
+}
+
+model AnalyticsDailySummary {
+  id                String   @id @default(cuid())
+  date              DateTime @unique
+  visitors          Int      @default(0)
+  sessions          Int      @default(0)
+  pageViews         Int      @default(0)
+  newVisitors       Int      @default(0)
+  returningVisitors Int      @default(0)
+  quoteRequests     Int      @default(0)
+  whatsappClicks    Int      @default(0)
+  ctaClicks         Int      @default(0)
+  toolGenerations   Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 // Real visitor tracking — one row per day per page

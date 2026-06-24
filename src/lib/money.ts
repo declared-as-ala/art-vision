@@ -19,6 +19,9 @@ export function formatEuros(cents: number | null | undefined): string {
   return fmt.format(cents / 100);
 }
 
+// Alias used by the email/notification layer.
+export const formatMoney = formatEuros;
+
 // Editable euros string (e.g. "12.50") from cents, for form inputs.
 export const centsToInput = (cents: number | null | undefined): string =>
   cents == null ? "" : (cents / 100).toFixed(2);

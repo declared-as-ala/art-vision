@@ -168,6 +168,7 @@ export default function CVGenerator() {
           education: JSON.stringify(education),
           projects: JSON.stringify(projects),
           templateId: template,
+          sourceUrl: window.location.href,
         }),
       });
       const data = await response.json();
@@ -176,8 +177,8 @@ export default function CVGenerator() {
       } else {
         setMsg("Erreur d'enregistrement.");
       }
-    } catch (e) {
-      setMsg("CV enregistré localement. (Simulé)");
+    } catch {
+      setMsg("Erreur réseau. Enregistrement du CV impossible.");
     } finally {
       setSaving(false);
     }

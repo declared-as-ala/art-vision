@@ -24,6 +24,7 @@ export default function PrintCalculator() {
 
   // Lead form
   const [lead, setLead] = useState({ name: "", email: "", phone: "", message: "" });
+  const [website, setWebsite] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState("");
@@ -76,7 +77,7 @@ export default function PrintCalculator() {
     setSending(true); setErr("");
     const r = await fetch("/api/print/quote", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productSlug: slug, productName: product?.name, options: { paper, format, finish, side, quantity }, estimatedTtcCents: ttc ?? undefined, ...lead }),
+      body: JSON.stringify({ productSlug: slug, productName: product?.name, options: { paper, format, finish, side, quantity }, estimatedTtcCents: ttc ?? undefined, ...lead, website, sourceUrl: window.location.href }),
     }).then((x) => x.json()).catch(() => ({ success: false }));
     setSending(false);
     if (r.success) setSent(true); else setErr("Une erreur est survenue.");
@@ -144,6 +145,7 @@ export default function PrintCalculator() {
           </div>
         ) : (
           <form onSubmit={submitQuote} className="glassmorphism rounded-2xl p-5 space-y-3">
+            <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
             <h3 className="text-sm font-sora font-bold text-white">Recevoir mon devis impression</h3>
             <div className="grid sm:grid-cols-3 gap-2">
               <input className={inputCls} placeholder="Nom" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />

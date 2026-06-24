@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
+import { sanitizeHtml } from "@/lib/cms";
 import {
   ChevronRight,
   ArrowLeft,
@@ -177,6 +178,14 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </div>
           </div>
         </div>
+
+        {/* Custom HTML block (admin-managed, sanitized) */}
+        {project.customHtml && (
+          <div
+            className="cms-rich-content text-sm text-white/80 leading-relaxed border-t border-brand-purple/15 pt-10 mt-10"
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(project.customHtml) }}
+          />
+        )}
       </div>
     </div>
   );

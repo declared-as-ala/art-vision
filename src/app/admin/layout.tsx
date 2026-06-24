@@ -20,6 +20,7 @@ import {
   Wand2,
   Mail,
   Printer,
+  BarChart3,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -38,6 +39,7 @@ export default function AdminLayout({
 
   const menuItems = [
     { name: "Vue d'ensemble", href: "/admin", icon: LayoutDashboard },
+    { name: "Analytique", href: "/admin/analytics", icon: BarChart3 },
     { name: "Devis / Demandes", href: "/admin/quotes", icon: ClipboardList },
     { name: "Emails & Notifications", href: "/admin/emails", icon: Mail },
     { name: "Outils Gratuits", href: "/admin/tools", icon: Wand2 },

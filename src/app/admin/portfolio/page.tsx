@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Search, Plus, Trash2, Edit3, X, Save, AlertCircle, ExternalLink, Upload } from "lucide-react";
+import HtmlBlockEditor from "@/components/admin/HtmlBlockEditor";
 
 interface Category {
   id: string;
@@ -20,6 +21,7 @@ interface Project {
   result: string;
   images: string;
   categoryId: string;
+  customHtml?: string | null;
   category?: Category;
 }
 
@@ -41,6 +43,7 @@ export default function AdminPortfolioPage() {
   const [result, setResult] = useState("");
   const [images, setImages] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [customHtml, setCustomHtml] = useState("");
   
   const [errorMsg, setErrorMsg] = useState("");
   const [saving, setSaving] = useState(false);
@@ -139,6 +142,7 @@ export default function AdminPortfolioPage() {
     setResult(project.result || "");
     setImages(project.images || "");
     setCategoryId(project.categoryId || "");
+    setCustomHtml(project.customHtml || "");
     setIsNew(false);
     setErrorMsg("");
   };
@@ -155,6 +159,7 @@ export default function AdminPortfolioPage() {
     setResult("");
     setImages("");
     setCategoryId(categories[0]?.id || "branding");
+    setCustomHtml("");
     setIsNew(true);
     setErrorMsg("");
   };
@@ -169,9 +174,9 @@ export default function AdminPortfolioPage() {
     setErrorMsg("");
 
     const method = isNew ? "POST" : "PUT";
-    const bodyData = isNew 
-      ? { title, slug, client, industry, objective, challenge, solution, result, images, categoryId }
-      : { id: selectedProject?.id, title, slug, client, industry, objective, challenge, solution, result, images, categoryId };
+    const bodyData = isNew
+      ? { title, slug, client, industry, objective, challenge, solution, result, images, categoryId, customHtml }
+      : { id: selectedProject?.id, title, slug, client, industry, objective, challenge, solution, result, images, categoryId, customHtml };
 
     try {
       const response = await fetch("/api/admin/projects", {
@@ -448,6 +453,25 @@ export default function AdminPortfolioPage() {
                     className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-brand-magenta resize-none"
                   />
                 </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs text-white/70">Le Résultat</label>
+                <textarea
+                  value={result}
+                  onChange={(e) => setResult(e.target.value)}
+                  rows={2}
+                  className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-brand-magenta resize-none"
+                />
+              </div>
+
+              <div className="pt-2 border-t border-brand-purple/20">
+                <HtmlBlockEditor
+                  value={customHtml}
+                  onChange={setCustomHtml}
+                  label="Contenu HTML personnalisé (optionnel)"
+                  hint="Ajoutez une section riche en bas de l'étude de cas : galerie, citations, tableaux… Le code est nettoyé automatiquement (scripts interdits)."
+                />
               </div>
 
               <div className="flex space-x-3 pt-6 border-t border-brand-purple/20">

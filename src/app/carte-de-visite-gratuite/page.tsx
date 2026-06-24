@@ -278,6 +278,7 @@ END:VCARD`;
           templateId: template,
           colors: JSON.stringify({ primaryColor, secondaryColor, bgColor, textColor }),
           qrData: website,
+          sourceUrl: window.location.href,
         }),
       });
 
@@ -289,7 +290,7 @@ END:VCARD`;
       }
     } catch (error) {
       console.error("Save error:", error);
-      setSuccessMsg("Carte enregistrée localement. (Simulé)");
+      setSuccessMsg("Erreur réseau. Enregistrement de la carte impossible.");
     } finally {
       setSaving(false);
     }

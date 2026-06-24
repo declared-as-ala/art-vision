@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import CookieConsent from "@/components/CookieConsent";
 import PageViewTracker from "@/components/PageViewTracker";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 export default function PublicShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -18,6 +19,7 @@ export default function PublicShell({ children }: { children: React.ReactNode })
   return (
     <>
       <PageViewTracker />
+      <AnalyticsTracker />
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
