@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -32,6 +32,25 @@ export default function AdminLayout({
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Check session validity on mount + periodically
+  useEffect(() => {
+    const check = async () => {
+      try {
+        const res = await fetch("/api/admin/session-check", { method: "HEAD" });
+        if (res.status === 401) {
+          router.push("/admin/login");
+          router.refresh();
+        }
+      } catch {
+        router.push("/admin/login");
+        router.refresh();
+      }
+    };
+    check();
+    const interval = setInterval(check, 60_000);
+    return () => clearInterval(interval);
+  }, [router]);
+
   // If on login page, render only children
   if (pathname === "/admin/login") {
     return <div className="min-h-screen hero-gradient">{children}</div>;
@@ -55,14 +74,12 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/admin/logout", { method: "POST" });
-      if (response.ok) {
-        router.push("/admin/login");
-        router.refresh();
-      }
-    } catch (error) {
-      console.error("Logout failed:", error);
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch {
+      // Session may already be expired — still redirect
     }
+    router.push("/admin/login");
+    router.refresh();
   };
 
   const SidebarContent = () => (

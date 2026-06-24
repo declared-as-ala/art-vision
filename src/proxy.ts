@@ -17,15 +17,26 @@ async function getRedirects() {
   });
 }
 
+function isTokenExpired(token: string): boolean {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.exp * 1000 < Date.now();
+  } catch {
+    return true;
+  }
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 1. Protect admin routes (Except login)
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
     const session = request.cookies.get("art_vision_session")?.value;
-    if (!session) {
+    if (!session || isTokenExpired(session)) {
       const loginUrl = new URL("/admin/login", request.url);
-      return NextResponse.redirect(loginUrl);
+      const response = NextResponse.redirect(loginUrl);
+      if (session) response.cookies.delete("art_vision_session");
+      return response;
     }
     return NextResponse.next();
   }
