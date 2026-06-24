@@ -91,7 +91,7 @@ export default async function HomePage() {
   ];
 
   return (
-    <div className="relative hero-gradient">
+    <div className="relative hero-gradient overflow-x-hidden">
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[88vh] flex items-center pt-28 sm:pt-32 pb-16 overflow-hidden">
         {/* Vector Background grid */}
@@ -100,21 +100,21 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Hero Left Content */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="lg:col-span-7 text-left">
               <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-white/90 block">
                 Agence de design graphique, vidéo & impression en France
               </span>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sora font-extrabold text-white leading-[1.05] tracking-tight">
+              <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sora font-extrabold text-white leading-[1.05] tracking-tight">
                 CRÉATION, DESIGN <br />
                 <span className="text-white">ET PRODUCTION</span>
               </h1>
-              
-              <p className="text-xs sm:text-sm text-white/80 max-w-xl leading-relaxed">
+
+              <p className="mt-6 text-xs sm:text-sm text-white/80 max-w-xl leading-relaxed">
                 Art Vision est une agence de communication visuelle en France spécialisée en graphisme, publicité, design 3D, audiovisuel et impression. Nous aidons les marques à donner vie à leurs idées à travers des créations percutantes et innovantes.
               </p>
 
-              <div className="flex flex-col gap-3.5 pt-4 w-full sm:w-80">
+              <div className="mt-8 flex flex-col gap-3.5 w-full sm:w-80">
                 <Link
                   href="/devis-sur-mesure"
                   className="bg-[#D95200] hover:bg-[#B84200] text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-102 shadow-lg shadow-[#D95200]/25 text-center block"

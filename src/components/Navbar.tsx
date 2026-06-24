@@ -181,7 +181,8 @@ export default function Navbar() {
 
       {/* Mobile Drawer Menu */}
       <div
-        className={`lg:hidden fixed inset-y-0 right-0 z-40 w-80 max-w-sm glassmorphism shadow-2xl p-6 transition-all duration-300 transform ${
+        style={{ backgroundColor: "#08051f" }}
+        className={`lg:hidden fixed inset-y-0 right-0 z-40 w-80 max-w-sm border-l border-brand-purple/30 shadow-2xl p-6 transition-all duration-300 transform ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
