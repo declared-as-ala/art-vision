@@ -6,6 +6,7 @@ import { Mail, Loader2, CheckCircle2 } from "lucide-react";
 export default function NewsletterCTA({ source = "blog", compact = false }: { source?: string; compact?: boolean }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [website, setWebsite] = useState("");
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ export default function NewsletterCTA({ source = "blog", compact = false }: { so
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify({ email, source, website, sourceUrl: window.location.href }),
       });
       const data = await res.json();
       setState(data.success ? "done" : "error");
@@ -39,6 +40,7 @@ export default function NewsletterCTA({ source = "blog", compact = false }: { so
         </p>
       ) : (
         <form onSubmit={submit} className="space-y-2">
+          <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
           <input
             type="email"
             value={email}

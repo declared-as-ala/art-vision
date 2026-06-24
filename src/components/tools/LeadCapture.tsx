@@ -34,6 +34,7 @@ export default function LeadCapture({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
+  const [website, setWebsite] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -61,6 +62,8 @@ export default function LeadCapture({
           consentMarketing: consent,
           inputData: payload.inputData ?? {},
           outputData: payload.outputData ?? {},
+          website,
+          sourceUrl: window.location.href,
         }),
       });
       const data = await res.json();
@@ -90,6 +93,8 @@ export default function LeadCapture({
       onSubmit={submit}
       className="rounded-2xl border border-brand-purple/20 bg-brand-purple-dark/40 backdrop-blur-md p-5 space-y-4"
     >
+      <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+
       <div className="flex items-center gap-2">
         <div className="p-2 rounded-lg bg-brand-magenta/15 text-brand-magenta">
           <Mail size={16} />

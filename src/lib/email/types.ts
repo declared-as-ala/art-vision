@@ -1,0 +1,5 @@
+export type LeadType = "contact" | "quote" | "printing" | "logo-brief" | "free-tool" | "newsletter" | "cv" | "business-card" | "test";
+export interface LeadData { name?: string; email?: string; phone?: string; company?: string; service?: string; budget?: string; deadline?: string; message?: string; toolName?: string; estimatedPrice?: string; details?: Record<string, unknown>; uploadedFiles?: { name: string; url: string }[]; }
+export interface LeadMetadata { sourceUrl?: string; dashboardUrl?: string; quoteUrl?: string; filesUrl?: string; utmSource?: string; utmMedium?: string; utmCampaign?: string; country?: string; city?: string; }
+export interface LeadNotificationInput { type: LeadType; lead: LeadData; metadata?: LeadMetadata; relatedEntityType?: string; relatedEntityId?: string; sendClientConfirmation?: boolean; }
+export interface StoredEmailPayload { to: string[]; subject: string; html: string; text: string; replyTo?: string; }

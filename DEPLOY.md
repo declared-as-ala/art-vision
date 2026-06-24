@@ -88,3 +88,25 @@ npm run dev          # uses file:./dev.db and public/uploads
 ```
 
 No Turso/Blob needed locally.
+
+## Email notifications (Gandi SMTP)
+
+Add these values in Vercel → Project → Settings → Environment Variables for Production, Preview, and Development as appropriate:
+
+| Variable | Value |
+|---|---|
+| `SMTP_HOST` | `mail.gandi.net` |
+| `SMTP_PORT` | `465` |
+| `SMTP_SECURE` | `true` |
+| `SMTP_USER` | your Gandi SMTP username |
+| `SMTP_PASS` | your Gandi SMTP password (secret) |
+| `MAIL_FROM_NAME` | `Art Vision` |
+| `MAIL_FROM_EMAIL` | `contact@art-visions.fr` |
+| `CONTACT_NOTIFICATION_EMAIL` | `contact@art-visions.fr` |
+| `SITE_URL` | `https://art-visions.fr` |
+
+If port 465 is blocked, use port `587` with `SMTP_SECURE=false`; Nodemailer will negotiate STARTTLS. Never use port 25.
+
+After adding or changing variables, trigger a new Vercel deployment because an existing deployment does not receive newly added variables. Then open `/admin/emails` and send a branded test email. SMTP secrets are never returned by the admin API.
+
+The email migration adds `EmailSettings` and `EmailLog`. Apply migrations locally with `npx prisma migrate deploy` (or `npx prisma db push`). For Turso, apply the migration SQL once using the documented Turso schema workflow before relying on logs in production.

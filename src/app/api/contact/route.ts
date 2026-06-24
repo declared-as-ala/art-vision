@@ -1,33 +1,3 @@
-import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-
-export async function POST(req: Request) {
-  try {
-    const body = await req.json();
-    const { name, email, phone, message } = body;
-
-    if (!name || !email || !message) {
-      return NextResponse.json(
-        { success: false, error: "Veuillez remplir tous les champs obligatoires." },
-        { status: 400 }
-      );
-    }
-
-    const contactMsg = await prisma.contactMessage.create({
-      data: {
-        name,
-        email,
-        phone: phone || null,
-        message,
-      },
-    });
-
-    return NextResponse.json({ success: true, messageId: contactMsg.id });
-  } catch (error) {
-    console.error("Error creating contact message:", error);
-    return NextResponse.json(
-      { success: false, error: "Erreur serveur lors de la soumission." },
-      { status: 500 }
-    );
-  }
-}
+import { NextResponse } from "next/server"; import { z } from "zod"; import prisma from "@/lib/prisma"; import { cleanText, publicFormGuard } from "@/lib/email/security"; import { sendLeadNotification } from "@/lib/email/lead-notification";
+const schema=z.object({name:z.string().trim().min(2).max(120),email:z.string().email().max(160),phone:z.string().max(40).optional(),message:z.string().trim().min(5).max(5000),website:z.string().optional(),sourceUrl:z.string().url().max(500).optional(),utmSource:z.string().max(120).optional(),utmMedium:z.string().max(120).optional(),utmCampaign:z.string().max(120).optional()});
+export async function POST(req:Request){let body:unknown;try{body=await req.json()}catch{return NextResponse.json({success:false,error:"Requête invalide."},{status:400})}const parsed=schema.safeParse(body);if(!parsed.success)return NextResponse.json({success:false,error:"Veuillez vérifier les champs du formulaire."},{status:422});const d=parsed.data;const guard=publicFormGuard(req,"contact",d.website);if(!guard.ok)return NextResponse.json({success:false,error:guard.error},{status:guard.status});try{const row=await prisma.contactMessage.create({data:{name:cleanText(d.name,120)!,email:d.email.toLowerCase(),phone:cleanText(d.phone,40),message:cleanText(d.message,5000)!}});await sendLeadNotification({type:"contact",lead:{name:d.name,email:d.email,phone:d.phone,message:d.message},metadata:{sourceUrl:d.sourceUrl,utmSource:d.utmSource,utmMedium:d.utmMedium,utmCampaign:d.utmCampaign,dashboardUrl:`${process.env.SITE_URL||"https://art-visions.fr"}/admin/emails`},relatedEntityType:"ContactMessage",relatedEntityId:row.id});return NextResponse.json({success:true,messageId:row.id});}catch(error){console.error("Contact submission failed",error instanceof Error?error.message:"unknown");return NextResponse.json({success:false,error:"Erreur serveur lors de la soumission."},{status:500})}}

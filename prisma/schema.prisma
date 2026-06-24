@@ -11,33 +11,33 @@ model User {
   email     String   @unique
   password  String
   name      String
-  role      String   // "SUPER_ADMIN", "ADMIN", "EDITOR", "SALES", "VIEWER"
+  role      String // "SUPER_ADMIN", "ADMIN", "EDITOR", "SALES", "VIEWER"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model SiteSettings {
   id                        String   @id @default("default")
-  logo                      String   // URL or path to logo
-  brandName                 String   // "Art Vision"
-  slogan                    String   // "L’art au service de votre image."
-  primaryColor              String   // "#08051F"
-  secondaryColor            String   // "#1A1238"
-  accentColor               String   // "#6C2BD9"
-  creativeMagenta           String   // "#D72888"
-  orangeCta                 String   // "#FF6A00"
-  softWhite                 String   // "#F8F7FC"
-  lightGray                 String   // "#EDEAF5"
-  textDark                  String   // "#171625"
+  logo                      String // URL or path to logo
+  brandName                 String // "Art Vision"
+  slogan                    String // "L’art au service de votre image."
+  primaryColor              String // "#08051F"
+  secondaryColor            String // "#1A1238"
+  accentColor               String // "#6C2BD9"
+  creativeMagenta           String // "#D72888"
+  orangeCta                 String // "#FF6A00"
+  softWhite                 String // "#F8F7FC"
+  lightGray                 String // "#EDEAF5"
+  textDark                  String // "#171625"
   socialFb                  String?
   socialIg                  String?
   socialIn                  String?
   socialTw                  String?
-  email                     String   // Contact email
-  phone                     String   // Contact phone
-  whatsapp                  String   // Contact whatsapp
-  franceAddress             String   // France address
-  tunisiaAddress            String   // Tunisia address
+  email                     String // Contact email
+  phone                     String // Contact phone
+  whatsapp                  String // Contact whatsapp
+  franceAddress             String // France address
+  tunisiaAddress            String // Tunisia address
   googleAnalyticsId         String?
   googleTagManagerId        String?
   searchConsoleVerification String?
@@ -45,41 +45,75 @@ model SiteSettings {
   updatedAt                 DateTime @updatedAt
 }
 
+model EmailSettings {
+  id                        String   @id @default("default")
+  primaryNotificationEmail  String   @default("contact@art-visions.fr")
+  additionalRecipients      String   @default("[]")
+  clientConfirmationEnabled Boolean  @default(true)
+  enabledTypes              String   @default("[]")
+  replyToVisitor            Boolean  @default(true)
+  senderName                String   @default("Art Vision")
+  senderEmail               String   @default("contact@art-visions.fr")
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
+
+model EmailLog {
+  id                String    @id @default(cuid())
+  type              String
+  recipient         String
+  subject           String
+  relatedEntityType String?
+  relatedEntityId   String?
+  status            String    @default("PENDING")
+  providerMessageId String?
+  errorMessageSafe  String?
+  payloadJson       String    @default("{}")
+  attemptCount      Int       @default(0)
+  sentAt            DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([relatedEntityType, relatedEntityId])
+}
+
 model Page {
-  id             String   @id @default(cuid())
-  slug           String   @unique
+  id             String    @id @default(cuid())
+  slug           String    @unique
   title          String
-  contentJson    String   // Stores section contents / structure dynamically
-  contentHtml    String   @default("")
+  contentJson    String // Stores section contents / structure dynamically
+  contentHtml    String    @default("")
   excerpt        String?
-  layout         String   @default("FULL_WIDTH")
-  status         String   @default("PUBLISHED")
+  layout         String    @default("FULL_WIDTH")
+  status         String    @default("PUBLISHED")
   focusKeyword   String?
-  isActive       Boolean  @default(true)
+  isActive       Boolean   @default(true)
   seoTitle       String?
   seoDescription String?
   ogImage        String?
   canonicalUrl   String?
   publishedAt    DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Service {
   id             String           @id @default(cuid())
   slug           String           @unique
   name           String
-  icon           String           // e.g. "PenTool", "Video"
-  image          String?          // featured image
-  heroTagline    String?          // small label above the title, e.g. "L'Âme de Votre Marque"
-  introHeading   String?          // heading for the detailed section, e.g. "De l'idée à l'identité"
+  icon           String // e.g. "PenTool", "Video"
+  image          String? // featured image
+  heroTagline    String? // small label above the title, e.g. "L'Âme de Votre Marque"
+  introHeading   String? // heading for the detailed section, e.g. "De l'idée à l'identité"
   description    String
-  detailedBody   String           // detailed description / explanation
-  benefits       String           // semicolon separated benefits or json list
-  process        String           // semicolon separated process steps or json list
+  detailedBody   String // detailed description / explanation
+  benefits       String // semicolon separated benefits or json list
+  process        String // semicolon separated process steps or json list
   gallery        String           @default("[]") // JSON array of { url, alt } images (admin-managed)
   videos         String           @default("[]") // JSON array of { url, title } videos (admin-managed)
-  customHtml     String?          // admin-managed sanitized HTML block rendered on the page
+  customHtml     String? // admin-managed sanitized HTML block rendered on the page
   status         String           @default("PUBLISHED")
   seoTitle       String?
   seoDescription String?
@@ -93,9 +127,9 @@ model PricingPackage {
   id        String   @id @default(cuid())
   serviceId String
   service   Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  name      String   // "Basic", "Standard", "Premium"
-  price     String   // e.g. "à partir de 70€"
-  features  String   // semicolon separated features
+  name      String // "Basic", "Standard", "Premium"
+  price     String // e.g. "à partir de 70€"
+  features  String // semicolon separated features
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -113,7 +147,7 @@ model PortfolioProject {
   testimonial       String?
   testimonialRole   String?
   testimonialAuthor String?
-  images            String            // semicolon-separated URLs or json array
+  images            String // semicolon-separated URLs or json array
   videoUrl          String?
   status            String            @default("PUBLISHED")
   seoTitle          String?
@@ -134,45 +168,45 @@ model PortfolioCategory {
 }
 
 model BlogPost {
-  id             String       @id @default(cuid())
-  slug           String       @unique
-  title          String
-  content        String       // rich HTML body (or detailed outline for drafts)
-  excerpt        String?      // short summary for cards / meta fallback
-  featuredImage  String
-  featuredImageAlt String?    // alt text for the featured image
-  imagePrompt    String?      // generation prompt suggestion (editorial)
-  author         String
-  status         String       // "DRAFT", "SCHEDULED", "PUBLISHED", "ARCHIVED"
-  tags           String       // comma-separated tags
+  id                String       @id @default(cuid())
+  slug              String       @unique
+  title             String
+  content           String // rich HTML body (or detailed outline for drafts)
+  excerpt           String? // short summary for cards / meta fallback
+  featuredImage     String
+  featuredImageAlt  String? // alt text for the featured image
+  imagePrompt       String? // generation prompt suggestion (editorial)
+  author            String
+  status            String // "DRAFT", "SCHEDULED", "PUBLISHED", "ARCHIVED"
+  tags              String // comma-separated tags
   // SEO
-  seoTitle       String?
-  seoDescription String?
-  focusKeyword   String?
-  secondaryKeywords String?   // comma-separated
-  ogTitle        String?
-  ogDescription  String?
-  ogImage        String?
+  seoTitle          String?
+  seoDescription    String?
+  focusKeyword      String?
+  secondaryKeywords String? // comma-separated
+  ogTitle           String?
+  ogDescription     String?
+  ogImage           String?
   // Rich content modules
-  faqJson        String?      // JSON array of { question, answer }
-  relatedServices  String?    // comma-separated service slugs
-  relatedTools     String?    // comma-separated tool slugs
-  relatedPortfolio String?    // comma-separated portfolio slugs
-  ctaTitle       String?
-  ctaText        String?
-  ctaLabel       String?
-  ctaHref        String?
-  customHtml     String?      // admin-managed sanitized HTML block rendered in the article
+  faqJson           String? // JSON array of { question, answer }
+  relatedServices   String? // comma-separated service slugs
+  relatedTools      String? // comma-separated tool slugs
+  relatedPortfolio  String? // comma-separated portfolio slugs
+  ctaTitle          String?
+  ctaText           String?
+  ctaLabel          String?
+  ctaHref           String?
+  customHtml        String? // admin-managed sanitized HTML block rendered in the article
   // Scheduling
-  publishedAt    DateTime?
-  scheduledAt    DateTime?
-  readingTime    Int          @default(5)
-  views          Int          @default(0)
-  isPillar       Boolean      @default(false)
-  categoryId     String
-  category       BlogCategory @relation(fields: [categoryId], references: [id])
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  publishedAt       DateTime?
+  scheduledAt       DateTime?
+  readingTime       Int          @default(5)
+  views             Int          @default(0)
+  isPillar          Boolean      @default(false)
+  categoryId        String
+  category          BlogCategory @relation(fields: [categoryId], references: [id])
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
 
   @@index([status])
   @@index([categoryId])
@@ -183,7 +217,7 @@ model BlogCategory {
   slug        String     @unique
   name        String
   description String?
-  icon        String?    // lucide icon name
+  icon        String? // lucide icon name
   sortOrder   Int        @default(0)
   posts       BlogPost[]
   createdAt   DateTime   @default(now())
@@ -196,7 +230,7 @@ model Testimonial {
   role         String
   rating       Int      @default(5)
   message      String
-  image        String?  // avatar image
+  image        String? // avatar image
   displayOrder Int      @default(0)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -208,42 +242,61 @@ model QuoteRequest {
   details   String
   budget    String
   deadline  String
-  fileUrl   String?  // uploaded briefing/file
+  fileUrl   String? // uploaded briefing/file
   name      String
   email     String
   phone     String
   company   String?
   consent   Boolean  @default(false)
   status    String   @default("NEW") // "NEW", "CONTACTED", "IN_PROGRESS", "WON", "LOST"
-  notes     String?  // Admin notes
+  notes     String? // Admin notes
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model PrintProduct {
-  id        String        @id @default(cuid())
-  slug      String        @unique
-  name      String        // e.g. "Flyers"
-  options   PrintOption[]
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id              String        @id @default(cuid())
+  slug            String        @unique
+  name            String // e.g. "Flyers"
+  description     String?
+  image           String?
+  active          Boolean       @default(true)
+  mode            String        @default("instant") // "instant" | "quote"
+  productionTime  String? // e.g. "3 à 5 jours ouvrés"
+  deliveryTime    String?
+  fileGuidelines  String?
+  minQuantity     Int           @default(1)
+  sides           String        @default("both") // "recto" | "recto-verso" | "both"
+  vatNote         String?
+  seoTitle        String?
+  metaDescription String?
+  sortOrder       Int           @default(0)
+  options         PrintOption[]
+  prices          PrintPrice[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model PrintOption {
   id            String       @id @default(cuid())
   productId     String
   product       PrintProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
-  type          String       // "FORMAT", "PAPER", "FINISH", "QUANTITY"
-  name          String       // e.g. "A4", "350g Mat", "100"
-  priceModifier Float        @default(0.0) // Flat price or scaling factor
+  type          String // "paper" | "format" | "finish" | "side"
+  name          String // display label, e.g. "A4", "350g Mat", "100"
+  value         String       @default("") // slug used in the price matrix
+  priceModifier Float        @default(0.0) // legacy; price matrix takes precedence
+  active        Boolean      @default(true)
+  sortOrder     Int          @default(0)
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+
+  @@index([productId, type])
 }
 
 model CVTemplate {
   id          String        @id @default(cuid())
-  name        String        // "Creative Agency", "Modern Tech", "Executive Corporate"
-  layout      String        // JSON configuration of styling (colors, sizes, layout style)
+  name        String // "Creative Agency", "Modern Tech", "Executive Corporate"
+  layout      String // JSON configuration of styling (colors, sizes, layout style)
   thumbnail   String?
   generatedCV GeneratedCV[]
   createdAt   DateTime      @default(now())
@@ -260,11 +313,11 @@ model GeneratedCV {
   email       String
   address     String
   about       String
-  skills      String     // JSON array
-  languages   String     // JSON array
-  experiences String     // JSON array
-  education   String     // JSON array
-  projects    String     // JSON array
+  skills      String // JSON array
+  languages   String // JSON array
+  experiences String // JSON array
+  education   String // JSON array
+  projects    String // JSON array
   photoUrl    String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -272,8 +325,8 @@ model GeneratedCV {
 
 model BusinessCardTemplate {
   id             String                  @id @default(cuid())
-  name           String                  // "Modern Minimalist", "Creative Gradient", "Elegant Corporate"
-  layout         String                  // JSON configuration
+  name           String // "Modern Minimalist", "Creative Gradient", "Elegant Corporate"
+  layout         String // JSON configuration
   thumbnail      String?
   generatedCards GeneratedBusinessCard[]
   createdAt      DateTime                @default(now())
@@ -290,10 +343,10 @@ model GeneratedBusinessCard {
   email      String
   address    String?
   website    String?
-  socials    String?              // JSON object/string
+  socials    String? // JSON object/string
   logoUrl    String?
   qrData     String?
-  colors     String?              // Selected colors (JSON)
+  colors     String? // Selected colors (JSON)
   createdAt  DateTime             @default(now())
   updatedAt  DateTime             @updatedAt
 }
@@ -302,7 +355,7 @@ model Media {
   id        String   @id @default(cuid())
   url       String
   fileName  String   @default("")
-  fileType  String?  // old compat
+  fileType  String? // old compat
   altText   String?
   title     String?
   caption   String?
@@ -315,40 +368,40 @@ model Media {
 }
 
 model SEOSettings {
-  id                        String   @id @default("default")
-  globalTitle               String?
-  globalDesc                String?
-  sitemapXml                String?
-  robotsTxt                 String?
-  googleSearchCons          String?
-  
+  id               String  @id @default("default")
+  globalTitle      String?
+  globalDesc       String?
+  sitemapXml       String?
+  robotsTxt        String?
+  googleSearchCons String?
+
   // Page-specific SEO metadata
-  pageType                  String?  // "GLOBAL", "SERVICE", "POST", "PROJECT", "PAGE", "SEO_LANDING"
-  pageId                    String?
-  title                     String?
-  description               String?
-  focusKeyword              String?
-  secondaryKeywords         String?
-  slug                      String?  @unique
-  canonicalUrl              String?
-  ogTitle                   String?
-  ogDescription             String?
-  ogImage                   String?
-  twitterTitle              String?
-  twitterDescription        String?
-  twitterImage              String?
-  indexable                 Boolean  @default(true)
-  follow                    Boolean  @default(true)
-  schemaType                String?  @default("WebPage")
-  customJsonLd              String?
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  pageType           String? // "GLOBAL", "SERVICE", "POST", "PROJECT", "PAGE", "SEO_LANDING"
+  pageId             String?
+  title              String?
+  description        String?
+  focusKeyword       String?
+  secondaryKeywords  String?
+  slug               String?  @unique
+  canonicalUrl       String?
+  ogTitle            String?
+  ogDescription      String?
+  ogImage            String?
+  twitterTitle       String?
+  twitterDescription String?
+  twitterImage       String?
+  indexable          Boolean  @default(true)
+  follow             Boolean  @default(true)
+  schemaType         String?  @default("WebPage")
+  customJsonLd       String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }
 
 model Redirect {
   id         String   @id @default(cuid())
   fromPath   String?  @unique // old compat
-  toPath     String?  // old compat
+  toPath     String? // old compat
   sourceUrl  String   @unique
   targetUrl  String
   statusCode Int      @default(301)
@@ -391,10 +444,10 @@ model SeoLandingPage {
   city             String?
   pageType         String   @default("GENERIC") // "GENERIC", "LOCAL"
   intro            String
-  content          String   // Long copy blocks in HTML/text
-  faq              String?  // JSON string
-  relatedServices  String?  // comma-separated slugs
-  relatedPortfolio String?  // comma-separated slugs
+  content          String // Long copy blocks in HTML/text
+  faq              String? // JSON string
+  relatedServices  String? // comma-separated slugs
+  relatedPortfolio String? // comma-separated slugs
   status           String   @default("PUBLISHED") // "DRAFT", "PUBLISHED"
   seoTitle         String?
   metaDescription  String?
@@ -421,8 +474,8 @@ model SitemapEntry {
 // Generic store for every tool generation / lead.
 model ToolSubmission {
   id               String   @id @default(cuid())
-  toolType         String   // "cv", "carte-de-visite", "qr-code", "palette", "brief-logo", "slogan", "bio-instagram", "caption-instagram", "flyer", "impression"
-  userId           String?  // optional logged-in admin owner
+  toolType         String // "cv", "carte-de-visite", "qr-code", "palette", "brief-logo", "slogan", "bio-instagram", "caption-instagram", "flyer", "impression"
+  userId           String? // optional logged-in admin owner
   email            String?
   name             String?
   phone            String?
@@ -430,7 +483,7 @@ model ToolSubmission {
   outputData       String   @default("{}") // JSON of the generated result
   consentMarketing Boolean  @default(false)
   status           String   @default("NEW") // "NEW", "CONTACTED", "QUALIFIED", "WON", "LOST"
-  notes            String?  // internal admin notes
+  notes            String? // internal admin notes
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
@@ -449,7 +502,7 @@ model ToolSetting {
   ctaHref         String?
   seoTitle        String?
   seoDescription  String?
-  faqJson         String?  // JSON array of {question, answer}
+  faqJson         String? // JSON array of {question, answer}
   relatedServices String? // comma separated service slugs
   isActive        Boolean  @default(true)
   indexable       Boolean  @default(true)
@@ -461,7 +514,7 @@ model ToolSetting {
 // Reusable templates / presets for tools (CV, card, flyer, QR, palette...).
 model ToolTemplate {
   id           String   @id @default(cuid())
-  toolType     String   // "cv", "carte-de-visite", "flyer", "qr-code", "palette"
+  toolType     String // "cv", "carte-de-visite", "flyer", "qr-code", "palette"
   title        String
   previewImage String?
   config       String   @default("{}") // JSON config (colors, layout...)
@@ -476,7 +529,7 @@ model ToolTemplate {
 // Pricing rules powering the printing price calculator.
 model PrintPriceRule {
   id           String   @id @default(cuid())
-  productType  String   // "flyers", "affiches", "baches", "panneaux", "catalogues", "cartes-de-visite"
+  productType  String // "flyers", "affiches", "baches", "panneaux", "catalogues", "cartes-de-visite"
   format       String   @default("") // "A6", "A5", "A4", "A3", custom...
   paperType    String   @default("") // "135g brillant", "350g mat"...
   finish       String   @default("") // "aucune", "pelliculage mat", "vernis"...
@@ -493,10 +546,73 @@ model PrintPriceRule {
   @@index([productType])
 }
 
+// ──────────────────────────────────────────────────────────
+// IMPRESSION & TARIFS — price matrix, orders, audit log
+// All money is stored as INTEGER CENTS (never floats).
+// (PrintProduct / PrintOption are defined earlier and extended.)
+// ──────────────────────────────────────────────────────────
+
+// Price matrix row: a unique combination → price in cents.
+model PrintPrice {
+  id             String       @id @default(cuid())
+  productId      String
+  product        PrintProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+  paper          String       @default("")
+  format         String       @default("")
+  finish         String       @default("")
+  side           String       @default("recto") // "recto" | "recto-verso"
+  quantity       Int
+  priceHtCents   Int          @default(0)
+  priceTtcCents  Int          @default(0)
+  costCents      Int?
+  marginPct      Float?
+  promoTtcCents  Int?
+  productionDays Int          @default(5)
+  active         Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([productId, paper, format, finish, side, quantity])
+  @@index([productId])
+}
+
+// Quote requests / orders coming from the public print calculator.
+model PrintQuoteRequest {
+  id                String   @id @default(cuid())
+  productSlug       String
+  productName       String?
+  options           String   @default("{}") // JSON of chosen options
+  estimatedTtcCents Int?
+  name              String?
+  email             String?
+  phone             String?
+  message           String?
+  status            String   @default("NEW") // NEW|CONTACTED|CONFIRMED|IN_PRODUCTION|DELIVERED|CANCELLED
+  notes             String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+// Audit trail for price changes.
+model PriceAuditLog {
+  id        String   @id @default(cuid())
+  productId String?
+  action    String // "update" | "bulk_adjust" | "import" | "delete" | "create"
+  detail    String   @default("") // human-readable summary
+  user      String? // admin email
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+  @@index([createdAt])
+}
+
 // Real visitor tracking — one row per day per page
 model PageView {
   id        String   @id @default(cuid())
-  path      String   // e.g. "/", "/blog/some-post"
+  path      String // e.g. "/", "/blog/some-post"
   date      DateTime // stored as start-of-day (UTC midnight)
   count     Int      @default(1)
   createdAt DateTime @default(now())

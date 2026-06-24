@@ -18,6 +18,8 @@ import {
   Layers,
   ChevronRight,
   Wand2,
+  Mail,
+  Printer,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -37,7 +39,9 @@ export default function AdminLayout({
   const menuItems = [
     { name: "Vue d'ensemble", href: "/admin", icon: LayoutDashboard },
     { name: "Devis / Demandes", href: "/admin/quotes", icon: ClipboardList },
+    { name: "Emails & Notifications", href: "/admin/emails", icon: Mail },
     { name: "Outils Gratuits", href: "/admin/tools", icon: Wand2 },
+    { name: "Impression & Tarifs", href: "/admin/print", icon: Printer },
     { name: "Pages Site", href: "/admin/pages", icon: Layers },
     { name: "Services", href: "/admin/services", icon: Briefcase },
     { name: "Portfolio", href: "/admin/portfolio", icon: ExternalLink },

@@ -72,6 +72,7 @@ function QuoteRequestFormContent() {
   const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");
   const [consent, setConsent] = useState(false);
+  const [website, setWebsite] = useState("");
 
   // Status
   const [submitting, setSubmitting] = useState(false);
@@ -150,6 +151,8 @@ function QuoteRequestFormContent() {
           phone,
           company,
           consent,
+          website,
+          sourceUrl: window.location.href,
         }),
       });
 
@@ -161,8 +164,7 @@ function QuoteRequestFormContent() {
       }
     } catch (err) {
       console.error(err);
-      setErrorMsg("Erreur réseau. Votre demande n'a pas pu être envoyée. (Simulation OK)");
-      setSuccess(true); // Fallback for local sandbox environment demonstration
+      setErrorMsg("Erreur réseau. Votre demande n'a pas pu être envoyée.");
     } finally {
       setSubmitting(false);
     }
@@ -222,6 +224,7 @@ function QuoteRequestFormContent() {
           ) : (
             // Form Steps Panel
             <form onSubmit={handleSubmit} className="space-y-8">
+              <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
               
               {/* STEP 1: Choose Service */}
               {step === 1 && (

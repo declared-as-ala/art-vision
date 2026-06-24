@@ -9,6 +9,7 @@ export default function ContactForm() {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
+  const [website, setWebsite] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -27,7 +28,7 @@ export default function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, message }),
+        body: JSON.stringify({ name, email, phone, message, website, sourceUrl: window.location.href }),
       });
       const data = await response.json();
       if (data.success) {
@@ -36,8 +37,7 @@ export default function ContactForm() {
         setErrorMsg(data.error || "Une erreur s'est produite lors de l'envoi.");
       }
     } catch (e) {
-      setErrorMsg("Erreur réseau. (Simulation OK)");
-      setSuccess(true); // Fallback for local sandbox demonstration
+      setErrorMsg("Erreur réseau. Veuillez réessayer.");
     } finally {
       setSubmitting(false);
     }
@@ -59,6 +59,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
+      <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-1">
           <label className="text-xs text-white/70">Nom Complet *</label>
