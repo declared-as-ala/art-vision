@@ -130,13 +130,6 @@ h1, h2, h3, h4, h5, h6 {
   animation: logo-shine 3.8s ease-in-out infinite;
   will-change: background-position;
 }
-@media (prefers-reduced-motion: reduce) {
-  .animate-logo-float,
-  .animate-logo-glow,
-  .logo-ring,
-  .logo-shine { animation: none; }
-}
-
 /* Page transition fade-in */
 @keyframes page-in {
   from { opacity: 0; }
