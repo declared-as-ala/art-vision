@@ -401,20 +401,6 @@ export default async function DynamicSlugPage({ params }: PageProps) {
             />
           )}
 
-          {/* Process Section */}
-          <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16 text-center">
-            <h2 className="font-sora font-bold text-2xl text-white">Notre processus créatif</h2>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {processList.map((step: string, idx: number) => (
-                <div key={idx} className="bg-[#1A1238]/20 border border-brand-purple/15 p-5 rounded-xl text-left space-y-2 relative">
-                  <span className="text-2xl font-sora font-extrabold text-brand-purple/25 absolute top-3 right-3">0{idx + 1}</span>
-                  <h4 className="font-sora font-bold text-xs text-white pt-4">{step.split(" & ")[0]}</h4>
-                  <p className="text-[11px] text-white/60">{step}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Pricing Packages */}
           {service.packages.length > 0 && (
             <div className="mb-20 space-y-12 border-t border-brand-purple/15 pt-16 text-center">
@@ -452,6 +438,20 @@ export default async function DynamicSlugPage({ params }: PageProps) {
               </div>
             </div>
           )}
+
+          {/* Process Section */}
+          <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16 text-center">
+            <h2 className="font-sora font-bold text-2xl text-white">Notre processus créatif</h2>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+              {processList.map((step: string, idx: number) => (
+                <div key={idx} className="bg-[#1A1238]/20 border border-brand-purple/15 p-5 rounded-xl text-left space-y-2 relative">
+                  <span className="text-2xl font-sora font-extrabold text-brand-purple/25 absolute top-3 right-3">0{idx + 1}</span>
+                  <h4 className="font-sora font-bold text-xs text-white pt-4">{step.split(" & ")[0]}</h4>
+                  <p className="text-[11px] text-white/60">{step}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
           {/* Gallery (admin-managed images) */}
           {gallery.length > 0 && (

@@ -2,6 +2,18 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { normalizeSlug, revalidateContent, slugExists, sanitizeHtml } from "@/lib/cms";
 
+// Normalize an admin-submitted packages array into clean DB rows.
+function normalizePackages(raw: any): { name: string; price: string; features: string }[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .map((p: any) => ({
+      name: String(p?.name || "").trim(),
+      price: String(p?.price || "").trim(),
+      features: String(p?.features || "").trim(),
+    }))
+    .filter((p) => p.name !== "");
+}
+
 export async function GET() {
   try {
     const services = await prisma.service.findMany({
@@ -18,7 +30,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, status } = body;
+    const { name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, customHtml, packages, status } = body;
     const slug = normalizeSlug(body.slug || name);
 
     // Check if slug exists
@@ -26,6 +38,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: "Un service avec ce slug (URL) existe déjà." }, { status: 400 });
     }
 
+    const pkgs = normalizePackages(packages);
     const newService = await prisma.service.create({
       data: {
         name,
@@ -40,7 +53,9 @@ export async function POST(req: Request) {
         process: process || "Cadrage & Briefing;Direction Artistique;Validation & BAT;Livraison",
         gallery: typeof gallery === "string" ? gallery : JSON.stringify(gallery || []),
         videos: typeof videos === "string" ? videos : JSON.stringify(videos || []),
+        customHtml: customHtml ? sanitizeHtml(String(customHtml)) : null,
         status: status || "PUBLISHED",
+        ...(pkgs.length ? { packages: { create: pkgs } } : {}),
       }
     });
     revalidateContent("SERVICE", slug);
@@ -54,10 +69,20 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, customHtml, status } = body;
+    const { id, name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, customHtml, packages, status } = body;
     const slug = normalizeSlug(body.slug || name);
     const previous = await prisma.service.findUnique({ where: { id } });
     if (await slugExists(slug, { type: "SERVICE", id })) return NextResponse.json({ success: false, error: "Ce slug est déjà utilisé." }, { status: 400 });
+
+    // Replace the pricing packages when the admin submits them (delete + recreate).
+    if (packages !== undefined) {
+      const pkgs = normalizePackages(packages);
+      await prisma.pricingPackage.deleteMany({ where: { serviceId: id } });
+      if (pkgs.length) {
+        await prisma.pricingPackage.createMany({ data: pkgs.map((p) => ({ ...p, serviceId: id })) });
+      }
+    }
+
     const updated = await prisma.service.update({
       where: { id },
       data: {

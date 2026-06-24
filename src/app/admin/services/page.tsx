@@ -5,9 +5,10 @@ import { Briefcase, Search, Plus, Trash2, Edit3, X, Save, AlertCircle, Upload } 
 import HtmlBlockEditor from "@/components/admin/HtmlBlockEditor";
 
 interface PricingPackage {
-  id: string;
+  id?: string;
   name: string;
   price: string;
+  features: string;
 }
 
 interface MediaImg { url: string; alt: string }
@@ -71,6 +72,14 @@ export default function AdminServicesPage() {
   const [newVideoUrl, setNewVideoUrl] = useState("");
   const [newVideoTitle, setNewVideoTitle] = useState("");
   const [customHtml, setCustomHtml] = useState("");
+  const [packages, setPackages] = useState<PricingPackage[]>([]);
+
+  const addPackage = () =>
+    setPackages((p) => [...p, { name: "", price: "à partir de 0 €", features: "" }]);
+  const updatePackage = (idx: number, field: keyof PricingPackage, value: string) =>
+    setPackages((p) => p.map((pkg, i) => (i === idx ? { ...pkg, [field]: value } : pkg)));
+  const removePackage = (idx: number) =>
+    setPackages((p) => p.filter((_, i) => i !== idx));
 
   const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -157,6 +166,9 @@ export default function AdminServicesPage() {
     setGallery(normImgs(service.gallery));
     setVideos(normVids(service.videos));
     setCustomHtml(service.customHtml || "");
+    setPackages(
+      (service.packages || []).map((p) => ({ name: p.name, price: p.price, features: p.features || "" }))
+    );
     setDescription(service.description);
     setDetailedBody(service.detailedBody || "");
     setBenefits(service.benefits || "");
@@ -176,6 +188,7 @@ export default function AdminServicesPage() {
     setGallery([]);
     setVideos([]);
     setCustomHtml("");
+    setPackages([]);
     setDescription("");
     setDetailedBody("");
     setBenefits("");
@@ -200,6 +213,7 @@ export default function AdminServicesPage() {
       gallery: JSON.stringify(gallery),
       videos: JSON.stringify(videos),
       customHtml,
+      packages: packages.filter((p) => p.name.trim() !== ""),
     };
     const bodyData = isNew
       ? { name, slug, icon, image, description, detailedBody, benefits, process, ...media }
@@ -575,6 +589,75 @@ export default function AdminServicesPage() {
                   placeholder="Audit & Brief;Concepts & Planches;BAT & Validation"
                   className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-magenta"
                 />
+              </div>
+
+              {/* Pricing packages manager — "Le forfait qui vous fait avancer" */}
+              <div className="space-y-3 border-t border-brand-purple/20 pt-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label className="text-xs text-white/70 font-semibold block">Forfaits / Packs ({packages.length})</label>
+                    <p className="text-[10px] text-white/40">Section « Le forfait qui vous fait avancer » affichée sur la page.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={addPackage}
+                    className="flex items-center space-x-1.5 bg-brand-purple/10 hover:bg-brand-purple/25 text-white border border-brand-purple/30 px-3 py-1.5 rounded-lg text-[11px] transition cursor-pointer shrink-0"
+                  >
+                    <Plus size={12} />
+                    <span>Ajouter un forfait</span>
+                  </button>
+                </div>
+
+                {packages.length === 0 ? (
+                  <p className="text-[10px] text-white/40">Aucun forfait. Ajoutez-en pour afficher la grille tarifaire (ex : Découverte, Croissance, Premium).</p>
+                ) : (
+                  <div className="space-y-3">
+                    {packages.map((pkg, idx) => (
+                      <div key={idx} className="bg-brand-navy/50 border border-brand-purple/20 rounded-xl p-3 space-y-2 relative">
+                        <button
+                          type="button"
+                          onClick={() => removePackage(idx)}
+                          className="absolute top-2 right-2 text-white/40 hover:text-red-400 transition"
+                          title="Supprimer ce forfait"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                        <div className="grid grid-cols-2 gap-2 pr-6">
+                          <div className="space-y-1">
+                            <label className="text-[10px] text-white/50">Nom du forfait</label>
+                            <input
+                              type="text"
+                              value={pkg.name}
+                              onChange={(e) => updatePackage(idx, "name", e.target.value)}
+                              placeholder="Pack Découverte"
+                              className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-2.5 py-1.5 text-[11px] text-white focus:outline-none focus:border-brand-magenta"
+                            />
+                          </div>
+                          <div className="space-y-1">
+                            <label className="text-[10px] text-white/50">Prix (texte libre)</label>
+                            <input
+                              type="text"
+                              value={pkg.price}
+                              onChange={(e) => updatePackage(idx, "price", e.target.value)}
+                              placeholder="à partir de 120 €"
+                              className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-2.5 py-1.5 text-[11px] text-white focus:outline-none focus:border-brand-magenta"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] text-white/50">Inclus (séparés par des points-virgules)</label>
+                          <textarea
+                            value={pkg.features}
+                            onChange={(e) => updatePackage(idx, "features", e.target.value)}
+                            rows={2}
+                            placeholder="Gestion d'un réseau social;4 publications + stories;Hashtags optimisés"
+                            className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-2.5 py-1.5 text-[11px] text-white focus:outline-none focus:border-brand-magenta resize-none"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="border-t border-brand-purple/20 pt-4">
