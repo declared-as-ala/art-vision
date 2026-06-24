@@ -36,10 +36,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/carte-de-visite-gratuite",
     "/cv-modeles-gratuits",
     "/impression",
+    "/mentions-legales",
+    "/politique-de-confidentialite",
+    "/politique-de-cookies-ue",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
+    changeFrequency: route === "" || route === "/mentions-legales" || route === "/politique-de-confidentialite" || route === "/politique-de-cookies-ue" ? "monthly" as const : "weekly" as const,
     priority: route === "" ? 1.0 : 0.8,
   }));
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Send, HelpCircle, Shield, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Send, HelpCircle, Shield, Globe, Lock } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -154,7 +154,11 @@ export default function Footer() {
               <Shield size={12} />
               <span>Mentions Légales</span>
             </Link>
-            <Link href="/cookies" className="hover:text-brand-magenta transition flex items-center space-x-1">
+            <Link href="/politique-de-confidentialite" className="hover:text-brand-magenta transition flex items-center space-x-1">
+              <Lock size={12} />
+              <span>Confidentialité</span>
+            </Link>
+            <Link href="/politique-de-cookies-ue" className="hover:text-brand-magenta transition flex items-center space-x-1">
               <HelpCircle size={12} />
               <span>Gestion des Cookies</span>
             </Link>
