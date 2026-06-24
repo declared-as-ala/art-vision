@@ -13,6 +13,7 @@ import { draftMode } from "next/headers";
 import type { Metadata } from "next";
 import { RichContent } from "@/components/cms/RichContent";
 import { withHeadingIds, parseFaq, resolveServices, resolveTools, resolvePortfolio } from "@/lib/blog";
+import { sanitizeHtml } from "@/lib/cms";
 import ShareButtons from "@/components/blog/ShareButtons";
 import NewsletterCTA from "@/components/blog/NewsletterCTA";
 
@@ -191,6 +192,14 @@ export default async function BlogDetailPage({ params }: PageProps) {
             <div className="cms-rich-content text-sm text-white/80 leading-relaxed scroll-smooth">
               <RichContent html={html} />
             </div>
+
+            {/* Custom HTML block (admin-managed, sanitized) */}
+            {post.customHtml && (
+              <div
+                className="cms-rich-content text-sm text-white/80 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.customHtml) }}
+              />
+            )}
 
             {/* Related services / tools / portfolio */}
             {(services.length > 0 || tools.length > 0 || portfolio.length > 0) && (

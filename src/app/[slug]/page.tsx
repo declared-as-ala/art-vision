@@ -9,6 +9,7 @@ import { Palette, Sparkles, Check, HelpCircle, ArrowRight, ShieldCheck, MapPin, 
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { RichContent } from "@/components/cms/RichContent";
+import { sanitizeHtml } from "@/lib/cms";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -391,6 +392,14 @@ export default async function DynamicSlugPage({ params }: PageProps) {
               </ul>
             </div>
           </div>
+
+          {/* Custom HTML block (admin-managed, sanitized) */}
+          {service.customHtml && (
+            <div
+              className="mb-20 border-t border-brand-purple/15 pt-16 cms-rich-content text-white/85"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(service.customHtml) }}
+            />
+          )}
 
           {/* Process Section */}
           <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16 text-center">

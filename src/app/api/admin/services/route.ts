@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { normalizeSlug, revalidateContent, slugExists } from "@/lib/cms";
+import { normalizeSlug, revalidateContent, slugExists, sanitizeHtml } from "@/lib/cms";
 
 export async function GET() {
   try {
@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, status } = body;
+    const { id, name, icon, image, heroTagline, introHeading, description, detailedBody, benefits, process, gallery, videos, customHtml, status } = body;
     const slug = normalizeSlug(body.slug || name);
     const previous = await prisma.service.findUnique({ where: { id } });
     if (await slugExists(slug, { type: "SERVICE", id })) return NextResponse.json({ success: false, error: "Ce slug est déjà utilisé." }, { status: 400 });
@@ -73,6 +73,7 @@ export async function PUT(req: Request) {
         process,
         ...(gallery !== undefined ? { gallery: typeof gallery === "string" ? gallery : JSON.stringify(gallery) } : {}),
         ...(videos !== undefined ? { videos: typeof videos === "string" ? videos : JSON.stringify(videos) } : {}),
+        ...(customHtml !== undefined ? { customHtml: customHtml ? sanitizeHtml(String(customHtml)) : null } : {}),
         status: status || "PUBLISHED"
       }
     });

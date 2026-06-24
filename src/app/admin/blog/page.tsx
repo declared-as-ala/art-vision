@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Search, Plus, Trash2, Edit3, X, Save, AlertCircle, Upload } from "lucide-react";
 import { RichTextEditor } from "@/components/cms/RichTextEditor";
+import HtmlBlockEditor from "@/components/admin/HtmlBlockEditor";
 
 interface Category {
   id: string;
@@ -40,6 +41,7 @@ export default function AdminBlogPage() {
   const [tags, setTags] = useState("");
   const [readingTime, setReadingTime] = useState(5);
   const [categoryId, setCategoryId] = useState("");
+  const [customHtml, setCustomHtml] = useState("");
   
   const [errorMsg, setErrorMsg] = useState("");
   const [saving, setSaving] = useState(false);
@@ -118,6 +120,7 @@ export default function AdminBlogPage() {
     setTags(post.tags || "");
     setReadingTime(post.readingTime);
     setCategoryId(post.categoryId || "");
+    setCustomHtml((post as any).customHtml || "");
     setIsNew(false);
     setErrorMsg("");
   };
@@ -133,6 +136,7 @@ export default function AdminBlogPage() {
     setTags("");
     setReadingTime(5);
     setCategoryId(categories[0]?.id || "design");
+    setCustomHtml("");
     setIsNew(true);
     setErrorMsg("");
   };
@@ -147,9 +151,9 @@ export default function AdminBlogPage() {
     setErrorMsg("");
 
     const method = isNew ? "POST" : "PUT";
-    const bodyData = isNew 
-      ? { title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId }
-      : { id: selectedPost?.id, title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId };
+    const bodyData = isNew
+      ? { title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId, customHtml }
+      : { id: selectedPost?.id, title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId, customHtml };
 
     try {
       const response = await fetch("/api/admin/posts", {
@@ -426,6 +430,10 @@ export default function AdminBlogPage() {
               <div className="space-y-1">
                 <label className="text-xs text-white/70">Contenu de l'article</label>
                 <RichTextEditor value={content} onChange={setContent} label="Contenu de l'article" />
+              </div>
+
+              <div className="border-t border-brand-purple/20 pt-4">
+                <HtmlBlockEditor value={customHtml} onChange={setCustomHtml} hint="Inséré sous l'article. HTML nettoyé automatiquement (scripts interdits)." />
               </div>
 
               <div className="flex space-x-3 pt-6 border-t border-brand-purple/20">

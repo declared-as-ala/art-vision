@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Briefcase, Search, Plus, Trash2, Edit3, X, Save, AlertCircle, Upload } from "lucide-react";
+import HtmlBlockEditor from "@/components/admin/HtmlBlockEditor";
 
 interface PricingPackage {
   id: string;
@@ -26,6 +27,7 @@ interface Service {
   process: string;
   gallery?: string;
   videos?: string;
+  customHtml?: string;
   packages: PricingPackage[];
 }
 
@@ -68,6 +70,7 @@ export default function AdminServicesPage() {
   const galleryInputRef = useRef<HTMLInputElement>(null);
   const [newVideoUrl, setNewVideoUrl] = useState("");
   const [newVideoTitle, setNewVideoTitle] = useState("");
+  const [customHtml, setCustomHtml] = useState("");
 
   const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -153,6 +156,7 @@ export default function AdminServicesPage() {
     setIntroHeading(service.introHeading || "");
     setGallery(normImgs(service.gallery));
     setVideos(normVids(service.videos));
+    setCustomHtml(service.customHtml || "");
     setDescription(service.description);
     setDetailedBody(service.detailedBody || "");
     setBenefits(service.benefits || "");
@@ -171,6 +175,7 @@ export default function AdminServicesPage() {
     setIntroHeading("De l'idée à la réalisation");
     setGallery([]);
     setVideos([]);
+    setCustomHtml("");
     setDescription("");
     setDetailedBody("");
     setBenefits("");
@@ -194,6 +199,7 @@ export default function AdminServicesPage() {
       introHeading,
       gallery: JSON.stringify(gallery),
       videos: JSON.stringify(videos),
+      customHtml,
     };
     const bodyData = isNew
       ? { name, slug, icon, image, description, detailedBody, benefits, process, ...media }
@@ -569,6 +575,10 @@ export default function AdminServicesPage() {
                   placeholder="Audit & Brief;Concepts & Planches;BAT & Validation"
                   className="w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-magenta"
                 />
+              </div>
+
+              <div className="border-t border-brand-purple/20 pt-4">
+                <HtmlBlockEditor value={customHtml} onChange={setCustomHtml} />
               </div>
 
               <div className="flex space-x-3 pt-6 border-t border-brand-purple/20">

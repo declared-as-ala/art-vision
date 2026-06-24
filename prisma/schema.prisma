@@ -79,6 +79,7 @@ model Service {
   process        String           // semicolon separated process steps or json list
   gallery        String           @default("[]") // JSON array of { url, alt } images (admin-managed)
   videos         String           @default("[]") // JSON array of { url, title } videos (admin-managed)
+  customHtml     String?          // admin-managed sanitized HTML block rendered on the page
   status         String           @default("PUBLISHED")
   seoTitle       String?
   seoDescription String?
@@ -161,6 +162,7 @@ model BlogPost {
   ctaText        String?
   ctaLabel       String?
   ctaHref        String?
+  customHtml     String?      // admin-managed sanitized HTML block rendered in the article
   // Scheduling
   publishedAt    DateTime?
   scheduledAt    DateTime?

@@ -18,9 +18,9 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { title, content, featuredImage, author, status, tags, readingTime, categoryId } = body;
+    const { title, content, featuredImage, author, status, tags, readingTime, categoryId, customHtml } = body;
     const slug = normalizeSlug(body.slug || title);
-    
+
     // Check if slug exists
     if (await slugExists(slug, { type: "POST" })) {
       return NextResponse.json({ success: false, error: "Un article avec ce slug (URL) existe déjà." }, { status: 400 });
@@ -49,6 +49,7 @@ export async function POST(req: Request) {
         status: status || "DRAFT",
         tags: tags || "design",
         readingTime: Number(readingTime) || 5,
+        customHtml: customHtml ? sanitizeHtml(String(customHtml)) : null,
         categoryId: catId
       }
     });
@@ -63,7 +64,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, title, content, featuredImage, author, status, tags, readingTime, categoryId } = body;
+    const { id, title, content, featuredImage, author, status, tags, readingTime, categoryId, customHtml } = body;
     const slug = normalizeSlug(body.slug || title);
     const previous = await prisma.blogPost.findUnique({ where: { id } });
     if (await slugExists(slug, { type: "POST", id })) return NextResponse.json({ success: false, error: "Ce slug est déjà utilisé." }, { status: 400 });
@@ -79,6 +80,7 @@ export async function PUT(req: Request) {
         status,
         tags,
         readingTime: Number(readingTime),
+        ...(customHtml !== undefined ? { customHtml: customHtml ? sanitizeHtml(String(customHtml)) : null } : {}),
         categoryId
       }
     });
