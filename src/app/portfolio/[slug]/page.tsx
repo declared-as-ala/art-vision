@@ -6,6 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { sanitizeHtml } from "@/lib/cms";
+import { buildEffectiveTitle, buildEffectiveDescription } from "@/lib/seo-score";
 import {
   ChevronRight,
   ArrowLeft,
@@ -31,12 +32,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const project = await prisma.portfolioProject.findUnique({ where: { slug } });
   if (!project || (project.status !== "PUBLISHED" && !isEnabled)) return {};
   const canonical = `https://art-visions.fr/portfolio/${slug}`;
+  const kw = project.seoTitle || project.title;
+  const content = `${project.objective} ${project.challenge} ${project.solution} ${project.result}`;
+  const effectiveTitle = buildEffectiveTitle(project.seoTitle || "", project.title, kw);
+  const effectiveDesc = buildEffectiveDescription(project.seoDescription || "", project.title, kw, content);
   return {
-    title: project.seoTitle || project.title,
-    description: project.seoDescription || project.objective,
+    title: effectiveTitle,
+    description: effectiveDesc,
     alternates: { canonical },
     robots: { index: !isEnabled, follow: !isEnabled },
-    openGraph: { title: project.seoTitle || project.title, description: project.seoDescription || project.objective, url: canonical, type: "website" },
+    openGraph: { title: effectiveTitle, description: effectiveDesc, url: canonical, type: "website" },
   };
 }
 

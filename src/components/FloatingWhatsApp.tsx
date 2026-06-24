@@ -18,7 +18,7 @@ export default function FloatingWhatsApp() {
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  const whatsappNumber = "33600000000"; // Replace with client's phone in admin settings in production
+  const whatsappNumber = "32490224905"; // +32 490 22 49 05
   const message = encodeURIComponent(
     "Bonjour Art Vision, j'ai visité votre site web et j'aimerais échanger sur un projet !"
   );

@@ -117,7 +117,7 @@ function buildSchema() {
 }
 
 function CategoryTable({ category }: { category: FlyerCategory }) {
-  const waNum = "21655804227";
+  const waNum = "32490224905";
   return (
     <section id={category.id} className="scroll-mt-28 rounded-xl border border-brand-purple/15 bg-[#1A1238]/40 shadow-sm overflow-hidden">
       <div className="flex flex-col gap-3 border-b border-brand-purple/20 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">

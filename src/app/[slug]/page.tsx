@@ -10,6 +10,7 @@ import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { RichContent } from "@/components/cms/RichContent";
 import { sanitizeHtml } from "@/lib/cms";
+import { buildEffectiveTitle, buildEffectiveDescription } from "@/lib/seo-score";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -82,8 +83,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         where: { pageType: "SERVICE", pageId: service.id }
       });
 
-      const title = seo?.title || service.seoTitle || `${service.name} | Art Vision`;
-      const desc = seo?.description || service.seoDescription || service.description;
+      const kw = seo?.focusKeyword || service.name;
+      const title = buildEffectiveTitle(seo?.title || service.seoTitle || "", service.name, kw);
+      const desc = buildEffectiveDescription(seo?.description || service.seoDescription || "", service.name, kw, service.detailedBody || service.description);
       const canonical = seo?.canonicalUrl || `https://art-visions.fr/${slug}`;
       const indexable = seo?.indexable !== undefined ? seo.indexable : true;
       const follow = seo?.follow !== undefined ? seo.follow : true;
@@ -130,8 +132,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         where: { pageType: "SEO_LANDING", pageId: landing.id }
       });
 
-      const title = seo?.title || landing.seoTitle || landing.title;
-      const desc = seo?.description || landing.metaDescription || landing.intro;
+      const kw = landing.keyword;
+      const title = buildEffectiveTitle(seo?.title || landing.seoTitle || "", landing.title, kw);
+      const desc = buildEffectiveDescription(seo?.description || landing.metaDescription || "", landing.title, kw, landing.content);
       const canonical = seo?.canonicalUrl || landing.canonicalUrl || `https://art-visions.fr/${slug}`;
       const indexable = seo?.indexable !== undefined ? seo.indexable : landing.indexable;
       const follow = seo?.follow !== undefined ? seo.follow : true;

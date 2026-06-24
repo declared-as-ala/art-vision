@@ -14,6 +14,7 @@ import type { Metadata } from "next";
 import { RichContent } from "@/components/cms/RichContent";
 import { withHeadingIds, parseFaq, resolveServices, resolveTools, resolvePortfolio } from "@/lib/blog";
 import { sanitizeHtml } from "@/lib/cms";
+import { buildEffectiveTitle, buildEffectiveDescription } from "@/lib/seo-score";
 import ShareButtons from "@/components/blog/ShareButtons";
 import NewsletterCTA from "@/components/blog/NewsletterCTA";
 
@@ -32,17 +33,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = await prisma.blogPost.findUnique({ where: { slug } });
   if (!post || (post.status !== "PUBLISHED" && !isEnabled)) return {};
   const canonical = `${BASE}/blog/${slug}`;
-  const description = post.seoDescription || post.excerpt || stripHtml(post.content).slice(0, 160);
+  const kw = post.focusKeyword || post.tags.split(",")[0] || "";
+  const effectiveTitle = buildEffectiveTitle(post.seoTitle || post.title, post.title, kw);
+  const effectiveDesc = buildEffectiveDescription(post.seoDescription || post.excerpt || "", post.title, kw, post.content);
   const ogImage = post.ogImage || post.featuredImage;
   return {
-    title: post.seoTitle || post.title,
-    description,
+    title: effectiveTitle,
+    description: effectiveDesc,
     keywords: post.focusKeyword || undefined,
     alternates: { canonical },
     robots: { index: post.status === "PUBLISHED" && !isEnabled, follow: true },
     openGraph: {
-      title: post.ogTitle || post.seoTitle || post.title,
-      description: post.ogDescription || description,
+      title: post.ogTitle || effectiveTitle,
+      description: post.ogDescription || effectiveDesc,
       images: [{ url: ogImage }],
       url: canonical,
       type: "article",
@@ -51,8 +54,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: post.ogTitle || post.seoTitle || post.title,
-      description: post.ogDescription || description,
+      title: post.ogTitle || effectiveTitle,
+      description: post.ogDescription || effectiveDesc,
       images: [ogImage],
     },
   };

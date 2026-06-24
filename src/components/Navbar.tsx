@@ -23,6 +23,15 @@ export default function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
+  // Lock body scroll while the mobile drawer is open (prevents the page from
+  // scrolling behind the menu and the drawer "detaching" on mobile).
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const navLinks = [
     { name: "Accueil", href: "/" },
     { name: "Portfolio", href: "/portfolio" },
@@ -54,6 +63,7 @@ export default function Navbar() {
   ];
 
   return (
+    <>
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
@@ -178,11 +188,21 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+    </nav>
+
+      {/* Mobile Drawer Backdrop */}
+      <div
+        onClick={() => setIsOpen(false)}
+        aria-hidden
+        className={`lg:hidden fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      />
 
       {/* Mobile Drawer Menu */}
       <div
         style={{ backgroundColor: "#08051f" }}
-        className={`lg:hidden fixed inset-y-0 right-0 z-40 w-80 max-w-sm border-l border-brand-purple/30 shadow-2xl p-6 transition-all duration-300 transform ${
+        className={`lg:hidden fixed inset-y-0 right-0 z-[60] w-80 max-w-sm border-l border-brand-purple/30 shadow-2xl p-6 transition-transform duration-300 transform overflow-hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -288,6 +308,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }

@@ -1,17 +1,12 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { computeSeoScore } from "@/lib/seo-score";
 
 export async function GET() {
   try {
     const list: any[] = [];
 
-    // Helper to calculate word count
-    const getWordCount = (text: string | null | undefined) => {
-      if (!text) return 0;
-      return text.trim().split(/\s+/).filter(w => w.length > 0).length;
-    };
-
-    // Helper to run SEO analysis on an item
+    // Helper to run SEO analysis on an item (fair, type-aware, capped at 100).
     const analyzeSEO = (item: {
       id: string;
       title: string;
@@ -24,48 +19,9 @@ export async function GET() {
       canonicalUrl: string | null;
       indexable: boolean;
       hasFaqs: boolean;
+      enriched?: boolean;
     }) => {
-      const title = item.seoTitle || item.title || "";
-      const desc = item.seoDescription || "";
-      const keyword = item.focusKeyword || "";
-      const wordCount = getWordCount(item.content);
-
-      const checklist = {
-        hasH1: true, // App Router page templates guarantee exactly 1 H1
-        titleLengthOk: title.length >= 30 && title.length <= 65,
-        descLengthOk: desc.length >= 100 && desc.length <= 165,
-        hasKeyword: keyword.length > 0,
-        keywordInTitle: keyword.length > 0 && title.toLowerCase().includes(keyword.toLowerCase()),
-        keywordInDesc: keyword.length > 0 && desc.toLowerCase().includes(keyword.toLowerCase()),
-        hasCanonical: !!item.canonicalUrl,
-        isIndexable: item.indexable,
-        wordCountOk: wordCount >= 800,
-        hasFAQ: item.hasFaqs
-      };
-
-      // Score computation (out of 100)
-      let score = 0;
-      if (checklist.hasH1) score += 10;
-      if (checklist.titleLengthOk) score += 15;
-      else if (title.length > 0) score += 5; // Partial points
-      
-      if (checklist.descLengthOk) score += 15;
-      else if (desc.length > 0) score += 5;
-
-      if (checklist.hasKeyword) {
-        score += 10;
-        if (checklist.keywordInTitle) score += 10;
-        if (checklist.keywordInDesc) score += 10;
-      } else {
-        // If no keyword is defined, give default credit or penalize
-        score += 10; // Neutral default
-      }
-
-      if (checklist.hasCanonical) score += 10;
-      if (checklist.isIndexable) score += 10;
-      if (checklist.wordCountOk) score += 10;
-      if (checklist.hasFAQ) score += 10;
-
+      const { score, checklist, wordCount } = computeSeoScore(item);
       return {
         id: item.id,
         title: item.title,
@@ -73,7 +29,7 @@ export async function GET() {
         type: item.type,
         seoTitle: item.seoTitle,
         seoDescription: item.seoDescription,
-        focusKeyword: keyword || null,
+        focusKeyword: (item.focusKeyword || item.title || "").trim() || null,
         wordCount,
         score,
         checklist
@@ -101,7 +57,8 @@ export async function GET() {
         content: service.detailedBody,
         canonicalUrl: seoSettings?.canonicalUrl || `https://art-visions.fr/${service.slug}`,
         indexable: seoSettings?.indexable !== undefined ? seoSettings.indexable : true,
-        hasFaqs: service.faqs.length > 0
+        hasFaqs: service.faqs.length > 0,
+        enriched: !!service.gallery || !!service.detailedBody || service.faqs.length > 0
       }));
     }
 
@@ -120,7 +77,8 @@ export async function GET() {
         content: landing.content,
         canonicalUrl: landing.canonicalUrl || `https://art-visions.fr/${landing.slug}`,
         indexable: landing.indexable,
-        hasFaqs: faqsList.length > 0
+        hasFaqs: faqsList.length > 0,
+        enriched: true
       }));
     }
 
@@ -145,7 +103,8 @@ export async function GET() {
         content: blog.content,
         canonicalUrl: seoSettings?.canonicalUrl || `https://art-visions.fr/blog/${blog.slug}`,
         indexable: seoSettings?.indexable !== undefined ? seoSettings.indexable : true,
-        hasFaqs: false
+        hasFaqs: false,
+        enriched: !!blog.featuredImage || (blog.content || "").length > 0
       }));
     }
 
@@ -167,7 +126,8 @@ export async function GET() {
         content: `${project.objective} ${project.challenge} ${project.solution} ${project.result}`,
         canonicalUrl: seoSettings?.canonicalUrl || `https://art-visions.fr/portfolio/${project.slug}`,
         indexable: seoSettings?.indexable !== undefined ? seoSettings.indexable : true,
-        hasFaqs: false
+        hasFaqs: false,
+        enriched: !!project.images
       }));
     }
 
@@ -186,10 +146,11 @@ export async function GET() {
         seoTitle: seoSettings?.title || page.seoTitle || page.title,
         seoDescription: seoSettings?.description || page.seoDescription,
         focusKeyword: seoSettings?.focusKeyword || page.title,
-        content: page.contentJson, // Represents content blocks
+        content: page.contentHtml || page.excerpt || page.contentJson,
         canonicalUrl: seoSettings?.canonicalUrl || page.canonicalUrl || `https://art-visions.fr/${page.slug === "home" ? "" : page.slug}`,
         indexable: seoSettings?.indexable !== undefined ? seoSettings.indexable : true,
-        hasFaqs: false
+        hasFaqs: false,
+        enriched: !!(page.contentHtml || page.contentJson || page.excerpt)
       }));
     }
 

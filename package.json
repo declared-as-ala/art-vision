@@ -7,10 +7,12 @@
     "seed": "tsx prisma/seed.ts",
     "build": "prisma generate && next build",
     "db:deploy": "tsx scripts/db-deploy.ts",
-    "db:seed:all": "npm run seed && npm run seed:blog && npm run seed:services && npm run seed:print",
+    "db:seed:all": "npm run seed && npm run seed:blog && npm run seed:services && npm run seed:print && npm run seed:seo",
     "seed:blog": "tsx prisma/seed-blog.ts && tsx prisma/seed-blog-batch2.ts",
     "seed:services": "tsx prisma/seed-services.ts",
     "seed:print": "tsx prisma/seed-print.ts",
+    "seed:seo": "tsx prisma/seed-seo.ts",
+    "smtp:test": "node scripts/test-smtp.mjs",
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate"
