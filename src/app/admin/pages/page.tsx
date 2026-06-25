@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Search, Plus, Trash2, Edit3, X, Save, AlertCircle, Upload, Eye, Image as ImageIcon } from "lucide-react";
+import { Search, Plus, Trash2, Edit3, X, Save, AlertCircle, Upload, Eye, Globe, Image as ImageIcon } from "lucide-react";
 import { RichTextEditor } from "@/components/cms/RichTextEditor";
 
 interface PageData {
@@ -17,7 +17,19 @@ interface PageData {
   updatedAt: string;
 }
 
+interface LandingData {
+  id: string;
+  title: string;
+  slug: string;
+  h1: string;
+  keyword: string;
+  city?: string | null;
+  status: string;
+  updatedAt: string;
+}
+
 export default function AdminPagesPage() {
+  // ── Pages state ──
   const [pages, setPages] = useState<PageData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -44,6 +56,9 @@ export default function AdminPagesPage() {
   const contentInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // ── Landings state ──
+  const [landings, setLandings] = useState<LandingData[]>([]);
+
   const fetchPages = async () => {
     setLoading(true);
     try {
@@ -57,7 +72,17 @@ export default function AdminPagesPage() {
     }
   };
 
-  useEffect(() => { fetchPages(); }, []);
+  const fetchLandings = async () => {
+    try {
+      const res = await fetch("/api/admin/seo/landings");
+      const data = await res.json();
+      if (data.success) setLandings(data.landingPages);
+    } catch (e) {
+      console.error("Fetch landings error:", e);
+    }
+  };
+
+  useEffect(() => { fetchPages(); fetchLandings(); }, []);
 
   const handleOpenEdit = (page: PageData) => {
     setSelectedPage(page);
@@ -258,6 +283,62 @@ export default function AdminPagesPage() {
             </table>
           </div>
         )}
+      </div>
+
+      {/* ════════════════════════════════════════════ */}
+      {/* SEO Landings                                 */}
+      {/* ════════════════════════════════════════════ */}
+      <div className="pt-4">
+        <div className="flex items-center gap-2 mb-4">
+          <Globe size={16} className="text-brand-magenta" />
+          <h2 className="text-lg font-sora font-bold text-white">Landings SEO</h2>
+        </div>
+        <div className="glassmorphism rounded-xl border border-brand-purple/15 overflow-hidden">
+          {landings.length === 0 ? (
+            <div className="text-center py-8 text-white/45 text-xs">Aucune landing SEO.</div>
+          ) : (
+            <div className="overflow-x-auto no-scrollbar">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="border-b border-brand-purple/20 text-white/50 uppercase font-semibold text-[10px]">
+                    <th className="p-4">Titre / URL</th>
+                    <th className="p-4">Mot-clé</th>
+                    <th className="p-4 text-center">Ville</th>
+                    <th className="p-4 text-center">Statut</th>
+                    <th className="p-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-brand-purple/10">
+                  {landings.map((l) => (
+                    <tr key={l.id} className="hover:bg-brand-purple/10 transition">
+                      <td className="p-4">
+                        <strong className="text-white block">{l.title}</strong>
+                        <span className="text-[10px] text-brand-orange font-mono block">/{l.slug}</span>
+                      </td>
+                      <td className="p-4 text-white/70 font-medium">{l.keyword}</td>
+                      <td className="p-4 text-center text-white/60">{l.city || "—"}</td>
+                      <td className="p-4 text-center">
+                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                          l.status === "PUBLISHED"
+                            ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                            : "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                        }`}>
+                          {l.status === "PUBLISHED" ? "Publiée" : "Brouillon"}
+                        </span>
+                      </td>
+                      <td className="p-4 text-right space-x-2 whitespace-nowrap">
+                        <a href={`/${l.slug}`} target="_blank" rel="noreferrer"
+                           className="text-white/45 hover:text-white transition p-1.5 rounded hover:bg-white/5 cursor-pointer inline-block" title="Visualiser">
+                          <Eye size={14} />
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* MODAL */}

@@ -506,6 +506,50 @@ async function main() {
   }
 
   console.log("Templates seeded.");
+
+  // 9. Seed Legal Pages (idempotent — upsert by slug)
+  const legalPages = [
+    {
+      slug: "mentions-legales",
+      title: "Mentions Légales",
+      contentHtml: "<section><h2>Édition du site</h2><p><strong>SAS ART VISION</strong></p><p>5 Rue de Constantine, 72000 Le Mans, France</p><p>contact@art-visions.fr</p><p>Capital social : 10 000 € — RCS Le Mans 921 234 567 — TVA intracommunautaire : FR 92 921234567</p></section><section><h2>Directeur de la publication</h2><p>Ala Eddine Ben Salem, Président de SAS ART VISION.</p></section><section><h2>Hébergement</h2><p>Ce site est hébergé par <strong>Vercel Inc.</strong>, 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.</p></section><section><h2>Propriété intellectuelle</h2><p>L’ensemble des contenus présents sur le site art-visions.fr (textes, graphismes, logos, images, vidéos, icônes) est protégé par le droit d’auteur et reste la propriété exclusive de SAS ART VISION.</p></section><section><h2>Responsabilité</h2><p>SAS ART VISION s’efforce d’assurer l’exactitude des informations diffusées. Nous ne saurions être tenus responsables d’éventuelles erreurs, omissions ou indisponibilités temporaires du site.</p></section><section><h2>Contact</h2><p>Pour toute question : contact@art-visions.fr</p></section>",
+      contentJson: JSON.stringify({ html: "<section>…</section>", blocks: [] }),
+      status: "PUBLISHED",
+      isActive: true,
+      seoTitle: "Mentions Légales | Art Vision",
+      seoDescription: "Mentions légales de SAS Art Vision – informations juridiques, siège social, directeur de publication et hébergeur.",
+    },
+    {
+      slug: "politique-de-confidentialite",
+      title: "Politique de Confidentialité",
+      contentHtml: "<section><h2>1. Données collectées</h2><p>Dans le cadre de votre navigation, nous pouvons collecter : nom, prénom, email (via formulaire), données de navigation (pages visitées, durée, adresse IP anonymisée) et préférences de cookies.</p></section><section><h2>2. Finalités du traitement</h2><p>Vos données sont traitées pour répondre à vos demandes, améliorer votre expérience de navigation et respecter nos obligations légales.</p></section><section><h2>3. Base légale</h2><p>Le traitement repose sur votre consentement et notre intérêt légitime.</p></section><section><h2>4. Durée de conservation</h2><p>3 ans après le dernier contact pour les données de formulaire, 13 mois pour les cookies analytics.</p></section><section><h2>5. Vos droits RGPD</h2><p>Droit d’accès, de rectification, d’effacement, à la limitation, à la portabilité, d’opposition et de retrait du consentement.</p></section><section><h2>6. Exercer vos droits</h2><p>Contactez-nous à contact@art-visions.fr. Réclamation possible auprès de la CNIL : www.cnil.fr</p></section>",
+      contentJson: JSON.stringify({ html: "<section>…</section>", blocks: [] }),
+      status: "PUBLISHED",
+      isActive: true,
+      seoTitle: "Politique de Confidentialité | Art Vision",
+      seoDescription: "Politique de confidentialité de SAS Art Vision – collecte des données, droits RGPD, cookies et sécurité.",
+    },
+    {
+      slug: "politique-de-cookies-ue",
+      title: "Politique de Cookies (UE)",
+      contentHtml: "<section><h2>Qu’est-ce qu’un cookie ?</h2><p>Un cookie est un petit fichier texte déposé sur votre appareil lors de votre visite sur un site web.</p></section><section><h2>Cookies utilisés</h2><ul><li><strong>Analytics</strong> – Mesure d’audience anonymisée – 13 mois</li><li><strong>Préférences</strong> – Mémorisation de votre consentement – 6 mois</li><li><strong>Fonctionnels</strong> – Maintien de la session – Session</li></ul></section><section><h2>Votre consentement</h2><p>Une bannière vous informe et recueille votre consentement lors de votre première visite.</p></section><section><h2>Paramétrer vos cookies</h2><p>Via notre bannière cookies ou les paramètres de votre navigateur.</p></section>",
+      contentJson: JSON.stringify({ html: "<section>…</section>", blocks: [] }),
+      status: "PUBLISHED",
+      isActive: true,
+      seoTitle: "Politique de Cookies (UE) | Art Vision",
+      seoDescription: "Politique de cookies d'Art Vision – gestion des cookies analytics, consentement et paramétrage selon le RGPD.",
+    },
+  ];
+
+  for (const legal of legalPages) {
+    await prisma.page.upsert({
+      where: { slug: legal.slug },
+      update: legal,
+      create: legal,
+    });
+  }
+  console.log("Legal pages seeded.");
+
   console.log("Database seeded successfully!");
 }
 
