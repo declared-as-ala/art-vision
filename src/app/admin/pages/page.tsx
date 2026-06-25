@@ -96,12 +96,14 @@ export default function AdminPagesPage() {
     setSelectedPage(page);
     setTitle(page.title);
     setSlug(page.slug);
-    let bodyContent = "";
-    try {
-      const parsed = JSON.parse(page.contentJson);
-      bodyContent = parsed.html || parsed.body || parsed.content || "";
-    } catch (e) {
-      bodyContent = page.contentJson;
+    let bodyContent = (page as any).contentHtml || "";
+    if (!bodyContent) {
+      try {
+        const parsed = JSON.parse(page.contentJson);
+        bodyContent = parsed.html || parsed.body || parsed.content || "";
+      } catch (e) {
+        bodyContent = page.contentJson;
+      }
     }
     setContent(bodyContent);
     setIsActive(page.isActive);
