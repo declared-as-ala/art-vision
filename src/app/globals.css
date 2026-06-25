@@ -257,5 +257,5 @@ input:focus, select:focus, textarea:focus {
 .cms-rich-content a { color: var(--color-brand-orange); text-decoration: underline; }
 .cms-rich-content blockquote { border-left: 3px solid var(--color-brand-magenta); padding-left: 1rem; color: rgba(255,255,255,.7); }
 .cms-rich-content img { border-radius: 1rem; margin: 1.5rem 0; max-width: 100%; height: auto; }
-.cms-rich-content .cms-cta { margin: 2rem 0; border: 1px solid rgba(205,121,66,.4); border-radius: 1.25rem; padding: 2rem; background: rgba(26,18,56,.65); text-align: center; }
+.cms-rich-content section { margin: 2rem 0; }
 .cms-rich-content .cms-cta a { display: inline-block; margin-top: 1rem; border-radius: 999px; padding: .75rem 1.25rem; background: var(--color-brand-orange); color: white; font-weight: 700; text-decoration: none; }

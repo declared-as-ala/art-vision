@@ -10,7 +10,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import Placeholder from "@tiptap/extension-placeholder";
 import {
   Bold, Italic, Underline as UnderlineIcon, Undo2, Redo2, List, ListOrdered,
-  Quote, Link2, ImagePlus, Code2, Minus, Megaphone, Heading1, Heading2, Heading3,
+  Quote, Link2, ImagePlus, Code2, Minus, Megaphone, MapPin, Heading1, Heading2, Heading3,
   AlignLeft, AlignCenter, AlignRight,
 } from "lucide-react";
 
@@ -63,6 +63,14 @@ export function RichTextEditor({
     const href = window.prompt("Adresse du lien");
     if (href) editor.chain().focus().extendMarkRange("link").setLink({ href }).run();
   };
+  const addMap = () => {
+    if (!editor) return;
+    const address = window.prompt("Adresse à afficher sur la carte (ex: 5 Rue de Constantine, 72000 Le Mans)");
+    if (!address) return;
+    const q = encodeURIComponent(address);
+    const html = `<div style="margin:1.5rem 0;border-radius:1rem;overflow:hidden;border:1px solid rgba(205,121,66,.3)"><iframe src="https://www.google.com/maps?q=${q}&output=embed" width="100%" height="350" style="border:0;display:block" allowfullscreen loading="lazy"></iframe></div>`;
+    editor.chain().focus().insertContent(html).run();
+  };
   const openFilePicker = () => fileInput.current?.click();
 
   const tool = (label: string, icon: React.ReactNode, action: () => void, active = false) => (
@@ -103,6 +111,7 @@ export function RichTextEditor({
             {tool("Aligner à droite", <AlignRight size={15} />, () => editor?.chain().focus().setTextAlign("right").run())}
             {tool("Séparateur", <Minus size={15} />, () => editor?.chain().focus().setHorizontalRule().run())}
             {tool("CTA", <Megaphone size={15} />, () => editor?.chain().focus().insertContent('<div class="cms-cta"><h2>Prêt à démarrer votre projet ?</h2><p>Parlez-nous de votre besoin.</p><a href="/devis-sur-mesure">Demander un devis</a></div>').run())}
+            {tool("Carte", <MapPin size={15} />, addMap)}
             {tool(uploading ? "Téléchargement..." : "Ajouter des images", <ImagePlus size={15} />, openFilePicker)}
             {tool("Annuler", <Undo2 size={15} />, () => editor?.chain().focus().undo().run())}
             {tool("Rétablir", <Redo2 size={15} />, () => editor?.chain().focus().redo().run())}
