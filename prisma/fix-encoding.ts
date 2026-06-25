@@ -1,5 +1,5 @@
-/**
- * One-off repair for double-encoded (mojibake) text, e.g. "IdentitÃ© visuelle"
+﻿/**
+ * One-off repair for double-encoded (mojibake) text, e.g. "Identité visuelle"
  * → "Identité visuelle". Reverses the corruption by re-encoding the string to
  * Windows-1252 bytes and decoding them as UTF-8.
  *

@@ -40,7 +40,7 @@ async function main() {
       id: "default",
       logo: "/logo.svg",
       brandName: "Art Vision",
-      slogan: "Lâ€™art au service de votre image.",
+      slogan: "L’art au service de votre image.",
       primaryColor: "#2D2966",
       secondaryColor: "#1A1238",
       accentColor: "#6348E5",
@@ -71,7 +71,7 @@ async function main() {
     create: {
       id: "default",
       globalTitle: "Art Vision | Agence de communication visuelle en France",
-      globalDesc: "Art Vision est un studio graphique et crÃ©atif spÃ©cialisÃ© en identitÃ© visuelle, crÃ©ation logo, vidÃ©o, 3D, motion design et impression.",
+      globalDesc: "Art Vision est un studio graphique et créatif spécialisé en identité visuelle, création logo, vidéo, 3D, motion design et impression.",
       googleSearchCons: "",
     },
   });
@@ -81,26 +81,26 @@ async function main() {
   const servicesData = [
     {
       slug: "identite-visuelle",
-      name: "IdentitÃ© visuelle",
+      name: "Identité visuelle",
       icon: "Palette",
       image: "/images/services/identite-visuelle.jpg",
-      description: "CrÃ©ation dâ€™une image unique, cohÃ©rente et mÃ©morable pour votre marque.",
-      detailedBody: "Votre image de marque est le reflet de vos valeurs. Nous concevons des chartes graphiques complÃ¨tes comprenant la typographie, la palette de couleurs et les rÃ¨gles d'utilisation de votre logo sur tous vos supports physiques et numÃ©riques.",
-      benefits: "CohÃ©rence de marque;Image de marque premium;Confiance client accrue;Reconnaissance immÃ©diate",
-      process: "Analyse du besoin & Audit;Recherches crÃ©atives;Propositions de chartes;Validation & DÃ©clinaisons;Livraison des fichiers sources",
-      seoTitle: "CrÃ©ation identitÃ© visuelle en France | Branding entreprise - Art Vision",
-      seoDescription: "Art Vision crÃ©e des identitÃ©s visuelles professionnelles pour entreprises, marques et indÃ©pendants : charte graphique, logo, couleurs, typographies et supports.",
+      description: "Création d’une image unique, cohérente et mémorable pour votre marque.",
+      detailedBody: "Votre image de marque est le reflet de vos valeurs. Nous concevons des chartes graphiques complètes comprenant la typographie, la palette de couleurs et les règles d'utilisation de votre logo sur tous vos supports physiques et numériques.",
+      benefits: "Cohérence de marque;Image de marque premium;Confiance client accrue;Reconnaissance immédiate",
+      process: "Analyse du besoin & Audit;Recherches créatives;Propositions de chartes;Validation & Déclinaisons;Livraison des fichiers sources",
+      seoTitle: "Création identité visuelle en France | Branding entreprise - Art Vision",
+      seoDescription: "Art Vision crée des identités visuelles professionnelles pour entreprises, marques et indépendants : charte graphique, logo, couleurs, typographies et supports.",
       packages: {
         create: [
-          { name: "Basic", price: "Ã  partir de 70â‚¬", features: "Logo de base;Palette de couleurs;RÃ¨gles typographiques de base;Livrables web (PNG, JPG)" },
-          { name: "Standard", price: "Ã  partir de 120â‚¬", features: "Logo principal & secondaire;Charte graphique PDF;Templates rÃ©seaux sociaux;Livrables haute dÃ©finition (SVG, PDF)" },
-          { name: "Premium", price: "Ã  partir de 160â‚¬", features: "Branding complet;Supports de marque (carte de visite, papier en-tÃªte);Templates Ã©ditables Canva;Fichiers sources complets (AI, PSD)" }
+          { name: "Basic", price: "à partir de 70€", features: "Logo de base;Palette de couleurs;Règles typographiques de base;Livrables web (PNG, JPG)" },
+          { name: "Standard", price: "à partir de 120€", features: "Logo principal & secondaire;Charte graphique PDF;Templates réseaux sociaux;Livrables haute définition (SVG, PDF)" },
+          { name: "Premium", price: "à partir de 160€", features: "Branding complet;Supports de marque (carte de visite, papier en-tête);Templates éditables Canva;Fichiers sources complets (AI, PSD)" }
         ]
       },
       faqs: {
         create: [
-          { question: "Qu'est-ce qu'une charte graphique ?", answer: "Une charte graphique est un document contenant l'ensemble des rÃ¨gles d'utilisation des signes graphiques (logo, couleurs, typographies, dÃ©clinaisons) d'une entreprise." },
-          { question: "Combien de temps prend la crÃ©ation d'une identitÃ© visuelle ?", answer: "En gÃ©nÃ©ral, le processus complet prend entre 1 et 3 semaines selon les retours et les ajustements." }
+          { question: "Qu'est-ce qu'une charte graphique ?", answer: "Une charte graphique est un document contenant l'ensemble des règles d'utilisation des signes graphiques (logo, couleurs, typographies, déclinaisons) d'une entreprise." },
+          { question: "Combien de temps prend la création d'une identité visuelle ?", answer: "En général, le processus complet prend entre 1 et 3 semaines selon les retours et les ajustements." }
         ]
       }
     },
@@ -109,23 +109,23 @@ async function main() {
       name: "Conception logo",
       icon: "PenTool",
       image: "/images/services/conception-logo.jpg",
-      description: "Un logo professionnel, distinctif et adaptÃ© Ã  tous vos supports.",
-      detailedBody: "Un logo de qualitÃ© supÃ©rieure doit Ãªtre intemporel et fonctionnel. Nos designers dessinent des logos vectoriels uniques adaptÃ©s aux impressions gÃ©antes ainsi qu'aux favicons d'applications mobiles.",
-      benefits: "Vectoriel haute dÃ©finition;Unique & sur-mesure;MÃ©morisable par votre cible;Utilisable sur tous supports",
-      process: "Brief crÃ©atif;Planche de tendances;CrÃ©ation de concepts;Ajustements & retours;Livrables finaux",
-      seoTitle: "CrÃ©ation logo professionnel en France | Logo entreprise - Art Vision",
-      seoDescription: "CrÃ©ation de logo professionnel pour entreprises, startups, restaurants, boutiques, marques et indÃ©pendants en France.",
+      description: "Un logo professionnel, distinctif et adapté à tous vos supports.",
+      detailedBody: "Un logo de qualité supérieure doit être intemporel et fonctionnel. Nos designers dessinent des logos vectoriels uniques adaptés aux impressions géantes ainsi qu'aux favicons d'applications mobiles.",
+      benefits: "Vectoriel haute définition;Unique & sur-mesure;Mémorisable par votre cible;Utilisable sur tous supports",
+      process: "Brief créatif;Planche de tendances;Création de concepts;Ajustements & retours;Livrables finaux",
+      seoTitle: "Création logo professionnel en France | Logo entreprise - Art Vision",
+      seoDescription: "Création de logo professionnel pour entreprises, startups, restaurants, boutiques, marques et indépendants en France.",
       packages: {
         create: [
-          { name: "Basic Logo", price: "Ã  partir de 50â‚¬", features: "2 concepts originaux;1 rÃ©vision;Fichiers PNG transparents" },
-          { name: "Standard Logo", price: "Ã  partir de 95â‚¬", features: "4 concepts originaux;3 rÃ©visions;Fichiers SVG/Vectoriels" },
-          { name: "Premium Logo", price: "Ã  partir de 140â‚¬", features: "Concepts illimitÃ©s;RÃ©visions illimitÃ©es;Fichiers sources complets (.AI);DÃ©clinaisons de couleurs" }
+          { name: "Basic Logo", price: "à partir de 50€", features: "2 concepts originaux;1 révision;Fichiers PNG transparents" },
+          { name: "Standard Logo", price: "à partir de 95€", features: "4 concepts originaux;3 révisions;Fichiers SVG/Vectoriels" },
+          { name: "Premium Logo", price: "à partir de 140€", features: "Concepts illimités;Révisions illimitées;Fichiers sources complets (.AI);Déclinaisons de couleurs" }
         ]
       },
       faqs: {
         create: [
-          { question: "Fournissez-vous les fichiers vectoriels ?", answer: "Oui, tous nos logos standards et premiums sont livrÃ©s aux formats vectoriels (SVG, PDF, AI)." },
-          { question: "Puis-je modifier mon logo aprÃ¨s livraison ?", answer: "Tout Ã  fait, en possÃ©dant les fichiers sources (.AI), vous pourrez faire des modifications dans le futur." }
+          { question: "Fournissez-vous les fichiers vectoriels ?", answer: "Oui, tous nos logos standards et premiums sont livrés aux formats vectoriels (SVG, PDF, AI)." },
+          { question: "Puis-je modifier mon logo après livraison ?", answer: "Tout à fait, en possédant les fichiers sources (.AI), vous pourrez faire des modifications dans le futur." }
         ]
       }
     },
@@ -134,22 +134,22 @@ async function main() {
       name: "Projet graphique",
       icon: "Layout",
       image: "/images/services/projet-graphique.jpg",
-      description: "Supports visuels modernes pour vos campagnes, rÃ©seaux sociaux et documents commerciaux.",
-      detailedBody: "De la conception d'affiches publicitaires au design de brochures de vente haut de gamme, nous mettons notre expertise crÃ©ative au service de vos supports de communication.",
-      benefits: "Design moderne;Mise en page aÃ©rÃ©e;OptimisÃ© pour la conversion;AdaptÃ© Ã  votre charte",
+      description: "Supports visuels modernes pour vos campagnes, réseaux sociaux et documents commerciaux.",
+      detailedBody: "De la conception d'affiches publicitaires au design de brochures de vente haut de gamme, nous mettons notre expertise créative au service de vos supports de communication.",
+      benefits: "Design moderne;Mise en page aérée;Optimisé pour la conversion;Adapté à votre charte",
       process: "Brief & Textes;Mise en page initiale;Ajustements graphiques;Validation;Export",
-      seoTitle: "Design graphique en France | CrÃ©ation visuelle professionnelle - Art Vision",
-      seoDescription: "CrÃ©ation de supports graphiques professionnels pour communication, publicitÃ©, rÃ©seaux sociaux, catalogues, affiches et campagnes visuelles.",
+      seoTitle: "Design graphique en France | Création visuelle professionnelle - Art Vision",
+      seoDescription: "Création de supports graphiques professionnels pour communication, publicité, réseaux sociaux, catalogues, affiches et campagnes visuelles.",
       packages: {
         create: [
-          { name: "Visuels RS", price: "Ã  partir de 45â‚¬", features: "3 gabarits de posts;Format Story et CarrÃ©;Fichiers JPG de haute qualitÃ©" },
-          { name: "Support Unique", price: "Ã  partir de 80â‚¬", features: "Flyer ou affiche A4;Mise en page professionnelle;Fichier prÃªt pour l'impression" },
-          { name: "Catalogue/Brochure", price: "Ã  partir de 200â‚¬", features: "Mise en page multi-pages;Jusqu'Ã  8 pages;Export interactif & print" }
+          { name: "Visuels RS", price: "à partir de 45€", features: "3 gabarits de posts;Format Story et Carré;Fichiers JPG de haute qualité" },
+          { name: "Support Unique", price: "à partir de 80€", features: "Flyer ou affiche A4;Mise en page professionnelle;Fichier prêt pour l'impression" },
+          { name: "Catalogue/Brochure", price: "à partir de 200€", features: "Mise en page multi-pages;Jusqu'à 8 pages;Export interactif & print" }
         ]
       },
       faqs: {
         create: [
-          { question: "De quoi avez-vous besoin pour dÃ©marrer ?", answer: "Nous avons besoin de votre logo, de votre charte graphique (si disponible), des textes Ã  inclure et de vos directives visuelles." }
+          { question: "De quoi avez-vous besoin pour démarrer ?", answer: "Nous avons besoin de votre logo, de votre charte graphique (si disponible), des textes à inclure et de vos directives visuelles." }
         ]
       }
     },
@@ -158,46 +158,46 @@ async function main() {
       name: "Impression",
       icon: "Printer",
       image: "/images/services/impression.jpg",
-      description: "Supports imprimÃ©s de haute qualitÃ© pour flyers, affiches, bÃ¢ches, catalogues, panneaux et cartes de visite.",
-      detailedBody: "Nous gÃ©rons toute la chaÃ®ne de production : choix du papier (grammage, vernis), vÃ©rification des zones de sÃ©curitÃ©, colorimÃ©trie CMJN et livraison directe de vos supports imprimÃ©s Ã  vos bureaux.",
-      benefits: "Papier premium;Finition soignÃ©e (mat/brillant);VÃ©rification prÃ©-presse gratuite;Livraison rapide",
-      process: "Choix du support & options;VÃ©rification du fichier de crÃ©ation;Impression en atelier;ContrÃ´le qualitÃ©;ExpÃ©dition",
-      seoTitle: "Impression publicitaire en France | Flyers, affiches, bÃ¢ches, cartes - Art Vision",
-      seoDescription: "Art Vision propose des services dâ€™impression publicitaire pour flyers, affiches, bÃ¢ches, panneaux, catalogues, cartes de visite et supports grand format.",
+      description: "Supports imprimés de haute qualité pour flyers, affiches, bâches, catalogues, panneaux et cartes de visite.",
+      detailedBody: "Nous gérons toute la chaîne de production : choix du papier (grammage, vernis), vérification des zones de sécurité, colorimétrie CMJN et livraison directe de vos supports imprimés à vos bureaux.",
+      benefits: "Papier premium;Finition soignée (mat/brillant);Vérification pré-presse gratuite;Livraison rapide",
+      process: "Choix du support & options;Vérification du fichier de création;Impression en atelier;Contrôle qualité;Expédition",
+      seoTitle: "Impression publicitaire en France | Flyers, affiches, bâches, cartes - Art Vision",
+      seoDescription: "Art Vision propose des services d’impression publicitaire pour flyers, affiches, bâches, panneaux, catalogues, cartes de visite et supports grand format.",
       packages: {
         create: [
-          { name: "Pack Cartes de Visite", price: "Ã  partir de 35â‚¬", features: "250 exemplaires;Papier 350g couchÃ© demi-mat;Impression recto/verso" },
-          { name: "Pack Flyers", price: "Ã  partir de 50â‚¬", features: "500 exemplaires A5;Papier 135g brillant;Impression recto/verso" },
-          { name: "Pack Grand Format", price: "Ã  partir de 90â‚¬", features: "BÃ¢che publicitaire 2x1m;Å’illets inclus;RÃ©sistant aux intempÃ©ries" }
+          { name: "Pack Cartes de Visite", price: "à partir de 35€", features: "250 exemplaires;Papier 350g couché demi-mat;Impression recto/verso" },
+          { name: "Pack Flyers", price: "à partir de 50€", features: "500 exemplaires A5;Papier 135g brillant;Impression recto/verso" },
+          { name: "Pack Grand Format", price: "à partir de 90€", features: "Bâche publicitaire 2x1m;Œillets inclus;Résistant aux intempéries" }
         ]
       },
       faqs: {
         create: [
-          { question: "Quels sont vos dÃ©lais de livraison ?", answer: "La livraison prend gÃ©nÃ©ralement 3 Ã  5 jours ouvrÃ©s aprÃ¨s la validation du Bon Ã€ Tirer (BAT)." }
+          { question: "Quels sont vos délais de livraison ?", answer: "La livraison prend généralement 3 à 5 jours ouvrés après la validation du Bon À Tirer (BAT)." }
         ]
       }
     },
     {
       slug: "video-publicitaire",
-      name: "Projet vidÃ©o",
+      name: "Projet vidéo",
       icon: "Video",
       image: "/images/services/video.jpg",
-      description: "VidÃ©os impactantes pour prÃ©senter votre marque, vos produits ou vos services.",
-      detailedBody: "Le contenu vidÃ©o est le format le plus captivant du web. Nous rÃ©alisons des tournages, des montages professionnels et du color grading pour vos spots publicitaires et vidÃ©os institutionnelles.",
-      benefits: "Montage rythmÃ©;QualitÃ© cinÃ©ma/4K;Storytelling captivant;Sous-titres intÃ©grÃ©s",
-      process: "Ã‰criture du script;Tournage / Captation;DÃ©rushage & Montage;Ã‰talonnage & Sound design;Livraison MP4/ProRes",
-      seoTitle: "VidÃ©o publicitaire en France | Montage vidÃ©o & vidÃ©o corporate - Art Vision",
-      seoDescription: "CrÃ©ation de vidÃ©os publicitaires, vidÃ©os corporate, montages vidÃ©o et contenus vidÃ©o pour entreprises et marques.",
+      description: "Vidéos impactantes pour présenter votre marque, vos produits ou vos services.",
+      detailedBody: "Le contenu vidéo est le format le plus captivant du web. Nous réalisons des tournages, des montages professionnels et du color grading pour vos spots publicitaires et vidéos institutionnelles.",
+      benefits: "Montage rythmé;Qualité cinéma/4K;Storytelling captivant;Sous-titres intégrés",
+      process: "Écriture du script;Tournage / Captation;Dérushage & Montage;Étalonnage & Sound design;Livraison MP4/ProRes",
+      seoTitle: "Vidéo publicitaire en France | Montage vidéo & vidéo corporate - Art Vision",
+      seoDescription: "Création de vidéos publicitaires, vidéos corporate, montages vidéo et contenus vidéo pour entreprises et marques.",
       packages: {
         create: [
-          { name: "Format Court (Reels/TikTok)", price: "Ã  partir de 90â‚¬", features: "Jusqu'Ã  60 secondes;Format vertical;Montage dynamique;Sous-titres automatiques" },
-          { name: "VidÃ©o Promo (Web)", price: "Ã  partir de 250â‚¬", features: "Jusqu'Ã  2 minutes;ScÃ©narisation;Musique libre de droits;Habillage graphique simple" },
-          { name: "VidÃ©o Corporate Premium", price: "Ã  partir de 600â‚¬", features: "VidÃ©o d'entreprise complÃ¨te;Interview & B-roll;Habillage motion design;Mixage audio professionnel" }
+          { name: "Format Court (Reels/TikTok)", price: "à partir de 90€", features: "Jusqu'à 60 secondes;Format vertical;Montage dynamique;Sous-titres automatiques" },
+          { name: "Vidéo Promo (Web)", price: "à partir de 250€", features: "Jusqu'à 2 minutes;Scénarisation;Musique libre de droits;Habillage graphique simple" },
+          { name: "Vidéo Corporate Premium", price: "à partir de 600€", features: "Vidéo d'entreprise complète;Interview & B-roll;Habillage motion design;Mixage audio professionnel" }
         ]
       },
       faqs: {
         create: [
-          { question: "Proposez-vous des voix-off ?", answer: "Oui, nous pouvons intÃ©grer des voix-off professionnelles masculines ou fÃ©minines (franÃ§ais, anglais, arabe) en option." }
+          { question: "Proposez-vous des voix-off ?", answer: "Oui, nous pouvons intégrer des voix-off professionnelles masculines ou féminines (français, anglais, arabe) en option." }
         ]
       }
     },
@@ -206,22 +206,22 @@ async function main() {
       name: "Motion design",
       icon: "Sparkles",
       image: "/images/services/motion-design.jpg",
-      description: "Animations dynamiques pour capter lâ€™attention et renforcer votre communication.",
-      detailedBody: "Expliquez des concepts complexes en quelques secondes grÃ¢ce Ã  l'animation graphique 2D. Nous crÃ©ons des infographies animÃ©es et des logos animÃ©s haut de gamme.",
-      benefits: "Forte mÃ©morisation;Animation fluide;ClartÃ© pÃ©dagogique;AdaptÃ© Ã  tous les Ã©crans",
+      description: "Animations dynamiques pour capter l’attention et renforcer votre communication.",
+      detailedBody: "Expliquez des concepts complexes en quelques secondes grâce à l'animation graphique 2D. Nous créons des infographies animées et des logos animés haut de gamme.",
+      benefits: "Forte mémorisation;Animation fluide;Clarté pédagogique;Adapté à tous les écrans",
       process: "Script & Storyboard;Illustration des assets;Animation;Sound design & Bruitages;Export final",
-      seoTitle: "Motion design en France | Animation vidÃ©o professionnelle - Art Vision",
-      seoDescription: "CrÃ©ation de motion design, animation vidÃ©o, habillage graphique, vidÃ©os explicatives et animations publicitaires.",
+      seoTitle: "Motion design en France | Animation vidéo professionnelle - Art Vision",
+      seoDescription: "Création de motion design, animation vidéo, habillage graphique, vidéos explicatives et animations publicitaires.",
       packages: {
         create: [
-          { name: "Logo AnimÃ©", price: "Ã  partir de 60â‚¬", features: "Animation de logo existant;Format web & transparent;DurÃ©e 3-5 secondes" },
-          { name: "VidÃ©o Explicative 30s", price: "Ã  partir de 180â‚¬", features: "Script fourni;Illustrations vectorielles;Animation fluide;Musique de fond" },
-          { name: "Motion Premium 1min", price: "Ã  partir de 390â‚¬", features: "Storyboard sur-mesure;Illustrations complexes;Voix-off professionnelle;Sound design complet" }
+          { name: "Logo Animé", price: "à partir de 60€", features: "Animation de logo existant;Format web & transparent;Durée 3-5 secondes" },
+          { name: "Vidéo Explicative 30s", price: "à partir de 180€", features: "Script fourni;Illustrations vectorielles;Animation fluide;Musique de fond" },
+          { name: "Motion Premium 1min", price: "à partir de 390€", features: "Storyboard sur-mesure;Illustrations complexes;Voix-off professionnelle;Sound design complet" }
         ]
       },
       faqs: {
         create: [
-          { question: "Qu'est-ce qu'un storyboard ?", answer: "Le storyboard est une bande dessinÃ©e schÃ©matisant les scÃ¨nes de la future vidÃ©o afin de valider le visuel avant l'animation." }
+          { question: "Qu'est-ce qu'un storyboard ?", answer: "Le storyboard est une bande dessinée schématisant les scènes de la future vidéo afin de valider le visuel avant l'animation." }
         ]
       }
     },
@@ -230,22 +230,22 @@ async function main() {
       name: "3D & Design produit",
       icon: "Box",
       image: "/images/services/3d.jpg",
-      description: "ModÃ©lisation 3D, rendu produit, packshot 3D, visualisation 3D et CGI publicitaire.",
-      detailedBody: "PrÃ©sentez vos produits sous leur meilleur jour grÃ¢ce Ã  des rendus photorÃ©alistes. ModÃ©lisation CAO, packshots pour e-commerce et animations 3D pour campagnes publicitaires.",
-      benefits: "Rendus photorÃ©alistes;Aucun studio photo requis;Modifications d'angles infinies;QualitÃ© studio premium",
-      process: "Plans 2D / Photos du produit;ModÃ©lisation 3D filaire;Application des textures/matÃ©riaux;Mise en lumiÃ¨re studio;Calcul du rendu haute dÃ©finition",
-      seoTitle: "ModÃ©lisation 3D & rendu produit en France | CGI & packshot 3D - Art Vision",
-      seoDescription: "CrÃ©ation de modÃ©lisation 3D, rendu 3D produit, animation 3D, visualisation 3D, CGI publicitaire et packshot 3D.",
+      description: "Modélisation 3D, rendu produit, packshot 3D, visualisation 3D et CGI publicitaire.",
+      detailedBody: "Présentez vos produits sous leur meilleur jour grâce à des rendus photoréalistes. Modélisation CAO, packshots pour e-commerce et animations 3D pour campagnes publicitaires.",
+      benefits: "Rendus photoréalistes;Aucun studio photo requis;Modifications d'angles infinies;Qualité studio premium",
+      process: "Plans 2D / Photos du produit;Modélisation 3D filaire;Application des textures/matériaux;Mise en lumière studio;Calcul du rendu haute définition",
+      seoTitle: "Modélisation 3D & rendu produit en France | CGI & packshot 3D - Art Vision",
+      seoDescription: "Création de modélisation 3D, rendu 3D produit, animation 3D, visualisation 3D, CGI publicitaire et packshot 3D.",
       packages: {
         create: [
-          { name: "Packshot Produit Simple", price: "Ã  partir de 80â‚¬", features: "1 rendu haute dÃ©finition;Fond blanc uni;Textures rÃ©alistes standard" },
-          { name: "Rendu 3D Ambiance", price: "Ã  partir de 150â‚¬", features: "Rendu dans un dÃ©cor 3D;Ã‰clairage studio personnalisÃ©;3 angles de vue diffÃ©rents" },
-          { name: "Animation 3D Produit", price: "Ã  partir de 450â‚¬", features: "VidÃ©o 15s de rotation/Ã©clatÃ©;Textures complexes;Rendu 4K/Full HD" }
+          { name: "Packshot Produit Simple", price: "à partir de 80€", features: "1 rendu haute définition;Fond blanc uni;Textures réalistes standard" },
+          { name: "Rendu 3D Ambiance", price: "à partir de 150€", features: "Rendu dans un décor 3D;Éclairage studio personnalisé;3 angles de vue différents" },
+          { name: "Animation 3D Produit", price: "à partir de 450€", features: "Vidéo 15s de rotation/éclaté;Textures complexes;Rendu 4K/Full HD" }
         ]
       },
       faqs: {
         create: [
-          { question: "Quels fichiers devez-vous fournir pour une modÃ©lisation 3D ?", answer: "Des photos du produit sous tous les angles, ou des fichiers techniques CAO (STEP, IGES, OBJ)." }
+          { question: "Quels fichiers devez-vous fournir pour une modélisation 3D ?", answer: "Des photos du produit sous tous les angles, ou des fichiers techniques CAO (STEP, IGES, OBJ)." }
         ]
       }
     },
@@ -254,22 +254,22 @@ async function main() {
       name: "Site vitrine",
       icon: "Globe",
       image: "/images/services/site-vitrine.jpg",
-      description: "Sites web Ã©lÃ©gants, rapides, responsive et optimisÃ©s pour convertir.",
-      detailedBody: "Un site web moderne est le socle de votre rÃ©ussite numÃ©rique. Nous dÃ©veloppons des sites web vitrines sur-mesure rapides, sÃ©curisÃ©s, optimisÃ©s pour Google et compatibles avec tous les smartphones.",
-      benefits: "Super rapide & SÃ©curisÃ©;OptimisÃ© SEO de base;Interface UX/UI sur-mesure;Bouton WhatsApp flottant",
-      process: "Maquettes UX/UI Figma;DÃ©veloppement Next.js / Tailwind;IntÃ©gration du CMS Admin;Phase de tests;Mise en ligne",
-      seoTitle: "CrÃ©ation site vitrine en France | Site web professionnel - Art Vision",
-      seoDescription: "CrÃ©ation de sites vitrines modernes, rapides, responsive et optimisÃ©s SEO pour entreprises, indÃ©pendants et marques.",
+      description: "Sites web élégants, rapides, responsive et optimisés pour convertir.",
+      detailedBody: "Un site web moderne est le socle de votre réussite numérique. Nous développons des sites web vitrines sur-mesure rapides, sécurisés, optimisés pour Google et compatibles avec tous les smartphones.",
+      benefits: "Super rapide & Sécurisé;Optimisé SEO de base;Interface UX/UI sur-mesure;Bouton WhatsApp flottant",
+      process: "Maquettes UX/UI Figma;Développement Next.js / Tailwind;Intégration du CMS Admin;Phase de tests;Mise en ligne",
+      seoTitle: "Création site vitrine en France | Site web professionnel - Art Vision",
+      seoDescription: "Création de sites vitrines modernes, rapides, responsive et optimisés SEO pour entreprises, indépendants et marques.",
       packages: {
         create: [
-          { name: "Landing Page", price: "Ã  partir de 250â‚¬", features: "Page unique optimisÃ©e;Formulaire de contact;Design responsive;OptimisÃ© SEO" },
-          { name: "Site Vitrine Standard", price: "Ã  partir de 490â‚¬", features: "Jusqu'Ã  5 pages;Dashboard d'administration;IntÃ©gration rÃ©seaux sociaux;HÃ©bergement sÃ©curisÃ©" },
-          { name: "Site Vitrine Premium", price: "Ã  partir de 950â‚¬", features: "Pages illimitÃ©es;Devis en ligne interactif;Multilingue (FR/EN/AR);Accompagnement SEO poussÃ©" }
+          { name: "Landing Page", price: "à partir de 250€", features: "Page unique optimisée;Formulaire de contact;Design responsive;Optimisé SEO" },
+          { name: "Site Vitrine Standard", price: "à partir de 490€", features: "Jusqu'à 5 pages;Dashboard d'administration;Intégration réseaux sociaux;Hébergement sécurisé" },
+          { name: "Site Vitrine Premium", price: "à partir de 950€", features: "Pages illimitées;Devis en ligne interactif;Multilingue (FR/EN/AR);Accompagnement SEO poussé" }
         ]
       },
       faqs: {
         create: [
-          { question: "Le site sera-t-il modifiable ?", answer: "Oui, un espace d'administration sÃ©curisÃ© vous permet de modifier les textes, images et articles de blog sans coder." }
+          { question: "Le site sera-t-il modifiable ?", answer: "Oui, un espace d'administration sécurisé vous permet de modifier les textes, images et articles de blog sans coder." }
         ]
       }
     },
@@ -278,22 +278,22 @@ async function main() {
       name: "Community management",
       icon: "Users",
       image: "/images/services/community-management.jpg",
-      description: "Gestion et animation professionnelle de vos rÃ©seaux sociaux.",
-      detailedBody: "Engagez vos abonnÃ©s et dÃ©veloppez votre visibilitÃ©. Nous gÃ©rons votre planning Ã©ditorial, la rÃ©daction des lÃ©gendes, le design de vos visuels et l'interaction avec votre communautÃ©.",
-      benefits: "PrÃ©sence active garantie;Contenus professionnels;Gain de temps;Rapports mensuels de performance",
-      process: "Audit rÃ©seaux sociaux;DÃ©finition de la charte Ã©ditoriale;CrÃ©ation du calendrier de publication;CrÃ©ation graphique des posts;Planification & ModÃ©ration",
-      seoTitle: "Community management en France | Gestion rÃ©seaux sociaux - Art Vision",
-      seoDescription: "Gestion de rÃ©seaux sociaux, crÃ©ation de contenu, planning Ã©ditorial et animation de communautÃ© pour entreprises et marques.",
+      description: "Gestion et animation professionnelle de vos réseaux sociaux.",
+      detailedBody: "Engagez vos abonnés et développez votre visibilité. Nous gérons votre planning éditorial, la rédaction des légendes, le design de vos visuels et l'interaction avec votre communauté.",
+      benefits: "Présence active garantie;Contenus professionnels;Gain de temps;Rapports mensuels de performance",
+      process: "Audit réseaux sociaux;Définition de la charte éditoriale;Création du calendrier de publication;Création graphique des posts;Planification & Modération",
+      seoTitle: "Community management en France | Gestion réseaux sociaux - Art Vision",
+      seoDescription: "Gestion de réseaux sociaux, création de contenu, planning éditorial et animation de communauté pour entreprises et marques.",
       packages: {
         create: [
-          { name: "Essentiel", price: "Ã  partir de 120â‚¬/mois", features: "1 publication par semaine;Instagram / Facebook;RÃ©daction des lÃ©gendes;Rapport trimestriel" },
-          { name: "Business", price: "Ã  partir = 250â‚¬/mois", features: "3 publications par semaine;Gabarits graphiques inclus;ModÃ©ration des commentaires;Rapport mensuel" },
-          { name: "Premium Influence", price: "Ã  partir de 450â‚¬/mois", features: "5 publications par semaine + Stories;CrÃ©ation de Reels/VidÃ©o;Gestion publicitaire (Meta Ads);Support 7j/7" }
+          { name: "Essentiel", price: "à partir de 120€/mois", features: "1 publication par semaine;Instagram / Facebook;Rédaction des légendes;Rapport trimestriel" },
+          { name: "Business", price: "à partir = 250€/mois", features: "3 publications par semaine;Gabarits graphiques inclus;Modération des commentaires;Rapport mensuel" },
+          { name: "Premium Influence", price: "à partir de 450€/mois", features: "5 publications par semaine + Stories;Création de Reels/Vidéo;Gestion publicitaire (Meta Ads);Support 7j/7" }
         ]
       },
       faqs: {
         create: [
-          { question: "Les budgets publicitaires sont-ils inclus ?", answer: "Non, les budgets publicitaires (Meta Ads) sont payÃ©s directement aux plateformes par le client." }
+          { question: "Les budgets publicitaires sont-ils inclus ?", answer: "Non, les budgets publicitaires (Meta Ads) sont payés directement aux plateformes par le client." }
         ]
       }
     }
