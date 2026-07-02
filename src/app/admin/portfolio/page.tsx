@@ -102,6 +102,10 @@ export default function AdminPortfolioPage() {
       const data = await res.json();
       if (data.success) {
         setProjects(data.projects);
+        // Real categories from the DB (ids are cuids, not slugs).
+        if (Array.isArray(data.categories) && data.categories.length) {
+          setCategories(data.categories.map((c: any) => ({ id: c.id, name: c.name })));
+        }
       }
     } catch (e) {
       console.error("Fetch projects error:", e);
@@ -110,24 +114,8 @@ export default function AdminPortfolioPage() {
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      const res = await fetch("/api/contact"); // In our DB, we can fetch all or seed
-      // For simplicity let's make a mock query or hardcode standard category list if no dedicated API
-      setCategories([
-        { id: "branding", name: "Branding" },
-        { id: "motion-design", name: "Motion Design" },
-        { id: "creation-web", name: "Création Web" },
-        { id: "modelisation-3d", name: "Modélisation 3D" }
-      ]);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
     fetchPortfolio();
-    fetchCategories();
   }, []);
 
   const handleOpenEdit = (project: Project) => {
@@ -174,9 +162,10 @@ export default function AdminPortfolioPage() {
     setErrorMsg("");
 
     const method = isNew ? "POST" : "PUT";
+    const categoryName = categories.find((c) => c.id === categoryId)?.name;
     const bodyData = isNew
-      ? { title, slug, client, industry, objective, challenge, solution, result, images, categoryId, customHtml }
-      : { id: selectedProject?.id, title, slug, client, industry, objective, challenge, solution, result, images, categoryId, customHtml };
+      ? { title, slug, client, industry, objective, challenge, solution, result, images, categoryId, categoryName, customHtml }
+      : { id: selectedProject?.id, title, slug, client, industry, objective, challenge, solution, result, images, categoryId, categoryName, customHtml };
 
     try {
       const response = await fetch("/api/admin/projects", {
