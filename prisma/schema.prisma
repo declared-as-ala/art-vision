@@ -663,3 +663,29 @@ model PageView {
   @@unique([path, date])
   @@index([date])
 }
+
+// Training certificates generated in the admin dashboard. The PDF is regenerated
+// on demand from these fields + the matching template in public/certification,
+// so no heavy PDF blob is stored in the database.
+model Certificate {
+  id              String   @id @default(cuid())
+  reference       String   @unique // e.g. "COV-2026-0001", "PPF-2026-0001", "VT-2026-0001"
+  certificateType String // "covering" | "ppf" | "vt"
+  recipientName   String
+  trainingTitle   String
+  duration        String // e.g. "2 jours"
+  sessionDate     String // free text, e.g. "Session de juin 2026"
+  trainingCenter  String?
+  trainerName     String?
+  location        String?
+  description     String?
+  objectives      String? // one objective per line
+  signatureName   String?
+  issueDate       DateTime @default(now())
+  createdBy       String? // admin name/email who generated it
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([certificateType])
+  @@index([createdAt])
+}

@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
   },
   // Don't bundle the DB driver / Prisma adapters into serverless functions.
   serverExternalPackages: ["@libsql/client", "@prisma/adapter-libsql", "@prisma/client"],
+  // Ship the certificate template PDFs with the certificate serverless functions
+  // (fs fallback for generation when the HTTP fetch of /public isn't available).
+  outputFileTracingIncludes: {
+    "/api/admin/certificates/**": ["./public/certification/**"],
+  },
 };
 
 export default nextConfig;

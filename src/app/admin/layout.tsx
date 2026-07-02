@@ -21,6 +21,7 @@ import {
   Mail,
   Printer,
   BarChart3,
+  Award,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -63,6 +64,7 @@ export default function AdminLayout({
     { name: "Emails & Notifications", href: "/admin/emails", icon: Mail },
     { name: "Outils Gratuits", href: "/admin/tools", icon: Wand2 },
     { name: "Impression & Tarifs", href: "/admin/print", icon: Printer },
+    { name: "Certificats", href: "/admin/certificates", icon: Award },
     { name: "Pages Site", href: "/admin/pages", icon: Layers },
     { name: "Services", href: "/admin/services", icon: Briefcase },
     { name: "Portfolio", href: "/admin/portfolio", icon: ExternalLink },
