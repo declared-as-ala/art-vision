@@ -355,6 +355,7 @@ model GeneratedBusinessCard {
 model Media {
   id        String   @id @default(cuid())
   url       String
+  data      Bytes? // binary payload when stored in DB (serverless read-only FS fallback)
   fileName  String   @default("")
   fileType  String? // old compat
   altText   String?
