@@ -12,7 +12,10 @@ const nextConfig: NextConfig = {
   // Ship the certificate template PDFs with the certificate serverless functions
   // (fs fallback for generation when the HTTP fetch of /public isn't available).
   outputFileTracingIncludes: {
-    "/api/admin/certificates/**": ["./public/certification/**"],
+    "/api/admin/certificates/**": [
+      "./public/certification/**",
+      "./src/lib/certificates/fonts/**",
+    ],
   },
 };
 

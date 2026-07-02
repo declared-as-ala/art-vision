@@ -24,7 +24,12 @@
 
 export type CertificateType = "covering" | "ppf" | "vt";
 
-export type FontKey = "helvetica" | "helvetica-bold" | "times" | "times-bold";
+export type FontKey =
+  | "helvetica"
+  | "helvetica-bold"
+  | "times"
+  | "times-bold"
+  | "arial-bold"; // embedded — condensed to match the certificate's Arial Narrow Bold headings
 export type Align = "left" | "center" | "right";
 
 export interface TextField {
@@ -53,6 +58,8 @@ export interface TextField {
   color: [number, number, number];
   /** UPPERCASE the value before drawing (matches the baked-in style) */
   uppercase?: boolean;
+  /** horizontal scale (<1 condenses the glyphs, e.g. 0.82 ≈ Arial Narrow) */
+  condense?: number;
 }
 
 export interface CertificateTemplate {
@@ -94,26 +101,28 @@ const INK: [number, number, number] = [0.11, 0.11, 0.13];
 function baseFields(): TextField[] {
   return [
     {
-      // Recipient full name — prominent, centered in the blank band.
+      // Recipient full name — prominent, centered in the blank band, using the
+      // same condensed heavy Arial style as the certificate's printed headings.
       key: "recipientName",
       enabled: true,
       x: 362, // horizontal center of the inner card
-      y: 602, // baseline in the empty band under the big heading
-      size: 29,
+      y: 600, // baseline in the empty band under the big heading
+      size: 30,
       minSize: 16,
-      maxWidth: 380,
-      font: "helvetica-bold",
+      maxWidth: 375,
+      font: "arial-bold",
       align: "center",
-      color: INK,
+      color: [0, 0, 0], // pure black to match the printed title
       uppercase: true,
+      condense: 0.82, // narrow the glyphs to mirror Arial Narrow Bold
     },
     {
       // Session date / period, centered just below the name.
       key: "sessionDate",
       enabled: true,
       x: 362,
-      y: 580,
-      size: 13,
+      y: 585,
+      size: 12,
       minSize: 9,
       maxWidth: 380,
       font: "helvetica",
