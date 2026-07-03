@@ -4,6 +4,7 @@ export const dynamic = "force-dynamic";
 import React from "react";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
+import PortfolioCarousel from "@/components/PortfolioCarousel";
 import {
   Palette,
   PenTool,
@@ -316,33 +317,17 @@ export default async function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {dbProjects.map((project: any) => (
-                <Link
-                  key={project.id}
-                  href={`/portfolio/${project.slug}`}
-                  className="group block bg-[#1A1238]/40 border border-brand-purple/10 rounded-2xl overflow-hidden hover:border-brand-magenta/40 transition-all duration-300"
-                >
-                  <div className="aspect-[4/3] bg-brand-purple/20 overflow-hidden relative">
-                    <img
-                      src={project.images.split(";")[0]}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <span className="absolute top-4 left-4 bg-brand-navy/80 text-brand-magenta text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                      {project.category.name}
-                    </span>
-                  </div>
-                  <div className="p-5 space-y-2 text-left">
-                    <h3 className="font-sora font-bold text-sm text-white group-hover:text-brand-magenta transition">
-                      {project.title}
-                    </h3>
-                    <p className="text-[11px] text-white/50">Client : {project.client}</p>
-                    <p className="text-xs text-white/75 leading-relaxed line-clamp-2">{project.objective}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <PortfolioCarousel
+              projects={dbProjects.map((p: any) => ({
+                id: p.id,
+                slug: p.slug,
+                title: p.title,
+                client: p.client,
+                images: p.images,
+                objective: p.objective,
+                category: { name: p.category.name },
+              }))}
+            />
           </div>
         </section>
       )}
