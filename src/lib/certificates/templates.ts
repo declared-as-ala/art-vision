@@ -29,7 +29,8 @@ export type FontKey =
   | "helvetica-bold"
   | "times"
   | "times-bold"
-  | "arial-bold"; // embedded — condensed to match the certificate's Arial Narrow Bold headings
+  | "arial-bold" // embedded — condensed to match the certificate's Arial Narrow Bold headings
+  | "american-purpose"; // embedded decorative font used for the recipient name
 export type Align = "left" | "center" | "right";
 
 export interface TextField {
@@ -60,6 +61,8 @@ export interface TextField {
   uppercase?: boolean;
   /** horizontal scale (<1 condenses the glyphs, e.g. 0.82 ≈ Arial Narrow) */
   condense?: number;
+  /** widen word gaps by repeating the space N times (fonts with a narrow space) */
+  wordSpaces?: number;
 }
 
 export interface CertificateTemplate {
@@ -107,14 +110,14 @@ function baseFields(): TextField[] {
       enabled: true,
       x: 362, // horizontal center of the inner card
       y: 588, // baseline in the empty band, lowered so it clears the border line
-      size: 29,
+      size: 30,
       minSize: 16,
-      maxWidth: 375,
-      font: "arial-bold",
+      maxWidth: 380,
+      font: "american-purpose", // American Purpose STRIPE decorative font
       align: "center",
-      color: [0, 0, 0], // pure black to match the printed title
+      color: [0, 0, 0],
       uppercase: true,
-      condense: 0.82, // narrow the glyphs to mirror Arial Narrow Bold
+      wordSpaces: 4, // this font has a very narrow space glyph
     },
     {
       // Session date / period — placed lower, just above the "dispensée par …"
