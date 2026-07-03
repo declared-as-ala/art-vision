@@ -106,20 +106,17 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           {/* Main Content (Left 2 columns) */}
           <div className="md:col-span-2 space-y-8">
             
-            {/* Project Overview Images — shown in full (no cropping), smaller & centered */}
+            {/* Project Overview Images — rendered at the image's own aspect ratio
+                (a 500×500 shows square), centered, just capped for responsiveness. */}
             <div className="flex flex-wrap justify-center gap-5">
               {imagesList.map((img: string, idx: number) => (
-                <div
+                <img
                   key={idx}
-                  className="w-full sm:w-[300px] aspect-[4/3] rounded-2xl overflow-hidden border border-brand-purple/15 bg-white flex items-center justify-center p-3"
-                >
-                  <img
-                    src={img}
-                    alt={`${project.title} - Image ${idx + 1}`}
-                    className="max-w-full max-h-full object-contain"
-                    loading="lazy"
-                  />
-                </div>
+                  src={img}
+                  alt={`${project.title} - Image ${idx + 1}`}
+                  className="rounded-2xl border border-brand-purple/15 bg-white max-w-full sm:max-w-[380px] h-auto object-contain"
+                  loading="lazy"
+                />
               ))}
             </div>
 
