@@ -117,14 +117,15 @@ function baseFields(): TextField[] {
       condense: 0.82, // narrow the glyphs to mirror Arial Narrow Bold
     },
     {
-      // Session date / period, centered just below the name.
+      // Session date / period — placed lower, just above the "dispensée par …"
+      // trainer line (below the title), so it never crowds the name / "a suivi".
       key: "sessionDate",
       enabled: true,
       x: 362,
-      y: 585,
-      size: 12,
-      minSize: 9,
-      maxWidth: 380,
+      y: 488,
+      size: 11,
+      minSize: 8,
+      maxWidth: 360,
       font: "helvetica",
       align: "center",
       color: INK,
