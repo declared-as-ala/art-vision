@@ -75,7 +75,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/logo-titre.svg" alt="Art Vision" className="h-7 md:h-8 w-auto object-contain" />
+            <img src="/logo-titre.svg" alt="Art Vision" className="h-6 md:h-7 w-auto object-contain" />
           </Link>
 
           {/* Desktop Menu */}
@@ -205,7 +205,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between mb-8 mt-4">
           <div className="flex items-center">
-            <img src="/logo-titre.svg" alt="Art Vision" className="h-7 w-auto object-contain" />
+            <img src="/logo-titre.svg" alt="Art Vision" className="h-6 w-auto object-contain" />
           </div>
           <button
             onClick={() => setIsOpen(false)}
