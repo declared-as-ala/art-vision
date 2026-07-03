@@ -113,7 +113,7 @@ function baseFields(): TextField[] {
       size: 30,
       minSize: 16,
       maxWidth: 380,
-      font: "american-purpose", // American Purpose STRIPE 1 Normal Italic
+      font: "american-purpose", // American Purpose font
       align: "center",
       color: [0, 0, 0],
       uppercase: true,
