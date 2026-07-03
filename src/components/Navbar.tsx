@@ -74,11 +74,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2.5">
-            <img src="/logo-mark.svg" alt="Art Vision Logo" className="h-10 w-auto object-contain" />
-            <span className="font-sora font-extrabold text-xl tracking-wider text-white flex items-center">
-              ART <span className="text-brand-magenta">VISION</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <img src="/logo-titre.svg" alt="Art Vision" className="h-7 md:h-8 w-auto object-contain" />
           </Link>
 
           {/* Desktop Menu */}
@@ -207,11 +204,8 @@ export default function Navbar() {
         }`}
       >
         <div className="flex items-center justify-between mb-8 mt-4">
-          <div className="flex items-center space-x-2">
-            <img src="/logo-mark.svg" alt="Art Vision Logo" className="h-8 w-auto object-contain" />
-            <span className="font-sora font-extrabold text-lg text-white">
-              ART <span className="text-brand-magenta">VISION</span>
-            </span>
+          <div className="flex items-center">
+            <img src="/logo-titre.svg" alt="Art Vision" className="h-7 w-auto object-contain" />
           </div>
           <button
             onClick={() => setIsOpen(false)}

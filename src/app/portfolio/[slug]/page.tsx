@@ -106,14 +106,18 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           {/* Main Content (Left 2 columns) */}
           <div className="md:col-span-2 space-y-8">
             
-            {/* Project Overview Images */}
-            <div className="grid grid-cols-1 gap-6">
+            {/* Project Overview Images — each visual shown in full (no cropping) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {imagesList.map((img: string, idx: number) => (
-                <div key={idx} className="aspect-[16/10] bg-brand-purple/20 rounded-2xl overflow-hidden border border-brand-purple/15">
+                <div
+                  key={idx}
+                  className="aspect-[4/3] rounded-2xl overflow-hidden border border-brand-purple/15 bg-white flex items-center justify-center p-4"
+                >
                   <img
                     src={img}
                     alt={`${project.title} - Image ${idx + 1}`}
-                    className="w-full h-full object-cover"
+                    className="max-w-full max-h-full object-contain"
+                    loading="lazy"
                   />
                 </div>
               ))}

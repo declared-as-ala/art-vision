@@ -89,11 +89,8 @@ export default function AdminLayout({
       <div className="flex-1 space-y-6 overflow-y-auto no-scrollbar">
         {/* Logo Block */}
         <div className="px-2 pb-4 border-b border-brand-purple/20">
-          <div className="flex items-center gap-2.5 mb-1">
-            <img src="/logo-mark.svg" alt="Art Vision" className="h-8 w-auto object-contain" />
-            <span className="font-sora font-extrabold text-lg tracking-wider text-white">
-              ART <span className="text-brand-magenta">VISION</span>
-            </span>
+          <div className="flex items-center mb-1">
+            <img src="/logo-titre.svg" alt="Art Vision" className="h-7 w-auto object-contain" />
           </div>
           <span className="text-[10px] text-brand-purple uppercase tracking-[0.18em] font-semibold block mt-2">
             Espace Administration
