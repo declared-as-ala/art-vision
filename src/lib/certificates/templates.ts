@@ -106,8 +106,8 @@ function baseFields(): TextField[] {
       key: "recipientName",
       enabled: true,
       x: 362, // horizontal center of the inner card
-      y: 600, // baseline in the empty band under the big heading
-      size: 30,
+      y: 588, // baseline in the empty band, lowered so it clears the border line
+      size: 29,
       minSize: 16,
       maxWidth: 375,
       font: "arial-bold",
