@@ -113,11 +113,10 @@ function baseFields(): TextField[] {
       size: 30,
       minSize: 16,
       maxWidth: 380,
-      font: "american-purpose", // American Purpose STRIPE decorative font
+      font: "american-purpose", // American Purpose STRIPE 1 Normal Italic
       align: "center",
       color: [0, 0, 0],
       uppercase: true,
-      wordSpaces: 4, // this font has a very narrow space glyph
     },
     {
       // Session date / period — placed lower, just above the "dispensée par …"
