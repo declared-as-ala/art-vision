@@ -19,6 +19,7 @@ export interface CarouselProject {
 export default function PortfolioCarousel({ projects }: { projects: CarouselProject[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(false);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Triple the list so we can loop seamlessly in both directions.
   const items = [...projects, ...projects, ...projects];
@@ -55,15 +56,23 @@ export default function PortfolioCarousel({ projects }: { projects: CarouselProj
       el.removeEventListener("mouseleave", resume);
       el.removeEventListener("touchstart", pause);
       el.removeEventListener("touchend", resume);
+      if (resumeTimer.current) clearTimeout(resumeTimer.current);
     };
   }, [projects.length]);
 
   const nudge = (dir: number) => {
     const el = scrollRef.current;
     if (!el) return;
+    // Pause auto-scroll so it doesn't cancel the smooth arrow scroll (writing
+    // scrollLeft each frame would kill the native smooth animation).
+    pausedRef.current = true;
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
     const card = el.querySelector<HTMLElement>("[data-card]");
     const amount = (card?.offsetWidth || 320) + 24; // card width + gap
     el.scrollBy({ left: dir * amount, behavior: "smooth" });
+    resumeTimer.current = setTimeout(() => {
+      pausedRef.current = false;
+    }, 700);
   };
 
   return (
