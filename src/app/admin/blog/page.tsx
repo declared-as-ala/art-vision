@@ -84,6 +84,10 @@ export default function AdminBlogPage() {
       const data = await res.json();
       if (data.success) {
         setPosts(data.posts);
+        // Real categories from the DB (ids are cuids, not slugs).
+        if (Array.isArray(data.categories) && data.categories.length) {
+          setCategories(data.categories.map((c: any) => ({ id: c.id, name: c.name })));
+        }
       }
     } catch (e) {
       console.error("Fetch posts error:", e);
@@ -92,21 +96,8 @@ export default function AdminBlogPage() {
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      setCategories([
-        { id: "design", name: "Design" },
-        { id: "branding", name: "Branding" },
-        { id: "web-dev", name: "Développement Web" }
-      ]);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
     fetchPosts();
-    fetchCategories();
   }, []);
 
   const handleOpenEdit = (post: Post) => {
@@ -151,9 +142,10 @@ export default function AdminBlogPage() {
     setErrorMsg("");
 
     const method = isNew ? "POST" : "PUT";
+    const categoryName = categories.find((c) => c.id === categoryId)?.name;
     const bodyData = isNew
-      ? { title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId, customHtml }
-      : { id: selectedPost?.id, title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId, customHtml };
+      ? { title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId, categoryName, customHtml }
+      : { id: selectedPost?.id, title, slug, content, featuredImage, author, status, tags, readingTime: Number(readingTime), categoryId, categoryName, customHtml };
 
     try {
       const response = await fetch("/api/admin/posts", {

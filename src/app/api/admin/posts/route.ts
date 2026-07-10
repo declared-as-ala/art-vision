@@ -2,13 +2,36 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { normalizeSlug, revalidateContent, sanitizeHtml, slugExists } from "@/lib/cms";
 
+// Resolve a category reference (real id, slug, or label) to a valid
+// BlogCategory.id, creating one if needed — prevents FK failures when the
+// client sends a slug-like id that doesn't exist.
+async function resolveCategoryId(input?: string, label?: string): Promise<string> {
+  const raw = (input || "").trim();
+  if (raw) {
+    const byId = await prisma.blogCategory.findUnique({ where: { id: raw } });
+    if (byId) return byId.id;
+    const bySlug = await prisma.blogCategory.findUnique({ where: { slug: normalizeSlug(raw) } });
+    if (bySlug) return bySlug.id;
+    const byName = await prisma.blogCategory.findFirst({ where: { name: label || raw } });
+    if (byName) return byName.id;
+    const created = await prisma.blogCategory.create({
+      data: { name: label || raw, slug: normalizeSlug(raw) },
+    });
+    return created.id;
+  }
+  const first = await prisma.blogCategory.findFirst();
+  if (first) return first.id;
+  const fallback = await prisma.blogCategory.create({ data: { name: "Design", slug: "design" } });
+  return fallback.id;
+}
+
 export async function GET() {
   try {
-    const posts = await prisma.blogPost.findMany({
-      include: { category: true },
-      orderBy: { createdAt: "desc" }
-    });
-    return NextResponse.json({ success: true, posts });
+    const [posts, categories] = await Promise.all([
+      prisma.blogPost.findMany({ include: { category: true }, orderBy: { createdAt: "desc" } }),
+      prisma.blogCategory.findMany({ orderBy: { name: "asc" } }),
+    ]);
+    return NextResponse.json({ success: true, posts, categories });
   } catch (error) {
     console.error("GET posts error:", error);
     return NextResponse.json({ success: false, error: "Database error" }, { status: 500 });
@@ -18,7 +41,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { title, content, featuredImage, author, status, tags, readingTime, categoryId, customHtml } = body;
+    const { title, content, featuredImage, author, status, tags, readingTime, categoryId, categoryName, customHtml } = body;
     const slug = normalizeSlug(body.slug || title);
 
     // Check if slug exists
@@ -26,18 +49,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: "Un article avec ce slug (URL) existe déjà." }, { status: 400 });
     }
 
-    let catId = categoryId;
-    if (!catId) {
-      const cat = await prisma.blogCategory.findFirst();
-      if (cat) {
-        catId = cat.id;
-      } else {
-        const newCat = await prisma.blogCategory.create({
-          data: { name: "Design", slug: "design" }
-        });
-        catId = newCat.id;
-      }
-    }
+    const catId = await resolveCategoryId(categoryId, categoryName);
 
     const newPost = await prisma.blogPost.create({
       data: {
@@ -64,11 +76,13 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, title, content, featuredImage, author, status, tags, readingTime, categoryId, customHtml } = body;
+    const { id, title, content, featuredImage, author, status, tags, readingTime, categoryId, categoryName, customHtml } = body;
     const slug = normalizeSlug(body.slug || title);
     const previous = await prisma.blogPost.findUnique({ where: { id } });
     if (await slugExists(slug, { type: "POST", id })) return NextResponse.json({ success: false, error: "Ce slug est déjà utilisé." }, { status: 400 });
-    
+
+    const catId = await resolveCategoryId(categoryId, categoryName);
+
     const updated = await prisma.blogPost.update({
       where: { id },
       data: {
@@ -81,7 +95,7 @@ export async function PUT(req: Request) {
         tags,
         readingTime: Number(readingTime),
         ...(customHtml !== undefined ? { customHtml: customHtml ? sanitizeHtml(String(customHtml)) : null } : {}),
-        categoryId
+        categoryId: catId
       }
     });
     revalidateContent("POST", slug, previous?.slug);
