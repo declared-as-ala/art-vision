@@ -82,7 +82,8 @@ export async function POST(req: Request) {
       const media = await prisma.media.create({
         data: { url: "", data: buffer, ...baseData },
       });
-      url = `/api/media/${media.id}`;
+      // Append the filename so the URL carries the extension (image vs video).
+      url = `/api/media/${media.id}/${uniqueFileName}`;
       await prisma.media.update({ where: { id: media.id }, data: { url } });
       // Never return the raw bytes in JSON.
       const { data: _bytes, ...safe } = media;

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Search, Plus, Trash2, Edit3, X, Save, AlertCircle, ExternalLink, Upload } from "lucide-react";
 import HtmlBlockEditor from "@/components/admin/HtmlBlockEditor";
+import { isVideoUrl } from "@/lib/media";
 
 interface Category {
   id: string;
@@ -378,11 +379,15 @@ export default function AdminPortfolioPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs text-white/70 block font-semibold">Images du Projet</label>
+                <label className="text-xs text-white/70 block font-semibold">Images & Vidéos du Projet</label>
                 <div className="grid grid-cols-4 gap-2">
                   {images && images.split(";").filter(Boolean).map((imgUrl, index) => (
                     <div key={index} className="w-full aspect-square rounded-lg border border-brand-purple/20 overflow-hidden bg-[#050314] flex items-center justify-center relative group">
-                      <img src={imgUrl} alt={`Project ${index}`} className="w-full h-full object-cover" />
+                      {isVideoUrl(imgUrl) ? (
+                        <video src={imgUrl} className="w-full h-full object-cover" muted />
+                      ) : (
+                        <img src={imgUrl} alt={`Project ${index}`} className="w-full h-full object-cover" />
+                      )}
                       <button
                         type="button"
                         onClick={() => handleRemoveImage(index)}
@@ -407,7 +412,7 @@ export default function AdminPortfolioPage() {
                   type="file"
                   ref={fileInputRef}
                   onChange={handleImagesUpload}
-                  accept="image/*"
+                  accept="image/*,video/*"
                   multiple
                   className="hidden"
                 />

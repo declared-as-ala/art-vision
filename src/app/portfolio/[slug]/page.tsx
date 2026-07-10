@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { sanitizeHtml } from "@/lib/cms";
 import { buildEffectiveTitle, buildEffectiveDescription } from "@/lib/seo-score";
+import { isVideoUrl } from "@/lib/media";
 import {
   ChevronRight,
   ArrowLeft,
@@ -106,18 +107,28 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           {/* Main Content (Left 2 columns) */}
           <div className="md:col-span-2 space-y-8">
             
-            {/* Project Overview Images — rendered at the image's own aspect ratio
-                (a 500×500 shows square), centered, just capped for responsiveness. */}
+            {/* Project media — images at their own aspect ratio, videos playable,
+                centered and capped for responsiveness. */}
             <div className="flex flex-wrap justify-center gap-5">
-              {imagesList.map((img: string, idx: number) => (
-                <img
-                  key={idx}
-                  src={img}
-                  alt={`${project.title} - Image ${idx + 1}`}
-                  className="rounded-2xl border border-brand-purple/15 bg-white max-w-full sm:max-w-[380px] h-auto object-contain"
-                  loading="lazy"
-                />
-              ))}
+              {imagesList.map((media: string, idx: number) =>
+                isVideoUrl(media) ? (
+                  <video
+                    key={idx}
+                    src={media}
+                    controls
+                    playsInline
+                    className="rounded-2xl border border-brand-purple/15 bg-black max-w-full sm:max-w-[460px] h-auto"
+                  />
+                ) : (
+                  <img
+                    key={idx}
+                    src={media}
+                    alt={`${project.title} - Image ${idx + 1}`}
+                    className="rounded-2xl border border-brand-purple/15 bg-white max-w-full sm:max-w-[380px] h-auto object-contain"
+                    loading="lazy"
+                  />
+                )
+              )}
             </div>
 
             {/* Objective, Challenge, Solution */}

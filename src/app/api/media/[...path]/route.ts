@@ -4,17 +4,21 @@ import prisma from "@/lib/prisma";
 export const runtime = "nodejs";
 
 // Public: serve a DB-stored uploaded file (used when no Blob/disk storage is
-// available, e.g. Vercel's read-only serverless filesystem). Content is fixed
-// per id, so it's cached aggressively.
-export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
+// available, e.g. Vercel's read-only serverless filesystem). The URL is
+// /api/media/<id>[/<filename.ext>] — the id is the first segment; any trailing
+// filename only exists so the URL carries the file extension (image vs video).
+export async function GET(_req: Request, ctx: { params: Promise<{ path: string[] }> }) {
   try {
-    const { id } = await ctx.params;
+    const { path } = await ctx.params;
+    const id = path?.[0];
+    if (!id) return new NextResponse("Not found", { status: 404 });
+
     const media = await prisma.media.findUnique({ where: { id } });
     if (!media) return new NextResponse("Not found", { status: 404 });
 
     // If the file lives elsewhere (disk/blob), send the client there.
     if (!media.data) {
-      if (media.url && media.url !== `/api/media/${id}`) {
+      if (media.url && !media.url.startsWith("/api/media/")) {
         return NextResponse.redirect(new URL(media.url, "https://art-visions.fr"));
       }
       return new NextResponse("Not found", { status: 404 });
@@ -26,6 +30,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> 
       headers: {
         "Content-Type": media.mimeType || "application/octet-stream",
         "Content-Length": String(bytes.length),
+        "Accept-Ranges": "bytes",
         "Cache-Control": "public, max-age=31536000, immutable",
       },
     });
