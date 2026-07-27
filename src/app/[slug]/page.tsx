@@ -95,11 +95,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description: desc,
         alternates: {
           canonical,
-          languages: {
-            "fr-FR": canonical,
-            "en-US": canonical.replace("art-visions.fr", "art-visions.fr/en"),
-            "ar-AE": canonical.replace("art-visions.fr", "art-visions.fr/ar")
-          }
         },
         robots: {
           index: indexable,
@@ -145,11 +140,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         description: desc,
         alternates: {
           canonical,
-          languages: {
-            "fr-FR": canonical,
-            "en-US": canonical.replace("art-visions.fr", "art-visions.fr/en"),
-            "ar-AE": canonical.replace("art-visions.fr", "art-visions.fr/ar")
-          }
         },
         robots: {
           index: indexable,
