@@ -41,6 +41,14 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // 2a. Canonical consolidation: /services/<slug> and /seo/<slug> are duplicate
+  //     views of the root /<slug> page (their canonical). 301 to the root so
+  //     Google indexes a single URL instead of excluding duplicates.
+  if (pathname.startsWith("/services/") || pathname.startsWith("/seo/")) {
+    const slug = pathname.split("/")[2];
+    if (slug) return NextResponse.redirect(new URL(`/${slug}`, request.url), 301);
+  }
+
   // 2. Perform dynamic redirect checks without recursively fetching this app.
   if (
     !pathname.startsWith("/api") &&
