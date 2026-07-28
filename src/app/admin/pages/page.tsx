@@ -205,7 +205,7 @@ export default function AdminPagesPage() {
     <div className="space-y-8 text-left relative">
       <div className="flex justify-between items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white">
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white">
             Toutes les pages
           </h1>
           <p className="text-xs text-white/50">Pages statiques, landings SEO & pages légales.</p>
@@ -327,7 +327,7 @@ export default function AdminPagesPage() {
             <form onSubmit={handleSave} className="space-y-4 pt-4 text-left flex-1 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="border-b border-brand-purple/20 pb-4">
-                  <h2 className="text-xl font-sora font-extrabold text-white">
+                  <h2 className="text-xl font-montserrat font-extrabold text-white">
                     {isNew ? "Créer une nouvelle page" : "Modifier la page"}
                   </h2>
                   <p className="text-[10px] text-white/50">Configurez et éditez le contenu de votre page.</p>
@@ -381,7 +381,7 @@ export default function AdminPagesPage() {
                   <RichTextEditor value={content} onChange={setContent} label="Contenu de la page" />
                 </div>
                 <div className="border-t border-brand-purple/15 pt-4 space-y-4">
-                  <h3 className="text-xs font-sora font-semibold text-brand-magenta uppercase tracking-wider">Paramètres SEO de la page</h3>
+                  <h3 className="text-xs font-montserrat font-semibold text-brand-magenta uppercase tracking-wider">Paramètres SEO de la page</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
                       <label className="text-xs text-white/70 font-semibold">Titre SEO (Meta Title)</label>

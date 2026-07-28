@@ -52,7 +52,7 @@ export default function AnalyticsPage() {
     <div className="space-y-6 text-left">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white flex items-center gap-2"><BarChart3 className="text-brand-magenta" size={24} /> Analytique</h1>
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white flex items-center gap-2"><BarChart3 className="text-brand-magenta" size={24} /> Analytique</h1>
           <p className="text-xs text-white/50 flex items-center gap-2">
             <span className={`inline-block w-2 h-2 rounded-full ${active ? "bg-green-400 animate-pulse" : "bg-white/30"}`} />
             {active ? "Suivi analytique actif (anonyme, après consentement)" : "Aucune donnée — le suivi démarre après acceptation des cookies."}
@@ -110,7 +110,7 @@ export default function AnalyticsPage() {
 
           {/* Daily chart */}
           <div className="glassmorphism rounded-2xl p-5 border border-brand-purple/15">
-            <h3 className="text-sm font-sora font-bold text-white mb-4">Visiteurs par jour</h3>
+            <h3 className="text-sm font-montserrat font-bold text-white mb-4">Visiteurs par jour</h3>
             <DailyChart daily={rg.daily} />
           </div>
 
@@ -155,13 +155,13 @@ function Stat({ icon: Icon, label, value, color = "text-white", small }: any) {
     <div className={card + " border-brand-purple/15"}>
       <div className={`inline-flex p-2 rounded-lg bg-white/5 mb-2 ${color}`}><Icon size={small ? 14 : 17} /></div>
       <span className="text-[10px] font-semibold text-white/40 uppercase tracking-wider block">{label}</span>
-      <span className={`${small ? "text-2xl" : "text-3xl"} font-sora font-black text-white`}>{value ?? 0}</span>
+      <span className={`${small ? "text-2xl" : "text-3xl"} font-montserrat font-extrabold text-white`}>{value ?? 0}</span>
     </div>
   );
 }
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
-  return <div className="glassmorphism rounded-2xl p-5 border border-brand-purple/15"><h3 className="text-sm font-sora font-bold text-white mb-3">{title}</h3>{children}</div>;
+  return <div className="glassmorphism rounded-2xl p-5 border border-brand-purple/15"><h3 className="text-sm font-montserrat font-bold text-white mb-3">{title}</h3>{children}</div>;
 }
 
 function BarList({ items, icon }: { items: { label: string; count: number; icon?: React.ReactNode }[]; icon?: React.ReactNode }) {

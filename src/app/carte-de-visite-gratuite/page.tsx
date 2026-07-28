@@ -308,7 +308,7 @@ END:VCARD`;
             <Sparkles size={14} className="text-brand-orange" />
             <span>Outil Créatif Gratuit</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight">
             Créer votre carte de visite <span className="text-brand-magenta">professionnelle</span> gratuitement
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-base">
@@ -319,7 +319,7 @@ END:VCARD`;
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Inputs Panel (Left) */}
           <div className="lg:col-span-5 glassmorphism rounded-2xl p-6 space-y-6">
-            <h2 className="font-sora font-bold text-lg text-white border-b border-brand-purple/20 pb-3 flex items-center space-x-2">
+            <h2 className="font-montserrat font-bold text-lg text-white border-b border-brand-purple/20 pb-3 flex items-center space-x-2">
               <CreditCard className="text-brand-magenta" size={20} />
               <span>Informations de la carte</span>
             </h2>
@@ -570,7 +570,7 @@ END:VCARD`;
             {/* Card preview wrapper */}
             <div className="glassmorphism rounded-2xl p-6 flex flex-col items-center space-y-6">
               <div className="flex justify-between items-center w-full border-b border-brand-purple/20 pb-3">
-                <h2 className="font-sora font-bold text-lg text-white flex items-center space-x-2">
+                <h2 className="font-montserrat font-bold text-lg text-white flex items-center space-x-2">
                   <CreditCard className="text-brand-orange" size={20} />
                   <span>Aperçu interactif</span>
                 </h2>
@@ -623,7 +623,7 @@ END:VCARD`;
                         {logoUrl ? (
                           <img src={logoUrl} alt="Logo" className="max-w-[80%] max-h-[70%] object-contain" />
                         ) : (
-                          <span className="font-sora font-extrabold text-2xl text-white">AV</span>
+                          <span className="font-montserrat font-extrabold text-2xl text-white">AV</span>
                         )}
                         <div
                           style={{ backgroundColor: primaryColor }}
@@ -631,7 +631,7 @@ END:VCARD`;
                         ></div>
                       </div>
                       <div className="flex-1 px-4 sm:px-5 py-3 flex flex-col justify-center min-w-0">
-                        <h3 className="font-sora font-extrabold text-lg sm:text-xl leading-tight" style={{ color: "#1A1A22" }}>
+                        <h3 className="font-montserrat font-extrabold text-lg sm:text-xl leading-tight" style={{ color: "#1A1A22" }}>
                           {name || "Votre Nom"}
                         </h3>
                         <p className="text-xs sm:text-sm mt-0.5" style={{ color: "#6B6B75" }}>
@@ -681,13 +681,13 @@ END:VCARD`;
                         ) : (
                           <div
                             style={{ backgroundColor: primaryColor === bgColor ? "#D72888" : primaryColor }}
-                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-sora font-extrabold text-sm"
+                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-montserrat font-extrabold text-sm"
                           >
                             AV
                           </div>
                         )}
                         <div>
-                          <h3 className="font-sora font-extrabold text-lg leading-tight text-white">
+                          <h3 className="font-montserrat font-extrabold text-lg leading-tight text-white">
                             {name || "Votre Nom"}
                           </h3>
                           <p
@@ -732,7 +732,7 @@ END:VCARD`;
                       </div>
                     )}
                     <div className="text-center">
-                      <h4 className="font-sora font-extrabold text-base tracking-wider text-white">
+                      <h4 className="font-montserrat font-extrabold text-base tracking-wider text-white">
                         ART <span className="text-brand-magenta">VISION</span>
                       </h4>
                       <p className="text-[10px] opacity-50 italic">
@@ -799,7 +799,7 @@ END:VCARD`;
                       : "border-brand-purple/20 hover:border-brand-purple/40"
                   }`}
                 >
-                  <h4 className="font-sora font-semibold text-sm text-white mb-1 flex items-center justify-between">
+                  <h4 className="font-montserrat font-semibold text-sm text-white mb-1 flex items-center justify-between">
                     <span>{tmpl.name}</span>
                     {template === tmpl.id && <span className="text-[10px] bg-brand-magenta/20 text-brand-magenta px-2 py-0.5 rounded-full font-bold">Actif</span>}
                   </h4>

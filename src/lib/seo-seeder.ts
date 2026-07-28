@@ -73,7 +73,7 @@ function generateSEOContent(keyword: string, city?: string): string {
       À l'ère de la transformation numérique, se démarquer par une communication visuelle de qualité supérieure est devenu un impératif stratégique pour toutes les entreprises. C'est pourquoi faire appel à un expert pour votre projet de <strong>${keyword} ${targetLocation}</strong> s'avère être un choix pertinent et un investissement immédiatement rentable. Art Vision met à votre disposition des solutions créatives uniques, soignées et parfaitement adaptées à l'identité visuelle de votre marque.
     </p>
 
-    <h2 class="text-2xl font-sora font-extrabold text-white pt-6">Pourquoi choisir Art Vision pour votre ${keyword} ?</h2>
+    <h2 class="text-2xl font-montserrat font-extrabold text-white pt-6">Pourquoi choisir Art Vision pour votre ${keyword} ?</h2>
     <p class="text-sm text-white/85 leading-relaxed">
       En tant que studio créatif à taille humaine, nous plaçons l'excellence visuelle et le respect de votre cahier des charges au cœur de nos priorités. Nous n'utilisons aucun gabarit automatique ou modèle pré-conçu de basse qualité. Chaque création de <strong>${keyword}</strong> fait l'objet d'une recherche approfondie de typographie, de composition et d'harmonie colorimétrique.
     </p>
@@ -83,7 +83,7 @@ function generateSEOContent(keyword: string, city?: string): string {
       <li><strong>Contrôle qualité technique :</strong> De la colorimétrie CMJN pour l'impression au codage sémantique Next.js pour le web, nous respectons scrupuleusement les exigences techniques.</li>
     </ul>
 
-    <h2 class="text-2xl font-sora font-extrabold text-white pt-6">Notre processus de création pour votre projet ${targetLocation}</h2>
+    <h2 class="text-2xl font-montserrat font-extrabold text-white pt-6">Notre processus de création pour votre projet ${targetLocation}</h2>
     <p class="text-sm text-white/85 leading-relaxed">
       Pour garantir la conformité et la réussite de nos livrables, nous appliquons une méthodologie de travail rigoureuse structurée en cinq étapes claires :
     </p>
@@ -110,7 +110,7 @@ function generateSEOContent(keyword: string, city?: string): string {
       </div>
     </div>
 
-    <h2 class="text-2xl font-sora font-extrabold text-white pt-6">Optimisation et cohérence de votre communication visuelle</h2>
+    <h2 class="text-2xl font-montserrat font-extrabold text-white pt-6">Optimisation et cohérence de votre communication visuelle</h2>
     <p class="text-sm text-white/85 leading-relaxed">
       Qu'il s'agisse de concevoir une identité visuelle complète, une modélisation 3D photoréaliste ou des supports d'impression grand format, la qualité d'exécution d'Art Vision garantit une mémorisation forte auprès de vos prospects. Nous vous aidons à bâtir une image cohérente, moderne et pérenne sur l'ensemble de vos canaux de diffusion.
     </p>

@@ -26,7 +26,7 @@ export default async function PolitiqueCookiesPage() {
             <Cookie size={14} className="text-brand-orange" />
             <span>Cookies</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight text-white">
             Politique de <span className="text-brand-magenta">Cookies (UE)</span>
           </h1>
         </div>
@@ -37,11 +37,11 @@ export default async function PolitiqueCookiesPage() {
           ) : (
             <>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Qu&rsquo;est-ce qu&rsquo;un cookie ?</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Qu&rsquo;est-ce qu&rsquo;un cookie ?</h2>
                 <p>Un cookie est un petit fichier texte déposé sur votre appareil (ordinateur, tablette, smartphone) lors de votre visite sur un site web. Il permet de stocker des informations relatives à votre navigation pour améliorer votre expérience.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Cookies utilisés</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Cookies utilisés</h2>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs border-collapse">
                     <thead>
@@ -60,15 +60,15 @@ export default async function PolitiqueCookiesPage() {
                 </div>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Votre consentement</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Votre consentement</h2>
                 <p>Lors de votre première visite, une bannière vous informe de l&rsquo;utilisation des cookies et recueille votre consentement. Vous pouvez à tout moment modifier vos préférences en cliquant sur notre bannière cookies.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Paramétrer vos cookies</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Paramétrer vos cookies</h2>
                 <p className="flex items-center gap-2"><Settings size={14} /> Vous pouvez configurer vos préférences via notre bannière de cookies ou directement depuis les paramètres de votre navigateur.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Désactiver les cookies</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Désactiver les cookies</h2>
                 <p className="flex items-center gap-2"><X size={14} /> Vous pouvez désactiver les cookies depuis les réglages de votre navigateur :</p>
                 <ul className="list-disc pl-5 space-y-1 mt-2">
                   <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className="text-brand-magenta hover:underline">Google Chrome</a></li>
@@ -78,7 +78,7 @@ export default async function PolitiqueCookiesPage() {
                 </ul>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Contact</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Contact</h2>
                 <p>Pour toute question relative à notre politique de cookies, écrivez-nous à : <strong className="text-white">contact@art-visions.fr</strong></p>
               </section>
             </>

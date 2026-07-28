@@ -71,7 +71,7 @@ export default function ToolsClient({ initial }: { initial: Submission[] }) {
   return (
     <div className="glassmorphism rounded-2xl p-5 border border-brand-purple/15 space-y-4">
       <div className="flex flex-col lg:flex-row gap-3 lg:items-center justify-between">
-        <h3 className="font-sora font-bold text-base text-white">Soumissions & leads</h3>
+        <h3 className="font-montserrat font-bold text-base text-white">Soumissions & leads</h3>
         <div className="flex flex-wrap gap-2">
           <div className="relative">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
@@ -144,7 +144,7 @@ export default function ToolsClient({ initial }: { initial: Submission[] }) {
           <div className="bg-brand-navy border border-brand-purple/30 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto no-scrollbar p-6 space-y-4" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-start justify-between">
               <div>
-                <h4 className="font-sora font-bold text-white">{labelFor(view.toolType)}</h4>
+                <h4 className="font-montserrat font-bold text-white">{labelFor(view.toolType)}</h4>
                 <p className="text-[11px] text-white/40">{new Date(view.createdAt).toLocaleString("fr-FR")}</p>
               </div>
               <button onClick={() => setView(null)} className="text-white/50 hover:text-white"><X size={18} /></button>

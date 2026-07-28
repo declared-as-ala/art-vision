@@ -99,7 +99,7 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-8 text-left">
       <div>
-        <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white">
+        <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white">
           Configuration Générale
         </h1>
         <p className="text-xs text-white/50">Configurez l'identité visuelle, les contacts, les intégrations Google de l'agence.</p>
@@ -142,7 +142,7 @@ export default function AdminSettingsPage() {
               {/* General Tab */}
               {activeTab === "general" && (
                 <div className="space-y-4 animate-in fade-in duration-200">
-                  <h3 className="font-sora font-bold text-sm text-white flex items-center space-x-2">
+                  <h3 className="font-montserrat font-bold text-sm text-white flex items-center space-x-2">
                     <Info size={16} className="text-brand-magenta" />
                     <span>Informations Générales</span>
                   </h3>
@@ -206,7 +206,7 @@ export default function AdminSettingsPage() {
               {/* Address Tab */}
               {activeTab === "address" && (
                 <div className="space-y-4 animate-in fade-in duration-200">
-                  <h3 className="font-sora font-bold text-sm text-white flex items-center space-x-2">
+                  <h3 className="font-montserrat font-bold text-sm text-white flex items-center space-x-2">
                     <MapPin size={16} className="text-brand-magenta" />
                     <span>Adresses des Agences</span>
                   </h3>
@@ -237,7 +237,7 @@ export default function AdminSettingsPage() {
               {/* Google integration Tab */}
               {activeTab === "google" && (
                 <div className="space-y-4 animate-in fade-in duration-200">
-                  <h3 className="font-sora font-bold text-sm text-white flex items-center space-x-2">
+                  <h3 className="font-montserrat font-bold text-sm text-white flex items-center space-x-2">
                     <Search size={16} className="text-brand-magenta" />
                     <span>Google Analytics & SEO Verification</span>
                   </h3>
@@ -281,7 +281,7 @@ export default function AdminSettingsPage() {
               {/* Social Tab */}
               {activeTab === "social" && (
                 <div className="space-y-4 animate-in fade-in duration-200">
-                  <h3 className="font-sora font-bold text-sm text-white flex items-center space-x-2">
+                  <h3 className="font-montserrat font-bold text-sm text-white flex items-center space-x-2">
                     <Share2 size={16} className="text-brand-magenta" />
                     <span>Réseaux Sociaux</span>
                   </h3>

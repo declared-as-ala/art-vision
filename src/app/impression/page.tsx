@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
@@ -122,7 +122,7 @@ export default function ImpressionCatalogPage() {
               </span>
               Catalogue impression
             </div>
-            <h1 className="mt-5 text-[clamp(1.75rem,5vw,3.5rem)] font-extrabold leading-[1.05] text-white font-sora tracking-tight">
+            <h1 className="mt-5 text-[clamp(1.75rem,5vw,3.5rem)] font-extrabold leading-[1.05] text-white font-montserrat tracking-tight">
               Tous vos supports imprimés,<br />
               <span className="text-brand-magenta">organisés comme un vrai catalogue</span>
             </h1>
@@ -145,7 +145,7 @@ export default function ImpressionCatalogPage() {
                 }`}
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                <p className="text-2xl sm:text-3xl font-black text-white">{stat.value}</p>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white">{stat.value}</p>
                 <p className="text-[11px] sm:text-sm text-white/50 mt-0.5">{stat.label}</p>
               </div>
             ))}
@@ -281,7 +281,7 @@ export default function ImpressionCatalogPage() {
         {/* ===== CTA ===== */}
         <section className="mt-12 sm:mt-16 glassmorphism rounded-2xl p-6 sm:p-8 border border-brand-magenta/20 sm:flex sm:items-center sm:justify-between sm:gap-6">
           <div className="text-center sm:text-left">
-            <h2 className="text-xl sm:text-2xl font-bold text-white font-sora">
+            <h2 className="text-xl sm:text-2xl font-bold text-white font-montserrat">
               Besoin d'un support qui n'a pas encore sa grille ?
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-white/60 max-w-xl">

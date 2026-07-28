@@ -39,7 +39,7 @@ export default function CookieConsent() {
           <ShieldCheck size={24} />
         </div>
         <div className="flex-1 space-y-2">
-          <h4 className="font-sora font-semibold text-sm text-white">
+          <h4 className="font-montserrat font-semibold text-sm text-white">
             Respect de votre vie privée
           </h4>
           <p className="text-xs text-white/75 leading-relaxed">

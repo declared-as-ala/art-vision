@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import GoogleTrackers from "@/components/trackers/GoogleTrackers";
 import PublicShell from "@/components/PublicShell";
@@ -13,14 +13,11 @@ const getSettings = () =>
 const getSeo = () =>
   cached("seoSettings", 60_000, () => prisma.sEOSettings.findUnique({ where: { id: "default" } }));
 
-const futuraBook = localFont({
-  src: "./fonts/Futura-Book Book.ttf",
-  variable: "--font-futura-book",
-});
-
-const futuraLight = localFont({
-  src: "./fonts/Futura Light.otf",
-  variable: "--font-futura-light",
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-montserrat",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -47,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
         google: seo?.googleSearchCons || undefined,
       }
     };
-  } catch (error) {
+  } catch {
     return {
       metadataBase,
       title: "Art Vision | Agence graphique & Studio créatif en France",
@@ -67,12 +64,12 @@ export default async function RootLayout({
     const settings = await getSettings();
     gaId = settings?.googleAnalyticsId || "";
     gtmId = settings?.googleTagManagerId || "";
-  } catch (e) {
+  } catch {
     // Fail silently in build phase
   }
 
   return (
-    <html lang="fr" className={`${futuraBook.variable} ${futuraLight.variable} h-full antialiased`}>
+    <html lang="fr" className={`${montserrat.variable} ${montserrat.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col hero-gradient text-brand-white">
         <NavigationProgress />
         <GoogleTrackers gaId={gaId} gtmId={gtmId} />

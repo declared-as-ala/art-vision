@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CheckCircle2, ChevronRight, FileText, Mail, Phone, Printer, Truck, MessageCircle } from "lucide-react";
@@ -82,7 +82,7 @@ function PriceTable({ category, slug }: { category: PriceCategory; slug: string 
       <div className="flex flex-col gap-3 border-b border-brand-purple/20 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-brand-magenta">Tarifs</p>
-          <h2 className="mt-1 text-xl font-bold text-white font-sora">{category.title}</h2>
+          <h2 className="mt-1 text-xl font-bold text-white font-montserrat">{category.title}</h2>
         </div>
         <Link
           href={`/devis-sur-mesure?prefill=impression&product=${encodeURIComponent(slug)}&paper=${encodeURIComponent(category.name)}`}
@@ -165,11 +165,11 @@ export default async function ImpressionProductPage({ params }: { params: Promis
                 <Printer size={15} aria-hidden="true" />
                 Tarifs impression
               </div>
-              <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl text-white font-sora">{product.label}</h1>
+              <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl text-white font-montserrat">{product.label}</h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/70">Tables de prix scrapées depuis la page source actuelle, réorganisées dans le design Art Vision avec accès rapide par grammage et format.</p>
             </div>
             <div className="glassmorphism rounded-xl p-6 border border-brand-purple/15">
-              <h2 className="text-lg font-bold text-white font-sora">Fichiers et délais</h2>
+              <h2 className="text-lg font-bold text-white font-montserrat">Fichiers et délais</h2>
               <dl className="mt-4 grid gap-3 text-sm">
                 <div className="flex gap-3"><FileText className="mt-0.5 shrink-0 text-brand-magenta" size={18} aria-hidden="true" /><div><dt className="font-semibold text-white">Formats acceptés</dt><dd className="text-white/60">{data.fileGuidelines.acceptedFormats.join(", ")}</dd></div></div>
                 <div className="flex gap-3"><CheckCircle2 className="mt-0.5 shrink-0 text-brand-magenta" size={18} aria-hidden="true" /><div><dt className="font-semibold text-white">Qualité</dt><dd className="text-white/60">300 DPI, couleurs CMJN, textes vectorisés pour EPS et AI.</dd></div></div>
@@ -225,7 +225,7 @@ export default async function ImpressionProductPage({ params }: { params: Promis
           </>
         ) : (
           <section className="mt-10 glassmorphism rounded-2xl p-8 border border-brand-purple/15">
-            <h2 className="text-2xl font-bold text-white font-sora">Tarif sur devis</h2>
+            <h2 className="text-2xl font-bold text-white font-montserrat">Tarif sur devis</h2>
             <p className="mt-2 text-sm leading-6 text-white/70">Cette catégorie ne publie pas de table de prix standard dans la page source. Envoyez-nous votre format, quantité et fichier pour une estimation.</p>
             <Link
               href={`/devis-sur-mesure?prefill=impression&product=${encodeURIComponent(product.label)}`}
@@ -240,7 +240,7 @@ export default async function ImpressionProductPage({ params }: { params: Promis
         {/* Final CTA */}
         <section className="mt-10 glassmorphism rounded-2xl p-8 border border-brand-magenta/20 md:flex md:items-center md:justify-between md:gap-6">
           <div>
-            <h2 className="text-2xl font-bold text-white font-sora">Une question ? Un devis {product.label.toLowerCase()} ?</h2>
+            <h2 className="text-2xl font-bold text-white font-montserrat">Une question ? Un devis {product.label.toLowerCase()} ?</h2>
             <p className="mt-2 text-sm text-white/70">Contactez Art Vision pour vérifier votre fichier ou adapter une quantité.</p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
               <a className="inline-flex items-center gap-2 text-brand-magenta hover:text-white transition" href="tel:+21655804227">

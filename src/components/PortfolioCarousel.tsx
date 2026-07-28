@@ -95,7 +95,7 @@ export default function PortfolioCarousel({ projects }: { projects: CarouselProj
               </span>
             </div>
             <div className="p-5 space-y-2 text-left">
-              <h3 className="font-sora font-bold text-sm text-white group-hover:text-brand-magenta transition">
+              <h3 className="font-montserrat font-bold text-sm text-white group-hover:text-brand-magenta transition">
                 {project.title}
               </h3>
               <p className="text-[11px] text-white/50">Client : {project.client}</p>

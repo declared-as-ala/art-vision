@@ -197,7 +197,7 @@ export default function CVGenerator() {
             <Sparkles size={14} className="text-brand-orange" />
             <span>Créateur de CV en Ligne</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight">
             Créez un CV professionnel et <span className="text-brand-magenta">design</span> en quelques clics
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-base">
@@ -595,7 +595,7 @@ export default function CVGenerator() {
                     {/* Header Banner */}
                     <div className="flex items-start justify-between border-b-2 pb-6" style={{ borderColor: themeColor }}>
                       <div className="space-y-1">
-                        <h2 className="text-3xl font-sora font-extrabold text-brand-navy tracking-tight">{name}</h2>
+                        <h2 className="text-3xl font-montserrat font-extrabold text-brand-navy tracking-tight">{name}</h2>
                         <h3 className="text-sm font-semibold uppercase tracking-wider" style={{ color: themeColor }}>
                           {profession}
                         </h3>
@@ -727,7 +727,7 @@ export default function CVGenerator() {
                         />
                       )}
                       <div className="flex-1 space-y-1">
-                        <h2 className="text-2xl font-sora font-extrabold text-brand-navy tracking-tight">{name}</h2>
+                        <h2 className="text-2xl font-montserrat font-extrabold text-brand-navy tracking-tight">{name}</h2>
                         <h3 className="text-xs font-semibold uppercase tracking-wider text-brand-purple">
                           {profession}
                         </h3>
@@ -834,7 +834,7 @@ export default function CVGenerator() {
                   <div>
                     {/* Centered header */}
                     <div className="text-center pb-6 border-b border-gray-300 space-y-2">
-                      <h2 className="text-3xl font-sora font-bold text-gray-900">{name}</h2>
+                      <h2 className="text-3xl font-montserrat font-bold text-gray-900">{name}</h2>
                       <h3 className="text-sm font-semibold uppercase tracking-widest text-gray-600">{profession}</h3>
                       <div className="flex justify-center space-x-6 text-[10px] text-gray-500 font-medium">
                         <span>📱 {phone}</span>

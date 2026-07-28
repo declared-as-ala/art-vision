@@ -71,7 +71,7 @@ export default function OutilsGrid() {
                 <span className="text-[9px] font-bold uppercase tracking-widest text-white/40">
                   {tool.category}
                 </span>
-                <h3 className="text-lg font-sora font-extrabold text-white mt-1 group-hover:text-brand-magenta transition">
+                <h3 className="text-lg font-montserrat font-extrabold text-white mt-1 group-hover:text-brand-magenta transition">
                   {tool.title}
                 </h3>
                 <p className="text-xs text-white/60 leading-relaxed mt-2">{tool.shortDesc}</p>

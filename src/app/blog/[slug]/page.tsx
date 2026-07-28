@@ -158,7 +158,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
               <span className="bg-brand-orange/15 border border-brand-orange/30 text-brand-orange text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Article pilier</span>
             )}
           </div>
-          <h1 className="text-3xl md:text-5xl font-sora font-extrabold tracking-tight text-white leading-tight">{post.title}</h1>
+          <h1 className="text-3xl md:text-5xl font-montserrat font-extrabold tracking-tight text-white leading-tight">{post.title}</h1>
           {post.excerpt && <p className="text-white/65 text-sm md:text-base max-w-3xl">{post.excerpt}</p>}
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-white/60 font-medium pt-1">
             <span className="flex items-center gap-1.5"><Calendar size={14} className="text-brand-orange" /> Publié le <strong>{publishedDate}</strong></span>
@@ -224,7 +224,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
               <div className="relative overflow-hidden rounded-2xl border border-brand-magenta/25 p-7" style={{ background: "linear-gradient(135deg, rgba(108,43,217,0.25), rgba(215,40,136,0.18))" }}>
                 <div className="absolute -top-16 -right-8 w-56 h-56 rounded-full bg-brand-magenta/20 blur-[80px]" aria-hidden />
                 <div className="relative">
-                  <h3 className="text-xl font-sora font-extrabold text-white">{post.ctaTitle || "Passez à l'action avec Art Vision"}</h3>
+                  <h3 className="text-xl font-montserrat font-extrabold text-white">{post.ctaTitle || "Passez à l'action avec Art Vision"}</h3>
                   {post.ctaText && <p className="text-white/65 text-sm mt-2 max-w-xl">{post.ctaText}</p>}
                   <Link href={post.ctaHref || "/devis-sur-mesure"} className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange/90 text-white px-5 py-3 rounded-full text-sm font-bold transition mt-4">
                     {post.ctaLabel || "Demander un devis"} <ArrowRight size={16} />
@@ -236,7 +236,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
             {/* FAQ */}
             {faq.length > 0 && (
               <section className="space-y-3">
-                <h2 className="text-2xl font-sora font-extrabold text-white flex items-center gap-2">
+                <h2 className="text-2xl font-montserrat font-extrabold text-white flex items-center gap-2">
                   <HelpCircle size={20} className="text-brand-magenta" /> Questions fréquentes
                 </h2>
                 {faq.map((f, i) => (
@@ -268,7 +268,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
             {/* Author */}
             <div className="glassmorphism rounded-2xl p-6 border border-brand-purple/15 text-left">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-magenta to-brand-purple grid place-items-center text-white font-sora font-extrabold">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-magenta to-brand-purple grid place-items-center text-white font-montserrat font-extrabold">
                   {post.author.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase()}
                 </div>
                 <div>
@@ -286,7 +286,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
             {/* Free tools promo */}
             <div className="glassmorphism rounded-2xl p-6 border border-brand-orange/20 text-center space-y-3">
-              <h3 className="font-sora font-bold text-sm text-white">Outils gratuits Art Vision</h3>
+              <h3 className="font-montserrat font-bold text-sm text-white">Outils gratuits Art Vision</h3>
               <p className="text-[11px] text-white/60">CV, carte de visite, QR code, palette, flyer… créez vos supports en quelques clics.</p>
               <Link href="/outils-gratuits" className="block bg-brand-orange hover:bg-brand-orange/90 text-white py-2.5 rounded-xl font-bold text-xs transition">
                 Découvrir les outils
@@ -298,7 +298,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
         {/* Related articles */}
         {relatedPosts.length > 0 && (
           <div className="border-t border-brand-purple/10 pt-14 space-y-8">
-            <h2 className="font-sora font-extrabold text-xl text-left text-white">Articles recommandés</h2>
+            <h2 className="font-montserrat font-extrabold text-xl text-left text-white">Articles recommandés</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {relatedPosts.map((rPost) => (
                 <Link key={rPost.id} href={`/blog/${rPost.slug}`} className="group block bg-[#1A1238]/40 border border-brand-purple/10 rounded-2xl overflow-hidden hover:border-brand-magenta/40 transition text-left">
@@ -307,7 +307,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
                   </div>
                   <div className="p-4 space-y-2">
                     <span className="text-[9px] text-brand-magenta font-bold uppercase tracking-wider block">{rPost.category.name}</span>
-                    <h3 className="font-sora font-bold text-xs text-white group-hover:text-brand-magenta transition line-clamp-2">{rPost.title}</h3>
+                    <h3 className="font-montserrat font-bold text-xs text-white group-hover:text-brand-magenta transition line-clamp-2">{rPost.title}</h3>
                   </div>
                 </Link>
               ))}

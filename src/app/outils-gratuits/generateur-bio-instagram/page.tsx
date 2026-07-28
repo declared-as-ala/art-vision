@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">Réussir sa bio Instagram</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">Réussir sa bio Instagram</h2>
           <p>
             La bio Instagram est votre carte de visite digitale : 150 caractères pour dire qui vous êtes, ce que vous
             proposez et inciter à passer à l'action. Une bonne bio combine clarté (activité + ville), preuve de valeur

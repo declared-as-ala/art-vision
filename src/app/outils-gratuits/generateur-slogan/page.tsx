@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">Qu'est-ce qu'un bon slogan ?</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">Qu'est-ce qu'un bon slogan ?</h2>
           <p>
             Un slogan efficace est court, mémorable et résume la promesse de votre marque. Il renforce votre
             positionnement et facilite la mémorisation. Le ton — premium, amical, audacieux — doit refléter la

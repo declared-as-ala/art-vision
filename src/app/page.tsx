@@ -106,7 +106,7 @@ export default async function HomePage() {
                 Agence de design graphique, vidéo & impression en France
               </span>
 
-              <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sora font-extrabold text-white leading-[1.05] tracking-tight">
+              <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-montserrat font-extrabold text-white leading-[1.05] tracking-tight">
                 CRÉATION, DESIGN <br />
                 <span className="text-white">ET PRODUCTION</span>
               </h1>
@@ -157,7 +157,7 @@ export default async function HomePage() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(108,43,217,0.35)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(215,40,136,0.35)_0%,transparent_50%)] pointer-events-none -z-10"></div>
                 
                 <div className="space-y-3">
-                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-sora font-black text-white tracking-tight drop-shadow-[0_0_15px_rgba(215,40,136,0.85)]">
+                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-montserrat font-extrabold text-white tracking-tight drop-shadow-[0_0_15px_rgba(215,40,136,0.85)]">
                     CARTE DE VISITE GRATUITE
                   </h2>
                   <p className="text-xs sm:text-sm md:text-lg font-extrabold text-white/90 uppercase tracking-widest flex items-center justify-center gap-2 flex-wrap">
@@ -182,7 +182,7 @@ export default async function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-sora font-extrabold text-white">
+            <h2 className="text-3xl md:text-4xl font-montserrat font-extrabold text-white">
               Nos Services Créatifs
             </h2>
             <p className="text-white/70 max-w-2xl mx-auto text-sm">
@@ -204,7 +204,7 @@ export default async function HomePage() {
                   <div className="bg-brand-purple/10 p-3.5 rounded-xl inline-block mb-6 group-hover:bg-brand-magenta/20 transition">
                     {staticIcon}
                   </div>
-                  <h3 className="font-sora font-bold text-base text-white mb-2 flex items-center justify-between">
+                  <h3 className="font-montserrat font-bold text-base text-white mb-2 flex items-center justify-between">
                     <span>{service.name}</span>
                     <ArrowUpRight size={16} className="text-white/40 group-hover:text-brand-magenta transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </h3>
@@ -233,7 +233,7 @@ export default async function HomePage() {
               <span className="text-xs font-bold uppercase tracking-wider text-brand-orange bg-brand-orange/10 px-3 py-1 rounded-full border border-brand-orange/20 inline-block">
                 🎁 Outils 100% Gratuits
               </span>
-              <h2 className="text-3xl md:text-4xl font-sora font-extrabold leading-tight">
+              <h2 className="text-3xl md:text-4xl font-montserrat font-extrabold leading-tight">
                 Générez vos outils pro en quelques secondes
               </h2>
               <p className="text-sm text-white/70 leading-relaxed">
@@ -245,7 +245,7 @@ export default async function HomePage() {
               {/* CV generator Card */}
               <div className="bg-[#1A1238]/60 border border-brand-purple/20 p-6 rounded-2xl hover:border-brand-magenta/30 transition text-left space-y-4">
                 <FileText size={32} className="text-brand-magenta" />
-                <h3 className="font-sora font-bold text-base text-white">Générateur de CV</h3>
+                <h3 className="font-montserrat font-bold text-base text-white">Générateur de CV</h3>
                 <p className="text-xs text-white/60 leading-relaxed">Création de CV design, remplissage rapide et téléchargement PDF instantané.</p>
                 <Link
                   href="/cv-modeles-gratuits"
@@ -259,7 +259,7 @@ export default async function HomePage() {
               {/* Card generator Card */}
               <div className="bg-[#1A1238]/60 border border-brand-purple/20 p-6 rounded-2xl hover:border-brand-magenta/30 transition text-left space-y-4">
                 <Palette size={32} className="text-brand-orange" />
-                <h3 className="font-sora font-bold text-base text-white">Cartes de visite</h3>
+                <h3 className="font-montserrat font-bold text-base text-white">Cartes de visite</h3>
                 <p className="text-xs text-white/60 leading-relaxed">Design recto/verso avec insertion de QR code dynamique et téléchargement.</p>
                 <Link
                   href="/carte-de-visite-gratuite"
@@ -278,7 +278,7 @@ export default async function HomePage() {
       <section className="py-16 md:py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-3xl md:text-4xl font-sora font-extrabold">
+            <h2 className="text-3xl md:text-4xl font-montserrat font-extrabold">
               Notre Méthode de Travail
             </h2>
             <p className="text-white/60 max-w-2xl mx-auto text-sm">
@@ -289,8 +289,8 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {processSteps.map((step, idx) => (
               <div key={idx} className="glassmorphism rounded-xl p-5 border border-brand-purple/15 relative">
-                <span className="text-4xl font-sora font-extrabold text-brand-purple/20 absolute top-4 right-4">{step.num}</span>
-                <h3 className="font-sora font-bold text-sm text-white mb-2 pt-8">{step.title}</h3>
+                <span className="text-4xl font-montserrat font-extrabold text-brand-purple/20 absolute top-4 right-4">{step.num}</span>
+                <h3 className="font-montserrat font-bold text-sm text-white mb-2 pt-8">{step.title}</h3>
                 <p className="text-[11px] text-white/65 leading-relaxed">{step.desc}</p>
               </div>
             ))}
@@ -304,7 +304,7 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-16 space-y-4 sm:space-y-0">
               <div className="space-y-3">
-                <h2 className="text-3xl md:text-4xl font-sora font-extrabold">Nos Réalisations</h2>
+                <h2 className="text-3xl md:text-4xl font-montserrat font-extrabold">Nos Réalisations</h2>
                 <p className="text-white/60 text-sm max-w-xl">
                   Découvrez les études de cas de nos clients récents en branding, design 3D et vidéo.
                 </p>
@@ -336,7 +336,7 @@ export default async function HomePage() {
       {dbTestimonials.length > 0 && (
         <section className="py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-sora font-extrabold mb-16">Ils nous font confiance</h2>
+            <h2 className="text-3xl md:text-4xl font-montserrat font-extrabold mb-16">Ils nous font confiance</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {dbTestimonials.map((t: any) => (
                 <div key={t.id} className="glassmorphism rounded-2xl p-6 border border-brand-purple/15 text-left flex flex-col justify-between">
@@ -360,7 +360,7 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-5 space-y-6 text-left">
-              <h2 className="text-3xl md:text-4xl font-sora font-extrabold leading-tight">
+              <h2 className="text-3xl md:text-4xl font-montserrat font-extrabold leading-tight">
                 Pourquoi travailler avec Art Vision ?
               </h2>
               <p className="text-sm text-white/70 leading-relaxed">
@@ -371,17 +371,17 @@ export default async function HomePage() {
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15 space-y-3">
                 <Award size={24} className="text-brand-magenta" />
-                <h3 className="font-sora font-bold text-sm text-white">Qualité Premium</h3>
+                <h3 className="font-montserrat font-bold text-sm text-white">Qualité Premium</h3>
                 <p className="text-[10px] text-white/60 leading-relaxed">Zéro template bas de gamme. Créations uniques, modernes et pensées pour durer.</p>
               </div>
               <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15 space-y-3">
                 <Clock size={24} className="text-brand-purple" />
-                <h3 className="font-sora font-bold text-sm text-white">Réactivité 24/7</h3>
+                <h3 className="font-montserrat font-bold text-sm text-white">Réactivité 24/7</h3>
                 <p className="text-[10px] text-white/60 leading-relaxed">Un suivi direct, des livraisons rapides et des échanges fluides par WhatsApp.</p>
               </div>
               <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15 space-y-3">
                 <ThumbsUp size={24} className="text-brand-orange" />
-                <h3 className="font-sora font-bold text-sm text-white">BAT Validé</h3>
+                <h3 className="font-montserrat font-bold text-sm text-white">BAT Validé</h3>
                 <p className="text-[10px] text-white/60 leading-relaxed">Vous ne payez l'impression qu'après validation de votre Bon à Tirer.</p>
               </div>
             </div>
@@ -392,11 +392,11 @@ export default async function HomePage() {
       {/* 8. FAQ ACCORDION */}
       <section className="py-16 md:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-12">
-          <h2 className="text-3xl font-sora font-extrabold">Foire Aux Questions</h2>
+          <h2 className="text-3xl font-montserrat font-extrabold">Foire Aux Questions</h2>
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <div key={idx} className="glassmorphism rounded-xl p-5 border border-brand-purple/15 text-left space-y-2">
-                <h4 className="font-sora font-bold text-sm text-white flex items-start space-x-2">
+                <h4 className="font-montserrat font-bold text-sm text-white flex items-start space-x-2">
                   <HelpCircle size={16} className="text-brand-magenta shrink-0 mt-0.5" />
                   <span>{faq.q}</span>
                 </h4>
@@ -410,7 +410,7 @@ export default async function HomePage() {
       {/* 9. FINAL CTA CONTACT */}
       <section className="py-16 md:py-24 border-t border-brand-purple/20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-8">
-          <h2 className="text-3xl md:text-5xl font-sora font-extrabold tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-5xl font-montserrat font-extrabold tracking-tight leading-tight">
             Prêt à donner une nouvelle dimension <br className="hidden md:inline" /> à votre communication ?
           </h2>
           <p className="text-sm md:text-base text-white/70 max-w-xl mx-auto">

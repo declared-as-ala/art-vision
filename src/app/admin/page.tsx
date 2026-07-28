@@ -125,7 +125,7 @@ export default async function AdminDashboardPage() {
               Vue d'ensemble
             </span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-sora font-extrabold text-white leading-tight">
+          <h2 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white leading-tight">
             Tableau de Bord
           </h2>
           <p className="text-xs text-white/40">
@@ -166,7 +166,7 @@ export default async function AdminDashboardPage() {
                 <span className="text-[11px] font-semibold text-white/40 uppercase tracking-wider block mb-1">
                   {stat.name}
                 </span>
-                <span className="text-4xl font-sora font-black text-white">
+                <span className="text-4xl font-montserrat font-extrabold text-white">
                   {stat.count}
                 </span>
               </div>
@@ -184,10 +184,10 @@ export default async function AdminDashboardPage() {
               Taux de conversion
             </span>
             <div className="flex items-end gap-2">
-              <span className="text-5xl font-sora font-black text-brand-orange">
+              <span className="text-5xl font-montserrat font-extrabold text-brand-orange">
                 {stats.conversion}
               </span>
-              <span className="text-2xl font-sora font-black text-brand-orange/60 mb-1">%</span>
+              <span className="text-2xl font-montserrat font-extrabold text-brand-orange/60 mb-1">%</span>
             </div>
             <p className="text-[11px] text-white/50 leading-relaxed mt-2">
               Visiteurs uniques ayant formulé une demande de devis.
@@ -206,7 +206,7 @@ export default async function AdminDashboardPage() {
               Visiteurs uniques (30j)
             </span>
             <div className="flex items-end gap-2">
-              <span className="text-5xl font-sora font-black text-brand-purple">
+              <span className="text-5xl font-montserrat font-extrabold text-brand-purple">
                 {stats.visitors.toLocaleString("fr-FR")}
               </span>
             </div>
@@ -246,7 +246,7 @@ export default async function AdminDashboardPage() {
       {/* Recent Quotes Table */}
       <div className="glassmorphism rounded-2xl p-6 border border-brand-purple/15 space-y-5">
         <div className="flex items-center justify-between">
-          <h3 className="font-sora font-bold text-base text-white">
+          <h3 className="font-montserrat font-bold text-base text-white">
             Dernières demandes de devis
           </h3>
           <a

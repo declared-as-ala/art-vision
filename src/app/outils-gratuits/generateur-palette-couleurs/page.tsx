@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">Comment choisir les couleurs de votre marque ?</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">Comment choisir les couleurs de votre marque ?</h2>
           <p>
             Une bonne palette repose sur l'équilibre : une couleur primaire forte qui porte votre identité, une
             secondaire pour la nuance, une couleur d'accent pour les appels à l'action, et des neutres pour le texte

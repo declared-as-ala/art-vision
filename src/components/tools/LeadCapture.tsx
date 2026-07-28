@@ -100,7 +100,7 @@ export default function LeadCapture({
           <Mail size={16} />
         </div>
         <div>
-          <h3 className="text-sm font-sora font-bold text-white">{title}</h3>
+          <h3 className="text-sm font-montserrat font-bold text-white">{title}</h3>
           {!compact && <p className="text-[11px] text-white/55 leading-relaxed mt-0.5">{description}</p>}
         </div>
       </div>

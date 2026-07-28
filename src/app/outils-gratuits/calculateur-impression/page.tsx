@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">Combien coûte une impression professionnelle ?</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">Combien coûte une impression professionnelle ?</h2>
           <p>
             Le prix d'une impression dépend de plusieurs facteurs : le produit (flyers, affiches, bâches, panneaux,
             catalogues, cartes de visite), le format, la quantité, le type de papier ou de support, la finition et

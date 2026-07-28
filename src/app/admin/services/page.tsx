@@ -263,7 +263,7 @@ export default function AdminServicesPage() {
     <div className="space-y-8 text-left relative">
       <div className="flex justify-between items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white">
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white">
             Gestion des Services
           </h1>
           <p className="text-xs text-white/50">Gérez le catalogue des services de communication affichés sur le site.</p>
@@ -353,7 +353,7 @@ export default function AdminServicesPage() {
 
             <form onSubmit={handleSave} className="space-y-4 pt-4 text-left">
               <div className="border-b border-brand-purple/20 pb-4">
-                <h2 className="text-xl font-sora font-extrabold text-white">
+                <h2 className="text-xl font-montserrat font-extrabold text-white">
                   {isNew ? "Créer un service" : "Modifier le service"}
                 </h2>
                 <p className="text-[10px] text-white/50">Configurez les paramètres publics de la prestation.</p>

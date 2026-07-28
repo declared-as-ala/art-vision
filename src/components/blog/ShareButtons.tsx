@@ -24,7 +24,7 @@ export default function ShareButtons({ url, title }: { url: string; title: strin
 
   return (
     <div className="glassmorphism rounded-2xl p-6 border border-brand-purple/15 text-left space-y-4">
-      <h3 className="font-sora font-bold text-sm text-white flex items-center gap-2">
+      <h3 className="font-montserrat font-bold text-sm text-white flex items-center gap-2">
         <Share2 size={16} className="text-brand-orange" /> Partager l'article
       </h3>
       <div className="grid grid-cols-2 gap-2">

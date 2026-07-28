@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">Des légendes Instagram qui engagent</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">Des légendes Instagram qui engagent</h2>
           <p>
             Une bonne publication combine une accroche forte, un message clair et un appel à l'action. Les hashtags,
             eux, augmentent la portée : mélangez des termes larges et des hashtags de niche liés à votre activité et à

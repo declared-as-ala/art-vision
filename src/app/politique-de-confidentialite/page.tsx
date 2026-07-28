@@ -26,7 +26,7 @@ export default async function PolitiqueConfidentialitePage() {
             <Lock size={14} className="text-brand-orange" />
             <span>Confidentialité</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight text-white">
             Politique de <span className="text-brand-magenta">Confidentialité</span>
           </h1>
         </div>
@@ -37,7 +37,7 @@ export default async function PolitiqueConfidentialitePage() {
           ) : (
             <>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">1. Données collectées</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">1. Données collectées</h2>
                 <p className="mb-2">Dans le cadre de votre navigation sur art-visions.fr, nous pouvons collecter les données suivantes :</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Nom, prénom et adresse email (via le formulaire de contact ou de devis)</li>
@@ -46,7 +46,7 @@ export default async function PolitiqueConfidentialitePage() {
                 </ul>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">2. Finalités du traitement</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">2. Finalités du traitement</h2>
                 <p>Vos données sont traitées pour :</p>
                 <ul className="list-disc pl-5 space-y-1 mt-2">
                   <li>Répondre à vos demandes de contact et de devis</li>
@@ -55,15 +55,15 @@ export default async function PolitiqueConfidentialitePage() {
                 </ul>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">3. Base légale</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">3. Base légale</h2>
                 <p>Le traitement de vos données repose sur votre consentement (cookies, formulaire de contact) et sur notre intérêt légitime (amélioration du site, sécurité).</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">4. Durée de conservation</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">4. Durée de conservation</h2>
                 <p>Vos données sont conservées pendant la durée nécessaire aux finalités décrites : 3 ans après le dernier contact pour les données de formulaire, 13 mois pour les cookies analytics.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">5. Vos droits RGPD</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">5. Vos droits RGPD</h2>
                 <p className="mb-2">Conformément au Règlement Général sur la Protection des Données, vous disposez des droits suivants :</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Droit d&rsquo;accès, de rectification et d&rsquo;effacement</li>
@@ -74,12 +74,12 @@ export default async function PolitiqueConfidentialitePage() {
                 </ul>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">6. Exercer vos droits</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">6. Exercer vos droits</h2>
                 <p className="flex items-center gap-2"><Mail size={14} /> Pour exercer vos droits, contactez-nous à : <strong className="text-white">contact@art-visions.fr</strong></p>
                 <p className="mt-2">Vous avez également le droit d&rsquo;introduire une réclamation auprès de la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-brand-magenta hover:underline">www.cnil.fr</a>.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">7. Sécurité</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">7. Sécurité</h2>
                 <p className="flex items-center gap-2"><Shield size={14} /> Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, altération ou divulgation.</p>
               </section>
             </>

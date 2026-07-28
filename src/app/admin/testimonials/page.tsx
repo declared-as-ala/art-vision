@@ -132,7 +132,7 @@ export default function AdminTestimonialsPage() {
     <div className="space-y-8 text-left relative">
       <div className="flex justify-between items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white">
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white">
             Gestion des Témoignages
           </h1>
           <p className="text-xs text-white/50">Gérez les avis clients affichés sur la page d'accueil.</p>
@@ -223,7 +223,7 @@ export default function AdminTestimonialsPage() {
 
             <form onSubmit={handleSave} className="space-y-4 pt-4 text-left">
               <div className="border-b border-brand-purple/20 pb-4">
-                <h2 className="text-xl font-sora font-extrabold text-white">
+                <h2 className="text-xl font-montserrat font-extrabold text-white">
                   {isNew ? "Ajouter un avis" : "Modifier l'avis"}
                 </h2>
                 <p className="text-[10px] text-white/50">Gérez le retour client affiché sur le site.</p>
