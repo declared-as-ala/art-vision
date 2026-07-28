@@ -37,7 +37,7 @@ export default async function PortfolioPage() {
             <Sparkles size={14} className="text-brand-orange" />
             <span>Nos Créations</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight">
             Découvrez nos <span className="text-brand-magenta">réalisations</span>
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-base">

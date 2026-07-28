@@ -23,7 +23,7 @@ export default function Page() {
         tool={tool}
         seoContent={
           <>
-            <h2 className="text-xl font-sora font-bold text-white">Créer une carte de visite professionnelle</h2>
+            <h2 className="text-xl font-montserrat font-bold text-white">Créer une carte de visite professionnelle</h2>
             <p>
               Votre carte de visite est souvent le premier contact physique avec un client. Soignez-la : logo, QR code
               vCard, coordonnées claires et couleurs cohérentes avec votre marque. Cet outil génère une carte au format

@@ -54,7 +54,7 @@ export default async function AdminToolsPage() {
             <Wand2 size={16} className="text-brand-magenta" />
             <span className="text-[10px] font-bold uppercase tracking-widest text-brand-magenta">Outils Gratuits</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-sora font-extrabold text-white leading-tight">Performance des outils</h2>
+          <h2 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white leading-tight">Performance des outils</h2>
           <p className="text-xs text-white/40">Générations, leads collectés et conversion de vos outils gratuits.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -82,7 +82,7 @@ export default async function AdminToolsPage() {
                 <Icon size={17} className={c.color} />
               </div>
               <span className="text-[11px] font-semibold text-white/40 uppercase tracking-wider block mb-1">{c.name}</span>
-              <span className="text-3xl font-sora font-black text-white">{c.count}</span>
+              <span className="text-3xl font-montserrat font-extrabold text-white">{c.count}</span>
             </div>
           );
         })}
@@ -93,7 +93,7 @@ export default async function AdminToolsPage() {
         <div className="glassmorphism rounded-2xl p-5 border border-brand-purple/15">
           <span className="text-[10px] uppercase font-bold text-white/40 tracking-widest block mb-2">Leads avec consentement</span>
           <div className="flex items-end gap-2">
-            <span className="text-4xl font-sora font-black text-green-400">{withConsent}</span>
+            <span className="text-4xl font-montserrat font-extrabold text-green-400">{withConsent}</span>
             <span className="text-xs text-white/40 mb-1.5">/ {totalSubs} soumissions</span>
           </div>
           <div className="flex items-center gap-1.5 text-[10px] text-green-400 mt-3"><TrendingUp size={12} /> Prospects exploitables</div>

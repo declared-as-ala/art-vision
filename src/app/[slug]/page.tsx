@@ -338,7 +338,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
             <div className="lg:col-span-7 space-y-5 text-left">
               <span className="text-brand-magenta text-xs font-bold uppercase tracking-[0.2em]">{tagline}</span>
-              <h1 className="text-4xl md:text-6xl font-sora font-extrabold tracking-tight text-white leading-[1.05]">
+              <h1 className="text-4xl md:text-6xl font-montserrat font-extrabold tracking-tight text-white leading-[1.05]">
                 {service.name}
               </h1>
               <p className="text-base sm:text-lg text-white/70 leading-relaxed max-w-xl">
@@ -359,7 +359,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
               {heroImage ? (
                 <img src={heroImage} alt={service.name} className="w-full h-full object-cover" loading="lazy" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-white/20 font-sora text-2xl font-bold bg-gradient-dark">
+                <div className="w-full h-full flex items-center justify-center text-white/20 font-montserrat text-2xl font-bold bg-gradient-dark">
                   ART VISION
                 </div>
               )}
@@ -369,12 +369,12 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* Details & Benefits */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20 border-t border-brand-purple/15 pt-16">
             <div className="lg:col-span-7 space-y-4 text-left">
-              <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">{introHeading}</h2>
+              <h2 className="font-montserrat font-bold text-2xl md:text-3xl text-white">{introHeading}</h2>
               <p className="text-sm text-white/75 leading-relaxed whitespace-pre-line">{service.detailedBody}</p>
             </div>
             
             <div className="lg:col-span-5 bg-[#1A1238]/40 border border-brand-purple/15 p-6 rounded-2xl text-left space-y-4">
-              <h3 className="font-sora font-semibold text-sm text-white uppercase tracking-wider text-brand-magenta">Avantages Clés</h3>
+              <h3 className="font-montserrat font-semibold text-sm text-white uppercase tracking-wider text-brand-magenta">Avantages Clés</h3>
               <ul className="text-xs space-y-3 text-white/80">
                 {benefitsList.map((benefit: string, idx: number) => (
                   <li key={idx} className="flex items-center space-x-2">
@@ -397,7 +397,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* Pricing Packages */}
           {service.packages.length > 0 && (
             <div className="mb-20 space-y-12 border-t border-brand-purple/15 pt-16 text-center">
-              <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Le forfait qui vous fait avancer</h2>
+              <h2 className="font-montserrat font-bold text-2xl md:text-3xl text-white">Le forfait qui vous fait avancer</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {service.packages.map((pkg: any) => {
                   const feats = pkg.features.split(";").filter((f: string) => f.trim() !== "");
@@ -407,8 +407,8 @@ export default async function DynamicSlugPage({ params }: PageProps) {
                       className="glassmorphism rounded-2xl p-6 border border-brand-purple/20 hover:border-brand-magenta/30 transition flex flex-col justify-between text-left space-y-6"
                     >
                       <div className="space-y-2">
-                        <h3 className="font-sora font-extrabold text-lg text-white">{pkg.name}</h3>
-                        <p className="text-2xl font-sora font-black text-brand-orange">{pkg.price}</p>
+                        <h3 className="font-montserrat font-extrabold text-lg text-white">{pkg.name}</h3>
+                        <p className="text-2xl font-montserrat font-extrabold text-brand-orange">{pkg.price}</p>
                       </div>
                       <ul className="text-xs space-y-2 text-white/70 flex-1">
                         {feats.map((f: string, i: number) => (
@@ -434,12 +434,12 @@ export default async function DynamicSlugPage({ params }: PageProps) {
 
           {/* Process Section */}
           <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16 text-center">
-            <h2 className="font-sora font-bold text-2xl text-white">Notre processus créatif</h2>
+            <h2 className="font-montserrat font-bold text-2xl text-white">Notre processus créatif</h2>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {processList.map((step: string, idx: number) => (
                 <div key={idx} className="bg-[#1A1238]/20 border border-brand-purple/15 p-5 rounded-xl text-left space-y-2 relative">
-                  <span className="text-2xl font-sora font-extrabold text-brand-purple/25 absolute top-3 right-3">0{idx + 1}</span>
-                  <h4 className="font-sora font-bold text-xs text-white pt-4">{step.split(" & ")[0]}</h4>
+                  <span className="text-2xl font-montserrat font-extrabold text-brand-purple/25 absolute top-3 right-3">0{idx + 1}</span>
+                  <h4 className="font-montserrat font-bold text-xs text-white pt-4">{step.split(" & ")[0]}</h4>
                   <p className="text-[11px] text-white/60">{step}</p>
                 </div>
               ))}
@@ -450,7 +450,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {gallery.length > 0 && (
             <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16">
               <div className="text-center space-y-2">
-                <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Galerie</h2>
+                <h2 className="font-montserrat font-bold text-2xl md:text-3xl text-white">Galerie</h2>
                 <p className="text-sm text-white/55">Un aperçu de notre travail en {service.name.toLowerCase()}.</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -472,7 +472,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {videos.length > 0 && (
             <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16">
               <div className="text-center space-y-2">
-                <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Nos vidéos</h2>
+                <h2 className="font-montserrat font-bold text-2xl md:text-3xl text-white">Nos vidéos</h2>
                 <p className="text-sm text-white/55">Découvrez nos réalisations en mouvement.</p>
               </div>
               <div className={`grid gap-6 ${videos.length === 1 ? "max-w-3xl mx-auto" : "md:grid-cols-2"}`}>
@@ -508,7 +508,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {relatedProjects.length > 0 && (
             <div className="mb-20 space-y-8 border-t border-brand-purple/15 pt-16">
               <div className="flex items-end justify-between flex-wrap gap-3">
-                <h2 className="font-sora font-bold text-2xl md:text-3xl text-white">Nos Réalisations</h2>
+                <h2 className="font-montserrat font-bold text-2xl md:text-3xl text-white">Nos Réalisations</h2>
                 <Link href="/portfolio" className="text-xs font-semibold text-brand-orange hover:text-brand-magenta transition inline-flex items-center gap-1">
                   Voir tout le portfolio <ArrowRight size={13} />
                 </Link>
@@ -526,7 +526,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
                       <span className="absolute top-4 left-4 bg-brand-navy/85 text-brand-magenta text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">{project.category.name}</span>
                     </div>
                     <div className="p-5 text-left space-y-1.5">
-                      <h3 className="font-sora font-bold text-sm text-white group-hover:text-brand-magenta transition">{project.title}</h3>
+                      <h3 className="font-montserrat font-bold text-sm text-white group-hover:text-brand-magenta transition">{project.title}</h3>
                       <p className="text-xs text-white/60 line-clamp-2 leading-relaxed">{project.objective}</p>
                     </div>
                   </Link>
@@ -538,11 +538,11 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* FAQs */}
           {service.faqs.length > 0 && (
             <div className="max-w-3xl mx-auto space-y-8 border-t border-brand-purple/15 pt-16 text-left">
-              <h2 className="font-sora font-bold text-2xl text-white text-center">Questions fréquentes</h2>
+              <h2 className="font-montserrat font-bold text-2xl text-white text-center">Questions fréquentes</h2>
               <div className="space-y-4">
                 {service.faqs.map((faq: any) => (
                   <div key={faq.id} className="glassmorphism rounded-xl p-5 border border-brand-purple/15 space-y-2">
-                    <h4 className="font-sora font-semibold text-sm text-white flex items-start space-x-2">
+                    <h4 className="font-montserrat font-semibold text-sm text-white flex items-start space-x-2">
                       <HelpCircle size={16} className="text-brand-magenta shrink-0 mt-0.5" />
                       <span>{faq.question}</span>
                     </h4>
@@ -670,7 +670,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
             <span className="bg-brand-purple/30 border border-brand-purple/40 text-brand-orange text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block">
               {isLocal ? `Expertise Locale ${cityLabel}` : "Expertise Nationale France"}
             </span>
-            <h1 className="text-3xl md:text-5xl font-sora font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-3xl md:text-5xl font-montserrat font-extrabold tracking-tight text-white leading-tight">
               {landingPage.h1}
             </h1>
             <p className="text-base text-white/70 leading-relaxed max-w-3xl">
@@ -703,7 +703,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* Related Portfolio Projects */}
           {relatedProjects.length > 0 && (
             <div id="portfolio" className="space-y-6 pt-12 border-t border-brand-purple/15">
-              <h2 className="font-sora font-bold text-xl text-white">Nos réalisations associées</h2>
+              <h2 className="font-montserrat font-bold text-xl text-white">Nos réalisations associées</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {relatedProjects.map((project: any) => (
                   <Link
@@ -723,7 +723,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
                     </div>
                     <div className="p-4 text-left">
                       <span className="text-brand-magenta text-[10px] font-bold uppercase tracking-wider">{project.category.name}</span>
-                      <h3 className="font-sora font-bold text-sm text-white group-hover:text-brand-orange transition mt-1">{project.title}</h3>
+                      <h3 className="font-montserrat font-bold text-sm text-white group-hover:text-brand-orange transition mt-1">{project.title}</h3>
                       <p className="text-xs text-white/60 line-clamp-1 mt-1">{project.objective}</p>
                     </div>
                   </Link>
@@ -736,7 +736,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {isLocal && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12 border-t border-brand-purple/15 items-center">
               <div className="space-y-4">
-                <h3 className="font-sora font-bold text-lg text-white">Notre Agence au Service de {cityLabel}</h3>
+                <h3 className="font-montserrat font-bold text-lg text-white">Notre Agence au Service de {cityLabel}</h3>
                 <p className="text-xs text-white/70 leading-relaxed">
                   Chef de projet dédié pour cadrer votre plan de communication {cityLabel}. Nous nous déplaçons dans vos bureaux ou organisons des visioconférences sous 24 heures pour concevoir vos chartes visuelles, packshots 3D et imprimés publicitaires.
                 </p>
@@ -763,7 +763,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* Testimonials */}
           {localTestimonials.length > 0 && (
             <div className="pt-12 border-t border-brand-purple/15 space-y-6">
-              <h2 className="font-sora font-bold text-xl text-white">Ils font confiance à Art Vision</h2>
+              <h2 className="font-montserrat font-bold text-xl text-white">Ils font confiance à Art Vision</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {localTestimonials.map((t: any) => (
                   <div key={t.id} className="bg-[#1A1238]/40 border border-brand-purple/10 rounded-2xl p-5 text-left">
@@ -779,11 +779,11 @@ export default async function DynamicSlugPage({ params }: PageProps) {
           {/* FAQs section */}
           {parsedFAQs.length > 0 && (
             <div className="space-y-6 pt-12 border-t border-brand-purple/15">
-              <h3 className="font-sora font-bold text-xl text-white text-center">Foire Aux Questions</h3>
+              <h3 className="font-montserrat font-bold text-xl text-white text-center">Foire Aux Questions</h3>
               <div className="space-y-4 max-w-3xl mx-auto">
                 {parsedFAQs.map((faq: any, idx: number) => (
                   <div key={idx} className="glassmorphism rounded-xl p-5 border border-brand-purple/15 space-y-2">
-                    <h4 className="font-sora font-semibold text-sm text-white flex items-start space-x-2">
+                    <h4 className="font-montserrat font-semibold text-sm text-white flex items-start space-x-2">
                       <HelpCircle size={16} className="text-brand-magenta shrink-0 mt-0.5" />
                       <span>{faq.question}</span>
                     </h4>
@@ -814,7 +814,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
 
           {/* Final Conversion CTA Callout */}
           <div className="glassmorphism rounded-3xl p-8 md:p-10 border border-brand-orange/30 text-center space-y-6 mt-12">
-            <h3 className="font-sora font-bold text-2xl md:text-3xl text-white">Démarrer votre projet de {landingPage.keyword}</h3>
+            <h3 className="font-montserrat font-bold text-2xl md:text-3xl text-white">Démarrer votre projet de {landingPage.keyword}</h3>
             <p className="text-sm text-white/70 max-w-xl mx-auto">Recevez une estimation tarifaire sur-mesure et un accompagnement créatif complet en 24h ouvrées.</p>
             <div className="flex justify-center gap-4 flex-wrap">
               <Link

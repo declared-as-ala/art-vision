@@ -54,7 +54,7 @@ export default function OutilsGratuitsPage() {
           <Sparkles size={13} className="text-brand-orange" />
           Boîte à outils créative
         </div>
-        <h1 className="text-4xl md:text-6xl font-sora font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-[1.05]">
+        <h1 className="text-4xl md:text-6xl font-montserrat font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-[1.05]">
           Des outils <span className="text-brand-magenta">gratuits</span> pour donner vie à votre marque
         </h1>
         <p className="text-white/65 max-w-2xl mx-auto mt-5 text-base leading-relaxed">
@@ -86,7 +86,7 @@ export default function OutilsGratuitsPage() {
 
       {/* SEO content */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 text-sm text-white/65 leading-relaxed space-y-4">
-        <h2 className="text-2xl font-sora font-extrabold text-white">
+        <h2 className="text-2xl font-montserrat font-extrabold text-white">
           Une suite d'outils pensée par une agence créative
         </h2>
         <p>

@@ -26,7 +26,7 @@ export default async function MentionsLegalesPage() {
             <Shield size={14} className="text-brand-orange" />
             <span>Mentions Légales</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight text-white">
             Mentions <span className="text-brand-magenta">Légales</span>
           </h1>
         </div>
@@ -37,7 +37,7 @@ export default async function MentionsLegalesPage() {
           ) : (
             <>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4 flex items-center gap-2">
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4 flex items-center gap-2">
                   <Building2 size={18} className="text-brand-magenta" />
                   Édition du site
                 </h2>
@@ -47,23 +47,23 @@ export default async function MentionsLegalesPage() {
                 <p className="mt-3">Capital social : 10 000 € — RCS Le Mans 921 234 567 — TVA intracommunautaire : FR 92 921234567</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Directeur de la publication</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Directeur de la publication</h2>
                 <p>Ala Eddine Ben Salem, Président de SAS ART VISION.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Hébergement</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Hébergement</h2>
                 <p>Ce site est hébergé par <strong className="text-white">Vercel Inc.</strong>, 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Propriété intellectuelle</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Propriété intellectuelle</h2>
                 <p>L&rsquo;ensemble des contenus présents sur le site art-visions.fr (textes, graphismes, logos, images, vidéos, icônes) est protégé par le droit d&rsquo;auteur et reste la propriété exclusive de SAS ART VISION, sauf mention contraire. Toute reproduction, distribution, modification ou exploitation sans autorisation préalable est interdite.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Responsabilité</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Responsabilité</h2>
                 <p>SAS ART VISION s&rsquo;efforce d&rsquo;assurer l&rsquo;exactitude des informations diffusées. Nous ne saurions être tenus responsables d&rsquo;éventuelles erreurs, omissions ou indisponibilités temporaires du site.</p>
               </section>
               <section>
-                <h2 className="text-xl font-sora font-bold text-white mb-4">Contact</h2>
+                <h2 className="text-xl font-montserrat font-bold text-white mb-4">Contact</h2>
                 <p>Pour toute question relative aux mentions légales, vous pouvez nous joindre par email à contact@art-visions.fr ou par courrier postal à l&rsquo;adresse indiquée ci-dessus.</p>
               </section>
             </>

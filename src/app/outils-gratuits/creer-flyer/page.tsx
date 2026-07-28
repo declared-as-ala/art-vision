@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">Créer un flyer efficace</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">Créer un flyer efficace</h2>
           <p>
             Un flyer percutant repose sur une hiérarchie claire : un titre fort, une offre visible, les informations
             essentielles (date, lieu, contact) et un appel à l'action. Choisissez un modèle adapté à votre objectif —

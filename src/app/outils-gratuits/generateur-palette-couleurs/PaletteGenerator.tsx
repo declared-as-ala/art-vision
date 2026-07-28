@@ -136,17 +136,21 @@ export default function PaletteGenerator() {
     setTimeout(() => setCopied(""), 1500);
   };
 
-  const exportPng = () => {
+  const exportPng = async () => {
+    await document.fonts.ready;
     const c = document.createElement("canvas");
     c.width = 1000; c.height = 420;
     const ctx = c.getContext("2d")!;
+    const fontFamily = getComputedStyle(document.documentElement)
+      .getPropertyValue("--font-montserrat")
+      .trim() || "Montserrat";
     ctx.fillStyle = "#0b0820"; ctx.fillRect(0, 0, 1000, 420);
     const w = 1000 / palette.length;
     palette.forEach((s, i) => {
       ctx.fillStyle = s.hex; ctx.fillRect(i * w, 0, w, 320);
-      ctx.fillStyle = "#fff"; ctx.font = "bold 22px sans-serif";
+      ctx.fillStyle = "#fff"; ctx.font = `700 22px ${fontFamily}, sans-serif`;
       ctx.fillText(s.hex, i * w + 20, 370);
-      ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.font = "14px sans-serif";
+      ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.font = `400 14px ${fontFamily}, sans-serif`;
       ctx.fillText(s.role, i * w + 20, 395);
     });
     const a = document.createElement("a");
@@ -195,7 +199,7 @@ export default function PaletteGenerator() {
           onClick={() => fileRef.current?.click()}
           className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-dashed border-brand-purple/40 text-xs font-semibold text-white/70 hover:border-brand-magenta/50 hover:text-white transition cursor-pointer"
         >
-          <Upload size={15} /> Extraire les couleurs d'une image
+          <Upload size={15} /> Extraire les couleurs d&apos;une image
         </button>
         <input ref={fileRef} type="file" accept="image/*" onChange={onImage} className="hidden" />
 
@@ -212,7 +216,7 @@ export default function PaletteGenerator() {
       {/* Palette result */}
       <div className="space-y-4">
         <div className="glassmorphism rounded-2xl p-6 space-y-3">
-          <h3 className="text-sm font-sora font-bold text-white flex items-center gap-2 mb-2">
+          <h3 className="text-sm font-montserrat font-bold text-white flex items-center gap-2 mb-2">
             <PaletteIcon size={16} className="text-brand-magenta" /> Votre palette
           </h3>
           {palette.map((s) => {

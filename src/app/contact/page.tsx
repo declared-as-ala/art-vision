@@ -36,7 +36,7 @@ export default async function ContactPage() {
             <Sparkles size={14} className="text-brand-orange" />
             <span>Nous Contacter</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight">
             Contactez <span className="text-brand-magenta">Art Vision</span>
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-base">
@@ -48,7 +48,7 @@ export default async function ContactPage() {
           {/* Contact Details (Left 5 Columns) */}
           <div className="lg:col-span-5 space-y-6 text-left">
             <div className="glassmorphism rounded-2xl p-6 md:p-8 space-y-6 border border-brand-purple/20">
-              <h2 className="font-sora font-bold text-lg text-white">
+              <h2 className="font-montserrat font-bold text-lg text-white">
                 Coordonnées de l'agence
               </h2>
               
@@ -108,7 +108,7 @@ export default async function ContactPage() {
 
           {/* Contact Form Wrapper (Right 7 Columns) */}
           <div className="lg:col-span-7 glassmorphism rounded-2xl p-6 md:p-8 border border-brand-purple/20">
-            <h2 className="font-sora font-bold text-lg text-white mb-6">
+            <h2 className="font-montserrat font-bold text-lg text-white mb-6">
               Envoyer un message
             </h2>
             <ContactForm />

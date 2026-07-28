@@ -650,7 +650,7 @@ export default function AdminSeoPage() {
       {/* Main Title & Feedback */}
       <div className="flex justify-between items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white">
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white">
             Tableau de Bord SEO
           </h1>
           <p className="text-xs text-white/50">Mesurez la santé Google de votre site, optimisez vos contenus et vos balises locales.</p>
@@ -673,7 +673,7 @@ export default function AdminSeoPage() {
           <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15">
             <span className="text-[10px] font-semibold text-white/50 uppercase tracking-wider block">Score SEO Moyen</span>
             <div className="flex items-baseline space-x-1 mt-1">
-              <span className="text-3xl font-sora font-black text-brand-orange">{averageScore}</span>
+              <span className="text-3xl font-montserrat font-extrabold text-brand-orange">{averageScore}</span>
               <span className="text-xs text-white/45">/100</span>
             </div>
             <div className="w-full bg-brand-navy rounded-full h-1.5 mt-3 overflow-hidden border border-brand-purple/10">
@@ -689,7 +689,7 @@ export default function AdminSeoPage() {
           <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15">
             <span className="text-[10px] font-semibold text-white/50 uppercase tracking-wider block">Pages Bien Optimisées</span>
             <div className="flex items-baseline space-x-1 mt-1">
-              <span className="text-3xl font-sora font-black text-green-400">{goodSeoPagesCount}</span>
+              <span className="text-3xl font-montserrat font-extrabold text-green-400">{goodSeoPagesCount}</span>
               <span className="text-xs text-white/45">/ {totalPages} pages</span>
             </div>
             <span className="text-[9px] text-green-400/80 block mt-3 font-medium">✓ Aucune action requise sur ces pages</span>
@@ -698,7 +698,7 @@ export default function AdminSeoPage() {
           <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15">
             <span className="text-[10px] font-semibold text-white/50 uppercase tracking-wider block">Méta Descriptions Vides</span>
             <div className="flex items-baseline space-x-1 mt-1">
-              <span className={`text-3xl font-sora font-black ${missingMetaCount > 0 ? "text-yellow-400" : "text-white"}`}>
+              <span className={`text-3xl font-montserrat font-extrabold ${missingMetaCount > 0 ? "text-yellow-400" : "text-white"}`}>
                 {missingMetaCount}
               </span>
               <span className="text-xs text-white/45">manquantes</span>
@@ -709,7 +709,7 @@ export default function AdminSeoPage() {
           <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15">
             <span className="text-[10px] font-semibold text-white/50 uppercase tracking-wider block">Images sans Texte Alt</span>
             <div className="flex items-baseline space-x-1 mt-1">
-              <span className={`text-3xl font-sora font-black ${missingAltsCount > 0 ? "text-yellow-400" : "text-white"}`}>
+              <span className={`text-3xl font-montserrat font-extrabold ${missingAltsCount > 0 ? "text-yellow-400" : "text-white"}`}>
                 {missingAltsCount}
               </span>
               <span className="text-xs text-white/45">images</span>
@@ -864,7 +864,7 @@ export default function AdminSeoPage() {
             
             {/* Bulk Fixes */}
             <div className="glassmorphism rounded-2xl p-5 border border-brand-purple/15 text-left space-y-4">
-              <h3 className="font-sora font-extrabold text-sm text-white flex items-center space-x-2">
+              <h3 className="font-montserrat font-extrabold text-sm text-white flex items-center space-x-2">
                 <Zap size={16} className="text-brand-orange" />
                 <span>Corrections en 1 Clic</span>
               </h3>
@@ -901,7 +901,7 @@ export default function AdminSeoPage() {
 
             {/* SEO Content Assistant */}
             <div className="glassmorphism rounded-2xl p-5 border border-brand-purple/15 text-left space-y-4">
-              <h3 className="font-sora font-extrabold text-sm text-white flex items-center space-x-2">
+              <h3 className="font-montserrat font-extrabold text-sm text-white flex items-center space-x-2">
                 <Wand2 size={16} className="text-brand-magenta" />
                 <span>Assistant de Rédaction</span>
               </h3>
@@ -984,7 +984,7 @@ export default function AdminSeoPage() {
           
           <div className="flex items-center space-x-2 text-white">
             <Sliders size={18} className="text-brand-magenta" />
-            <h2 className="text-lg font-sora font-extrabold">Outils SEO Avancés (Admin)</h2>
+            <h2 className="text-lg font-montserrat font-extrabold">Outils SEO Avancés (Admin)</h2>
           </div>
 
           <div className="flex gap-2 border-b border-brand-purple/10 pb-px">
@@ -1156,7 +1156,7 @@ export default function AdminSeoPage() {
       {showRedirectModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
           <form onSubmit={handleSaveRedirect} className="bg-brand-navy border border-brand-purple/20 rounded-2xl w-full max-w-md p-6 text-left space-y-5 animate-in zoom-in-95 duration-200">
-            <h3 className="font-sora font-extrabold text-white text-base">
+            <h3 className="font-montserrat font-extrabold text-white text-base">
               {selectedRedirect ? "Modifier la Redirection" : "Créer une Redirection"}
             </h3>
 
@@ -1225,7 +1225,7 @@ export default function AdminSeoPage() {
             
             <div className="flex justify-between items-center pb-3 border-b border-brand-purple/10">
               <div>
-                <h3 className="font-sora font-extrabold text-white text-base">
+                <h3 className="font-montserrat font-extrabold text-white text-base">
                   Optimiseur de Page : {selectedPage?.title}
                 </h3>
                 <span className="text-[9px] uppercase font-bold text-brand-purple">Fiche d'amélioration SEO simplifiée</span>
@@ -1517,7 +1517,7 @@ export default function AdminSeoPage() {
             
             <div className="flex justify-between items-center pb-3 border-b border-brand-purple/10">
               <div>
-                <h3 className="font-sora font-extrabold text-white text-base">
+                <h3 className="font-montserrat font-extrabold text-white text-base">
                   Assistant de Création Page SEO (Étape {wizardStep}/3)
                 </h3>
                 <span className="text-[9px] uppercase font-bold text-brand-orange">Générateur automatique simple</span>

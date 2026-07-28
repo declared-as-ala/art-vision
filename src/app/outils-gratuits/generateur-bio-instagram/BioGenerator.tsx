@@ -100,7 +100,7 @@ export default function BioGenerator() {
         {bios.length > 0 ? (
           <div className="glassmorphism rounded-2xl p-6 space-y-3">
             <div className="flex items-center justify-between mb-1">
-              <h3 className="text-sm font-sora font-bold text-white">{bios.length} bios proposées</h3>
+              <h3 className="text-sm font-montserrat font-bold text-white">{bios.length} bios proposées</h3>
               <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider text-white/40">
                 <Cpu size={10} /> {source === "ai" ? "Généré par IA" : "Moteur intelligent"}
               </span>

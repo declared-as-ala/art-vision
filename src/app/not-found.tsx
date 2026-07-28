@@ -20,8 +20,8 @@ export default function NotFound() {
         <div className="absolute bottom-0 left-0 w-40 h-40 bg-brand-purple/10 rounded-full filter blur-3xl pointer-events-none" />
 
         <div className="space-y-4">
-          <span className="text-brand-orange font-sora font-black text-6xl md:text-8xl tracking-widest block animate-pulse">404</span>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white tracking-tight leading-tight">
+          <span className="text-brand-orange font-montserrat font-extrabold text-6xl md:text-8xl tracking-widest block animate-pulse">404</span>
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white tracking-tight leading-tight">
             Page introuvable
           </h1>
           <p className="text-sm text-white/70 max-w-md mx-auto">

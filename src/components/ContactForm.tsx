@@ -49,7 +49,7 @@ export default function ContactForm() {
         <div className="w-12 h-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mx-auto">
           <Check size={24} />
         </div>
-        <h3 className="font-sora font-bold text-lg text-white">Message envoyé !</h3>
+        <h3 className="font-montserrat font-bold text-lg text-white">Message envoyé !</h3>
         <p className="text-xs text-white/70 leading-relaxed">
           Merci pour votre message. Un conseiller d'Art Vision va l'étudier et vous répondra sous peu.
         </p>

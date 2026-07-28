@@ -29,7 +29,7 @@ export default function NewsletterCTA({ source = "blog", compact = false }: { so
     <div className={`glassmorphism rounded-2xl border border-brand-orange/20 ${compact ? "p-5" : "p-6"} text-left space-y-3`}>
       <div className="flex items-center gap-2">
         <div className="p-2 rounded-lg bg-brand-orange/15 text-brand-orange"><Mail size={16} /></div>
-        <h3 className="font-sora font-bold text-sm text-white">Conseils créatifs par e-mail</h3>
+        <h3 className="font-montserrat font-bold text-sm text-white">Conseils créatifs par e-mail</h3>
       </div>
       <p className="text-[11px] text-white/60 leading-relaxed">
         Recevez nos meilleurs conseils en design, branding et communication. Pas de spam, désinscription en un clic.

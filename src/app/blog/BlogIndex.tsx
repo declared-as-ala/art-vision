@@ -82,7 +82,7 @@ export default function BlogIndex({ posts, categories }: { posts: BlogCardPost[]
                   <span className="flex items-center gap-1"><Calendar size={12} /> {post.date}</span>
                   <span className="flex items-center gap-1"><Clock size={12} /> {post.readingTime} min</span>
                 </div>
-                <h3 className="font-sora font-bold text-base text-white group-hover:text-brand-magenta transition line-clamp-2">{post.title}</h3>
+                <h3 className="font-montserrat font-bold text-base text-white group-hover:text-brand-magenta transition line-clamp-2">{post.title}</h3>
                 <p className="text-xs text-white/60 leading-relaxed line-clamp-3">{post.excerpt}</p>
                 <div className="border-t border-brand-purple/10 pt-4 flex items-center justify-between text-xs font-semibold text-brand-orange">
                   <span className="flex items-center gap-1.5 text-white/70 font-medium">

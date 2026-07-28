@@ -33,7 +33,7 @@ export default function AdminPrintPage() {
   return (
     <div className="space-y-6 text-left">
       <div>
-        <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white flex items-center gap-2">
+        <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white flex items-center gap-2">
           <Printer className="text-brand-magenta" size={24} /> Impression & Tarifs
         </h1>
         <p className="text-xs text-white/50">Gérez vos produits d'impression, vos grilles tarifaires et les demandes de devis.</p>
@@ -149,7 +149,7 @@ function ProductModal({ product, isNew, onClose, onSaved }: { product: Product; 
     <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm p-4" onClick={onClose}>
       <div className="w-full max-w-xl h-full bg-[#08051F] border-l border-brand-purple/20 p-6 overflow-y-auto no-scrollbar space-y-4" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between border-b border-brand-purple/20 pb-3">
-          <h2 className="text-lg font-sora font-extrabold text-white">{isNew ? "Nouveau produit" : "Modifier le produit"}</h2>
+          <h2 className="text-lg font-montserrat font-extrabold text-white">{isNew ? "Nouveau produit" : "Modifier le produit"}</h2>
           <button onClick={onClose} className="text-white/50 hover:text-white"><X size={18} /></button>
         </div>
         {err && <p className="text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-2 rounded">{err}</p>}

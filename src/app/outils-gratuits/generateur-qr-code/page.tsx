@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">À quoi sert un QR code pour votre entreprise ?</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">À quoi sert un QR code pour votre entreprise ?</h2>
           <p>
             Un QR code relie instantanément vos supports physiques (carte de visite, vitrine, flyer, packaging) à
             votre univers digital : site web, page WhatsApp, compte Instagram, menu en ligne ou fiche contact. C'est

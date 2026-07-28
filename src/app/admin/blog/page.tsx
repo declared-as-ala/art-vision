@@ -191,7 +191,7 @@ export default function AdminBlogPage() {
     <div className="space-y-8 text-left relative">
       <div className="flex justify-between items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white">
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white">
             Gestion du Blog
           </h1>
           <p className="text-xs text-white/50">Rédigez et organisez vos articles de blog d'actualité design.</p>
@@ -286,7 +286,7 @@ export default function AdminBlogPage() {
 
             <form onSubmit={handleSave} className="space-y-4 pt-4 text-left">
               <div className="border-b border-brand-purple/20 pb-4">
-                <h2 className="text-xl font-sora font-extrabold text-white">
+                <h2 className="text-xl font-montserrat font-extrabold text-white">
                   {isNew ? "Créer un article" : "Modifier l'article"}
                 </h2>
                 <p className="text-[10px] text-white/50">Rédigez le contenu de votre blog d'actualité.</p>

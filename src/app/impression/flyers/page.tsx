@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ChevronRight, FileText, Mail, Phone, Printer, Truck, MessageCircle } from "lucide-react";
 import flyerPricing from "@/data/flyer-pricing.json";
@@ -123,7 +123,7 @@ function CategoryTable({ category }: { category: FlyerCategory }) {
       <div className="flex flex-col gap-3 border-b border-brand-purple/20 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-brand-magenta">Tarifs recto / verso</p>
-          <h2 className="mt-1 text-xl font-bold text-white font-sora">{category.title}</h2>
+          <h2 className="mt-1 text-xl font-bold text-white font-montserrat">{category.title}</h2>
         </div>
         <Link
           href={`/devis-sur-mesure?prefill=flyers&paper=${encodeURIComponent(category.name)}`}
@@ -205,7 +205,7 @@ export default function ImpressionFlyersPage() {
                 <Printer size={15} aria-hidden="true" />
                 Impression flyers
               </div>
-              <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl text-white font-sora">
+              <h1 className="mt-5 text-4xl font-extrabold leading-tight sm:text-5xl text-white font-montserrat">
                 Impression flyers personnalisés, prix par grammage et format
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/70">
@@ -213,7 +213,7 @@ export default function ImpressionFlyersPage() {
               </p>
             </div>
             <div className="glassmorphism rounded-xl p-6 border border-brand-purple/15">
-              <h2 className="text-lg font-bold text-white font-sora">Fichiers et délais</h2>
+              <h2 className="text-lg font-bold text-white font-montserrat">Fichiers et délais</h2>
               <dl className="mt-4 grid gap-3 text-sm">
                 <div className="flex gap-3"><FileText className="mt-0.5 shrink-0 text-brand-magenta" size={18} aria-hidden="true" /><div><dt className="font-semibold text-white">Formats acceptés</dt><dd className="text-white/60">{flyerPricing.fileGuidelines.acceptedFormats.join(", ")}</dd></div></div>
                 <div className="flex gap-3"><CheckCircle2 className="mt-0.5 shrink-0 text-brand-magenta" size={18} aria-hidden="true" /><div><dt className="font-semibold text-white">Qualité</dt><dd className="text-white/60">300 DPI, couleurs CMJN, textes vectorisés pour EPS et AI.</dd></div></div>
@@ -260,7 +260,7 @@ export default function ImpressionFlyersPage() {
 
         {/* Guidelines */}
         <section className="mt-8 rounded-xl border border-brand-purple/15 bg-[#1A1238]/40 p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-white font-sora">Consignes de préparation des fichiers</h2>
+          <h2 className="text-2xl font-bold text-white font-montserrat">Consignes de préparation des fichiers</h2>
           <div className="mt-4 grid gap-4 text-sm leading-6 text-white/70 md:grid-cols-2">
             <p>Préparez vos fichiers en PDF, JPG, TIF, EPS, AI ou BMP. Pour les fichiers vectoriels EPS et AI, vectorisez les textes afin d'éviter les substitutions de polices.</p>
             <p>Prévoyez un bord perdu de 2 mm et gardez les textes à 3 mm minimum des bords. Les fichiers sont vérifiés techniquement avant impression.</p>
@@ -276,7 +276,7 @@ export default function ImpressionFlyersPage() {
 
         {/* FAQ */}
         <section className="mt-14 rounded-xl border border-brand-purple/15 bg-[#1A1238]/40 p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-white font-sora">FAQ impression flyers</h2>
+          <h2 className="text-2xl font-bold text-white font-montserrat">FAQ impression flyers</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {faqItems.map((item) => (
               <article key={item.question} className="glassmorphism rounded-xl p-5 border border-brand-purple/15">
@@ -290,7 +290,7 @@ export default function ImpressionFlyersPage() {
         {/* Final CTA */}
         <section className="mt-10 glassmorphism rounded-2xl p-8 border border-brand-magenta/20 md:flex md:items-center md:justify-between md:gap-6">
           <div>
-            <h2 className="text-2xl font-bold text-white font-sora">Une question ? Un devis flyers sur mesure ?</h2>
+            <h2 className="text-2xl font-bold text-white font-montserrat">Une question ? Un devis flyers sur mesure ?</h2>
             <p className="mt-2 text-sm text-white/70">Contactez Art Vision pour vérifier votre fichier, adapter une quantité ou préparer une commande spéciale.</p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
               <a className="inline-flex items-center gap-2 text-brand-magenta hover:text-white transition" href="tel:+21655804227">

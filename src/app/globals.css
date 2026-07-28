@@ -10,11 +10,7 @@
   --color-brand-gray-light: #EDEDED;
   --color-brand-text-dark: #171625;
 
-  --font-sora: var(--font-sora);
-  --font-inter: var(--font-inter);
-  --font-designer: var(--font-designer);
-  --font-futura-book: var(--font-futura-book);
-  --font-futura-light: var(--font-futura-light);
+  --font-sans: var(--font-montserrat);
 }
 
 :root {
@@ -29,27 +25,20 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-futura-book), var(--font-futura-light), sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   overflow-x: hidden;
   width: 100%;
   max-width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-futura-book), var(--font-futura-light), sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-weight: 700;
-  /* Only Book/Light cuts are bundled — let the browser synthesize bold weights. */
-  font-synthesis: weight;
   letter-spacing: -0.01em;
 }
 
-/* Force Futura across the whole app — overrides the Tailwind font-* utilities
-   (font-sora / font-inter / font-designer) used throughout the components.
-   These rules are unlayered, so they win over Tailwind's @layer utilities. */
-.font-sora,
-.font-inter,
-.font-designer {
-  font-family: var(--font-futura-book), var(--font-futura-light), sans-serif;
+.font-montserrat {
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 /* Custom Premium Utilities */

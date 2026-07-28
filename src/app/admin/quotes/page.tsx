@@ -176,7 +176,7 @@ export default function AdminQuotesPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white">
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white">
             Demandes de Devis (Leads)
           </h1>
           <p className="text-xs text-white/50">Gérez les demandes de devis sur-mesure de vos prospects.</p>
@@ -311,7 +311,7 @@ export default function AdminQuotesPage() {
                 <span className="text-[10px] bg-brand-orange/20 text-brand-orange border border-brand-orange/30 px-2.5 py-1 rounded-full font-bold uppercase">
                   {selectedQuote.service}
                 </span>
-                <h2 className="text-xl font-sora font-extrabold text-white">Détails de la demande</h2>
+                <h2 className="text-xl font-montserrat font-extrabold text-white">Détails de la demande</h2>
                 <p className="text-[10px] text-white/50">ID : {selectedQuote.id}</p>
               </div>
 
@@ -368,7 +368,7 @@ export default function AdminQuotesPage() {
 
               {/* EDIT STATUS AND NOTES FORM */}
               <div className="border-t border-brand-purple/20 pt-6 space-y-4">
-                <h3 className="font-sora font-bold text-sm text-white">Actions Administrateur</h3>
+                <h3 className="font-montserrat font-bold text-sm text-white">Actions Administrateur</h3>
                 
                 {/* Status selector */}
                 <div className="space-y-1">

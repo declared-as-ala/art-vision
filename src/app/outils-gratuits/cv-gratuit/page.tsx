@@ -23,7 +23,7 @@ export default function Page() {
         tool={tool}
         seoContent={
           <>
-            <h2 className="text-xl font-sora font-bold text-white">Créer un CV professionnel gratuitement</h2>
+            <h2 className="text-xl font-montserrat font-bold text-white">Créer un CV professionnel gratuitement</h2>
             <p>
               Un bon CV est clair, structuré et adapté à votre métier. Renseignez votre parcours, vos compétences et
               vos projets, choisissez un modèle et une couleur d'accent, puis téléchargez votre CV au format PDF en un

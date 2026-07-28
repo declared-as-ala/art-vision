@@ -71,7 +71,7 @@ export default async function BlogPage() {
           <div className="inline-flex items-center gap-2 bg-brand-purple/30 border border-brand-purple/40 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider text-brand-white uppercase">
             <Sparkles size={14} className="text-brand-orange" /> Notre journal créatif
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight">
             Conseils design, branding & <span className="text-brand-magenta">communication</span>
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-base">
@@ -89,7 +89,7 @@ export default async function BlogPage() {
               </div>
               <div className="p-8 md:p-10 flex flex-col justify-center space-y-4 text-left">
                 <span className="text-[10px] text-brand-magenta font-bold uppercase tracking-widest">{featured.category.name}</span>
-                <h2 className="text-2xl md:text-3xl font-sora font-extrabold text-white group-hover:text-brand-magenta transition leading-tight">{featured.title}</h2>
+                <h2 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white group-hover:text-brand-magenta transition leading-tight">{featured.title}</h2>
                 <p className="text-sm text-white/65 leading-relaxed line-clamp-3">
                   {featured.excerpt || featured.content.replace(/<[^>]+>/g, " ").slice(0, 200)}
                 </p>
@@ -114,7 +114,7 @@ export default async function BlogPage() {
         <div className="grid md:grid-cols-2 gap-6">
           <div className="relative overflow-hidden rounded-3xl border border-brand-orange/25 p-8 text-left" style={{ background: "linear-gradient(135deg, rgba(255,106,0,0.15), rgba(108,43,217,0.18))" }}>
             <Wand2 size={26} className="text-brand-orange mb-3" />
-            <h3 className="text-xl font-sora font-extrabold text-white">Des outils gratuits pour passer à l'action</h3>
+            <h3 className="text-xl font-montserrat font-extrabold text-white">Des outils gratuits pour passer à l'action</h3>
             <p className="text-sm text-white/65 mt-2 mb-4">CV, carte de visite, QR code, palette de couleurs, slogan, flyer… créez vos supports en quelques clics.</p>
             <Link href="/outils-gratuits" className="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange/90 text-white px-5 py-3 rounded-full text-sm font-bold transition">
               Découvrir les outils <ArrowRight size={15} />

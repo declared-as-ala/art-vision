@@ -154,7 +154,7 @@ export default function PrintingEstimator() {
             <Printer size={14} className="text-brand-orange" />
             <span>Impression Professionnelle</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-sora font-extrabold tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-montserrat font-extrabold tracking-tight">
             Impression publicitaire haute qualité
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-base">
@@ -165,7 +165,7 @@ export default function PrintingEstimator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Price Estimator Widget (Left 7 Columns) */}
           <div className="lg:col-span-7 glassmorphism rounded-2xl p-6 md:p-8 space-y-6">
-            <h2 className="font-sora font-bold text-xl text-white border-b border-brand-purple/20 pb-3 flex items-center space-x-2">
+            <h2 className="font-montserrat font-bold text-xl text-white border-b border-brand-purple/20 pb-3 flex items-center space-x-2">
               <Sparkles className="text-brand-orange" size={20} />
               <span>Calculateur de prix en ligne</span>
             </h2>
@@ -276,7 +276,7 @@ export default function PrintingEstimator() {
           {/* Pricing Panel Summary (Right 5 Columns) */}
           <div className="lg:col-span-5 space-y-6">
             <div className="glassmorphism rounded-2xl p-6 md:p-8 space-y-6 border border-brand-orange/20">
-              <h3 className="font-sora font-bold text-lg text-white">
+              <h3 className="font-montserrat font-bold text-lg text-white">
                 Résumé du devis
               </h3>
 
@@ -310,7 +310,7 @@ export default function PrintingEstimator() {
                 </div>
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold text-white/95">Prix TTC :</span>
-                  <span className="text-3xl font-sora font-extrabold text-brand-orange">{priceTtc} €</span>
+                  <span className="text-3xl font-montserrat font-extrabold text-brand-orange">{priceTtc} €</span>
                 </div>
                 <p className="text-[10px] text-white/45 text-right">TVA de 20% incluse (soit {(priceTtc - priceHt).toFixed(2)} €)</p>
               </div>
@@ -331,7 +331,7 @@ export default function PrintingEstimator() {
 
             {/* Side features details */}
             <div className="glassmorphism rounded-xl p-5 space-y-4">
-              <h4 className="font-sora font-semibold text-sm text-white">Pourquoi imprimer avec Art Vision ?</h4>
+              <h4 className="font-montserrat font-semibold text-sm text-white">Pourquoi imprimer avec Art Vision ?</h4>
               <ul className="text-xs space-y-2.5 text-white/70">
                 <li className="flex items-center space-x-2">
                   <Check size={12} className="text-brand-magenta" />
@@ -353,19 +353,19 @@ export default function PrintingEstimator() {
         {/* Marketing Details Sections */}
         <div className="mt-24 border-t border-brand-purple/20 pt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-3">
-            <h3 className="font-sora font-bold text-lg text-white">Impression Grand Format</h3>
+            <h3 className="font-montserrat font-bold text-lg text-white">Impression Grand Format</h3>
             <p className="text-xs text-white/70 leading-relaxed">
               Valorisez votre marque en extérieur ou sur vos salons. Bâches publicitaires résistantes aux intempéries (œillets en laiton compris), panneaux alu Dibond, bâches mesh microperforées ou affiches abribus.
             </p>
           </div>
           <div className="space-y-3">
-            <h3 className="font-sora font-bold text-lg text-white">Supports Commerciaux</h3>
+            <h3 className="font-montserrat font-bold text-lg text-white">Supports Commerciaux</h3>
             <p className="text-xs text-white/70 leading-relaxed">
               Flyers A5, plaquettes à 3 volets, dépliants professionnels et catalogues multi-pages. Nous offrons des papiers de 135g à 350g rigides avec des finitions pelliculées mats ou brillantes très qualitatives.
             </p>
           </div>
           <div className="space-y-3">
-            <h3 className="font-sora font-bold text-lg text-white">Papeterie Corporate</h3>
+            <h3 className="font-montserrat font-bold text-lg text-white">Papeterie Corporate</h3>
             <p className="text-xs text-white/70 leading-relaxed">
               Cartes de visite classiques ou carrées, têtes de lettre professionnelles et enveloppes personnalisées. Finition pelliculage peau de pêche (Soft Touch) et vernis 3D sélectif en surbrillance pour un toucher luxueux.
             </p>

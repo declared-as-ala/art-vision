@@ -86,7 +86,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <span className="bg-brand-purple/30 border border-brand-purple/40 text-brand-magenta text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
             {project.category.name}
           </span>
-          <h1 className="text-3xl md:text-5xl font-sora font-extrabold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl md:text-5xl font-montserrat font-extrabold tracking-tight text-white leading-tight">
             {project.title}
           </h1>
           <div className="flex flex-wrap gap-6 text-xs text-white/60 font-medium">
@@ -134,7 +134,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             {/* Objective, Challenge, Solution */}
             <div className="space-y-6 text-left">
               <div className="space-y-2">
-                <h3 className="font-sora font-bold text-lg text-white flex items-center space-x-2">
+                <h3 className="font-montserrat font-bold text-lg text-white flex items-center space-x-2">
                   <Target size={16} className="text-brand-magenta" />
                   <span>Objectif</span>
                 </h3>
@@ -142,7 +142,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-sora font-bold text-lg text-white flex items-center space-x-2">
+                <h3 className="font-montserrat font-bold text-lg text-white flex items-center space-x-2">
                   <Info size={16} className="text-brand-orange" />
                   <span>Le Défi</span>
                 </h3>
@@ -150,7 +150,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-sora font-bold text-lg text-white flex items-center space-x-2">
+                <h3 className="font-montserrat font-bold text-lg text-white flex items-center space-x-2">
                   <CheckCircle size={16} className="text-green-400" />
                   <span>Notre Solution</span>
                 </h3>
@@ -164,7 +164,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             
             {/* Results Panel */}
             <div className="glassmorphism rounded-2xl p-6 border border-brand-orange/20 space-y-3 text-left">
-              <h3 className="font-sora font-bold text-sm text-white uppercase tracking-wider text-brand-orange">Résultats obtenus</h3>
+              <h3 className="font-montserrat font-bold text-sm text-white uppercase tracking-wider text-brand-orange">Résultats obtenus</h3>
               <p className="text-xs text-white/85 leading-relaxed">{project.result}</p>
             </div>
 
@@ -184,7 +184,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
             {/* Action CTA */}
             <div className="glassmorphism rounded-2xl p-6 border border-brand-purple/15 text-center space-y-4">
-              <h4 className="font-sora font-bold text-sm text-white">Un projet similaire ?</h4>
+              <h4 className="font-montserrat font-bold text-sm text-white">Un projet similaire ?</h4>
               <p className="text-[11px] text-white/60">Échangeons sur vos besoins et créons une communication à la hauteur de votre image.</p>
               <Link
                 href={`/devis-sur-mesure?prefill=branding&product=${encodeURIComponent(project.title)}`}

@@ -195,7 +195,7 @@ export default function AdminLayout({
             {/* Breadcrumb / page title area */}
             <div>
               <p className="text-[10px] text-white/40 uppercase tracking-widest font-semibold">Administration</p>
-              <h1 className="font-sora font-bold text-sm text-white leading-tight">
+              <h1 className="font-montserrat font-bold text-sm text-white leading-tight">
                 Tableau de Bord
               </h1>
             </div>

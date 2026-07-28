@@ -118,13 +118,13 @@ export default function PrintCalculator() {
           <div className="flex items-center gap-2 mb-1 text-white/55 text-xs"><Calculator size={14} className="text-brand-magenta" /> Estimation</div>
           {isQuoteMode || !match ? (
             <div className="space-y-2">
-              <p className="text-2xl font-sora font-black text-brand-orange">Sur devis</p>
+              <p className="text-2xl font-montserrat font-extrabold text-brand-orange">Sur devis</p>
               <p className="text-[11px] text-white/55">Cette configuration nécessite un devis personnalisé. Remplissez le formulaire ci-dessous.</p>
             </div>
           ) : (
             <>
               <div className="flex items-end gap-2 flex-wrap">
-                <span className="text-4xl font-sora font-black text-brand-orange">{formatEuros(ttc)}</span>
+                <span className="text-4xl font-montserrat font-extrabold text-brand-orange">{formatEuros(ttc)}</span>
                 <span className="text-xs text-white/50 mb-1.5">TTC</span>
                 {match.promoTtcCents != null && <span className="text-xs text-white/40 line-through mb-1.5">{formatEuros(match.priceTtcCents)}</span>}
               </div>
@@ -146,7 +146,7 @@ export default function PrintCalculator() {
         ) : (
           <form onSubmit={submitQuote} className="glassmorphism rounded-2xl p-5 space-y-3">
             <input type="text" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
-            <h3 className="text-sm font-sora font-bold text-white">Recevoir mon devis impression</h3>
+            <h3 className="text-sm font-montserrat font-bold text-white">Recevoir mon devis impression</h3>
             <div className="grid sm:grid-cols-3 gap-2">
               <input className={inputCls} placeholder="Nom" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
               <input className={inputCls} placeholder="E-mail *" type="email" required value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />

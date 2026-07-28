@@ -24,7 +24,7 @@ export default function ToolFooter({
 
       {tool.faq.length > 0 && (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-          <h2 className="text-2xl font-sora font-extrabold text-white mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-montserrat font-extrabold text-white mb-6 flex items-center gap-2">
             <HelpCircle size={22} className="text-brand-magenta" /> Questions fréquentes
           </h2>
           <div className="space-y-3">
@@ -45,7 +45,7 @@ export default function ToolFooter({
         <div className="relative overflow-hidden rounded-3xl border border-brand-magenta/25 p-8 md:p-10 text-center"
           style={{ background: "linear-gradient(135deg, rgba(108,43,217,0.25), rgba(215,40,136,0.18))" }}>
           <div className="absolute -top-20 -right-10 w-72 h-72 rounded-full bg-brand-magenta/20 blur-[90px]" aria-hidden />
-          <h2 className="relative text-2xl md:text-3xl font-sora font-extrabold text-white max-w-2xl mx-auto leading-tight">
+          <h2 className="relative text-2xl md:text-3xl font-montserrat font-extrabold text-white max-w-2xl mx-auto leading-tight">
             {tool.cta.label}
           </h2>
           <div className="relative mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -63,7 +63,7 @@ export default function ToolFooter({
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <h2 className="text-xl font-sora font-extrabold text-white mb-5">Autres outils gratuits</h2>
+        <h2 className="text-xl font-montserrat font-extrabold text-white mb-5">Autres outils gratuits</h2>
         <div className="grid sm:grid-cols-3 gap-4">
           {related.map((t) => (
             <Link key={t.slug} href={toolUrl(t.slug)} className="group rounded-2xl border border-brand-purple/20 bg-brand-purple-dark/40 p-5 hover:border-brand-magenta/40 transition backdrop-blur-sm">

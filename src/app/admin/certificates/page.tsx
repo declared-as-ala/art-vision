@@ -233,7 +233,7 @@ export default function AdminCertificatesPage() {
       {/* Header */}
       <div className="flex justify-between items-center gap-4 flex-wrap">
         <div>
-          <h1 className="text-2xl md:text-3xl font-sora font-extrabold text-white flex items-center gap-2">
+          <h1 className="text-2xl md:text-3xl font-montserrat font-extrabold text-white flex items-center gap-2">
             <Award size={26} className="text-brand-orange" />
             Certificats de Formation
           </h1>
@@ -280,7 +280,7 @@ export default function AdminCertificatesPage() {
                     {t.refPrefix}-{new Date().getFullYear()}
                   </span>
                 </div>
-                <h3 className="font-sora font-bold text-white text-sm mt-3">{t.label}</h3>
+                <h3 className="font-montserrat font-bold text-white text-sm mt-3">{t.label}</h3>
                 <p className="text-[11px] text-white/50 mt-1">
                   {t.type === "covering" && "Formation pose de film covering."}
                   {t.type === "ppf" && "Film de protection de peinture (PPF)."}
@@ -298,7 +298,7 @@ export default function AdminCertificatesPage() {
           {/* Form */}
           <div className="glassmorphism rounded-2xl border border-brand-purple/15 p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-brand-purple/15 pb-3">
-              <h2 className="font-sora font-bold text-white text-sm">
+              <h2 className="font-montserrat font-bold text-white text-sm">
                 {editingId ? "2. Modifier le certificat" : "2. Informations du certificat"}
               </h2>
               <span className="text-[10px] font-mono text-white/50 bg-brand-navy px-2 py-1 rounded border border-brand-purple/20">
@@ -390,7 +390,7 @@ export default function AdminCertificatesPage() {
           {/* Preview */}
           <div className="glassmorphism rounded-2xl border border-brand-purple/15 p-4 space-y-3 xl:sticky xl:top-4">
             <div className="flex items-center justify-between">
-              <h2 className="font-sora font-bold text-white text-sm">Aperçu du certificat</h2>
+              <h2 className="font-montserrat font-bold text-white text-sm">Aperçu du certificat</h2>
               {editingId && (
                 <a
                   href={`/api/admin/certificates/${editingId}/pdf?download=1`}

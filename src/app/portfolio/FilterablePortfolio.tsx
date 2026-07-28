@@ -91,7 +91,7 @@ export default function FilterablePortfolio({
                 <div className="p-6 space-y-3 text-left">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-sora font-bold text-sm text-white group-hover:text-brand-magenta transition">
+                      <h3 className="font-montserrat font-bold text-sm text-white group-hover:text-brand-magenta transition">
                         {project.title}
                       </h3>
                       <p className="text-[10px] text-white/50 pt-0.5">Client : {project.client}</p>

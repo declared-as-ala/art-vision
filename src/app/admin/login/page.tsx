@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md space-y-8 text-center">
         {/* Title Logo */}
         <div className="space-y-3">
-          <span className="font-sora font-extrabold text-3xl tracking-widest text-white">
+          <span className="font-montserrat font-extrabold text-3xl tracking-widest text-white">
             ART <span className="text-brand-magenta">VISION</span>
           </span>
           <p className="text-xs text-white/50 uppercase tracking-widest font-semibold flex items-center justify-center space-x-1">
@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
 
         {/* Login box */}
         <div className="glassmorphism rounded-2xl p-6 md:p-8 border border-brand-purple/30 shadow-2xl">
-          <h2 className="font-sora font-bold text-lg text-white mb-6 text-left">
+          <h2 className="font-montserrat font-bold text-lg text-white mb-6 text-left">
             Connexion
           </h2>
 

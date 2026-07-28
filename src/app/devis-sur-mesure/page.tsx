@@ -206,7 +206,7 @@ function QuoteRequestFormContent() {
               <div className="w-20 h-20 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center text-green-400 mx-auto">
                 <Check size={40} className="animate-bounce" />
               </div>
-              <h2 className="font-sora font-extrabold text-2xl md:text-3xl text-white">
+              <h2 className="font-montserrat font-extrabold text-2xl md:text-3xl text-white">
                 Demande de devis envoyée !
               </h2>
               <p className="text-sm text-white/70 max-w-lg mx-auto leading-relaxed">
@@ -229,7 +229,7 @@ function QuoteRequestFormContent() {
               {/* STEP 1: Choose Service */}
               {step === 1 && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                  <h2 className="font-sora font-bold text-xl text-white flex items-center space-x-2">
+                  <h2 className="font-montserrat font-bold text-xl text-white flex items-center space-x-2">
                     <Layers className="text-brand-magenta" size={22} />
                     <span>Quel service recherchez-vous ?</span>
                   </h2>
@@ -256,7 +256,7 @@ function QuoteRequestFormContent() {
               {/* STEP 2: Project Details */}
               {step === 2 && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                  <h2 className="font-sora font-bold text-xl text-white flex items-center space-x-2">
+                  <h2 className="font-montserrat font-bold text-xl text-white flex items-center space-x-2">
                     <FileText className="text-brand-magenta" size={22} />
                     <span>Décrivez votre projet en quelques lignes</span>
                   </h2>
@@ -278,7 +278,7 @@ function QuoteRequestFormContent() {
               {/* STEP 3: Budget Bracket */}
               {step === 3 && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                  <h2 className="font-sora font-bold text-xl text-white flex items-center space-x-2">
+                  <h2 className="font-montserrat font-bold text-xl text-white flex items-center space-x-2">
                     <DollarSign className="text-brand-magenta" size={22} />
                     <span>Quel est votre budget estimatif ?</span>
                   </h2>
@@ -305,7 +305,7 @@ function QuoteRequestFormContent() {
               {/* STEP 4: Deadline */}
               {step === 4 && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                  <h2 className="font-sora font-bold text-xl text-white flex items-center space-x-2">
+                  <h2 className="font-montserrat font-bold text-xl text-white flex items-center space-x-2">
                     <Calendar className="text-brand-magenta" size={22} />
                     <span>Quel est votre délai souhaité ?</span>
                   </h2>
@@ -332,7 +332,7 @@ function QuoteRequestFormContent() {
               {/* STEP 5: File Upload */}
               {step === 5 && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                  <h2 className="font-sora font-bold text-xl text-white flex items-center space-x-2">
+                  <h2 className="font-montserrat font-bold text-xl text-white flex items-center space-x-2">
                     <Upload className="text-brand-magenta" size={22} />
                     <span>Avez-vous des fichiers à nous transmettre ? (Optionnel)</span>
                   </h2>
@@ -364,7 +364,7 @@ function QuoteRequestFormContent() {
               {/* STEP 6: Contact Information */}
               {step === 6 && (
                 <div className="space-y-6 animate-in fade-in duration-200">
-                  <h2 className="font-sora font-bold text-xl text-white flex items-center space-x-2">
+                  <h2 className="font-montserrat font-bold text-xl text-white flex items-center space-x-2">
                     <User className="text-brand-magenta" size={22} />
                     <span>Vos coordonnées</span>
                   </h2>

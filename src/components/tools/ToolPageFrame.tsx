@@ -57,7 +57,7 @@ export default function ToolPageFrame({
             <ToolIcon name={tool.icon} size={30} />
           </div>
         </div>
-        <h1 className="text-3xl md:text-5xl font-sora font-extrabold text-white tracking-tight max-w-3xl mx-auto leading-tight">
+        <h1 className="text-3xl md:text-5xl font-montserrat font-extrabold text-white tracking-tight max-w-3xl mx-auto leading-tight">
           {tool.title}
         </h1>
         <p className="text-white/65 max-w-2xl mx-auto mt-4 text-sm md:text-base leading-relaxed">

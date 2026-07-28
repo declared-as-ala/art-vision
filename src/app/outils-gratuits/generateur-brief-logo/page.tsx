@@ -19,7 +19,7 @@ export default function Page() {
       tool={tool}
       seoContent={
         <>
-          <h2 className="text-xl font-sora font-bold text-white">Pourquoi rédiger un brief de logo ?</h2>
+          <h2 className="text-xl font-montserrat font-bold text-white">Pourquoi rédiger un brief de logo ?</h2>
           <p>
             Un brief clair est la clé d'un logo réussi. Il évite les allers-retours en alignant le designer sur votre
             secteur, votre cible, la personnalité de votre marque et vos préférences de style et de couleurs. Résultat :

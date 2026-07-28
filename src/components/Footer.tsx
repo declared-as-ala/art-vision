@@ -54,7 +54,7 @@ export default function Footer() {
 
           {/* Services Links */}
           <div>
-            <h3 className="font-sora font-semibold text-white text-base mb-6">
+            <h3 className="font-montserrat font-semibold text-white text-base mb-6">
               Nos Services
             </h3>
             <ul className="space-y-3 text-sm">
@@ -76,7 +76,7 @@ export default function Footer() {
 
           {/* Tools & Local SEO */}
           <div>
-            <h3 className="font-sora font-semibold text-white text-base mb-6">
+            <h3 className="font-montserrat font-semibold text-white text-base mb-6">
               Outils & Villes
             </h3>
             <ul className="space-y-3 text-sm mb-6">
@@ -89,7 +89,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <h4 className="font-sora font-semibold text-white/90 text-xs uppercase tracking-wider mb-3">
+            <h4 className="font-montserrat font-semibold text-white/90 text-xs uppercase tracking-wider mb-3">
               Agences Locales
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -107,7 +107,7 @@ export default function Footer() {
 
           {/* Agency Contacts */}
           <div>
-            <h3 className="font-sora font-semibold text-white text-base mb-6">
+            <h3 className="font-montserrat font-semibold text-white text-base mb-6">
               Nos Agences
             </h3>
             <ul className="space-y-4 text-xs">

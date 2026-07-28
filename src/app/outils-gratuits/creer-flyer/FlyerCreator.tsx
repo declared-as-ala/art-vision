@@ -61,7 +61,11 @@ export default function FlyerCreator() {
   const draw = useCallback(async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    await document.fonts.ready;
     const ctx = canvas.getContext("2d")!;
+    const fontFamily = getComputedStyle(document.documentElement)
+      .getPropertyValue("--font-montserrat")
+      .trim() || "Montserrat";
     const template = TEMPLATES.find((t) => t.id === tpl)!;
 
     // background
@@ -90,14 +94,14 @@ export default function FlyerCreator() {
     // title
     ctx.textBaseline = "top";
     ctx.fillStyle = "#FFFFFF";
-    ctx.font = "bold 92px Sora, sans-serif";
+    ctx.font = `800 92px ${fontFamily}, sans-serif`;
     const titleLines = wrap(ctx, d.title.toUpperCase(), W - 160);
     let y = 300;
     titleLines.slice(0, 3).forEach((l) => { ctx.fillText(l, 80, y); y += 100; });
 
     // subtitle
     ctx.fillStyle = "rgba(255,255,255,0.82)";
-    ctx.font = "40px Inter, sans-serif";
+    ctx.font = `400 40px ${fontFamily}, sans-serif`;
     wrap(ctx, d.subtitle, W - 160).slice(0, 2).forEach((l) => { ctx.fillText(l, 80, y); y += 52; });
 
     // offer badge
@@ -108,12 +112,12 @@ export default function FlyerCreator() {
       // rounded rect
       const bw = Math.min(560, 200 + ctx.measureText(d.offer).width);
       roundRect(ctx, 80, badgeY, bw, 150, 24); ctx.fill();
-      ctx.fillStyle = "#0b0820"; ctx.font = "bold 96px Sora, sans-serif";
+      ctx.fillStyle = "#0b0820"; ctx.font = `800 96px ${fontFamily}, sans-serif`;
       ctx.fillText(d.offer, 110, badgeY + 26);
     }
 
     // info block
-    ctx.font = "34px Inter, sans-serif";
+    ctx.font = `400 34px ${fontFamily}, sans-serif`;
     ctx.fillStyle = "rgba(255,255,255,0.9)";
     let iy = 990;
     const info = [d.date && `📅  ${d.date}`, d.location && `📍  ${d.location}`, d.phone && `📞  ${d.phone}`].filter(Boolean) as string[];
@@ -123,7 +127,7 @@ export default function FlyerCreator() {
     if (d.cta) {
       const cy = H - 200;
       ctx.fillStyle = accent; roundRect(ctx, 80, cy, W - 160, 110, 18); ctx.fill();
-      ctx.fillStyle = "#0b0820"; ctx.font = "bold 46px Sora, sans-serif";
+      ctx.fillStyle = "#0b0820"; ctx.font = `800 46px ${fontFamily}, sans-serif`;
       ctx.textAlign = "center"; ctx.fillText(d.cta, W / 2, cy + 30); ctx.textAlign = "left";
     }
 
@@ -137,7 +141,7 @@ export default function FlyerCreator() {
     }
 
     // footer brand
-    ctx.fillStyle = "rgba(255,255,255,0.45)"; ctx.font = "22px Inter, sans-serif";
+    ctx.fillStyle = "rgba(255,255,255,0.45)"; ctx.font = `400 22px ${fontFamily}, sans-serif`;
     ctx.fillText("Créé avec Art Vision", 80, H - 60);
   }, [tpl, accent, bgImage, logo, d]);
 

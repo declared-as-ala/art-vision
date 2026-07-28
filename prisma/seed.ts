@@ -486,13 +486,13 @@ async function main() {
     {
       id: "modern-minimalist",
       name: "Modern Minimalist",
-      layout: JSON.stringify({ theme: "minimalist", font: "Inter", primaryColor: "#08051F" }),
+      layout: JSON.stringify({ theme: "minimalist", font: "Montserrat", primaryColor: "#08051F" }),
       thumbnail: "/images/card-templates/minimal.jpg",
     },
     {
       id: "creative-gradient",
       name: "Creative Gradient",
-      layout: JSON.stringify({ theme: "gradient", font: "Sora", primaryColor: "#6C2BD9", secondaryColor: "#D72888" }),
+      layout: JSON.stringify({ theme: "gradient", font: "Montserrat", primaryColor: "#6C2BD9", secondaryColor: "#D72888" }),
       thumbnail: "/images/card-templates/creative.jpg",
     },
   ];
