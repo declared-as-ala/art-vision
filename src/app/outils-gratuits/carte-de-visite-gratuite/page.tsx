@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTool, toolUrl } from "@/lib/tools";
 import ToolJsonLd from "@/components/tools/ToolJsonLd";
 import ToolFooter from "@/components/tools/ToolFooter";
-import BusinessCardGenerator from "@/app/carte-de-visite-gratuite/page";
+import BusinessCardGenerator from "@/components/tools/BusinessCardGenerator";
 
 const tool = getTool("carte-de-visite-gratuite")!;
 const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";

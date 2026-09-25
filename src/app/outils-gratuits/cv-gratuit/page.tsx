@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTool, toolUrl } from "@/lib/tools";
 import ToolJsonLd from "@/components/tools/ToolJsonLd";
 import ToolFooter from "@/components/tools/ToolFooter";
-import CVGenerator from "@/app/cv-modeles-gratuits/page";
+import CVGenerator from "@/components/tools/CVGenerator";
 
 const tool = getTool("cv-gratuit")!;
 const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";

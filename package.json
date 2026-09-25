@@ -11,7 +11,7 @@
     "seed:blog": "tsx prisma/seed-blog.ts && tsx prisma/seed-blog-batch2.ts",
     "seed:services": "tsx prisma/seed-services.ts",
     "seed:print": "tsx prisma/seed-print.ts",
-    "seed:seo": "tsx prisma/seed-seo.ts",
+    "seed:seo": "tsx prisma/seed-seo.ts && tsx prisma/seed-expanded-seo.ts",
     "smtp:test": "node scripts/test-smtp.mjs",
     "start": "next start",
     "lint": "eslint",

@@ -47,6 +47,29 @@ export async function proxy(request: NextRequest) {
   if (pathname.startsWith("/services/") || pathname.startsWith("/seo/")) {
     const slug = pathname.split("/")[2];
     if (slug) return NextResponse.redirect(new URL(`/${slug}`, request.url), 301);
+    return NextResponse.redirect(new URL("/", request.url), 301);
+  }
+
+  // Known legacy / cannibalizing routes consolidation
+  const staticCanonicalMap: Record<string, string> = {
+    "/carte-de-visite-gratuite": "/outils-gratuits/carte-de-visite-gratuite",
+    "/cv-modeles-gratuits": "/outils-gratuits/cv-gratuit",
+    "/impression-publicitaire": "/impression",
+    "/agence-graphique-france": "/agence-graphique",
+    "/studio-graphique-france": "/agence-graphique",
+    "/graphiste-freelance-france": "/design-graphique",
+    "/creation-site-vitrine": "/site-vitrine",
+    "/impression-cartes-de-visite": "/impression/carte-de-visite",
+    "/impression-flyers": "/impression/flyer",
+    "/impression-affiches": "/impression/affiche",
+    "/impression-baches": "/impression/bache",
+    "/impression-catalogues": "/impression/brochure",
+    "/impression-panneaux-publicitaires": "/impression/panneau",
+  };
+
+  const normalizedPath = pathname.replace(/\/$/, "") || "/";
+  if (staticCanonicalMap[normalizedPath]) {
+    return NextResponse.redirect(new URL(staticCanonicalMap[normalizedPath], request.url), 301);
   }
 
   // 2. Perform dynamic redirect checks without recursively fetching this app.

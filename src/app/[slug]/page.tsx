@@ -620,21 +620,45 @@ export default async function DynamicSlugPage({ params }: PageProps) {
       ]
     };
 
-    const localBusinessSchema = isLocal ? {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": `Art Vision - ${cityLabel}`,
-      "image": "https://art-visions.fr/logo.png",
-      "telephone": "+33 2 43 00 00 00",
-      "email": "contact@art-visions.fr",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "5 Rue de Constantine",
-        "addressLocality": cityLabel,
-        "postalCode": "72000",
-        "addressCountry": "FR"
-      }
-    } : null;
+    const isLeMans = cityLabel.toLowerCase() === "le mans";
+
+    const localBusinessSchema = isLocal
+      ? isLeMans
+        ? {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": `Art Vision - ${cityLabel}`,
+            "image": "https://art-visions.fr/logo.png",
+            "telephone": "+33 2 43 00 00 00",
+            "email": "contact@art-visions.fr",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "5 Rue de Constantine",
+              "addressLocality": "Le Mans",
+              "postalCode": "72000",
+              "addressCountry": "FR",
+            },
+          }
+        : {
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "name": `Art Vision - Services Créatifs & Digitaux (${cityLabel})`,
+            "image": "https://art-visions.fr/logo.png",
+            "telephone": "+33 2 43 00 00 00",
+            "email": "contact@art-visions.fr",
+            "areaServed": {
+              "@type": "City",
+              "name": cityLabel,
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "5 Rue de Constantine",
+              "addressLocality": "Le Mans",
+              "postalCode": "72000",
+              "addressCountry": "FR",
+            },
+          }
+      : null;
 
     const faqSchema = parsedFAQs.length > 0 ? {
       "@context": "https://schema.org",
@@ -732,31 +756,69 @@ export default async function DynamicSlugPage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Localized SEO Google Maps Block */}
+          {/* Localized Service Block */}
           {isLocal && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12 border-t border-brand-purple/15 items-center">
               <div className="space-y-4">
-                <h3 className="font-montserrat font-bold text-lg text-white">Notre Agence au Service de {cityLabel}</h3>
+                <h3 className="font-montserrat font-bold text-lg text-white">
+                  {isLeMans ? `Notre Agence au Mans` : `Notre Agence au Service des Entreprises de ${cityLabel}`}
+                </h3>
                 <p className="text-xs text-white/70 leading-relaxed">
-                  Chef de projet dédié pour cadrer votre plan de communication {cityLabel}. Nous nous déplaçons dans vos bureaux ou organisons des visioconférences sous 24 heures pour concevoir vos chartes visuelles, packshots 3D et imprimés publicitaires.
+                  {isLeMans
+                    ? "Située au cœur du Mans, notre équipe vous accueille pour concevoir vos chartes visuelles, packshots 3D, sites web et imprimés publicitaires."
+                    : `Chef de projet dédié pour cadrer votre plan de communication à ${cityLabel}. Nous intervenons à distance avec réactivité (visioconférences sous 24 heures) et nous déplaçons dans vos locaux pour les projets d'envergure.`}
                 </p>
                 <div className="space-y-2 text-xs text-white/80">
-                  <p className="flex items-center space-x-2"><MapPin size={14} className="text-brand-magenta" /><span>5 Rue de Constantine, {cityLabel}</span></p>
-                  <p className="flex items-center space-x-2"><Phone size={14} className="text-brand-purple" /><span>+33 2 43 00 00 00</span></p>
-                  <p className="flex items-center space-x-2"><Mail size={14} className="text-brand-orange" /><span>contact@art-visions.fr</span></p>
+                  <p className="flex items-center space-x-2">
+                    <MapPin size={14} className="text-brand-magenta shrink-0" />
+                    <span>
+                      {isLeMans
+                        ? "5 Rue de Constantine, 72000 Le Mans"
+                        : `Intervention à distance & déplacements à ${cityLabel} (Siège : 5 Rue de Constantine, 72000 Le Mans)`}
+                    </span>
+                  </p>
+                  <p className="flex items-center space-x-2">
+                    <Phone size={14} className="text-brand-purple shrink-0" />
+                    <span>+33 2 43 00 00 00</span>
+                  </p>
+                  <p className="flex items-center space-x-2">
+                    <Mail size={14} className="text-brand-orange shrink-0" />
+                    <span>contact@art-visions.fr</span>
+                  </p>
                 </div>
               </div>
-              <div className="rounded-xl overflow-hidden border border-brand-purple/20 h-56 relative">
-                <iframe
-                  title={`Google Maps Art Vision ${cityLabel}`}
-                  src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2667.6534571932915!2d0.19830501177695328!3d48.00114097123616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e28f32145b23d9%3A0xe543df5e900c3cd!2s5%20Rue%20de%20Constantine%2C%2072000%20Le%20Mans!5e0!3m2!1sfr!2sfr!4v1718182283921!5m2!1sfr!2sfr`}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                ></iframe>
-              </div>
+              {isLeMans ? (
+                <div className="rounded-xl overflow-hidden border border-brand-purple/20 h-56 relative">
+                  <iframe
+                    title="Google Maps Art Vision Le Mans"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2667.6534571932915!2d0.19830501177695328!3d48.00114097123616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e28f32145b23d9%3A0xe543df5e900c3cd!2s5%20Rue%20de%20Constantine%2C%2072000%20Le%20Mans!5e0!3m2!1sfr!2sfr!4v1718182283921!5m2!1sfr!2sfr"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                  ></iframe>
+                </div>
+              ) : (
+                <div className="bg-[#1A1238]/60 border border-brand-purple/20 rounded-xl p-6 space-y-3">
+                  <span className="text-xs uppercase font-extrabold text-brand-orange tracking-wider">Engagement Qualité</span>
+                  <h4 className="font-montserrat font-bold text-white text-base">Un accompagnement agile sans frontière géographique</h4>
+                  <ul className="text-xs text-white/70 space-y-2">
+                    <li className="flex items-center space-x-2">
+                      <Check size={12} className="text-brand-magenta shrink-0" />
+                      <span>Échanges directs et validation en visio sous 24h</span>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <Check size={12} className="text-brand-magenta shrink-0" />
+                      <span>Livraison des fichiers sources HD & vectoriels</span>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <Check size={12} className="text-brand-magenta shrink-0" />
+                      <span>Expédition sécurisée de vos imprimés partout en France</span>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           )}
 

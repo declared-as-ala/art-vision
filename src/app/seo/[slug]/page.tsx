@@ -1,2 +1,10 @@
-export { default, generateMetadata } from "../../[slug]/page";
-export const revalidate = 60;
+import { permanentRedirect } from "next/navigation";
+
+export default async function LegacySeoSlugPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  permanentRedirect(`/${slug}`);
+}
