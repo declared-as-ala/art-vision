@@ -5,6 +5,12 @@
  * For Turso/production, set TURSO_DATABASE_URL + TURSO_AUTH_TOKEN env vars.
  */
 import { seedSEOLandingPages } from "../src/lib/seo-seeder";
+import { seedToolSEOData } from "../src/lib/tool-seo-seeder";
 
-seedSEOLandingPages()
+async function main() {
+  await seedSEOLandingPages();
+  await seedToolSEOData();
+}
+
+main()
   .catch((e) => { console.error(e); process.exit(1); });

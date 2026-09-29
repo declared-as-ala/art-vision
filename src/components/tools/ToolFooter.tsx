@@ -12,7 +12,11 @@ export default function ToolFooter({
   tool: ToolDef;
   seoContent?: React.ReactNode;
 }) {
-  const related = toolsByOrder.filter((t) => t.slug !== tool.slug).slice(0, 3);
+  const related =
+    tool.relatedToolSlugs
+      ?.map((slug) => toolsByOrder.find((t) => t.slug === slug))
+      .filter((t): t is ToolDef => Boolean(t))
+      .slice(0, 5) ?? toolsByOrder.filter((t) => t.slug !== tool.slug).slice(0, 3);
 
   return (
     <>
@@ -63,8 +67,8 @@ export default function ToolFooter({
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <h2 className="text-xl font-montserrat font-extrabold text-white mb-5">Autres outils gratuits</h2>
-        <div className="grid sm:grid-cols-3 gap-4">
+        <h2 className="text-xl font-montserrat font-extrabold text-white mb-5">Outils gratuits qui pourraient aussi vous être utiles</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {related.map((t) => (
             <Link key={t.slug} href={toolUrl(t.slug)} className="group rounded-2xl border border-brand-purple/20 bg-brand-purple-dark/40 p-5 hover:border-brand-magenta/40 transition backdrop-blur-sm">
               <div className="inline-flex p-2.5 rounded-xl mb-3 border border-white/10" style={{ background: `${t.accent}22`, color: t.accent }}>

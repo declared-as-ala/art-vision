@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Sparkles, Zap, ShieldCheck, Gift } from "lucide-react";
+import { Gift, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { toolsByOrder } from "@/lib/tools";
 import OutilsGrid from "./OutilsGrid";
 
 const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
 
 export const metadata: Metadata = {
-  title: "Outils gratuits pour CV, carte de visite, QR code et design | Art Vision",
+  title: "Outils gratuits pour entrepreneurs, impression et marketing | Art Visions",
   description:
-    "10 outils gratuits Art Vision : générateur de CV, carte de visite, QR code, palette de couleurs, slogan, bio Instagram, flyer et calculateur d'impression. Sans inscription.",
+    "25 outils gratuits Art Visions pour créer menus, cartes de fidélité, QR codes, visuels, signatures e-mail, gabarits d'impression, briefs et contenus marketing.",
   alternates: { canonical: `${BASE}/outils-gratuits` },
   openGraph: {
-    title: "Outils gratuits pour CV, carte de visite, QR code et design | Art Vision",
+    title: "Outils gratuits pour entrepreneurs, impression et marketing | Art Visions",
     description:
-      "10 outils gratuits pour créer CV, cartes de visite, QR codes, palettes, slogans, bios Instagram, flyers et estimer vos impressions.",
+      "Une boîte à outils gratuite pour entrepreneurs, restaurants, boutiques, freelances et entreprises : impression, identité visuelle, réseaux sociaux et web.",
     url: `${BASE}/outils-gratuits`,
     type: "website",
   },
@@ -33,12 +33,12 @@ export default function OutilsGratuitsPage() {
       },
       {
         "@type": "ItemList",
-        name: "Outils gratuits Art Vision",
-        itemListElement: toolsByOrder.map((t, i) => ({
+        name: "Outils gratuits Art Visions",
+        itemListElement: toolsByOrder.map((tool, index) => ({
           "@type": "ListItem",
-          position: i + 1,
-          name: t.title,
-          url: `${BASE}/outils-gratuits/${t.slug}`,
+          position: index + 1,
+          name: tool.title,
+          url: `${BASE}/outils-gratuits/${tool.slug}`,
         })),
       },
     ],
@@ -48,55 +48,50 @@ export default function OutilsGratuitsPage() {
     <div className="hero-gradient min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* Hero */}
-      <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-12 text-center">
-        <div className="inline-flex items-center gap-1.5 bg-brand-purple/25 border border-brand-purple/30 px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-wider text-brand-white uppercase mb-6">
+      <header className="mx-auto max-w-7xl px-4 pb-12 pt-36 text-center sm:px-6 lg:px-8">
+        <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-brand-purple/30 bg-brand-purple/25 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-brand-white">
           <Sparkles size={13} className="text-brand-orange" />
           Boîte à outils créative
         </div>
-        <h1 className="text-4xl md:text-6xl font-montserrat font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-[1.05]">
+        <h1 className="mx-auto max-w-4xl font-montserrat text-4xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl">
           Des outils <span className="text-brand-magenta">gratuits</span> pour donner vie à votre marque
         </h1>
-        <p className="text-white/65 max-w-2xl mx-auto mt-5 text-base leading-relaxed">
-          Créez vos CV, cartes de visite, QR codes, palettes de couleurs, slogans, contenus Instagram,
-          flyers et estimez vos impressions — en quelques clics, sans inscription. Et quand vous voudrez
-          passer au niveau supérieur, le studio Art Vision sera là.
+        <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-white/65">
+          Art Visions met à disposition des entrepreneurs, restaurants, commerces, freelances et entreprises
+          une suite d'outils gratuits pour préparer vos supports d'impression, votre identité visuelle, vos
+          contenus marketing et vos briefs web. Créez, prévisualisez et exportez sans inscription.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-3 mt-7">
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
           {[
             { icon: Gift, label: "100% gratuit" },
             { icon: Zap, label: "Résultat instantané" },
             { icon: ShieldCheck, label: "Sans inscription" },
           ].map(({ icon: Icon, label }) => (
-            <span
-              key={label}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 bg-white/5 border border-white/10 px-3.5 py-2 rounded-full"
-            >
+            <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-2 text-xs font-semibold text-white/70">
               <Icon size={13} className="text-brand-magenta" /> {label}
             </span>
           ))}
         </div>
       </header>
 
-      {/* Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <main className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <OutilsGrid />
       </main>
 
-      {/* SEO content */}
-      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 text-sm text-white/65 leading-relaxed space-y-4">
-        <h2 className="text-2xl font-montserrat font-extrabold text-white">
+      <section className="mx-auto max-w-3xl space-y-4 px-4 pb-20 text-sm leading-relaxed text-white/65 sm:px-6 lg:px-8">
+        <h2 className="font-montserrat text-2xl font-extrabold text-white">
           Une suite d'outils pensée par une agence créative
         </h2>
         <p>
-          Chez <strong className="text-white">Art Vision</strong>, nous accompagnons chaque jour des entrepreneurs,
+          Chez <strong className="text-white">Art Visions</strong>, nous accompagnons chaque jour des entrepreneurs,
           commerçants et indépendants dans la création de leur image de marque. Ces outils gratuits sont une porte
-          d'entrée : ils vous permettent d'obtenir rapidement un résultat professionnel, que ce soit un CV soigné,
-          une carte de visite élégante, un QR code à vos couleurs ou une palette cohérente pour votre identité.
+          d'entrée : ils vous permettent d'obtenir rapidement un résultat exploitable, qu'il s'agisse d'un menu de
+          restaurant, d'une carte de fidélité, d'une affiche QR code, d'un visuel produit ou d'un brief de site web.
         </p>
         <p>
-          Besoin d'aller plus loin ? Notre studio propose la <Link href="/creation-logo-professionnel" className="text-brand-orange underline">création de logo</Link>,
+          Besoin d'aller plus loin ? Notre studio propose la{" "}
+          <Link href="/creation-logo-professionnel" className="text-brand-orange underline">création de logo</Link>,
           l'<Link href="/identite-visuelle" className="text-brand-orange underline">identité visuelle</Link>, le{" "}
           <Link href="/design-graphique" className="text-brand-orange underline">design graphique</Link>, la{" "}
           <Link href="/community-management" className="text-brand-orange underline">gestion des réseaux sociaux</Link> et l'
