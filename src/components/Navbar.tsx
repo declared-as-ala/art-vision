@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Sparkles, PhoneCall } from "lucide-react";
+import { toolsByOrder, toolUrl } from "@/lib/tools";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,13 +54,7 @@ export default function Navbar() {
 
   const freeTools = [
     { name: "Tous les outils gratuits", href: "/outils-gratuits" },
-    { name: "Générateur de CV", href: "/outils-gratuits/cv-gratuit" },
-    { name: "Carte de visite", href: "/outils-gratuits/carte-de-visite-gratuite" },
-    { name: "Générateur de QR Code", href: "/outils-gratuits/generateur-qr-code" },
-    { name: "Palette de couleurs", href: "/outils-gratuits/generateur-palette-couleurs" },
-    { name: "Générateur de slogan", href: "/outils-gratuits/generateur-slogan" },
-    { name: "Créateur de flyer", href: "/outils-gratuits/creer-flyer" },
-    { name: "Calculateur d'impression", href: "/outils-gratuits/calculateur-impression" },
+    ...toolsByOrder.map((tool) => ({ name: tool.title, href: toolUrl(tool.slug) })),
   ];
 
   return (
@@ -119,7 +114,7 @@ export default function Navbar() {
                 <span>Outils Gratuits</span>
                 <ChevronDown size={16} />
               </button>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 glassmorphism rounded-xl shadow-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 max-h-[70vh] overflow-y-auto glassmorphism rounded-xl shadow-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="px-2">
                   {freeTools.map((tool) => (
                     <Link
