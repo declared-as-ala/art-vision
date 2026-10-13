@@ -10,7 +10,7 @@ function getBaseUrl(host: string | null): string {
   if (host && (host === "art-visions.fr" || host.endsWith(".art-visions.fr"))) {
     return `https://${host}`;
   }
-  return process.env.NEXT_PUBLIC_APP_URL || process.env.SITE_URL || PRODUCTION_URL;
+  return PRODUCTION_URL;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

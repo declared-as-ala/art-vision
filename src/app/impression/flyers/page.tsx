@@ -293,13 +293,17 @@ export default function ImpressionFlyersPage() {
             <h2 className="text-2xl font-bold text-white font-montserrat">Une question ? Un devis flyers sur mesure ?</h2>
             <p className="mt-2 text-sm text-white/70">Contactez Art Vision pour vérifier votre fichier, adapter une quantité ou préparer une commande spéciale.</p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
-              <a className="inline-flex items-center gap-2 text-brand-magenta hover:text-white transition" href="tel:+21655804227">
+              <a className="inline-flex items-center gap-2 text-brand-magenta hover:text-white transition" href="tel:+32490224905">
                 <Phone size={16} aria-hidden="true" />
-                +216 55 804 227
+                +32 490 22 49 05
               </a>
-              <a className="inline-flex items-center gap-2 text-brand-magenta hover:text-white transition" href="mailto:contact2artvision@gmail.com">
+              <a className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition" href="https://wa.me/32490224905" target="_blank" rel="noopener noreferrer">
+                <MessageCircle size={16} aria-hidden="true" />
+                WhatsApp
+              </a>
+              <a className="inline-flex items-center gap-2 text-brand-magenta hover:text-white transition" href="mailto:contact@art-visions.fr">
                 <Mail size={16} aria-hidden="true" />
-                contact2artvision@gmail.com
+                contact@art-visions.fr
               </a>
             </div>
           </div>

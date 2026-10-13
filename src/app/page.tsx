@@ -118,16 +118,25 @@ export default async function HomePage() {
               <div className="mt-8 flex flex-col gap-3.5 w-full sm:w-80">
                 <Link
                   href="/devis-sur-mesure"
-                  className="bg-[#D95200] hover:bg-[#B84200] text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-102 shadow-lg shadow-[#D95200]/25 text-center block"
+                  className="bg-[#D95200] hover:bg-[#B84200] text-white px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-102 shadow-lg shadow-[#D95200]/25 text-center block"
                 >
-                  Demandez un devis
+                  Demander un devis
                 </Link>
                 <Link
-                  href="#services"
-                  className="bg-[#D95200] hover:bg-[#B84200] text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-102 shadow-lg shadow-[#D95200]/25 text-center block"
+                  href="/portfolio"
+                  className="border-2 border-white/30 hover:border-brand-magenta hover:bg-brand-magenta/15 text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-102 text-center block backdrop-blur-sm"
                 >
-                  Découvrez nos services
+                  Voir nos réalisations
                 </Link>
+                <a
+                  href="https://wa.me/32490224905"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:text-emerald-200 hover:bg-emerald-500/25 transition text-xs font-semibold tracking-wide text-center"
+                >
+                  <MessageSquare size={15} className="text-emerald-400 shrink-0" />
+                  <span>WhatsApp direct : +32 490 22 49 05</span>
+                </a>
               </div>
             </div>
 
@@ -376,8 +385,8 @@ export default async function HomePage() {
               </div>
               <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15 space-y-3">
                 <Clock size={24} className="text-brand-purple" />
-                <h3 className="font-montserrat font-bold text-sm text-white">Réactivité 24/7</h3>
-                <p className="text-[10px] text-white/60 leading-relaxed">Un suivi direct, des livraisons rapides et des échanges fluides par WhatsApp.</p>
+                <h3 className="font-montserrat font-bold text-sm text-white">Lun - Sam : 8h - 18h</h3>
+                <p className="text-[10px] text-white/60 leading-relaxed">Du lundi au samedi, de 8 h à 18 h : suivi réactif et échanges directs par WhatsApp.</p>
               </div>
               <div className="glassmorphism rounded-xl p-5 border border-brand-purple/15 space-y-3">
                 <ThumbsUp size={24} className="text-brand-orange" />

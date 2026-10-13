@@ -629,7 +629,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
             "@type": "LocalBusiness",
             "name": `Art Vision - ${cityLabel}`,
             "image": "https://art-visions.fr/logo.png",
-            "telephone": "+33 2 43 00 00 00",
+            "telephone": "+32 490 22 49 05",
             "email": "contact@art-visions.fr",
             "address": {
               "@type": "PostalAddress",
@@ -644,7 +644,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
             "@type": "ProfessionalService",
             "name": `Art Vision - Services Créatifs & Digitaux (${cityLabel})`,
             "image": "https://art-visions.fr/logo.png",
-            "telephone": "+33 2 43 00 00 00",
+            "telephone": "+32 490 22 49 05",
             "email": "contact@art-visions.fr",
             "areaServed": {
               "@type": "City",
@@ -779,7 +779,7 @@ export default async function DynamicSlugPage({ params }: PageProps) {
                   </p>
                   <p className="flex items-center space-x-2">
                     <Phone size={14} className="text-brand-purple shrink-0" />
-                    <span>+33 2 43 00 00 00</span>
+                    <a href="tel:+32490224905" className="hover:text-white transition">+32 490 22 49 05</a>
                   </p>
                   <p className="flex items-center space-x-2">
                     <Mail size={14} className="text-brand-orange shrink-0" />

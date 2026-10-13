@@ -96,20 +96,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               {content.advice.map((item) => <li key={item}>{item}</li>)}
             </ul>
           </section>
-
-          <section>
-            <h2 className="text-xl font-montserrat font-bold text-white">Recherche et intention SEO</h2>
-            <p className="mt-4">
-              Cette page cible principalement <strong className="text-white">{content.search.primaryKeyword}</strong>, avec des intentions proches comme {content.search.secondaryKeywords.join(", ")}.
-              Les recherches observées en France et en Belgique francophone privilégient les outils gratuits, l'export immédiat et les modèles simples à adapter.
-            </p>
-            <p>
-              Notre angle : {content.search.gap} Pour aller plus loin, vous pouvez aussi consulter nos services de{" "}
-              <Link className="text-brand-orange underline" href="/design-graphique">création graphique</Link>,{" "}
-              <Link className="text-brand-orange underline" href="/impression">impression</Link> et{" "}
-              <Link className="text-brand-orange underline" href="/identite-visuelle">identité visuelle</Link>.
-            </p>
-          </section>
         </div>
       }
     >

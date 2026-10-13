@@ -88,34 +88,51 @@ export async function generateSlogans(
 
 function templateSlogans(i: SloganInput): string[] {
   const name = i.businessName.trim() || "Votre marque";
-  const field = (i.industry || "votre univers").toLowerCase();
-  const kw = uniq((i.keywords || "").split(/[,;]/)).slice(0, 4);
-  const k1 = kw[0] || field;
-  const k2 = kw[1] || "qualité";
+  const rawField = (i.industry || "").trim();
+  const field = rawField || "votre activité";
   const tone = (i.tone || "").toLowerCase();
 
+  // Des constructions françaises impeccables, adaptées à tout type d'activité
   const base = [
-    `${name}, l'excellence au service de ${field}.`,
-    `${cap(k1)} repensé par ${name}.`,
-    `${name} — votre vision, notre savoir-faire.`,
-    `Avec ${name}, ${field} devient un art.`,
-    `${cap(k1)}. ${cap(k2)}. ${name}.`,
-    `${name}, là où ${field} prend vie.`,
-    `Pensé pour vous, signé ${name}.`,
-    `${name} : un cran au-dessus en ${field}.`,
-    `Donnez du sens à ${field} avec ${name}.`,
-    `${name}, la différence se voit.`,
-    `${cap(k1)} sans compromis, par ${name}.`,
-    `${name} — simplement remarquable.`,
+    `${name} — Votre spécialiste en ${field}.`,
+    `L'expertise et le savoir-faire au service de votre projet : ${name}.`,
+    `${name}, l'exigence et la passion à vos côtés.`,
+    `Pour tous vos projets en ${field}, faites confiance à ${name}.`,
+    `${name} : vos exigences, nos solutions.`,
+    `Une approche sur mesure et un suivi dédié avec ${name}.`,
+    `${name}, votre partenaire de confiance en ${field}.`,
+    `La qualité et le sens du détail, signés ${name}.`,
+    `Donnez une nouvelle dimension à vos projets avec ${name}.`,
+    `${name} — Simplement professionnel, durablement efficace.`,
+    `Votre référence de choix en matière de ${field} : ${name}.`,
+    `Avec ${name}, avancez l'esprit tranquille.`,
   ];
 
   const toneLines: Record<string, string[]> = {
-    premium: [`${name}, l'exigence devient signature.`, `Le raffinement ${field}, par ${name}.`],
-    luxe: [`${name}, l'art du détail d'exception.`, `Quand ${field} rime avec prestige : ${name}.`],
-    amical: [`${name}, on s'occupe de tout 😊`, `${cap(field)} en toute simplicité avec ${name}.`],
-    moderne: [`${name}, ${field} nouvelle génération.`, `${cap(k1)} réinventé. ${name}.`],
-    audacieux: [`Osez ${field}. Osez ${name}.`, `${name} change les règles du jeu.`],
-    professionnel: [`${name}, la rigueur au service de vos résultats.`, `${cap(k1)} fiable, ${name} responsable.`],
+    premium: [
+      `${name}, l'exigence élevée au rang de signature.`,
+      `Le sens du détail et l'excellence du travail bien fait : ${name}.`,
+    ],
+    luxe: [
+      `${name}, l'art du détail d'exception.`,
+      `L'alliance de la perfection et du prestige, par ${name}.`,
+    ],
+    amical: [
+      `${name}, une équipe proche de vous au quotidien.`,
+      `En toute simplicité et en toute confiance avec ${name}.`,
+    ],
+    moderne: [
+      `${name}, une vision innovante au service de vos attentes.`,
+      `L'efficacité nouvelle génération avec ${name}.`,
+    ],
+    audacieux: [
+      `Osez l'excellence avec ${name}.`,
+      `${name} : repoussez les standards, affirmez votre différence.`,
+    ],
+    professionnel: [
+      `${name}, la rigueur au service de vos résultats.`,
+      `Votre satisfaction et votre réussite : l'engagement ${name}.`,
+    ],
   };
   const extra = toneLines[tone] || [];
   return uniq([...extra, ...base]).slice(0, 12);

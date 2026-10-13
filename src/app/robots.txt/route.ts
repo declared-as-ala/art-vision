@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+  const canonicalSitemap = "https://art-visions.fr/sitemap.xml";
   let robotsText = "";
 
   try {
@@ -12,6 +12,10 @@ export async function GET() {
 
     if (seoSettings && seoSettings.robotsTxt) {
       robotsText = seoSettings.robotsTxt;
+      // Strip any legacy Vercel domain sitemap
+      if (robotsText.includes("vercel.app") || robotsText.includes("Sitemap:")) {
+        robotsText = robotsText.replace(/Sitemap:\s*https?:\/\/[^\s]+/gi, `Sitemap: ${canonicalSitemap}`);
+      }
     }
   } catch (error) {
     console.error("Error fetching robots.txt from DB:", error);
@@ -24,7 +28,9 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-Sitemap: ${baseUrl}/sitemap.xml`;
+Sitemap: ${canonicalSitemap}`;
+  } else if (!robotsText.includes("Sitemap:")) {
+    robotsText = `${robotsText.trim()}\n\nSitemap: ${canonicalSitemap}`;
   }
 
   return new Response(robotsText, {

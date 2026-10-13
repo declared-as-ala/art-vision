@@ -124,19 +124,19 @@ export default function ImpressionCatalogPage() {
             </div>
             <h1 className="mt-5 text-[clamp(1.75rem,5vw,3.5rem)] font-extrabold leading-[1.05] text-white font-montserrat tracking-tight">
               Tous vos supports imprimés,<br />
-              <span className="text-brand-magenta">organisés comme un vrai catalogue</span>
+              <span className="text-brand-magenta">qualité professionnelle et sur-mesure</span>
             </h1>
-            <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-white/60">
-              Retrouvez les catégories principales inspirées du catalogue source, avec des pages de tarifs pour les produits qui publient des grilles de prix.
+            <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-white/70">
+              Retrouvez l'ensemble de nos supports d'impression publicitaire et commerciale : formats variés, papiers de qualité supérieure, finitions soignées et contrôle technique de fichier inclus.
             </p>
           </div>
 
           {/* Stats row */}
           <div className="mt-8 grid grid-cols-3 gap-3 sm:gap-4 max-w-lg">
             {[
-              { value: products.length, label: "catégories" },
-              { value: activeCount, label: "avec grille" },
-              { value: "HT", label: "prix HT" },
+              { value: products.length, label: "supports disponibles" },
+              { value: "PAO", label: "contrôle fichier inclus" },
+              { value: "Atelier", label: "tarifs directs & express" },
             ].map((stat, i) => (
               <div
                 key={stat.label}
@@ -250,10 +250,10 @@ export default function ImpressionCatalogPage() {
                   </span>
 
                   {/* Sub info */}
-                  <span className="mt-1.5 text-[10px] sm:text-xs text-white/40">
+                  <span className="mt-1.5 text-[10px] sm:text-xs text-white/50">
                     {hasPrices
-                      ? `${product.tableCount} tabl. · ${product.rowCount} prix`
-                      : "Sur devis"}
+                      ? "Grille tarifaire & formats"
+                      : "Sur devis personnalisé"}
                   </span>
                 </Link>
               );

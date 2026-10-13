@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Send, HelpCircle, Shield, Globe, Lock } from "lucide-react";
+import { Mail, Phone, MapPin, Send, HelpCircle, Shield, Globe, Lock, Clock } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -127,13 +127,31 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={16} className="text-brand-orange shrink-0" />
-                <span>contact2artvision@gmail.com</span>
+                <a href="mailto:contact@art-visions.fr" className="text-white hover:text-brand-orange transition">
+                  contact@art-visions.fr
+                </a>
               </li>
               <li className="flex items-start space-x-3">
                 <Phone size={16} className="text-brand-magenta shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-white block">GSM : +216 55 804 227</span>
-                  <span className="text-white/60 text-[10px]">WhatsApp : +32 490 22 49 05</span>
+                  <a href="tel:+32490224905" className="text-white hover:text-brand-magenta transition block">
+                    Tél : +32 490 22 49 05
+                  </a>
+                  <a
+                    href="https://wa.me/32490224905"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-emerald-400 hover:text-emerald-300 transition text-[11px] block mt-0.5"
+                  >
+                    WhatsApp : +32 490 22 49 05
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-start space-x-3">
+                <Clock size={16} className="text-brand-purple shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-white block">Horaires d'ouverture :</span>
+                  <span className="text-white/70">Du lundi au samedi, de 8 h à 18 h</span>
                 </div>
               </li>
             </ul>

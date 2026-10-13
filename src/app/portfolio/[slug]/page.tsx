@@ -65,6 +65,53 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   }
 
   const imagesList = project.images.split(";").filter((img: string) => img.trim() !== "");
+  const mediaIds = imagesList
+    .filter((url: string) => url.startsWith("/api/media/"))
+    .map((url: string) => url.replace(/^\/api\/media\//, "").split("/")[0]);
+  let mediaMimeMap: Record<string, string> = {};
+  if (mediaIds.length > 0) {
+    try {
+      const dbMedia = await prisma.media.findMany({
+        where: { id: { in: mediaIds } },
+        select: { id: true, mimeType: true }
+      });
+      mediaMimeMap = Object.fromEntries(dbMedia.map((m) => [m.id, m.mimeType]));
+    } catch (e) {
+      console.error("Media mime lookup error:", e);
+    }
+  }
+
+  const isProjectVideo =
+    project.category?.name?.toLowerCase().includes("vidéo") ||
+    project.category?.name?.toLowerCase().includes("motion") ||
+    project.slug?.includes("motion-design") ||
+    project.slug?.includes("video");
+
+  const getPrefillForCategory = (catName: string, pSlug: string) => {
+    const c = (catName || "").toLowerCase();
+    const s = (pSlug || "").toLowerCase();
+    if (c.includes("vidéo") || c.includes("motion") || s.includes("video") || s.includes("motion")) {
+      return { prefill: "motion-design", service: "Motion design" };
+    }
+    if (c.includes("3d") || s.includes("3d")) {
+      return { prefill: "3d", service: "3D & Design produit" };
+    }
+    if (c.includes("logo") || s.includes("logo")) {
+      return { prefill: "logo", service: "Conception logo" };
+    }
+    if (c.includes("print") || c.includes("impression") || s.includes("print")) {
+      return { prefill: "impression", service: "Impression publicitaire" };
+    }
+    if (c.includes("web") || s.includes("site")) {
+      return { prefill: "web", service: "Site vitrine" };
+    }
+    if (c.includes("graphique")) {
+      return { prefill: "design-graphique", service: "Projet graphique" };
+    }
+    return { prefill: "branding", service: "Identité visuelle" };
+  };
+
+  const prefillData = getPrefillForCategory(project.category?.name, project.slug);
 
   return (
     <div className="min-h-screen hero-gradient pt-32 pb-20 px-4">
@@ -109,26 +156,38 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             
             {/* Project media — images at their own aspect ratio, videos playable,
                 centered and capped for responsiveness. */}
-            <div className="flex flex-wrap justify-center gap-5">
-              {imagesList.map((media: string, idx: number) =>
-                isVideoUrl(media) ? (
-                  <video
-                    key={idx}
-                    src={media}
-                    controls
-                    playsInline
-                    className="rounded-2xl border border-brand-purple/15 bg-black max-w-full sm:max-w-[460px] h-auto"
-                  />
+            <div className="flex flex-wrap justify-center gap-6">
+              {imagesList.map((media: string, idx: number) => {
+                const mediaId = media.replace(/^\/api\/media\//, "").split("/")[0];
+                const isVid =
+                  isVideoUrl(media) ||
+                  isProjectVideo ||
+                  mediaMimeMap[mediaId]?.startsWith("video/");
+
+                return isVid ? (
+                  <div key={idx} className="w-full sm:max-w-[460px] rounded-2xl overflow-hidden border border-brand-purple/30 bg-black shadow-2xl relative group">
+                    <video
+                      src={media}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-auto block rounded-2xl bg-black"
+                    />
+                    <div className="p-2.5 bg-[#0e0724]/90 border-t border-brand-purple/20 flex items-center justify-between text-[11px] text-white/60">
+                      <span className="font-medium text-white/80">Vidéo / Motion Design</span>
+                      <span className="text-[10px] text-brand-orange">HD • Lecture disponible</span>
+                    </div>
+                  </div>
                 ) : (
                   <img
                     key={idx}
                     src={media}
                     alt={`${project.title} - Image ${idx + 1}`}
-                    className="rounded-2xl border border-brand-purple/15 bg-white max-w-full sm:max-w-[380px] h-auto object-contain"
+                    className="rounded-2xl border border-brand-purple/15 bg-white max-w-full sm:max-w-[380px] h-auto object-contain shadow-xl"
                     loading="lazy"
                   />
-                )
-              )}
+                );
+              })}
             </div>
 
             {/* Objective, Challenge, Solution */}
@@ -187,8 +246,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <h4 className="font-montserrat font-bold text-sm text-white">Un projet similaire ?</h4>
               <p className="text-[11px] text-white/60">Échangeons sur vos besoins et créons une communication à la hauteur de votre image.</p>
               <Link
-                href={`/devis-sur-mesure?prefill=branding&product=${encodeURIComponent(project.title)}`}
-                className="block text-center bg-brand-orange hover:bg-brand-orange/95 text-white py-3 rounded-xl font-bold text-xs transition"
+                href={`/devis-sur-mesure?service=${encodeURIComponent(prefillData.service)}&prefill=${encodeURIComponent(prefillData.prefill)}&product=${encodeURIComponent(project.title)}`}
+                className="block text-center bg-brand-orange hover:bg-brand-orange/95 text-white py-3 rounded-xl font-bold text-xs transition shadow-md shadow-brand-orange/20"
               >
                 Lancer mon projet
               </Link>

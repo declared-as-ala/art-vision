@@ -5,6 +5,17 @@ import { jsPDF } from "jspdf";
 import QRCode from "qrcode";
 import { Copy, Download, Plus, RefreshCcw, Trash2, Upload } from "lucide-react";
 import type { ToolDef } from "@/lib/tools";
+import MockupStudio from "./studios/MockupStudio";
+import ImageResizerStudio from "./studios/ImageResizerStudio";
+import PrintTemplateStudio from "./studios/PrintTemplateStudio";
+import GiftVoucherStudio from "./studios/GiftVoucherStudio";
+import ProductVisualStudio from "./studios/ProductVisualStudio";
+import BrandGuidelinesStudio from "./studios/BrandGuidelinesStudio";
+import WebBriefStudio from "./studios/WebBriefStudio";
+import LoyaltyCardStudio from "./studios/LoyaltyCardStudio";
+import OpeningHoursStudio from "./studios/OpeningHoursStudio";
+import PostPlannerStudio from "./studios/PostPlannerStudio";
+import EmailSignatureStudio from "./studios/EmailSignatureStudio";
 
 type Row = { id: string; name: string; description: string; price: string };
 type Section = { id: string; title: string; rows: Row[] };
@@ -411,10 +422,18 @@ function PlannerTool({ brief = false }: { brief?: boolean }) {
 }
 
 export default function UniversalToolStudio({ tool }: { tool: ToolDef }) {
-  if (tool.slug === "generateur-signature-email") return <SignatureTool />;
+  if (tool.slug === "generateur-mockup") return <MockupStudio />;
+  if (tool.slug === "redimensionner-image") return <ImageResizerStudio />;
+  if (tool.slug === "gabarit-impression") return <PrintTemplateStudio />;
+  if (tool.slug === "generateur-bon-cadeau") return <GiftVoucherStudio />;
+  if (tool.slug === "createur-visuel-produit") return <ProductVisualStudio />;
+  if (tool.slug === "createur-charte-graphique") return <BrandGuidelinesStudio />;
+  if (tool.slug === "generateur-brief-site-web") return <WebBriefStudio />;
+  if (tool.slug === "createur-carte-fidelite") return <LoyaltyCardStudio />;
+  if (tool.slug === "createur-affiche-horaires") return <OpeningHoursStudio />;
+  if (tool.slug === "planificateur-publications") return <PostPlannerStudio />;
+  if (tool.slug === "generateur-signature-email") return <EmailSignatureStudio />;
   if (tool.slug === "verificateur-resolution-image-impression") return <ResolutionTool />;
-  if (tool.slug === "planificateur-publications") return <PlannerTool />;
-  if (tool.slug === "generateur-brief-site-web") return <PlannerTool brief />;
   return <VisualDocumentTool tool={tool} />;
 }
 

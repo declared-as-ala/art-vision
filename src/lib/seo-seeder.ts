@@ -50,9 +50,9 @@ const SEO_TEMPLATES: SEOPageTemplate[] = [
   { slug: "impression-cartes-de-visite", keyword: "impression cartes de visite", title: "Impression de cartes de visite professionnelles | Art Vision", h1: "Impression de Cartes de Visite Premium", metaDesc: "Cartes de visite de qualité sur papier 350g/400g avec pelliculage Soft Touch, vernis sélectif 3D et QR codes vCard dynamiques.", pageType: "GENERIC" },
 
   // Local SEO Le Mans
-  { slug: "agence-graphique-le-mans", keyword: "agence graphique", city: "Le Mans", title: "Agence graphique au Le Mans | Studio & Design - Art Vision", h1: "Votre Agence Graphique Professionnelle au Le Mans", metaDesc: "Art Vision conçoit vos chartes graphiques, logos, brochures et vidéos publicitaires au Le Mans. Studio créatif à taille humaine.", pageType: "LOCAL" },
-  { slug: "graphiste-le-mans", keyword: "graphiste", city: "Le Mans", title: "Graphiste professionnel au Le Mans | Design unique - Art Vision", h1: "Graphiste Professionnel Indépendant au Le Mans", metaDesc: "Besoin d'un graphiste au Le Mans ? Création de logos vectoriels originaux, mise en page publicitaire et supports print sous 5 jours.", pageType: "LOCAL" },
-  { slug: "impression-le-mans", keyword: "impression", city: "Le Mans", title: "Impression publicitaire au Le Mans | Imprimerie locale - Art Vision", h1: "Imprimerie & Impression Publicitaire au Le Mans", metaDesc: "Impression locale au Le Mans pour flyers, bâches extérieures, panneaux de chantier et cartes de visite rigides. Devis express.", pageType: "LOCAL" },
+  { slug: "agence-graphique-le-mans", keyword: "agence graphique", city: "Le Mans", title: "Agence graphique au Mans | Studio & Design - Art Vision", h1: "Votre Agence Graphique Professionnelle au Mans", metaDesc: "Art Vision conçoit vos chartes graphiques, logos, brochures et vidéos publicitaires au Mans. Studio créatif à taille humaine.", pageType: "LOCAL" },
+  { slug: "graphiste-le-mans", keyword: "graphiste", city: "Le Mans", title: "Graphiste professionnel au Mans | Design unique - Art Vision", h1: "Graphiste Professionnel Indépendant au Mans", metaDesc: "Besoin d'un graphiste au Mans ? Création de logos vectoriels originaux, mise en page publicitaire et supports print sous 5 jours.", pageType: "LOCAL" },
+  { slug: "impression-le-mans", keyword: "impression", city: "Le Mans", title: "Impression publicitaire au Mans | Imprimerie locale - Art Vision", h1: "Imprimerie & Impression Publicitaire au Mans", metaDesc: "Impression locale au Mans pour flyers, bâches extérieures, panneaux de chantier et cartes de visite rigides. Devis express.", pageType: "LOCAL" },
 
   // Other Local SEO cities
   { slug: "agence-graphique-paris", keyword: "agence graphique", city: "Paris", title: "Agence graphique à Paris | Studio de communication - Art Vision", h1: "Agence Graphique et Studio Créatif à Paris", metaDesc: "Art Vision accompagne les startups et PME parisiennes dans leur branding, logos, films corporate et visualisations 3D.", pageType: "LOCAL" },
@@ -119,11 +119,11 @@ function generateSEOContent(keyword: string, city?: string): string {
 
 // Generate FAQ JSON
 function generateFAQs(keyword: string, city?: string): { question: string; answer: string }[] {
-  const loc = city ? `à ${city}` : "en France";
+  const loc = city ? (city.toLowerCase() === "le mans" ? "au Mans" : `à ${city}`) : "en France";
   return [
     {
       question: `Quels sont les tarifs pour une prestation de ${keyword} ${loc} ?`,
-      answer: `Les tarifs varient selon la complexité et le volume de livrables demandés. Nos offres débutent à partir de 70€ pour des logos basiques et s'adaptent selon les formules d'accompagnement.`
+      answer: `Les tarifs varient selon la complexité et le volume de livrables demandés. Nos offres débutent à partir de 50€ pour des logos basiques et s'adaptent selon les formules d'accompagnement.`
     },
     {
       question: `Quels sont vos délais moyens de réalisation pour un projet de ${keyword} ?`,

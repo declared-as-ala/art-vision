@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 import React from "react";
 import prisma from "@/lib/prisma";
 import ContactForm from "@/components/ContactForm";
-import { Sparkles, MapPin, Mail, Phone, Clock, Globe } from "lucide-react";
+import { Sparkles, MapPin, Mail, Phone, Clock, MessageSquare } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -13,16 +13,20 @@ export default async function ContactPage() {
 
   try {
     settings = await prisma.siteSettings.findUnique({
-      where: { id: "default" }
+      where: { id: "default" },
     });
   } catch (error) {
     console.error("Error fetching site settings for contact page:", error);
   }
 
   const email = settings?.email || "contact@art-visions.fr";
-  const phone = settings?.phone || "+33 2 43 00 00 00";
+  const phone = settings?.phone || "+32 490 22 49 05";
+  const whatsapp = settings?.whatsapp || "+32 490 22 49 05";
   const franceAddress = settings?.franceAddress || "5 Rue de Constantine, 72000 Le Mans";
   const tunisiaAddress = settings?.tunisiaAddress || "Bur 5, étage 5 Imm souk lybia, 5000 Monastir";
+
+  const cleanPhone = phone.replace(/\s+/g, "");
+  const cleanWhatsapp = whatsapp.replace(/[^\d+]/g, "").replace(/^\+/, "");
 
   return (
     <div className="min-h-screen hero-gradient pt-32 pb-20 px-4">
@@ -40,7 +44,7 @@ export default async function ContactPage() {
             Contactez <span className="text-brand-magenta">Art Vision</span>
           </h1>
           <p className="text-white/70 max-w-2xl mx-auto text-base">
-            Une question sur nos services ? Un projet à lancer ? Remplissez le formulaire ou contactez directement nos bureaux en France ou en Tunisie.
+            Une question sur nos services ? Un projet à lancer ? Remplissez le formulaire ou contactez directement notre équipe par téléphone, WhatsApp ou e-mail.
           </p>
         </div>
 
@@ -51,7 +55,7 @@ export default async function ContactPage() {
               <h2 className="font-montserrat font-bold text-lg text-white">
                 Coordonnées de l'agence
               </h2>
-              
+
               <ul className="space-y-6 text-xs md:text-sm text-white/70">
                 <li className="flex items-start space-x-4">
                   <MapPin size={24} className="text-brand-magenta shrink-0 mt-0.5" />
@@ -71,21 +75,39 @@ export default async function ContactPage() {
                   <Mail size={20} className="text-brand-orange shrink-0" />
                   <div>
                     <span className="font-bold text-white block">Adresse E-mail :</span>
-                    <a href={`mailto:${email}`} className="hover:text-brand-orange transition">{email}</a>
+                    <a href={`mailto:${email}`} className="text-white hover:text-brand-orange transition font-medium">
+                      {email}
+                    </a>
                   </div>
                 </li>
                 <li className="flex items-center space-x-4">
                   <Phone size={20} className="text-brand-magenta shrink-0" />
                   <div>
                     <span className="font-bold text-white block">Téléphone direct :</span>
-                    <a href={`tel:${phone}`} className="hover:text-brand-magenta transition">{phone}</a>
+                    <a href={`tel:${cleanPhone}`} className="text-white hover:text-brand-magenta transition font-medium">
+                      {phone}
+                    </a>
+                  </div>
+                </li>
+                <li className="flex items-center space-x-4">
+                  <MessageSquare size={20} className="text-emerald-400 shrink-0" />
+                  <div>
+                    <span className="font-bold text-white block">WhatsApp direct :</span>
+                    <a
+                      href={`https://wa.me/${cleanWhatsapp}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-emerald-400 hover:text-emerald-300 transition font-medium inline-flex items-center gap-1"
+                    >
+                      {whatsapp} <span>(Écrire sur WhatsApp)</span>
+                    </a>
                   </div>
                 </li>
                 <li className="flex items-start space-x-4">
                   <Clock size={20} className="text-brand-purple shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-white block">Heures d'ouverture :</span>
-                    <span>Lundi - Vendredi | 9h00 - 18h00</span>
+                    <span className="font-bold text-white block">Horaires d'ouverture :</span>
+                    <span>Du lundi au samedi, de 8 h à 18 h</span>
                   </div>
                 </li>
               </ul>
