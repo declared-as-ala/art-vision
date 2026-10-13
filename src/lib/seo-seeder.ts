@@ -63,9 +63,15 @@ const SEO_TEMPLATES: SEOPageTemplate[] = [
   { slug: "agence-graphique-montpellier", keyword: "agence graphique", city: "Montpellier", title: "Agence graphique à Montpellier | Studio de design - Art Vision", h1: "Agence Graphique et Conception Graphique à Montpellier", metaDesc: "Studio graphique à Montpellier pour logos, packaging produits, vidéos publicitaires et impressions grand format.", pageType: "LOCAL" }
 ];
 
+function getLocationString(city?: string): string {
+  if (!city) return "en France";
+  if (city.toLowerCase() === "le mans") return "au Mans";
+  return `à ${city}`;
+}
+
 // Content Generator
 function generateSEOContent(keyword: string, city?: string): string {
-  const targetLocation = city ? `à ${city}` : "en France";
+  const targetLocation = getLocationString(city);
   const upperKeyword = keyword.charAt(0).toUpperCase() + keyword.slice(1);
   
   return `<div class="space-y-6">
@@ -154,7 +160,17 @@ export async function seedSEOLandingPages() {
     // Upsert the Landing Page record
     await prisma.seoLandingPage.upsert({
       where: { slug: page.slug },
-      update: {},
+      update: {
+        title: page.title,
+        h1: page.h1,
+        city: page.city || null,
+        intro: `Art Vision est votre spécialiste de confiance en ${page.keyword} ${getLocationString(page.city)}. Découvrez notre savoir-faire unique et premium.`,
+        content: content,
+        faq: JSON.stringify(faqs),
+        seoTitle: page.title,
+        metaDescription: page.metaDesc,
+        canonicalUrl: `https://art-visions.fr/${page.slug}`,
+      },
       create: {
         title: page.title,
         slug: page.slug,
@@ -162,7 +178,7 @@ export async function seedSEOLandingPages() {
         keyword: page.keyword,
         city: page.city || null,
         pageType: page.pageType,
-        intro: `Art Vision est votre spécialiste de confiance en ${page.keyword} ${page.city ? `à ${page.city}` : "en France"}. Découvrez notre savoir-faire unique et premium.`,
+        intro: `Art Vision est votre spécialiste de confiance en ${page.keyword} ${getLocationString(page.city)}. Découvrez notre savoir-faire unique et premium.`,
         content: content,
         faq: JSON.stringify(faqs),
         relatedServices: "identite-visuelle,creation-logo-professionnel,design-graphique",

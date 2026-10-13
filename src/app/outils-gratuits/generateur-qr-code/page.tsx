@@ -4,7 +4,7 @@ import ToolPageFrame from "@/components/tools/ToolPageFrame";
 import QrGenerator from "./QrGenerator";
 
 const tool = getTool("generateur-qr-code")!;
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 
 export const metadata: Metadata = {
   title: tool.seoTitle,

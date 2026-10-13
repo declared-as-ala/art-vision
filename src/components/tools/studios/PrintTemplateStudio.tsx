@@ -120,34 +120,38 @@ export default function PrintTemplateStudio() {
     ctx.strokeRect(safeX, safeY, drawSafeW, drawSafeH);
     ctx.setLineDash([]);
 
-    // 4. Traits de coupe (Crop marks at trim corners)
+    // 4. Traits de coupe (Crop marks at trim corners traversing bleed)
     if (showCropMarks) {
       ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 1.2;
-      const markLen = 22;
-      const offset = 5;
+      ctx.lineWidth = 1.8;
+      const rightX = trimX + drawFinalW;
+      const bottomY = trimY + drawFinalH;
 
-      // Top-Left
       ctx.beginPath();
-      ctx.moveTo(trimX, trimY - offset);
-      ctx.lineTo(trimX, trimY - offset - markLen);
-      ctx.moveTo(trimX - offset, trimY);
-      ctx.lineTo(trimX - offset - markLen, trimY);
+      // Top-Left
+      ctx.moveTo(trimX, startY);
+      ctx.lineTo(trimX, trimY);
+      ctx.moveTo(startX, trimY);
+      ctx.lineTo(trimX, trimY);
+
       // Top-Right
-      ctx.moveTo(trimX + drawFinalW, trimY - offset);
-      ctx.lineTo(trimX + drawFinalW, trimY - offset - markLen);
-      ctx.moveTo(trimX + drawFinalW + offset, trimY);
-      ctx.lineTo(trimX + drawFinalW + offset + markLen, trimY);
+      ctx.moveTo(rightX, startY);
+      ctx.lineTo(rightX, trimY);
+      ctx.moveTo(rightX, trimY);
+      ctx.lineTo(startX + drawTotalW, trimY);
+
       // Bottom-Left
-      ctx.moveTo(trimX, trimY + drawFinalH + offset);
-      ctx.lineTo(trimX, trimY + drawFinalH + offset + markLen);
-      ctx.moveTo(trimX - offset, trimY + drawFinalH);
-      ctx.lineTo(trimX - offset - markLen, trimY + drawFinalH);
+      ctx.moveTo(trimX, bottomY);
+      ctx.lineTo(trimX, startY + drawTotalH);
+      ctx.moveTo(startX, bottomY);
+      ctx.lineTo(trimX, bottomY);
+
       // Bottom-Right
-      ctx.moveTo(trimX + drawFinalW, trimY + drawFinalH + offset);
-      ctx.lineTo(trimX + drawFinalW, trimY + drawFinalH + offset + markLen);
-      ctx.moveTo(trimX + drawFinalW + offset, trimY + drawFinalH);
-      ctx.lineTo(trimX + drawFinalW + offset + markLen, trimY + drawFinalH);
+      ctx.moveTo(rightX, bottomY);
+      ctx.lineTo(rightX, startY + drawTotalH);
+      ctx.moveTo(rightX, bottomY);
+      ctx.lineTo(startX + drawTotalW, bottomY);
+
       ctx.stroke();
     }
 
@@ -226,7 +230,7 @@ export default function PrintTemplateStudio() {
       format: [totalW, totalH],
     });
 
-    // Draw technical vector lines into PDF directly
+    // Bleed line
     pdf.setDrawColor(14, 165, 233);
     pdf.setLineDashPattern([2, 2], 0);
     pdf.rect(0, 0, totalW, totalH);
@@ -241,6 +245,28 @@ export default function PrintTemplateStudio() {
     pdf.setLineDashPattern([3, 2], 0);
     pdf.rect(bleedMm + marginMm, bleedMm + marginMm, safeW, safeH);
 
+    // Repères de coupe d'angles (Crop marks)
+    if (showCropMarks) {
+      pdf.setDrawColor(0, 0, 0);
+      pdf.setLineWidth(0.35);
+      pdf.setLineDashPattern([], 0);
+      const rightX = bleedMm + finalW;
+      const bottomY = bleedMm + finalH;
+
+      // Coin Haut-Gauche
+      pdf.line(bleedMm, 0, bleedMm, bleedMm);
+      pdf.line(0, bleedMm, bleedMm, bleedMm);
+      // Coin Haut-Droit
+      pdf.line(rightX, 0, rightX, bleedMm);
+      pdf.line(rightX, bleedMm, totalW, bleedMm);
+      // Coin Bas-Gauche
+      pdf.line(bleedMm, bottomY, bleedMm, totalH);
+      pdf.line(0, bottomY, bleedMm, bottomY);
+      // Coin Bas-Droit
+      pdf.line(rightX, bottomY, rightX, totalH);
+      pdf.line(rightX, bottomY, totalW, bottomY);
+    }
+
     // Text in center
     pdf.setFontSize(10);
     pdf.setTextColor(100, 100, 100);
@@ -250,12 +276,30 @@ export default function PrintTemplateStudio() {
   };
 
   const downloadSvg = () => {
+    const rightX = bleedMm + finalW;
+    const bottomY = bleedMm + finalH;
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${totalW}mm" height="${totalH}mm" viewBox="0 0 ${totalW} ${totalH}" xmlns="http://www.w3.org/2000/svg">
   <!-- Art Vision Gabarit Technique Impression -->
   <rect x="0" y="0" width="${totalW}" height="${totalH}" fill="#f8fafc" stroke="#0ea5e9" stroke-width="0.5" stroke-dasharray="2,2"/>
   <rect x="${bleedMm}" y="${bleedMm}" width="${finalW}" height="${finalH}" fill="#ffffff" stroke="#e11d48" stroke-width="0.8"/>
   <rect x="${bleedMm + marginMm}" y="${bleedMm + marginMm}" width="${safeW}" height="${safeH}" fill="none" stroke="#10b981" stroke-width="0.5" stroke-dasharray="3,1.5"/>
+  ${showCropMarks ? `
+  <!-- Repères de coupe d'angles (Crop marks) -->
+  <g id="crop-marks" stroke="#000000" stroke-width="0.35">
+    <!-- Coin Haut-Gauche -->
+    <line x1="${bleedMm}" y1="0" x2="${bleedMm}" y2="${bleedMm}" />
+    <line x1="0" y1="${bleedMm}" x2="${bleedMm}" y2="${bleedMm}" />
+    <!-- Coin Haut-Droit -->
+    <line x1="${rightX}" y1="0" x2="${rightX}" y2="${bleedMm}" />
+    <line x1="${rightX}" y1="${bleedMm}" x2="${totalW}" y2="${bleedMm}" />
+    <!-- Coin Bas-Gauche -->
+    <line x1="${bleedMm}" y1="${bottomY}" x2="${bleedMm}" y2="${totalH}" />
+    <line x1="0" y1="${bottomY}" x2="${bleedMm}" y2="${bottomY}" />
+    <!-- Coin Bas-Droit -->
+    <line x1="${rightX}" y1="${bottomY}" x2="${rightX}" y2="${totalH}" />
+    <line x1="${rightX}" y1="${bottomY}" x2="${totalW}" y2="${bottomY}" />
+  </g>` : ""}
   <text x="${totalW / 2}" y="${totalH / 2}" font-family="sans-serif" font-size="3" text-anchor="middle" fill="#64748b">
     GABARIT IMPRESSION ART VISION - ${product.name} (${finalW}x${finalH} mm)
   </text>

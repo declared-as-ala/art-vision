@@ -5,7 +5,7 @@ import ToolFooter from "@/components/tools/ToolFooter";
 import BusinessCardGenerator from "@/components/tools/BusinessCardGenerator";
 
 const tool = getTool("carte-de-visite-gratuite")!;
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 
 export const metadata: Metadata = {
   title: tool.seoTitle,

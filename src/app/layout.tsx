@@ -22,7 +22,7 @@ const montserrat = Montserrat({
 
 export async function generateMetadata(): Promise<Metadata> {
   // Tolerate NEXT_PUBLIC_APP_URL set without a protocol (e.g. "site.vercel.app").
-  const rawAppUrl = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+  const rawAppUrl = (!process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_APP_URL.includes("vercel.app")) ? "https://art-visions.fr" : process.env.NEXT_PUBLIC_APP_URL;
   const appUrl = /^https?:\/\//.test(rawAppUrl) ? rawAppUrl : `https://${rawAppUrl}`;
   let metadataBase: URL;
   try {

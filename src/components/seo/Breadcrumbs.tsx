@@ -12,7 +12,7 @@ interface BreadcrumbsProps {
   className?: string;
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE_URL = "https://art-visions.fr";
 
 export default function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
   const allItems: BreadcrumbItem[] = [{ name: "Accueil", url: "/" }, ...items];

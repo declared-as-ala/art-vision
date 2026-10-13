@@ -1,4 +1,4 @@
-﻿import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { makePrisma } from "./seed-client";
 
 const prisma = makePrisma();
@@ -92,7 +92,7 @@ async function main() {
       seoDescription: "Art Vision crée des identités visuelles professionnelles pour entreprises, marques et indépendants : charte graphique, logo, couleurs, typographies et supports.",
       packages: {
         create: [
-          { name: "Basic", price: "à partir de 70€", features: "Logo de base;Palette de couleurs;Règles typographiques de base;Livrables web (PNG, JPG)" },
+          { name: "Basic", price: "à partir de 50€", features: "Logo de base;Palette de couleurs;Règles typographiques de base;Livrables web (PNG, JPG)" },
           { name: "Standard", price: "à partir de 120€", features: "Logo principal & secondaire;Charte graphique PDF;Templates réseaux sociaux;Livrables haute définition (SVG, PDF)" },
           { name: "Premium", price: "à partir de 160€", features: "Branding complet;Supports de marque (carte de visite, papier en-tête);Templates éditables Canva;Fichiers sources complets (AI, PSD)" }
         ]

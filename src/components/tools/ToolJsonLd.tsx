@@ -1,6 +1,6 @@
 import { ToolDef, toolUrl } from "@/lib/tools";
 
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 
 // Emits BreadcrumbList + FAQPage + WebApplication structured data for a tool.
 export default function ToolJsonLd({ tool }: { tool: ToolDef }) {

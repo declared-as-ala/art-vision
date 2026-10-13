@@ -34,7 +34,7 @@ export default function WebBriefStudio() {
   const [languages, setLanguages] = useState("Français uniquement");
   const [existingContent, setExistingContent] = useState("Logo et photos existants, textes à affiner ensemble");
   const [references, setReferences] = useState("Sites modernes et sobres dans l'artisanat haut de gamme");
-  const [budget, setBudget] = useState("1 500 € - 3 000 €");
+  const [budget, setBudget] = useState("Moins de 1 000 €");
   const [deadline, setDeadline] = useState("Sous 1 à 2 mois");
 
   const togglePage = (page: string) => {

@@ -5,7 +5,7 @@ import ToolFooter from "@/components/tools/ToolFooter";
 import CVGenerator from "@/components/tools/CVGenerator";
 
 const tool = getTool("cv-gratuit")!;
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 
 export const metadata: Metadata = {
   title: tool.seoTitle,

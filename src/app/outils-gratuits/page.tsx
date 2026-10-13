@@ -4,7 +4,7 @@ import { Gift, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { toolsByOrder } from "@/lib/tools";
 import OutilsGrid from "./OutilsGrid";
 
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 
 export const metadata: Metadata = {
   title: "Outils gratuits pour entrepreneurs, impression et marketing | Art Visions",

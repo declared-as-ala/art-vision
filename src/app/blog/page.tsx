@@ -10,7 +10,7 @@ import BlogIndex, { type BlogCardPost } from "./BlogIndex";
 import NewsletterCTA from "@/components/blog/NewsletterCTA";
 
 export const revalidate = 60;
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 
 export const metadata: Metadata = {
   title: "Blog créatif : design, branding, vidéo & impression | Art Vision",

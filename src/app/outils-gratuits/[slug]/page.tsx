@@ -6,7 +6,7 @@ import UniversalToolStudio from "@/components/tools/UniversalToolStudio";
 import { getLandingContent } from "@/lib/expanded-tool-content";
 import { getTool, toolsByOrder, toolUrl } from "@/lib/tools";
 
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 const EXISTING_STATIC_TOOL_SLUGS = new Set([
   "calculateur-impression",
   "carte-de-visite-gratuite",

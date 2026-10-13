@@ -22,7 +22,7 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-const BASE = process.env.NEXT_PUBLIC_APP_URL || "https://art-visions.fr";
+const BASE = "https://art-visions.fr";
 export const revalidate = 60;
 
 const stripHtml = (s: string) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();

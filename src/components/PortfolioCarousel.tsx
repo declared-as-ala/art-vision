@@ -83,14 +83,26 @@ export default function PortfolioCarousel({ projects }: { projects: CarouselProj
             data-card
             className="group block w-72 sm:w-80 shrink-0 bg-[#1A1238]/40 border border-brand-purple/10 rounded-2xl overflow-hidden hover:border-brand-magenta/40 transition-all duration-300"
           >
-            <div className="aspect-[4/3] bg-white overflow-hidden relative flex items-center justify-center">
-              <img
-                src={project.images.split(";")[0]}
-                alt={project.title}
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              <span className="absolute top-4 left-4 bg-brand-navy/80 text-brand-magenta text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            <div className="aspect-[4/3] bg-brand-navy/60 overflow-hidden relative flex items-center justify-center">
+              {/\.(mp4|webm|ogg|mov)($|\?)/i.test(project.images.split(";")[0]) ? (
+                <video
+                  src={project.images.split(";")[0]}
+                  playsInline
+                  muted
+                  loop
+                  autoPlay
+                  preload="metadata"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              ) : (
+                <img
+                  src={project.images.split(";")[0]}
+                  alt={project.title}
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              )}
+              <span className="absolute top-4 left-4 bg-brand-navy/80 text-brand-magenta text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm z-10">
                 {project.category.name}
               </span>
             </div>
