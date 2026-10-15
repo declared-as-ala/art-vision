@@ -248,3 +248,9 @@ input:focus, select:focus, textarea:focus {
 .cms-rich-content img { border-radius: 1rem; margin: 1.5rem 0; max-width: 100%; height: auto; }
 .cms-rich-content section { margin: 2rem 0; }
 .cms-rich-content .cms-cta a { display: inline-block; margin-top: 1rem; border-radius: 999px; padding: .75rem 1.25rem; background: var(--color-brand-orange); color: white; font-weight: 700; text-decoration: none; }
+.cms-rich-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.875rem; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 0.75rem; overflow: hidden; background: rgba(15, 10, 38, 0.6); }
+.cms-rich-content th { background: rgba(255, 255, 255, 0.08); color: #fff; font-weight: 700; padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+.cms-rich-content td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.85); vertical-align: top; }
+.cms-rich-content tr:last-child td { border-bottom: none; }
+.cms-rich-content tr:hover td { background: rgba(255, 255, 255, 0.03); }
+
