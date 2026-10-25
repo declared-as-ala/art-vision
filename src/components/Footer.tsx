@@ -17,8 +17,8 @@ export default function Footer() {
   ];
 
   const tools = [
-    { name: "Créer un CV Gratuit", href: "/cv-modeles-gratuits" },
-    { name: "Créer une Carte de Visite", href: "/carte-de-visite-gratuite" },
+    { name: "Créer un CV Gratuit", href: "/outils-gratuits/cv-gratuit" },
+    { name: "Créer une Carte de Visite", href: "/outils-gratuits/carte-de-visite-gratuite" },
     { name: "Estimation Impression", href: "/impression" },
   ];
 
@@ -176,9 +176,6 @@ export default function Footer() {
             <Link href="/politique-de-cookies-ue" className="hover:text-brand-magenta transition flex items-center space-x-1">
               <HelpCircle size={12} />
               <span>Gestion des Cookies</span>
-            </Link>
-            <Link href="/admin/login" className="hover:text-white transition flex items-center space-x-1 font-semibold text-brand-purple">
-              <span>🔒 Espace Admin</span>
             </Link>
           </div>
         </div>

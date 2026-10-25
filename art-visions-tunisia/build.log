@@ -1,0 +1,94 @@
+
+> art-visions-tunisia@0.1.0 build
+> next build
+
+▲ Next.js 16.4.2 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 82ms
+- Cache Components enabled
+- Partial Prefetching enabled
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.7s
+  Running TypeScript ...
+  Finished TypeScript in 16.5s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/60) ...
+  Generating static pages using 11 workers (15/60) 
+  Generating static pages using 11 workers (30/60) 
+  Generating static pages using 11 workers (45/60) 
+✓ Generating static pages using 11 workers (60/60) in 8.2s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├   /[slug]
+│ └ ◐ /[slug]
+├ ◐ /admin
+├ ◐ /admin/analytics
+├   /admin/content/[kind]
+│ └ ◐ /admin/content/[kind]
+├ ◐ /admin/leads
+├ ○ /admin/login
+├ ◐ /admin/media
+├ ◐ /admin/pages
+├   /admin/pages/[id]
+│ └ ◐ /admin/pages/[id]
+├ ◐ /admin/pages/new
+├ ◐ /admin/seo
+├ ◐ /admin/seo/keywords
+├ ◐ /admin/seo/links
+├ ◐ /admin/seo/redirects
+├ ◐ /admin/seo/sitemap
+├ ◐ /admin/settings
+├ ◐ /admin/settings/activity
+├ ◐ /admin/settings/users
+├ ƒ /api/admin/media
+├ ƒ /api/media/[...key]
+├ ƒ /api/quote
+├ ƒ /api/track
+├ ƒ /ar
+├   /ar/[slug]
+│ └ ◐ /ar/[slug]
+├ ƒ /ar/contact
+├ ◐ /ar/services
+├   /ar/services/[slug]
+│ ├ ƒ /ar/services/[slug]
+│ ├ ƒ /ar/services/tasmim-logo-tunis
+│ ├ ƒ /ar/services/hawiya-basariya-tunis
+│ └ ƒ [+2 more paths]
+├ ◐ /blog
+├   /blog/[slug]
+│ ├ ƒ /blog/[slug]
+│ ├ ƒ /blog/combien-coute-un-logo-professionnel-en-tunisie
+│ ├ ƒ /blog/logo-ou-identite-visuelle-que-choisir
+│ └ ƒ [+3 more paths]
+├ ƒ /contact
+├ ◐ /outils-gratuits
+├   /outils-gratuits/[slug]
+│ ├ ◐ /outils-gratuits/[slug]
+│ ├ ◐ /outils-gratuits/generateur-palette-couleurs
+│ ├ ◐ /outils-gratuits/generateur-qr-code
+│ └ ◐ [+2 more paths]
+├ ◐ /portfolio
+├   /portfolio/[slug]
+│ ├ ƒ /portfolio/[slug]
+│ ├ ƒ /portfolio/oleapure-branding
+│ └ ƒ /portfolio/tadaa-3d-packshot
+├ ○ /robots.txt
+├ ◐ /services
+├   /services/[slug]
+│ ├ ƒ /services/[slug]
+│ ├ ƒ /services/creation-logo-tunisie
+│ ├ ƒ /services/identite-visuelle-charte-graphique-tunisie
+│ └ ƒ [+2 more paths]
+└ ƒ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)             prerendered as static content
+◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+ƒ  (Dynamic)            server-rendered on demand
+

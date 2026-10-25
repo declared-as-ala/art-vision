@@ -25,6 +25,7 @@ export async function GET() {
   if (!robotsText) {
     robotsText = `User-agent: *
 Allow: /
+Disallow: /admin
 Disallow: /admin/
 Disallow: /api/
 

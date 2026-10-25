@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Sparkles, PhoneCall } from "lucide-react";
-import { toolsByOrder, toolUrl } from "@/lib/tools";
+import { Menu, X, ChevronDown, Sparkles } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,9 +51,14 @@ export default function Navbar() {
     { name: "Community Management", href: "/community-management" },
   ];
 
+  // 6 flagship tools shown in nav — full hub at /outils-gratuits
   const freeTools = [
-    { name: "Tous les outils gratuits", href: "/outils-gratuits" },
-    ...toolsByOrder.map((tool) => ({ name: tool.title, href: toolUrl(tool.slug) })),
+    { name: "Générateur de CV", href: "/outils-gratuits/cv-gratuit" },
+    { name: "Carte de visite", href: "/outils-gratuits/carte-de-visite-gratuite" },
+    { name: "QR Code", href: "/outils-gratuits/generateur-qr-code" },
+    { name: "Palette de couleurs", href: "/outils-gratuits/generateur-palette-couleurs" },
+    { name: "Créateur de flyer", href: "/outils-gratuits/creer-flyer" },
+    { name: "Gabarit impression", href: "/outils-gratuits/gabarit-impression" },
   ];
 
   return (
@@ -114,7 +118,7 @@ export default function Navbar() {
                 <span>Outils Gratuits</span>
                 <ChevronDown size={16} />
               </button>
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 max-h-[70vh] overflow-y-auto glassmorphism rounded-xl shadow-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 glassmorphism rounded-xl shadow-2xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="px-2">
                   {freeTools.map((tool) => (
                     <Link
@@ -127,6 +131,14 @@ export default function Navbar() {
                       {tool.name}
                     </Link>
                   ))}
+                  <div className="border-t border-brand-purple/20 mt-1 pt-1 px-2">
+                    <Link
+                      href="/outils-gratuits"
+                      className="block px-2 py-1.5 text-xs text-brand-orange hover:text-brand-magenta font-semibold transition"
+                    >
+                      Voir tous les outils →
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -257,6 +269,12 @@ export default function Navbar() {
                   {tool.name}
                 </Link>
               ))}
+              <Link
+                href="/outils-gratuits"
+                className="text-sm text-brand-orange hover:text-brand-magenta font-semibold transition mt-1 block"
+              >
+                Voir tous les outils →
+              </Link>
             </div>
           </div>
 

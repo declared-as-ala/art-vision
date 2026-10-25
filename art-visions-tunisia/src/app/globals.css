@@ -1,0 +1,216 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Studio Mono — Art Visions edition.
+   Swiss-poster colour blocking built from the real brand palette:
+   indigo, magenta, copper-orange, violet — on a warm paper base. */
+:root {
+  /* brand */
+  --night: #150933;
+  --indigo: #2d2966;
+  --violet: #6348e5;
+  --brand: #ba3184;
+  --brand-ink: #9b256c;
+  --hot: #d72888;
+  --copper: #cd7942;
+  --sun: #ff6a00;
+  /* neutrals */
+  --charcoal: #171625;
+  --paper: #f8f7fc;
+  --white: #ffffff;
+  --line: #e3e0ef;
+  --line-dark: rgba(255, 255, 255, 0.14);
+  --ink-soft: #5f5c75;
+  /* tints for section backgrounds */
+  --tint-violet: #ecebfb;
+  --tint-brand: #fbe6f1;
+  --tint-copper: #fbebdf;
+
+  /* shadcn/ui semantic tokens mapped onto the brand */
+  --background: var(--paper);
+  --foreground: var(--charcoal);
+  --card: #ffffff;
+  --card-foreground: var(--charcoal);
+  --popover: #ffffff;
+  --popover-foreground: var(--charcoal);
+  --primary: var(--indigo);
+  --primary-foreground: #ffffff;
+  --secondary: var(--tint-violet);
+  --secondary-foreground: var(--indigo);
+  --muted: var(--tint-violet);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--tint-brand);
+  --accent-foreground: var(--brand-ink);
+  --destructive: #c62828;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--brand);
+  --chart-1: var(--indigo);
+  --chart-2: var(--brand);
+  --chart-3: var(--copper);
+  --chart-4: var(--violet);
+  --chart-5: var(--sun);
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: var(--charcoal);
+  --sidebar-primary: var(--indigo);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--tint-violet);
+  --sidebar-accent-foreground: var(--indigo);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--brand);
+}
+
+html { --app-font: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif; }
+html[dir="rtl"] { --app-font: var(--font-arabic), ui-sans-serif, system-ui, sans-serif; }
+
+@theme inline {
+  --color-night: var(--night);
+  --color-indigo: var(--indigo);
+  --color-violet: var(--violet);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
+  --color-hot: var(--hot);
+  --color-copper: var(--copper);
+  --color-sun: var(--sun);
+  --color-charcoal: var(--charcoal);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-line-dark: var(--line-dark);
+  --color-soft: var(--ink-soft);
+  --color-tint-violet: var(--tint-violet);
+  --color-tint-brand: var(--tint-brand);
+  --color-tint-copper: var(--tint-copper);
+  --font-sans: var(--app-font);
+  --font-heading: var(--app-font);
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+html { scroll-behavior: auto; background: var(--paper); }
+
+body {
+  background: var(--paper);
+  color: var(--charcoal);
+  font-family: var(--app-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { letter-spacing: -0.035em; line-height: 1.04; text-wrap: balance; }
+html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] h4 { letter-spacing: 0; line-height: 1.3; }
+p { text-wrap: pretty; }
+
+::selection { background: var(--brand); color: #fff; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+[data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* Entrance: CSS-only, content stays in the server HTML (SEO-safe). */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.rise-1 { animation-delay: 0.05s; } .rise-2 { animation-delay: 0.15s; }
+.rise-3 { animation-delay: 0.25s; } .rise-4 { animation-delay: 0.35s; }
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { animation: marquee 38s linear infinite; }
+@keyframes marquee-rtl { to { transform: translateX(50%); } }
+html[dir="rtl"] .marquee { animation-name: marquee-rtl; }
+
+@keyframes drift { 0%,100% { transform: translate3d(0,0,0) rotate(0); } 50% { transform: translate3d(0,-16px,0) rotate(4deg); } }
+.drift { animation: drift 9s ease-in-out infinite; }
+.drift-b { animation-duration: 12s; animation-delay: -4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .marquee, .drift { animation: none; }
+  * { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
+
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+/* Hero atmosphere: layered colour fields + fine grain, no heavy gradients. */
+.hero-field {
+  background:
+    radial-gradient(60% 80% at 85% 10%, rgba(186, 49, 132, 0.55), transparent 60%),
+    radial-gradient(50% 60% at 100% 90%, rgba(205, 121, 66, 0.45), transparent 60%),
+    radial-gradient(45% 60% at 0% 100%, rgba(99, 72, 229, 0.35), transparent 60%),
+    var(--night);
+}
+.grain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.stroke-text { -webkit-text-stroke: 1.5px var(--stroke, #fff); color: transparent; }
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
+}
+
+/* Scrollbar: slim brand-gradient thumb (WebKit/Blink) + thin themed bar (Firefox). */
+@supports (-moz-appearance: none) {
+  html, * { scrollbar-width: thin; scrollbar-color: var(--brand) var(--tint-violet); }
+}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--tint-violet); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--violet), var(--brand) 55%, var(--sun));
+  border: 3px solid var(--tint-violet); border-radius: 999px; background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, var(--brand), var(--hot)); background-clip: padding-box; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* Reading-progress line, driven by scroll (no JS); ignored where unsupported. */
+@keyframes scroll-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@supports (animation-timeline: scroll()) {
+  body::before {
+    content: ""; position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 100; pointer-events: none;
+    background: linear-gradient(90deg, var(--violet), var(--brand), var(--sun));
+    transform-origin: 0 50%; animation: scroll-progress linear both; animation-timeline: scroll(root block);
+  }
+  html[dir="rtl"] body::before { transform-origin: 100% 50%; }
+}
+@media (prefers-reduced-motion: reduce) { body::before { display: none; } }

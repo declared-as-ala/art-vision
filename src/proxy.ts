@@ -29,11 +29,44 @@ function isTokenExpired(token: string): boolean {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 1. Protect admin routes (Except login)
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+  // 1. Protect admin routes (obfuscate login and guard dashboard)
+  if (pathname.startsWith("/admin")) {
     const session = request.cookies.get("art_vision_session")?.value;
-    if (!session || isTokenExpired(session)) {
-      const loginUrl = new URL("/admin/login", request.url);
+    const hasValidSession = Boolean(session && !isTokenExpired(session));
+
+    if (pathname === "/admin/login") {
+      // If already logged in, redirect directly to dashboard
+      if (hasValidSession) {
+        return NextResponse.redirect(new URL("/admin", request.url));
+      }
+
+      // Gatekeeper: protect /admin/login URL so it is not visible / accessible to everyone
+      const accessSecret = process.env.ADMIN_ACCESS_KEY || "artvision";
+      const keyParam = request.nextUrl.searchParams.get("key") || request.nextUrl.searchParams.get("access");
+      const hasGateCookie = request.cookies.get("art_vision_gate_access")?.value === "1";
+
+      if (keyParam === accessSecret) {
+        const response = NextResponse.next();
+        response.cookies.set("art_vision_gate_access", "1", {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+          path: "/",
+        });
+        return response;
+      }
+
+      if (!hasGateCookie) {
+        // Obfuscate /admin/login from public visitors and scanners: redirect to home
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+
+      return NextResponse.next();
+    }
+
+    if (!hasValidSession) {
+      const loginUrl = new URL("/admin/login?key=" + (process.env.ADMIN_ACCESS_KEY || "artvision"), request.url);
       const response = NextResponse.redirect(loginUrl);
       if (session) response.cookies.delete("art_vision_session");
       return response;

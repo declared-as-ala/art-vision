@@ -51,7 +51,7 @@ export default async function HomePage() {
     // Run in parallel — one DB round-trip instead of four.
     [dbServices, dbProjects, dbTestimonials, settings] = await Promise.all([
       prisma.service.findMany({ select: { id: true, slug: true, name: true, description: true, icon: true } }),
-      prisma.portfolioProject.findMany({ take: 3, include: { category: true } }),
+      prisma.portfolioProject.findMany({ take: 8, include: { category: true } }),
       prisma.testimonial.findMany({ take: 3, orderBy: { displayOrder: "asc" } }),
       prisma.siteSettings.findUnique({ where: { id: "default" } }),
     ]);
@@ -160,7 +160,7 @@ export default async function HomePage() {
 
           {/* Promotional Card / Banner */}
           <div className="mt-16 w-full">
-            <Link href="/carte-de-visite-gratuite" className="block w-full">
+            <Link href="/outils-gratuits/carte-de-visite-gratuite" className="block w-full">
               <div className="relative overflow-hidden rounded-3xl p-8 md:p-10 flex flex-col items-center justify-center text-center gap-6 hover:scale-[1.01] transition-all duration-300 border border-[#D72888]/30 shadow-[0_0_35px_rgba(215,40,136,0.35)] bg-gradient-to-br from-[#1b0530] via-[#0b0314] to-[#07010f] bg-opacity-95">
                 {/* Micro lights particles backdrop */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(108,43,217,0.35)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(215,40,136,0.35)_0%,transparent_50%)] pointer-events-none -z-10"></div>
@@ -257,7 +257,7 @@ export default async function HomePage() {
                 <h3 className="font-montserrat font-bold text-base text-white">Générateur de CV</h3>
                 <p className="text-xs text-white/60 leading-relaxed">Création de CV design, remplissage rapide et téléchargement PDF instantané.</p>
                 <Link
-                  href="/cv-modeles-gratuits"
+                  href="/outils-gratuits/cv-gratuit"
                   className="inline-flex items-center space-x-1 bg-brand-magenta hover:bg-brand-magenta/90 text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition"
                 >
                   <span>Créer mon CV</span>
@@ -271,7 +271,7 @@ export default async function HomePage() {
                 <h3 className="font-montserrat font-bold text-base text-white">Cartes de visite</h3>
                 <p className="text-xs text-white/60 leading-relaxed">Design recto/verso avec insertion de QR code dynamique et téléchargement.</p>
                 <Link
-                  href="/carte-de-visite-gratuite"
+                  href="/outils-gratuits/carte-de-visite-gratuite"
                   className="inline-flex items-center space-x-1 bg-brand-orange hover:bg-brand-orange/90 text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition"
                 >
                   <span>Générer ma carte</span>
