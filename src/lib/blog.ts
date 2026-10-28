@@ -2,25 +2,47 @@ import { getTool, toolUrl } from "@/lib/tools";
 
 // Human labels for the service slugs used in BlogPost.relatedServices.
 export const SERVICE_LABELS: Record<string, string> = {
-  "identite-visuelle": "Identité visuelle",
-  "creation-logo-professionnel": "Création de logo",
+  "identite-visuelle": "Identité visuelle & Branding",
+  "creation-logo-professionnel": "Création de logo professionnel",
+  "creation-logo": "Création de logo",
   "design-graphique": "Design graphique",
-  "impression": "Impression",
+  "impression": "Impression professionnelle",
+  "impression-grand-format": "Impression grand format",
   "video-publicitaire": "Vidéo publicitaire",
   "motion-design": "Motion design",
-  "modelisation-3d-rendu-produit": "3D & rendu produit",
+  "modelisation-3d-rendu-produit": "Modélisation 3D & Rendu produit",
+  "rendu-3d-produit": "Rendu 3D produit",
   "creation-site-vitrine": "Création de site vitrine",
+  "creation-site-internet": "Création de site internet",
   "community-management": "Community management",
+  "devis-sur-mesure": "Demande de devis sur-mesure",
 };
 
 export interface LinkItem { label: string; href: string }
 
-const splitSlugs = (v?: string | null): string[] =>
-  (v || "").split(",").map((s) => s.trim()).filter(Boolean);
+export const splitSlugs = (v?: string | null): string[] => {
+  if (!v) return [];
+  let rawItems: string[] = [];
+  try {
+    const parsed = JSON.parse(v);
+    if (Array.isArray(parsed)) {
+      rawItems = parsed.map((x) => String(x));
+    } else if (typeof parsed === "string") {
+      rawItems = parsed.split(",");
+    }
+  } catch {
+    rawItems = v.split(",");
+  }
+  return rawItems
+    .map((s) => s.replace(/[\[\]"'\\]/g, "").trim().replace(/^\/+/, ""))
+    .filter(Boolean);
+};
 
 export function resolveServices(v?: string | null): LinkItem[] {
   return splitSlugs(v).map((slug) => ({
-    label: SERVICE_LABELS[slug] || slug,
+    label:
+      SERVICE_LABELS[slug] ||
+      slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
     href: `/${slug}`,
   }));
 }
