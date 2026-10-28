@@ -54,14 +54,17 @@ function slugify(s: string): string {
     .slice(0, 60);
 }
 
+import { markdownToHtml } from "@/lib/markdown";
+
 /**
- * Adds stable ids to <h2>/<h3> in the article HTML and returns the table of
- * contents extracted from them. Server-side string transform (no DOM needed).
+ * Converts Markdown or HTML into clean semantic HTML, adds stable ids to <h2>/<h3>,
+ * and extracts the table of contents (TOC).
  */
-export function withHeadingIds(html: string): { html: string; toc: TocItem[] } {
+export function withHeadingIds(rawOrHtml: string): { html: string; toc: TocItem[] } {
+  const converted = markdownToHtml(rawOrHtml || "");
   const toc: TocItem[] = [];
   const used = new Set<string>();
-  const out = html.replace(/<(h2|h3)>([\s\S]*?)<\/\1>/g, (_m, tag: string, inner: string) => {
+  const out = converted.replace(/<(h2|h3)>([\s\S]*?)<\/\1>/g, (_m, tag: string, inner: string) => {
     const text = inner.replace(/<[^>]+>/g, "").trim();
     let id = slugify(text) || `section-${toc.length + 1}`;
     while (used.has(id)) id = `${id}-${toc.length + 1}`;

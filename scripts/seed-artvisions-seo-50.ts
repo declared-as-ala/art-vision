@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { makePrisma, dbUrl } from "../prisma/seed-client";
+import { markdownToHtml } from "../src/lib/markdown";
 import { ARTICLES_50_CLUSTER1_PRINT } from "../prisma/data/articles-50-cluster1-print";
 import { ARTICLES_50_CLUSTER2_LOGO } from "../prisma/data/articles-50-cluster2-logo";
 import { ARTICLES_50_CLUSTER3_RETAIL } from "../prisma/data/articles-50-cluster3-retail";
@@ -83,7 +84,7 @@ async function main() {
 
     const payload = {
       title: post.title,
-      content: post.content.trim(),
+      content: markdownToHtml(post.content),
       excerpt: post.excerpt,
       featuredImage: post.featuredImage,
       featuredImageAlt: post.featuredImageAlt,
