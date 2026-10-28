@@ -1,12 +1,12 @@
-// SEED SCRIPT: seed-artvisions-seo-50.ts
-// Upsert 50 brand new, fully original, validated SEO articles across 5 distinct commercial clusters into Turso DB.
-
-import prisma from "../src/lib/prisma";
+import "dotenv/config";
+import { makePrisma, dbUrl } from "../prisma/seed-client";
 import { ARTICLES_50_CLUSTER1_PRINT } from "../prisma/data/articles-50-cluster1-print";
 import { ARTICLES_50_CLUSTER2_LOGO } from "../prisma/data/articles-50-cluster2-logo";
 import { ARTICLES_50_CLUSTER3_RETAIL } from "../prisma/data/articles-50-cluster3-retail";
 import { ARTICLES_50_CLUSTER4_WEB } from "../prisma/data/articles-50-cluster4-web";
 import { ARTICLES_50_CLUSTER5_MOTION3D } from "../prisma/data/articles-50-cluster5-motion3d";
+
+const prisma = makePrisma();
 
 const CATEGORIES_DEF = [
   { slug: "creation-logo", name: "Création logo", icon: "PenTool", description: "Concevoir, choisir et faire évoluer un logo professionnel.", sortOrder: 1 },
@@ -23,6 +23,7 @@ const CATEGORIES_DEF = [
 async function main() {
   console.log("=====================================================");
   console.log("ART VISIONS — SAFE SEEDING OF 50 NEW PREMIUM SEO BLOGS");
+  console.log("TARGET DB URL:", dbUrl());
   console.log("=====================================================");
 
   // 1. Ensure categories exist in Turso LibSQL database
