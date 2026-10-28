@@ -25,7 +25,7 @@ export const ARTICLES_CLUSTER1_LOGO: BlogPostInput[] = [
     ctaLabel: "Générer mon brief logo gratuit",
     ctaHref: "/outils-gratuits/generateur-brief-logo",
     content: `
-<p>La réussite d'un projet de création de logo ne dépend pas uniquement du talent du designer : elle repose à plus de 70 % sur la clarté du <strong>brief créatif</strong> initial. Un brief vague comme <em>« nous voulons quelque chose de moderne et épuré »</em> conduit inévitablement à des allers-retours infinis, à des déceptions esthétiques et à des surcoûts budgétaires. À l'inverse, un <strong>cahier des charges structuré</strong> permet au directeur artistique de comprendre instantanément votre positionnement, votre cible et vos exigences techniques.</p>
+<p>La réussite d'un projet de création de logo repose avant tout sur la clarté et la rigueur du <strong>brief créatif</strong> initial. Un brief vague comme <em>« nous voulons quelque chose de moderne et épuré »</em> conduit inévitablement à des allers-retours infinis, à des déceptions esthétiques et à des surcoûts budgétaires. À l'inverse, un <strong>cahier des charges structuré</strong> permet au directeur artistique de comprendre instantanément votre positionnement, votre cible et vos exigences techniques.</p>
 
 <p>Pour vous faire gagner un temps précieux, Art Visions met à votre disposition un guide complet ainsi qu'un <a href="/outils-gratuits/generateur-brief-logo">générateur de brief logo gratuit en ligne</a> qui produit un document PDF professionnel prêt à partager.</p>
 

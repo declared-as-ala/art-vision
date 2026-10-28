@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       metadataBase,
       title: {
         default: seo?.globalTitle || "Art Vision | Agence graphique & Studio créatif en France",
-        template: `%s - Art Vision`
+        template: "%s"
       },
       description: seo?.globalDesc || settings?.slogan || "Art Vision est une agence de communication visuelle spécialisée en design graphique, branding, logo, vidéo, 3D, impression.",
       verification: {

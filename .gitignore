@@ -39,6 +39,10 @@ dev.db-journal
 .env*
 !.env.example
 
+# separate external application
+art-visions-tunisia/
+
+
 # vercel
 .vercel
 

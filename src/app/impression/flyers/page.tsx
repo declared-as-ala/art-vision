@@ -209,7 +209,7 @@ export default function ImpressionFlyersPage() {
                 Impression flyers personnalisés, prix par grammage et format
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-white/70">
-                Retrouvez les tarifs d'impression de flyers recto verso par papier, format et quantité. Les tableaux ci-dessous reprennent les catégories et structures de prix scrapées depuis la page source actuelle.
+                Retrouvez notre grille tarifaire d'impression de flyers recto verso par papier, format et quantité. Tarifs dégressifs transparents avec contrôle technique de vos fichiers PAO inclus.
               </p>
             </div>
             <div className="glassmorphism rounded-xl p-6 border border-brand-purple/15">
@@ -234,7 +234,7 @@ export default function ImpressionFlyersPage() {
           </div>
           <div>
             <p className="text-3xl font-extrabold text-brand-magenta">{totalRows}</p>
-            <p className="text-sm font-semibold text-white/60">lignes de tarifs scrapées</p>
+            <p className="text-sm font-semibold text-white/60">combinaisons de tarifs direct atelier</p>
           </div>
           <div>
             <p className="text-3xl font-extrabold text-brand-magenta">HT</p>

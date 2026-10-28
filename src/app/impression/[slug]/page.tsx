@@ -170,6 +170,39 @@ const ALIAS_MAP: Record<
     intro:
       "Supports verticaux élégants suspendus ou autoportants pour points de vente, salons professionnels et showrooms d'entreprise.",
   },
+  "marque-pages": {
+    catalogSlug: "marque-pages",
+    canonicalSlug: "marque-pages",
+    label: "Marque-pages Personnalisés",
+    h1: "Impression de Marque-pages Professionnels & Personnalisés",
+    intro:
+      "Sublimez vos éditions, événements littéraires ou cadeaux clients avec des marque-pages imprimés sur carton rigide FSC 300g, avec option vernis UV protecteur ou carton recyclé.",
+    faqs: [
+      {
+        question: "Quels sont les formats recommandés pour un marque-page ?",
+        answer:
+          "Le format classique de référence est 50 × 200 mm ou 55 × 210 mm. Il s'insère parfaitement dans un livre de poche ou un ouvrage relié sans dépasser excessivement.",
+      },
+      {
+        question: "Quel grammage choisir pour un marque-page rigide ?",
+        answer:
+          "Un grammage d'au moins 300 g/m² FSC ou recyclé est recommandé pour assurer une tenue irréprochable et éviter tout écornage lors des manipulations répétées.",
+      },
+      {
+        question: "Quelles finitions sont disponibles ?",
+        answer:
+          "Vous pouvez opter pour un vernis UV brillant recto/verso, un pelliculage mat soft-touch ou un support texturé écologique selon l'image de votre marque.",
+      },
+    ],
+  },
+  autocollant: {
+    catalogSlug: "autocollants",
+    canonicalSlug: "autocollant",
+    label: "Autocollants & Stickers Personnalisés",
+    h1: "Impression d'Autocollants & Stickers Vinyle Haute Adhérence",
+    intro:
+      "Stickers publicitaires découpés à la forme, étiquettes adhésives en rouleau ou vinyles pour packaging et vitrine. Résistance UV et intempéries garantie.",
+  },
 };
 
 function resolveSlug(slug: string) {
