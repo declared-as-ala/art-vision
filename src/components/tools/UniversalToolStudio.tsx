@@ -16,6 +16,14 @@ import LoyaltyCardStudio from "./studios/LoyaltyCardStudio";
 import OpeningHoursStudio from "./studios/OpeningHoursStudio";
 import PostPlannerStudio from "./studios/PostPlannerStudio";
 import EmailSignatureStudio from "./studios/EmailSignatureStudio";
+import HolidayCalendarStudio from "./studios/holiday/HolidayCalendarStudio";
+import HolidayCardStudio from "./studios/holiday/HolidayCardStudio";
+import HolidayGiftLabelStudio from "./studios/holiday/HolidayGiftLabelStudio";
+import HolidayPlaceCardStudio from "./studios/holiday/HolidayPlaceCardStudio";
+import HolidayInvitationStudio from "./studios/holiday/HolidayInvitationStudio";
+import HolidayAdventStudio from "./studios/holiday/HolidayAdventStudio";
+import HolidayWishesStudio from "./studios/holiday/HolidayWishesStudio";
+import HolidayWrappingStudio from "./studios/holiday/HolidayWrappingStudio";
 
 type Row = { id: string; name: string; description: string; price: string };
 type Section = { id: string; title: string; rows: Row[] };
@@ -434,6 +442,21 @@ export default function UniversalToolStudio({ tool }: { tool: ToolDef }) {
   if (tool.slug === "planificateur-publications") return <PostPlannerStudio />;
   if (tool.slug === "generateur-signature-email") return <EmailSignatureStudio />;
   if (tool.slug === "verificateur-resolution-image-impression") return <ResolutionTool />;
+
+  // Holiday Studios
+  if (tool.slug === "createur-calendrier-2027") return <HolidayCalendarStudio isPhoto={false} />;
+  if (tool.slug === "createur-calendrier-photo") return <HolidayCalendarStudio isPhoto={true} />;
+  if (tool.slug === "createur-carte-de-voeux") return <HolidayCardStudio isThankYou={false} />;
+  if (tool.slug === "cartes-remerciement-fin-dannee") return <HolidayCardStudio isThankYou={true} />;
+  if (tool.slug === "etiquettes-cadeaux-noel") return <HolidayGiftLabelStudio isSticker={false} />;
+  if (tool.slug === "stickers-autocollants-noel") return <HolidayGiftLabelStudio isSticker={true} />;
+  if (tool.slug === "marque-places-noel") return <HolidayPlaceCardStudio />;
+  if (tool.slug === "invitation-reveillon") return <HolidayInvitationStudio isSantaLetter={false} />;
+  if (tool.slug === "lettre-pere-noel") return <HolidayInvitationStudio isSantaLetter={true} />;
+  if (tool.slug === "calendrier-avent-a-imprimer") return <HolidayAdventStudio />;
+  if (tool.slug === "assistant-textes-voeux") return <HolidayWishesStudio />;
+  if (tool.slug === "papier-cadeau-a-imprimer") return <HolidayWrappingStudio />;
+
   return <VisualDocumentTool tool={tool} />;
 }
 

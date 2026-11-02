@@ -7,14 +7,14 @@ import OutilsGrid from "./OutilsGrid";
 const BASE = "https://art-visions.fr";
 
 export const metadata: Metadata = {
-  title: "Outils gratuits pour entrepreneurs, impression et marketing | Art Visions",
+  title: "Outils gratuits : Noël & Nouvel An 2027, impression et marketing | Art Visions",
   description:
-    "25 outils gratuits Art Visions pour créer menus, cartes de fidélité, QR codes, visuels, signatures e-mail, gabarits d'impression, briefs et contenus marketing.",
+    "Collection complète d'outils gratuits Art Visions : créateur de calendrier 2027, cartes de vœux, étiquettes cadeaux, marque-places, menus, QR codes, briefs et gabarits d'impression.",
   alternates: { canonical: `${BASE}/outils-gratuits` },
   openGraph: {
-    title: "Outils gratuits pour entrepreneurs, impression et marketing | Art Visions",
+    title: "Outils gratuits : Noël & Nouvel An 2027, impression et marketing | Art Visions",
     description:
-      "Une boîte à outils gratuite pour entrepreneurs, restaurants, boutiques, freelances et entreprises : impression, identité visuelle, réseaux sociaux et web.",
+      "Une boîte à outils gratuite pour entreprises et particuliers : collection fêtes Noël et Nouvel An 2027, impression, identité visuelle, réseaux sociaux et web.",
     url: `${BASE}/outils-gratuits`,
     type: "website",
   },
