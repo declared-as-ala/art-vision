@@ -245,7 +245,13 @@ export async function generateMetadata({
       description,
       url: `https://art-visions.fr/impression/${canonicalSlug}`,
       type: "website",
-      images: [{ url: "https://art-visions.fr/logo.png" }],
+      images: [
+        {
+          url: (product as any).image
+            ? `https://art-visions.fr${(product as any).image}`
+            : "https://art-visions.fr/logo.png",
+        },
+      ],
     },
   };
 }
@@ -256,7 +262,7 @@ function priceNumber(price: string | null) {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
-function schemaFor(slug: string, label: string, data: ProductData, canonicalSlug: string) {
+function schemaFor(slug: string, label: string, data: ProductData, canonicalSlug: string, image?: string) {
   const offers = data.categories.flatMap((category) =>
     category.rows.flatMap((row) =>
       category.quantities.map((quantity) => {
@@ -279,6 +285,7 @@ function schemaFor(slug: string, label: string, data: ProductData, canonicalSlug
     "@context": "https://schema.org",
     "@type": "Service",
     name: `Impression ${label}`,
+    image: image ? `https://art-visions.fr${image}` : "https://art-visions.fr/logo.png",
     provider: { "@type": "Organization", name: "Art Vision", url: "https://art-visions.fr" },
     serviceType: `Impression ${label}`,
     areaServed: ["France", "Belgique"],
@@ -370,7 +377,7 @@ export default async function ImpressionProductPage({ params }: { params: Promis
     <div className="relative hero-gradient min-h-screen">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFor(slug, label, data, canonicalSlug)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFor(slug, label, data, canonicalSlug, (product as any)?.image)) }}
       />
 
       {/* Header */}
@@ -384,18 +391,33 @@ export default async function ImpressionProductPage({ params }: { params: Promis
             ]}
           />
 
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <div className="max-w-3xl space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full bg-brand-purple/20 px-4 py-1.5 text-xs font-bold uppercase tracking-wide border border-brand-purple/30 text-brand-magenta">
-                <Printer size={15} aria-hidden="true" />
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+            {/* Colonne Gauche : Présentation & Actions */}
+            <div className="lg:col-span-5 space-y-4 text-left">
+              <div className="inline-flex items-center gap-2 rounded-full bg-brand-purple/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wide border border-brand-purple/30 text-brand-magenta">
+                <Printer size={14} aria-hidden="true" />
                 <span>Atelier Impression Professionnelle</span>
               </div>
-              <h1 className="text-3xl font-extrabold leading-tight sm:text-5xl text-white font-montserrat">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white font-montserrat">
                 {heading}
               </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-white/75">
+              <p className="text-sm sm:text-base leading-relaxed text-white/75">
                 {introText}
               </p>
+
+              {/* Badge Tarif Atelier */}
+              {(product as any)?.startingPrice && (
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white">
+                  <span className="text-white/50">Base tarifaire :</span>
+                  <strong className={!(product as any).startingPrice.isQuote ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>
+                    {(product as any).startingPrice.display}
+                  </strong>
+                  {(product as any).startingPrice.unit && (
+                    <span className="text-white/40 text-[11px]">({(product as any).startingPrice.unit})</span>
+                  )}
+                </div>
+              )}
+
               <div className="flex flex-wrap gap-3 pt-2">
                 <Link
                   href={`/devis-sur-mesure?prefill=impression&product=${encodeURIComponent(label)}`}
@@ -415,31 +437,47 @@ export default async function ImpressionProductPage({ params }: { params: Promis
               </div>
             </div>
 
-            <div className="glassmorphism rounded-2xl p-6 border border-brand-purple/15 space-y-4">
-              <h2 className="text-lg font-bold text-white font-montserrat flex items-center gap-2">
-                <ShieldCheck size={18} className="text-green-400" />
-                <span>Conformité Fichiers & Délais</span>
+            {/* Colonne Centrale : Image Produit Art Vision Haute Définition */}
+            <div className="lg:col-span-4 flex flex-col items-center justify-center">
+              <div className="relative w-full max-w-[340px] aspect-[4/3] rounded-2xl overflow-hidden bg-[#120a28]/90 border border-brand-purple/25 p-4 shadow-2xl shadow-brand-purple/25 flex items-center justify-center group hover:border-brand-magenta/40 transition-all">
+                <img
+                  src={(product as any)?.image || "/images/impression/01-affiches-art-vision.webp"}
+                  alt={(product as any)?.alt || `Impression ${label} Art Vision`}
+                  className="w-full h-full object-contain transform transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+              <p className="text-[11px] text-white/50 mt-2.5 flex items-center gap-1.5 font-medium">
+                <ShieldCheck size={14} className="text-emerald-400" />
+                <span>Visuel produit certifié Art Vision</span>
+              </p>
+            </div>
+
+            {/* Colonne Droite : Normes PAO & Délais */}
+            <div className="lg:col-span-3 glassmorphism rounded-2xl p-5 border border-brand-purple/15 space-y-4 text-left">
+              <h2 className="text-sm font-bold text-white font-montserrat flex items-center gap-2">
+                <ShieldCheck size={16} className="text-green-400" />
+                <span>Normes PAO & Délais</span>
               </h2>
-              <dl className="grid gap-3 text-xs sm:text-sm">
-                <div className="flex gap-3">
-                  <FileText className="mt-0.5 shrink-0 text-brand-magenta" size={16} aria-hidden="true" />
+              <dl className="grid gap-3 text-xs">
+                <div className="flex gap-2.5">
+                  <FileText className="mt-0.5 shrink-0 text-brand-magenta" size={15} aria-hidden="true" />
                   <div>
                     <dt className="font-semibold text-white">Formats acceptés</dt>
                     <dd className="text-white/60">{data.fileGuidelines.acceptedFormats.join(", ")}</dd>
                   </div>
                 </div>
-                <div className="flex gap-3">
-                  <CheckCircle2 className="mt-0.5 shrink-0 text-brand-magenta" size={16} aria-hidden="true" />
+                <div className="flex gap-2.5">
+                  <CheckCircle2 className="mt-0.5 shrink-0 text-brand-magenta" size={15} aria-hidden="true" />
                   <div>
                     <dt className="font-semibold text-white">Contrôle PAO</dt>
-                    <dd className="text-white/60">300 DPI, couleurs CMJN, 2 mm de fond perdu, textes vectorisés.</dd>
+                    <dd className="text-white/60">300 DPI, CMJN, 2 mm fond perdu, textes vectorisés.</dd>
                   </div>
                 </div>
-                <div className="flex gap-3">
-                  <Truck className="mt-0.5 shrink-0 text-brand-magenta" size={16} aria-hidden="true" />
+                <div className="flex gap-2.5">
+                  <Truck className="mt-0.5 shrink-0 text-brand-magenta" size={15} aria-hidden="true" />
                   <div>
                     <dt className="font-semibold text-white">Délais réels</dt>
-                    <dd className="text-white/60">{data.fileGuidelines.production} (Livraison suivie : {data.fileGuidelines.shipping})</dd>
+                    <dd className="text-white/60">{data.fileGuidelines.production} (Livraison : {data.fileGuidelines.shipping})</dd>
                   </div>
                 </div>
               </dl>

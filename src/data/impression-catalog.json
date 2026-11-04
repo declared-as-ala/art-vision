@@ -1,326 +1,888 @@
 {
   "source": "https://www.impressionflyers.com/",
-  "scrapedAt": "2026-06-21T00:41:54.930Z",
+  "scrapedAt": "2026-11-04T22:19:45.284Z",
   "products": [
     {
       "slug": "affiches",
       "label": "Affiches",
       "sourcePath": "impression_affiches.cfm",
       "url": "/impression/affiches",
+      "image": "/images/impression/01-affiches-art-vision.webp",
+      "alt": "Impression affiches publicitaires professionnelles petit et grand format",
       "tableCount": 8,
-      "rowCount": 35
+      "rowCount": 35,
+      "startingPrice": {
+        "amount": "28 €",
+        "unit": "10 ex (A4)",
+        "display": "Dès 28 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression d'Affiches Publicitaires Haute Définition",
+      "intro": "Faites sensation avec nos affiches publicitaires A4, A3, A2, A1, A0 et abribus. Papiers de 135g à 250g couché brillant, mat ou dos bleu résistant aux intempéries."
     },
     {
       "slug": "affiches-fluo",
-      "label": "Affiches fluo",
+      "label": "Affiches Fluo",
       "sourcePath": "impression_affiches_fluo.cfm",
       "url": "/impression/affiches-fluo",
+      "image": "/images/impression/02-affiches-fluo-art-vision.webp",
+      "alt": "Impression affiches fluorescentes jaune vert orange pour événements",
       "tableCount": 5,
-      "rowCount": 27
+      "rowCount": 27,
+      "startingPrice": {
+        "amount": "70 €",
+        "unit": "50 ex (A4)",
+        "display": "Dès 70 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression d'Affiches Fluo à Fort Impact Visuel",
+      "intro": "Attirez tous les regards sur vos promotions et soirées avec nos affiches papier fluo jaune, vert, orange ou rouge. Visibilité maximale garantie de jour comme de nuit."
     },
     {
       "slug": "autocollants",
       "label": "Autocollants",
       "sourcePath": "impression_autocollants.cfm",
       "url": "/impression/autocollants",
+      "image": "/images/impression/03-autocollants-art-vision.webp",
+      "alt": "Impression autocollants et stickers vinyle personnalisés",
       "tableCount": 5,
-      "rowCount": 38
-    },
-    {
-      "slug": "autocollants-sol",
-      "label": "Autocollants sol",
-      "sourcePath": "marquage_autocollant_de_sol.cfm",
-      "url": "/impression/autocollants-sol",
-      "tableCount": 0,
-      "rowCount": 0
+      "rowCount": 38,
+      "startingPrice": {
+        "amount": "75 €",
+        "unit": "250 ex",
+        "display": "Dès 75 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression d'Autocollants & Stickers Personnalisés",
+      "intro": "Stickers vinyle adhésifs haute durabilité, découpés à la forme ou mi-chair. Idéals pour le packaging, le marquage de produits, les vitrines et le street-marketing."
     },
     {
       "slug": "autocopiants",
       "label": "Autocopiants",
       "sourcePath": "impression_carnets_autocopiants.cfm",
       "url": "/impression/autocopiants",
+      "image": "/images/impression/04-autocopiants-art-vision.webp",
+      "alt": "Impression liasses et carnets autocopiants devis factures bons de commande",
       "tableCount": 4,
-      "rowCount": 20
+      "rowCount": 20,
+      "startingPrice": {
+        "amount": "181 €",
+        "unit": "1000 ex (A6)",
+        "display": "Dès 181 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Carnets & Liasses Autocopiants",
+      "intro": "Duplicata et triplicata professionnels pour vos devis, factures, bons de livraison et contrats. Carnets reliés ou liasses détachables avec numérotation séquentielle."
     },
     {
       "slug": "baches",
       "label": "Bâches",
       "sourcePath": "impression_baches.cfm",
       "url": "/impression/baches",
-      "tableCount": 0,
-      "rowCount": 0
+      "image": "/images/impression/05-baches-art-vision.webp",
+      "alt": "Impression banderoles et bâches publicitaires PVC et microperforées",
+      "tableCount": 1,
+      "rowCount": 7,
+      "startingPrice": {
+        "amount": "8,50 €",
+        "unit": "au m²",
+        "display": "Dès 8,50 € HT / m²",
+        "isQuote": false
+      },
+      "h1": "Impression de Bâches & Banderoles Publicitaires",
+      "intro": "Bâches PVC 510g M1 anti-feu, bâches microperforées mesh coupe-vent ou sans PVC écologiques. Finitions avec œillets tous les 50 cm, renforts périphériques et fourreaux."
     },
     {
       "slug": "badges",
       "label": "Badges",
-      "sourcePath": "imprimerie.cfm?id=91",
+      "sourcePath": "impression_badges.cfm",
       "url": "/impression/badges",
+      "image": "/images/impression/06-badges-art-vision.webp",
+      "alt": "Badges épingle et magnets événementiels personnalisés",
       "tableCount": 2,
-      "rowCount": 7
+      "rowCount": 7,
+      "startingPrice": {
+        "amount": "48 €",
+        "unit": "10 ex",
+        "display": "Dès 48 € HT",
+        "isQuote": false
+      },
+      "h1": "Badges Événementiels Personnalisés",
+      "intro": "Badges métalliques avec épingle de sécurité, attache magnétique ou pince crocodile. Finition brillante ou mate soft-touch pour vos salons, conférences et festivals."
     },
     {
       "slug": "ballons",
       "label": "Ballons",
       "sourcePath": "impression_ballons.cfm",
       "url": "/impression/ballons",
+      "image": "/images/impression/07-ballons-art-vision.webp",
+      "alt": "Ballons publicitaires imprimés en latex 100% biodégradable",
       "tableCount": 4,
-      "rowCount": 4
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": "250 €",
+        "unit": "250 ex",
+        "display": "Dès 250 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Ballons Publicitaires en Latex",
+      "intro": "Ballons de baudruche en latex 100% naturel et biodégradable. Impression sérigraphique 1 à 4 couleurs pour vos inaugurations, anniversaires d'entreprise et événements."
     },
     {
       "slug": "beach-flags",
-      "label": "Beach flags",
+      "label": "Beach Flags",
       "sourcePath": "beach_flags.cfm",
       "url": "/impression/beach-flags",
+      "image": "/images/impression/08-beach-flags-art-vision.webp",
+      "alt": "Beach flags et oriflammes publicitaires voile plume et goutte",
       "tableCount": 3,
-      "rowCount": 20
+      "rowCount": 20,
+      "startingPrice": {
+        "amount": "22 €",
+        "unit": "accessoire / dès 45 € kit",
+        "display": "Dès 45 € HT",
+        "isQuote": false
+      },
+      "h1": "Beach Flags & Oriflammes Publicitaires",
+      "intro": "Drapeaux voiles forme goutte ou plume de 2m à 5m de hauteur. Mât aluminium et fibre de verre ultra-résistant, voile polyester 115g lavable et plusieurs embases au choix."
     },
     {
       "slug": "bloc-notes",
       "label": "Bloc-notes",
       "sourcePath": "impression_blocs_notes.cfm",
       "url": "/impression/bloc-notes",
+      "image": "/images/impression/09-bloc-notes-art-vision.webp",
+      "alt": "Blocs-notes personnalisés avec en-tête et logo entreprise",
       "tableCount": 3,
-      "rowCount": 15
+      "rowCount": 15,
+      "startingPrice": {
+        "amount": "91 €",
+        "unit": "100 ex (A7)",
+        "display": "Dès 91 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Blocs-notes & Sous-mains Entreprise",
+      "intro": "Blocs de 25, 50 ou 100 feuillets encollés sur dos cartonné rigide. Formats A6, A5, A4 sur papier offset 80g ou 90g adapté à l'écriture manuscrite."
     },
     {
       "slug": "blocs-adhesifs",
-      "label": "Blocs adhésifs",
+      "label": "Blocs Adhésifs",
       "sourcePath": "impression_blocs_notes_adhesifs_postit.cfm",
       "url": "/impression/blocs-adhesifs",
+      "image": "/images/impression/10-blocs-adhesifs-art-vision.webp",
+      "alt": "Blocs notes repositionnables type Post-it personnalisés",
       "tableCount": 3,
-      "rowCount": 6
+      "rowCount": 6,
+      "startingPrice": {
+        "amount": "327 €",
+        "unit": "100 ex",
+        "display": "Dès 327 € HT",
+        "isQuote": false
+      },
+      "h1": "Blocs Notes Adhésifs Repositionnables",
+      "intro": "Notes repositionnables adhésives avec votre logo et coordonnées sur chaque feuillet. L'outil bureautique incontournable pour rester sous les yeux de vos clients au quotidien."
     },
     {
       "slug": "bracelets",
       "label": "Bracelets",
       "sourcePath": "impression_bracelets_identification_tyvek.cfm",
       "url": "/impression/bracelets",
+      "image": "/images/impression/11-bracelets-art-vision.webp",
+      "alt": "Bracelets événementiels d'identification Tyvek indéchirables",
       "tableCount": 3,
-      "rowCount": 3
+      "rowCount": 3,
+      "startingPrice": {
+        "amount": "69 €",
+        "unit": "500 ex",
+        "display": "Dès 69 € HT",
+        "isQuote": false
+      },
+      "h1": "Bracelets d'Identification Événementiels Tyvek",
+      "intro": "Bracelets de contrôle inviolables et indéchirables en Tyvek. Fermeture adhésive à usage unique et numérotation séquentielle pour concerts, festivals, clubs et piscines."
     },
     {
       "slug": "brochures",
       "label": "Brochures",
       "sourcePath": "impression_brochures_magazines.cfm",
       "url": "/impression/brochures",
+      "image": "/images/impression/12-brochures-art-vision.webp",
+      "alt": "Impression brochures reliure agrafée deux points métal ou dos carré collé",
       "tableCount": 1,
-      "rowCount": 8
+      "rowCount": 8,
+      "startingPrice": {
+        "amount": "140 €",
+        "unit": "250 ex (A6)",
+        "display": "Dès 140 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Brochures & Catalogues Produits",
+      "intro": "Brochures piquées 2 points métal, reliure spirale Wire-O ou dos carré collé de 8 à 64 pages. Couché brillant ou demi-mat avec couverture rigide pelliculée en option."
     },
     {
       "slug": "cachets",
       "label": "Cachets",
       "sourcePath": "impression_cachets_tampons.cfm",
       "url": "/impression/cachets",
+      "image": "/images/impression/13-cachets-tampons-art-vision.webp",
+      "alt": "Tampons encreurs professionnels Trodat et cachets société",
       "tableCount": 3,
-      "rowCount": 18
+      "rowCount": 18,
+      "startingPrice": {
+        "amount": "53 €",
+        "unit": "1 ex",
+        "display": "Dès 53 € HT",
+        "isQuote": false
+      },
+      "h1": "Tampons Encreurs & Cachets Société Professionnels",
+      "intro": "Boîtiers automatiques professionnels Trodat Printy ou Metal Line. Gravure laser haute précision pour textes d'entreprise, mentions légales, SIRET et signatures."
+    },
+    {
+      "slug": "cadres-aluminium-textiles-tendus",
+      "label": "Cadres aluminium et textiles tendus",
+      "sourcePath": "impression_cadres_alu.cfm",
+      "url": "/impression/cadres-aluminium-textiles-tendus",
+      "image": "/images/impression/14-cadres-aluminium-textiles-tendus-art-vision.webp",
+      "alt": "Cadres aluminium muraux ou autoportants avec tissu textile tendu",
+      "tableCount": 1,
+      "rowCount": 5,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur mesure",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Cadres Aluminium & Toiles Textiles Tendues",
+      "intro": "Structure aluminium anodisé haut de gamme avec visuel textile imprimé en sublimation haute définition. Jonc silicone pour un montage et remplacement de visuel en quelques secondes sans outil."
     },
     {
       "slug": "calendriers",
       "label": "Calendriers",
       "sourcePath": "impression_calendriers_de_poche_calendriers_muraux.cfm",
       "url": "/impression/calendriers",
+      "image": "/images/impression/15-calendriers-art-vision.webp",
+      "alt": "Impression calendriers personnalisés entreprise de poche muraux et sous-main",
       "tableCount": 8,
-      "rowCount": 21
+      "rowCount": 21,
+      "startingPrice": {
+        "amount": "88 €",
+        "unit": "500 ex (Poche)",
+        "display": "Dès 88 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Calendriers Personnalisés d'Entreprise",
+      "intro": "Calendriers bancaires rembordés rigides, calendriers muraux agrafés ou à spirale, et calendriers de poche carte bancaire avec grilles des vacances scolaires et jours fériés."
     },
     {
       "slug": "cartes-de-visite",
       "label": "Cartes de visite",
       "sourcePath": "impression_cartes_de_visite.cfm",
       "url": "/impression/cartes-de-visite",
+      "image": "/images/impression/16-cartes-de-visite-art-vision.webp",
+      "alt": "Impression cartes de visite de luxe avec dorure vernis 3D et soft touch",
       "tableCount": 15,
-      "rowCount": 19
+      "rowCount": 19,
+      "startingPrice": {
+        "amount": "46 €",
+        "unit": "500 ex",
+        "display": "Dès 46 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Cartes de Visite Professionnelles",
+      "intro": "Cartes de visite standard 85×55 mm ou sur-mesure sur couché 350g et 400g. Finitions prestige : pelliculage mat soft touch, vernis sélectif 3D relief et dorure à chaud or/argent."
     },
     {
       "slug": "cartes-de-voeux",
       "label": "Cartes de voeux",
       "sourcePath": "impression_cartes_de_voeux.cfm",
       "url": "/impression/cartes-de-voeux",
+      "image": "/images/impression/17-cartes-de-voeux-art-vision.webp",
+      "alt": "Impression cartes de vœux professionnelles de fin d'année et nouvel an",
       "tableCount": 4,
-      "rowCount": 14
+      "rowCount": 14,
+      "startingPrice": {
+        "amount": "53 €",
+        "unit": "500 ex (A7)",
+        "display": "Dès 53 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Cartes de Vœux Entreprise & Fêtes",
+      "intro": "Souhaitez la bonne année à vos clients avec des cartes de vœux simples ou 2 volets pliés. Papiers texturés haut de gamme, dorures scintillantes et enveloppes assorties."
     },
     {
       "slug": "cartes-postales",
       "label": "Cartes postales",
       "sourcePath": "impression_cartes_postales.cfm",
       "url": "/impression/cartes-postales",
+      "image": "/images/impression/18-cartes-postales-art-vision.webp",
+      "alt": "Impression cartes postales publicitaires et artistiques A6",
       "tableCount": 5,
-      "rowCount": 5
+      "rowCount": 5,
+      "startingPrice": {
+        "amount": "64 €",
+        "unit": "500 ex (A6)",
+        "display": "Dès 64 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Cartes Postales Promotionnelles",
+      "intro": "Cartes postales A6 sur carton graphique 300g couché recto brillant et verso mat inscriptible. Parfaites pour les opérations de mailing postal, expositions et lancements de produits."
     },
     {
       "slug": "cartes-pvc",
       "label": "Cartes PVC",
       "sourcePath": "impression_cartesPVC_personnalisees.cfm",
       "url": "/impression/cartes-pvc",
+      "image": "/images/impression/19-cartes-pvc-art-vision.webp",
+      "alt": "Impression cartes plastique PVC fidélité membre adhérent badge",
       "tableCount": 5,
-      "rowCount": 5
+      "rowCount": 5,
+      "startingPrice": {
+        "amount": "53 €",
+        "unit": "10 ex",
+        "display": "Dès 53 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Cartes Plastique PVC Rigides",
+      "intro": "Cartes PVC format ISO 85,6 × 54 mm, épaisseur 0,76 mm comme une carte bancaire. Options carte de fidélité, membre, code-barres, zone de signature et bande magnétique."
     },
     {
       "slug": "classeurs",
       "label": "Classeurs",
       "sourcePath": "impression_classeurs_fardes.cfm",
       "url": "/impression/classeurs",
+      "image": "/images/impression/20-classeurs-art-vision.webp",
+      "alt": "Classeurs à anneaux personnalisés rembordés avec intercalaires",
       "tableCount": 8,
-      "rowCount": 8
+      "rowCount": 8,
+      "startingPrice": {
+        "amount": "1002 €",
+        "unit": "100 ex (25 mm)",
+        "display": "Dès 1002 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Classeurs Personnalisés à Anneaux",
+      "intro": "Classeurs rembordés haut de gamme 2 ou 4 anneaux D ou ronds, capacité dos 25 à 65 mm. Idéals pour vos formations professionnelles, présentations commerciales et dossiers techniques."
     },
     {
       "slug": "cles-usb",
       "label": "Clés USB",
       "sourcePath": "impression_clesusb.cfm",
       "url": "/impression/cles-usb",
+      "image": "/images/impression/21-cles-usb-art-vision.webp",
+      "alt": "Clés USB publicitaires personnalisées avec logo entreprise",
       "tableCount": 11,
-      "rowCount": 61
+      "rowCount": 61,
+      "startingPrice": {
+        "amount": "484 €",
+        "unit": "100 ex (1 Go)",
+        "display": "Dès 484 € HT",
+        "isQuote": false
+      },
+      "h1": "Clés USB Publicitaires Personnalisées avec Logo",
+      "intro": "Clés USB pivotantes Twister, cartes USB format carte de crédit ou bois écologique. Capacités de 1 Go à 64 Go avec préchargement de vos données et fichiers d'entreprise."
     },
     {
       "slug": "depliants",
       "label": "Dépliants",
       "sourcePath": "impression_depliants_triptiques.cfm",
       "url": "/impression/depliants",
+      "image": "/images/impression/22-depliants-art-vision.webp",
+      "alt": "Impression dépliants 2 volets 3 volets triptyque et plis accordéon",
       "tableCount": 5,
-      "rowCount": 47
+      "rowCount": 47,
+      "startingPrice": {
+        "amount": "80 €",
+        "unit": "500 ex (A5 plié)",
+        "display": "Dès 80 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Dépliants & Plaquettes Commerciales",
+      "intro": "Dépliants 2 volets (1 pli), triptyques 3 volets (plis roulés ou accordéon) du 135g au 300g couché. Présentez vos offres et menus de manière structurée et attractive."
     },
     {
       "slug": "drapeaux",
       "label": "Drapeaux",
       "sourcePath": "impression_drapeaux.cfm",
       "url": "/impression/drapeaux",
+      "image": "/images/impression/23-drapeaux-art-vision.webp",
+      "alt": "Impression drapeaux sur mesure polyester maille bloquée et mât",
       "tableCount": 0,
-      "rowCount": 0
+      "rowCount": 0,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur mesure",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Impression de Drapeaux Publicitaires & Pavillons",
+      "intro": "Drapeaux sur mât en maille polyester 115g ou Long Life 120g coupe-vent. Impression traversante sublimation avec fourreau, sangle de renfort et mousquetons de fixation."
+    },
+    {
+      "slug": "drapeaux-supporters",
+      "label": "Drapeaux supporters personnalisés",
+      "sourcePath": "impression_supporters.cfm",
+      "url": "/impression/drapeaux-supporters",
+      "image": "/images/impression/24-drapeaux-supporters-art-vision.webp",
+      "alt": "Drapeaux supporters personnalisés pour clubs sportifs et événements",
+      "tableCount": 1,
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur devis",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Drapeaux Supporters Personnalisés pour Clubs & Événements",
+      "intro": "Drapeaux à agiter légers avec tige PVC, formats 30×20 cm à 150×100 cm. Flammes et étendards vibrants aux couleurs de votre club ou association sportive pour enflammer les tribunes."
     },
     {
       "slug": "enveloppes",
       "label": "Enveloppes",
       "sourcePath": "impression_enveloppes.cfm",
       "url": "/impression/enveloppes",
+      "image": "/images/impression/25-enveloppes-art-vision.webp",
+      "alt": "Impression enveloppes et pochettes d'expédition avec logo entreprise",
       "tableCount": 1,
-      "rowCount": 9
+      "rowCount": 9,
+      "startingPrice": {
+        "amount": "103 €",
+        "unit": "500 ex (DL)",
+        "display": "Dès 103 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression d'Enveloppes Personnalisées Entreprise",
+      "intro": "Enveloppes DL (110×220 mm), C5 et C4 avec ou sans fenêtre d'adresse, bande adhésive protectrice autocollante. Impression 1 à 4 couleurs de votre logo et adresse de retour."
     },
     {
       "slug": "etiquettes",
       "label": "Etiquettes",
       "sourcePath": "autocollants_sur_mesure.cfm",
       "url": "/impression/etiquettes",
+      "image": "/images/impression/26-etiquettes-art-vision.webp",
+      "alt": "Impression étiquettes adhésives en rouleau bobine packaging bouteilles",
       "tableCount": 0,
-      "rowCount": 0
+      "rowCount": 0,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur devis",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Impression d'Étiquettes Adhésives en Rouleau & Bobine",
+      "intro": "Étiquettes adhésives en bobine pour pose automatique ou manuelle : bouteilles, cosmétiques, agroalimentaire et colis. Papiers texturés vergés, vinyles étanches et dorures galbées."
     },
     {
       "slug": "fardes-a-rabats",
       "label": "Fardes à rabats",
       "sourcePath": "impression_fardes_a_rabats.cfm",
       "url": "/impression/fardes-a-rabats",
+      "image": "/images/impression/27-fardes-a-rabats-art-vision.webp",
+      "alt": "Impression chemises à rabats et pochettes à documents professionnelles",
       "tableCount": 8,
-      "rowCount": 8
+      "rowCount": 8,
+      "startingPrice": {
+        "amount": "282 €",
+        "unit": "100 ex (A4)",
+        "display": "Dès 282 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Chemises & Fardes à Rabats A4",
+      "intro": "Pochettes à rabats avec encoche pour insérer votre carte de visite, rainage simple ou double pour forte épaisseur. Carton 350g couché mat ou brillant avec pelliculage protecteur."
+    },
+    {
+      "slug": "films-magnetiques",
+      "label": "Films magnétiques",
+      "sourcePath": "impression_films_magnetiques.cfm",
+      "url": "/impression/films-magnetiques",
+      "image": "/images/impression/28-films-magnetiques-art-vision.webp",
+      "alt": "Plaques magnétiques et aimants publicitaires pour carrosserie véhicule",
+      "tableCount": 1,
+      "rowCount": 3,
+      "startingPrice": {
+        "amount": null,
+        "unit": "dès 1 m²",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Impression de Plaques Magnétiques & Aimants Véhicules",
+      "intro": "Film magnétique caoutchouc haute adhérence 80 µ ou 100 µ avec lamination anti-rayures. Transformez vos véhicules commerciaux en supports publicitaires amovibles sans endommager la carrosserie."
     },
     {
       "slug": "flyers",
       "label": "Flyers",
       "sourcePath": "impression_flyers.cfm",
       "url": "/impression/flyers",
+      "image": "/images/impression/29-flyers-art-vision.webp",
+      "alt": "Impression flyers prospectus publicitaires pas cher livraison rapide",
       "tableCount": 10,
-      "rowCount": 96
+      "rowCount": 96,
+      "startingPrice": {
+        "amount": "48 €",
+        "unit": "500 ex (A6)",
+        "display": "Dès 48 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Flyers & Tracts Publicitaires",
+      "intro": "Flyers A6, A5, A4, carrés ou ronds imprimés sur couché brillant ou demi-mat de 135g à 350g. Le support marketing direct numéro 1 pour faire connaître vos événements et promos."
     },
     {
       "slug": "marquage-vehicules",
       "label": "Marquage véhicules",
       "sourcePath": "imprimerie.cfm?id=90",
       "url": "/impression/marquage-vehicules",
+      "image": "/images/impression/30-marquage-vehicules-art-vision.webp",
+      "alt": "Lettrage et marquage adhésif pour utilitaires et voitures de société",
       "tableCount": 4,
-      "rowCount": 30
+      "rowCount": 30,
+      "startingPrice": {
+        "amount": "80 €",
+        "unit": "5 ex (A3)",
+        "display": "Dès 80 € HT",
+        "isQuote": false
+      },
+      "h1": "Lettrage & Marquage Adhésif pour Véhicules",
+      "intro": "Kits de lettrage adhésif prédécoupé ou total covering vinyle polymère haute résistance. Visibilité itinérante 24h/24 pour artisans, flottes commerciales et camionnettes."
     },
     {
       "slug": "marque-pages",
       "label": "Marque-pages",
       "sourcePath": "impression_marque_pages.cfm",
       "url": "/impression/marque-pages",
+      "image": "/images/impression/31-marque-pages-art-vision.webp",
+      "alt": "Impression marque-pages personnalisés promotionnels et librairie",
       "tableCount": 3,
-      "rowCount": 6
+      "rowCount": 6,
+      "startingPrice": {
+        "amount": "68 €",
+        "unit": "500 ex",
+        "display": "Dès 68 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Marque-pages Personnalisés",
+      "intro": "Marque-pages 5,2 × 14,8 cm ou 5,5 × 21 cm sur papier rigide 350g couché ou carton recyclé. Objet promotionnel durable et apprécié pour librairies, éditeurs et événements culturels."
     },
     {
-      "slug": "objets-pub",
+      "slug": "objets-publicitaires",
       "label": "Objets pub.",
       "sourcePath": "objets_publicitaires_gourdes_porte-clefs.cfm",
-      "url": "/impression/objets-pub",
+      "url": "/impression/objets-publicitaires",
+      "image": "/images/impression/32-objets-publicitaires-art-vision.webp",
+      "alt": "Goodies et objets publicitaires personnalisés mugs gourdes porte-clés",
       "tableCount": 4,
-      "rowCount": 5
+      "rowCount": 5,
+      "startingPrice": {
+        "amount": "195 €",
+        "unit": "10 ex (Mug)",
+        "display": "Dès 195 € HT",
+        "isQuote": false
+      },
+      "h1": "Goodies & Objets Publicitaires Promotionnels",
+      "intro": "Mugs céramique personnalisés en quadrichromie, gourdes isothermes en inox, porte-clés et tote bags coton. Des cadeaux d'entreprise utiles et mémorables pour fidéliser vos clients."
     },
     {
       "slug": "panneaux",
       "label": "Panneaux",
       "sourcePath": "impression_panneaux.cfm",
       "url": "/impression/panneaux",
-      "tableCount": 0,
-      "rowCount": 0
+      "image": "/images/impression/33-panneaux-art-vision.webp",
+      "alt": "Impression panneaux rigides enseignes Forex Dibond Plexiglas Akylux",
+      "tableCount": 1,
+      "rowCount": 8,
+      "startingPrice": {
+        "amount": "12 €",
+        "unit": "au m²",
+        "display": "Dès 12 € HT / m²",
+        "isQuote": false
+      },
+      "h1": "Impression de Panneaux Rigides & Enseignes",
+      "intro": "Panneaux Forex PVC expansé 3/5/10 mm, Alu Dibond 3 mm ultra-résistant, Plexiglas transparent et Akylux alvéolaire. Impression directe UV haute fidélité avec lamination protectrice."
     },
     {
-      "slug": "panneaux-immo",
-      "label": "PANNEAUX IMMO",
+      "slug": "panneaux-immobiliers",
+      "label": "Panneaux Immo",
       "sourcePath": "impression_panneaux_immobiliers_v_a_vendre_a_louer.cfm",
-      "url": "/impression/panneaux-immo",
+      "url": "/impression/panneaux-immobiliers",
+      "image": "/images/impression/34-panneaux-immobiliers-art-vision.webp",
+      "alt": "Panneaux immobiliers à vendre à louer en polypropylène alvéolaire",
       "tableCount": 4,
-      "rowCount": 8
+      "rowCount": 8,
+      "startingPrice": {
+        "amount": "185 €",
+        "unit": "10 ex",
+        "display": "Dès 185 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Panneaux Immobiliers « À Vendre / À Louer »",
+      "intro": "Panneaux plats ou pliés en V en polypropylène alvéolaire 3 mm ou 3,5 mm léger et résistant au vent. Avec œillets aux 4 coins ou rainage central pour une pose facile sur balcons et façades."
     },
     {
-      "slug": "papier-entete",
+      "slug": "papier-en-tete",
       "label": "Papier entête",
       "sourcePath": "impression_papier_entete.cfm",
-      "url": "/impression/papier-entete",
+      "url": "/impression/papier-en-tete",
+      "image": "/images/impression/35-papier-en-tete-art-vision.webp",
+      "alt": "Têtes de lettre papier à en-tête d'entreprise certifié imprimante",
       "tableCount": 8,
-      "rowCount": 24
+      "rowCount": 24,
+      "startingPrice": {
+        "amount": "59 €",
+        "unit": "1000 ex",
+        "display": "Dès 59 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Papier En-tête Professionnel A4",
+      "intro": "Feuilles à en-tête format A4 sur papier offset 80g ou 90g garanti passage laser et jet d'encre sans bavure. Présentez vos courriers officiels, devis et correspondances avec distinction."
+    },
+    {
+      "slug": "plv-carton",
+      "label": "PLV carton",
+      "sourcePath": "impression_presentoirs_cartons.cfm",
+      "url": "/impression/plv-carton",
+      "image": "/images/impression/36-plv-carton-art-vision.webp",
+      "alt": "PLV carton présentoirs de sol de comptoir arches et bacs à fouille",
+      "tableCount": 1,
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur mesure",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "PLV Carton & Présentoirs Publicitaires pour Magasins",
+      "intro": "Arches d'entrée en carton ondulé, bacs à fouille pour têtes de gondole, silhouettes découpées et présentoirs de comptoir. Visibilité immédiate sur le lieu de vente pour booster vos ventes."
+    },
+    {
+      "slug": "pochettes-papiers-vehicule",
+      "label": "Pochettes pour papiers de véhicule",
+      "sourcePath": "impression_pochettes_papiers_vehicule.cfm",
+      "url": "/impression/pochettes-papiers-vehicule",
+      "image": "/images/impression/37-pochettes-papiers-vehicule-art-vision.webp",
+      "alt": "Pochettes étuis permis et carte grise personnalisés garage concession",
+      "tableCount": 2,
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": "3,04 €",
+        "unit": "par 250 ex",
+        "display": "Dès 3,04 € HT / pc",
+        "isQuote": false
+      },
+      "h1": "Pochettes pour Papiers de Véhicule & Carte Grise",
+      "intro": "Étuis porte-cartes grises et permis en PVC standard 0,30 mm ou gomme expansée 1,20 mm 3 volets. L'indispensable cadeau de livraison pour concessionnaires, garagistes et centres de contrôle technique."
     },
     {
       "slug": "roll-up",
-      "label": "Roll up",
+      "label": "Roll Up",
       "sourcePath": "impression_rollup.cfm",
       "url": "/impression/roll-up",
+      "image": "/images/impression/38-roll-up-art-vision.webp",
+      "alt": "Roll up enrouleur kakemono publicitaire avec housse de transport",
       "tableCount": 3,
-      "rowCount": 9
+      "rowCount": 9,
+      "startingPrice": {
+        "amount": "95 €",
+        "unit": "1 ex",
+        "display": "Dès 95 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Roll Up & Enrouleurs Publicitaires",
+      "intro": "Kakémonos autoportants avec structure en aluminium renforcé et visuel imprimé sur bâche sans curling 450g M1 anti-feu. Sac de transport matelassé inclus pour vos salons et showrooms."
     },
     {
-      "slug": "sous-boc",
+      "slug": "ruban-adhesif",
+      "label": "Ruban adhésif personnalisé",
+      "sourcePath": "impression_ruban_adhesif.cfm",
+      "url": "/impression/ruban-adhesif",
+      "image": "/images/impression/39-ruban-adhesif-art-vision.webp",
+      "alt": "Adhésif d'emballage personnalisé ruban scotch imprimé logo",
+      "tableCount": 1,
+      "rowCount": 3,
+      "startingPrice": {
+        "amount": "2,48 €",
+        "unit": "par rouleau",
+        "display": "Dès 2,48 € HT / rlx",
+        "isQuote": false
+      },
+      "h1": "Ruban Adhésif Personnalisé d'Emballage & Sécurité",
+      "intro": "Scotch d'emballage en polypropylène 28 µ ou PVC résistant, colle hot melt silencieuse. Impression 1 à 3 couleurs de votre marque sur fond blanc, havane ou transparent pour sécuriser vos colis."
+    },
+    {
+      "slug": "sous-bocks",
       "label": "Sous-boc",
       "sourcePath": "impression_sous_boc.cfm",
-      "url": "/impression/sous-boc",
+      "url": "/impression/sous-bocks",
+      "image": "/images/impression/40-sous-bocks-art-vision.webp",
+      "alt": "Sous-bocks ronds ou carrés en carton buvard absorbant brasseries",
       "tableCount": 2,
-      "rowCount": 4
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": "100 €",
+        "unit": "100 ex",
+        "display": "Dès 100 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Sous-bocks Personnalisés en Carton Buvard",
+      "intro": "Sous-verres en carton buvard authentique 1,4 mm ultra-absorbant, forme ronde 10,7 cm ou carrée aux coins arrondis. L'accessoire incontournable pour brasseries, bars, festivals et mariages."
     },
     {
       "slug": "sous-mains",
       "label": "Sous-mains",
       "sourcePath": "impression_sous-mains.cfm",
       "url": "/impression/sous-mains",
+      "image": "/images/impression/41-sous-mains-art-vision.webp",
+      "alt": "Sous-mains de bureau bloc papier 25 ou 50 pages A3 A2",
       "tableCount": 2,
-      "rowCount": 4
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": "265 €",
+        "unit": "50 ex (A3)",
+        "display": "Dès 265 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Sous-mains de Bureau Personnalisés",
+      "intro": "Blocs sous-mains de 25 ou 50 feuillets format A3 ou A2 sur papier offset blanc 90g avec encollage en pied pour éviter les cornes. Espace calendrier, prise de notes et logo d'entreprise."
+    },
+    {
+      "slug": "stands-parapluies-presentoirs",
+      "label": "Stands parapluies et présentoirs",
+      "sourcePath": "impression_stands_presentoirs.cfm",
+      "url": "/impression/stands-parapluies-presentoirs",
+      "image": "/images/impression/42-stands-parapluies-presentoirs-art-vision.webp",
+      "alt": "Stand parapluie pop-up textile ou PVC et comptoirs d'accueil",
+      "tableCount": 1,
+      "rowCount": 5,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur mesure",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Stands Parapluies Pop-up & Présentoirs d'Accueil",
+      "intro": "Structures pop-up droites ou courbes 3×3 ou 4×3 avec tissu infroissable ou panneaux magnétiques PVC. Comptoir d'accueil et valise de transport transformable en banque hôtesse sur vos foires et salons."
     },
     {
       "slug": "stylos",
       "label": "Stylos",
       "sourcePath": "impression_stylos.cfm",
       "url": "/impression/stylos",
+      "image": "/images/impression/43-stylos-art-vision.webp",
+      "alt": "Stylos à bille publicitaires personnalisés avec gravure ou sérigraphie",
       "tableCount": 4,
-      "rowCount": 5
+      "rowCount": 5,
+      "startingPrice": {
+        "amount": "205 €",
+        "unit": "100 ex",
+        "display": "Dès 205 € HT",
+        "isQuote": false
+      },
+      "h1": "Stylos Publicitaires Personnalisés avec Logo",
+      "intro": "Stylos à bille corps plastique ou métal avec clip assorti et encre bleue ou noire. Impression sérigraphique 1 à 2 couleurs ou gravure laser inaltérable pour vos prospects et clients."
+    },
+    {
+      "slug": "tentes-publicitaires",
+      "label": "Tentes publicitaires personnalisées",
+      "sourcePath": "impression_tentes_publicitaires.cfm",
+      "url": "/impression/tentes-publicitaires",
+      "image": "/images/impression/44-tentes-publicitaires-art-vision.webp",
+      "alt": "Tente pliante barnum publicitaire étanche avec toit imprimé",
+      "tableCount": 1,
+      "rowCount": 5,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur mesure",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Tentes Publicitaires Pliantes & Barnums Événementiels",
+      "intro": "Tentes pliantes 3×3m, 3×4,5m ou 3×6m avec armature aluminium renforcée hexagonale. Toit et parois en polyester 300D ou 500D 100% étanches et anti-UV pour marchés, foires et compétitions sportives."
     },
     {
       "slug": "textiles",
       "label": "Textiles",
       "sourcePath": "impression_textiles_tshirts_polos_pulls.cfm",
       "url": "/impression/textiles",
+      "image": "/images/impression/45-textiles-art-vision.webp",
+      "alt": "Impression textiles t-shirts polos sweats broderie et flocage",
       "tableCount": 2,
-      "rowCount": 8
+      "rowCount": 8,
+      "startingPrice": {
+        "amount": "353 €",
+        "unit": "50 ex (T-shirt)",
+        "display": "Dès 353 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression & Broderie Textile Personnalisée",
+      "intro": "T-shirts coton 150g à 190g, polos piqué et sweats à capuche pour équipes et entreprises. Marquage sérigraphie, DTF haute définition ou broderie élégante résistant aux lavages fréquents."
     },
     {
-      "slug": "tickets-entrees",
-      "label": "Tickets entrées",
+      "slug": "tickets-entree",
+      "label": "Tickets Entrées",
       "sourcePath": "impression_tickets_entree_securise_numerotation_perfores.cfm",
-      "url": "/impression/tickets-entrees",
+      "url": "/impression/tickets-entree",
+      "image": "/images/impression/46-tickets-entree-art-vision.webp",
+      "alt": "Impression billetterie tickets d'entrée numérotés avec souche et microperforation",
       "tableCount": 3,
-      "rowCount": 8
+      "rowCount": 8,
+      "startingPrice": {
+        "amount": "116 €",
+        "unit": "500 ex (A7)",
+        "display": "Dès 116 € HT",
+        "isQuote": false
+      },
+      "h1": "Impression de Billetterie & Tickets d'Entrée Sécurisés",
+      "intro": "Billets avec souche détachable, 1 ou 2 microperforations et numérotation séquentielle inviolable. Idéals pour soirées, concerts, tombolas, galas et manifestations associatives."
+    },
+    {
+      "slug": "tifos-personnalises",
+      "label": "Tifos personnalisés pour clubs et événements",
+      "sourcePath": "impression_tifos.cfm",
+      "url": "/impression/tifos-personnalises",
+      "image": "/images/impression/47-tifos-personnalises-art-vision.webp",
+      "alt": "Tifos géants en tissu textile polyester ignifugé pour supporters et stades",
+      "tableCount": 1,
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur mesure",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Tifos Géants Personnalisés pour Clubs & Supporters",
+      "intro": "Bâches et toiles textiles géantes en polyester ignifugé M1 léger, forme maillot, ronde ou rectangulaire. Créez des scénographies grandioses et inoubliables pour les grands rendez-vous de votre club."
     },
     {
       "slug": "tours-de-cou",
       "label": "Tours de cou",
       "sourcePath": "impression_tour_de_cous_lanyards.cfm",
       "url": "/impression/tours-de-cou",
+      "image": "/images/impression/48-tours-de-cou-art-vision.webp",
+      "alt": "Lanyards tours de cou personnalisés avec mousqueton et attache sécurité",
       "tableCount": 4,
-      "rowCount": 4
+      "rowCount": 4,
+      "startingPrice": {
+        "amount": "240 €",
+        "unit": "100 ex",
+        "display": "Dès 240 € HT",
+        "isQuote": false
+      },
+      "h1": "Lanyards & Tours de Cou Publicitaires",
+      "intro": "Cordons tours de cou en satin polyester lisse imprimés en sublimation quadri recto/verso. Largeurs 15, 20 ou 25 mm avec mousqueton métal et boucle de sécurité anti-étranglement."
+    },
+    {
+      "slug": "autocollants-sol",
+      "label": "Autocollants sol",
+      "sourcePath": "marquage_autocollant_de_sol.cfm",
+      "url": "/impression/autocollants-sol",
+      "image": "/images/impression/03-autocollants-art-vision.webp",
+      "alt": "Autocollants sol antiglisse personnalisés",
+      "tableCount": 0,
+      "rowCount": 0,
+      "startingPrice": {
+        "amount": null,
+        "unit": "sur devis",
+        "display": "Sur devis",
+        "isQuote": true
+      },
+      "h1": "Impression d'Autocollants pour Sol Antidérapants",
+      "intro": "Vinyle de sol avec lamination antidérapante certifiée R9/R10 pour guidage, signalétique et promotions en magasin."
     }
   ]
 }

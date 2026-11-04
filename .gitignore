@@ -57,3 +57,5 @@ temp_interactive_push.bat
 
 *.tar.gz
 scratch/
+
+*.zip

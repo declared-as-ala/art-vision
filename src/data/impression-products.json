@@ -1305,24 +1305,54 @@
   "autocollants-sol": {
     "title": "Autocollants sol",
     "source": "https://www.impressionflyers.com/marquage_autocollant_de_sol.cfm",
-    "scrapedAt": "2026-06-21T00:41:35.398Z",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
     "fileGuidelines": {
       "acceptedFormats": [
-        "PDF",
-        "JPG",
-        "TIF",
-        "EPS",
+        "PDF vectoriel",
         "AI",
-        "BMP"
+        "EPS",
+        "TIFF"
       ],
-      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
-      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
-      "technicalCheck": "Vérification technique gratuite du fichier.",
-      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
-      "shipping": "1 à 3 jours ouvrables.",
-      "express": "Production express possible avec supplément."
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
     },
-    "categories": []
+    "categories": [
+      {
+        "id": "autocollants-sol-configurations",
+        "title": "Modèles & Configurations disponibles pour Autocollants sol",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Adhésif de sol antidérapant R9 court terme (magasins & promotions)",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Adhésif de sol antidérapant R10 renforcé fort passage",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Marquage de sol sur-mesure découpé à la forme",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
   },
   "autocopiants": {
     "title": "Autocopiants",
@@ -1602,24 +1632,81 @@
   "baches": {
     "title": "Bâches",
     "source": "https://www.impressionflyers.com/impression_baches.cfm",
-    "scrapedAt": "2026-06-21T00:41:36.895Z",
+    "scrapedAt": "2026-11-04T22:19:45.291Z",
     "fileGuidelines": {
       "acceptedFormats": [
         "PDF",
-        "JPG",
-        "TIF",
-        "EPS",
-        "AI",
-        "BMP"
+        "TIFF",
+        "EPS"
       ],
-      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
-      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
-      "technicalCheck": "Vérification technique gratuite du fichier.",
-      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
-      "shipping": "1 à 3 jours ouvrables.",
-      "express": "Production express possible avec supplément."
+      "quality": "300 DPI (ou 150 DPI à l'échelle 1:1 pour très grands formats)",
+      "bleed": "20 mm de fond perdu tout autour",
+      "technicalCheck": "Contrôle PAO gratuit avant impression",
+      "production": "3 à 5 jours ouvrés",
+      "shipping": "24/48h avec suivi transporteur",
+      "express": "Option express disponible sur demande"
     },
-    "categories": []
+    "categories": [
+      {
+        "id": "baches-pvc-510g",
+        "title": "Bâche Frontlit PVC 510g M1 Anti-feu",
+        "name": "Bâche PVC 510g M1",
+        "quantities": [
+          "Tarif HT / m²"
+        ],
+        "rows": [
+          {
+            "format": "1 à 5 m²",
+            "dimension": "Surface cumulée",
+            "prices": {
+              "Tarif HT / m²": "18,30 à 22,50 €"
+            }
+          },
+          {
+            "format": "5 à 10 m²",
+            "dimension": "Surface cumulée",
+            "prices": {
+              "Tarif HT / m²": "15,00 à 18,30 €"
+            }
+          },
+          {
+            "format": "10 à 25 m²",
+            "dimension": "Surface cumulée",
+            "prices": {
+              "Tarif HT / m²": "12,90 à 15,00 €"
+            }
+          },
+          {
+            "format": "25 à 50 m²",
+            "dimension": "Surface cumulée",
+            "prices": {
+              "Tarif HT / m²": "11,60 à 12,90 €"
+            }
+          },
+          {
+            "format": "50 à 75 m²",
+            "dimension": "Surface cumulée",
+            "prices": {
+              "Tarif HT / m²": "10,30 à 11,50 €"
+            }
+          },
+          {
+            "format": "75 à 100 m²",
+            "dimension": "Surface cumulée",
+            "prices": {
+              "Tarif HT / m²": "9,20 à 10,30 €"
+            }
+          },
+          {
+            "format": "100 à 300 m²",
+            "dimension": "Surface cumulée",
+            "prices": {
+              "Tarif HT / m²": "8,50 à 9,20 €"
+            }
+          }
+        ]
+      }
+    ]
   },
   "badges": {
     "title": "Badges",
@@ -5681,24 +5768,61 @@
   "drapeaux": {
     "title": "Drapeaux",
     "source": "https://www.impressionflyers.com/impression_drapeaux.cfm",
-    "scrapedAt": "2026-06-21T00:41:46.400Z",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
     "fileGuidelines": {
       "acceptedFormats": [
-        "PDF",
-        "JPG",
-        "TIF",
-        "EPS",
+        "PDF vectoriel",
         "AI",
-        "BMP"
+        "EPS",
+        "TIFF"
       ],
-      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
-      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
-      "technicalCheck": "Vérification technique gratuite du fichier.",
-      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
-      "shipping": "1 à 3 jours ouvrables.",
-      "express": "Production express possible avec supplément."
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
     },
-    "categories": []
+    "categories": [
+      {
+        "id": "drapeaux-configurations",
+        "title": "Modèles & Configurations disponibles pour Drapeaux",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Drapeau mât maille polyester 115 g/m² coupe-vent",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Drapeau mât Long Life 120 g/m² haute durabilité",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Pavillon mât polyester 210 g/m² lourd",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Drapeau sur-mesure avec œillets, fourreaux et mousquetons",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
   },
   "enveloppes": {
     "title": "Enveloppes",
@@ -5829,24 +5953,61 @@
   "etiquettes": {
     "title": "Etiquettes",
     "source": "https://www.impressionflyers.com/autocollants_sur_mesure.cfm",
-    "scrapedAt": "2026-06-21T00:41:47.053Z",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
     "fileGuidelines": {
       "acceptedFormats": [
-        "PDF",
-        "JPG",
-        "TIF",
-        "EPS",
+        "PDF vectoriel",
         "AI",
-        "BMP"
+        "EPS",
+        "TIFF"
       ],
-      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
-      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
-      "technicalCheck": "Vérification technique gratuite du fichier.",
-      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
-      "shipping": "1 à 3 jours ouvrables.",
-      "express": "Production express possible avec supplément."
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
     },
-    "categories": []
+    "categories": [
+      {
+        "id": "etiquettes-configurations",
+        "title": "Modèles & Configurations disponibles pour Etiquettes",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Étiquettes adhésives en bobine papier couché brillant",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Étiquettes vinyle étanche résistant eau & graisses",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Étiquettes papier texturé vergé pour bouteilles de vin & spiritueux",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Étiquettes découpées à la forme avec dorure galbée ou vernis sélectif",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
   },
   "fardes-a-rabats": {
     "title": "Fardes à rabats",
@@ -7793,24 +7954,88 @@
   "panneaux": {
     "title": "Panneaux",
     "source": "https://www.impressionflyers.com/impression_panneaux.cfm",
-    "scrapedAt": "2026-06-21T00:41:51.442Z",
+    "scrapedAt": "2026-11-04T22:19:45.291Z",
     "fileGuidelines": {
       "acceptedFormats": [
         "PDF",
-        "JPG",
-        "TIF",
-        "EPS",
-        "AI",
-        "BMP"
+        "TIFF",
+        "EPS"
       ],
-      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
-      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
-      "technicalCheck": "Vérification technique gratuite du fichier.",
-      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
-      "shipping": "1 à 3 jours ouvrables.",
-      "express": "Production express possible avec supplément."
+      "quality": "300 DPI à taille réelle",
+      "bleed": "5 mm de fond perdu tout autour",
+      "technicalCheck": "Contrôle PAO gratuit avant découpe",
+      "production": "4 à 6 jours ouvrés",
+      "shipping": "Livraison sur palette protégée",
+      "express": "Option express disponible"
     },
-    "categories": []
+    "categories": [
+      {
+        "id": "panneaux-supports-rigides",
+        "title": "Supports Rigides Imprimés Directement en Quadrichromie UV",
+        "name": "Tarifs au m² par matière",
+        "quantities": [
+          "Tarif HT / m²"
+        ],
+        "rows": [
+          {
+            "format": "Alvéolaire Akylux 3 mm",
+            "dimension": "Léger & économique, intérieur/extérieur",
+            "prices": {
+              "Tarif HT / m²": "12,00 €"
+            }
+          },
+          {
+            "format": "Alvéolaire Akylux 5 mm",
+            "dimension": "Rigidité renforcée pour chantiers",
+            "prices": {
+              "Tarif HT / m²": "16,00 €"
+            }
+          },
+          {
+            "format": "Forex PVC expansé 3 mm",
+            "dimension": "Surface satinée et dense",
+            "prices": {
+              "Tarif HT / m²": "18,00 €"
+            }
+          },
+          {
+            "format": "Forex PVC expansé 5 mm",
+            "dimension": "Haute planéité pour salons et enseignes",
+            "prices": {
+              "Tarif HT / m²": "22,00 €"
+            }
+          },
+          {
+            "format": "Forex PVC expansé 10 mm",
+            "dimension": "Solidité maximale et découpe franche",
+            "prices": {
+              "Tarif HT / m²": "36,00 €"
+            }
+          },
+          {
+            "format": "Alu Dibond 3 mm",
+            "dimension": "Composite aluminium imputrescible longue durée",
+            "prices": {
+              "Tarif HT / m²": "40,00 €"
+            }
+          },
+          {
+            "format": "Plexiglas transparent 3 mm",
+            "dimension": "Aspect verre luxueux avec blanc de soutien",
+            "prices": {
+              "Tarif HT / m²": "55,00 €"
+            }
+          },
+          {
+            "format": "Plexiglas transparent 5 mm",
+            "dimension": "Épaisseur prestige pour plaques professionnelles",
+            "prices": {
+              "Tarif HT / m²": "65,00 €"
+            }
+          }
+        ]
+      }
+    ]
   },
   "panneaux-immo": {
     "title": "PANNEAUX IMMO",
@@ -9169,6 +9394,1446 @@
               "250 ex": "364 €",
               "500 ex": "542 €",
               "1000 ex": "902 €"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "pochettes-papiers-vehicule": {
+    "title": "Pochettes pour papiers de véhicule",
+    "source": "https://www.impressionflyers.com/impression_pochettes_papiers_vehicule.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.291Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS"
+      ],
+      "quality": "Vectoriel haute résolution",
+      "bleed": "3 mm de fond perdu",
+      "technicalCheck": "Contrôle PAO gratuit avant lancement",
+      "production": "7 à 10 jours ouvrés",
+      "shipping": "24/48h France et Europe",
+      "express": "Non disponible (fabrication artisanale)"
+    },
+    "categories": [
+      {
+        "id": "pochettes-standard",
+        "title": "Pochettes Véhicule - Standard 30/100e (0,30 mm)",
+        "name": "Standard 30/100e",
+        "quantities": [
+          "250 ex"
+        ],
+        "rows": [
+          {
+            "format": "1 couleur",
+            "dimension": "Format ouvert 26,5 x 13,5 cm",
+            "prices": {
+              "250 ex": "760,00 € (3,04 € / pc)"
+            }
+          },
+          {
+            "format": "2 couleurs",
+            "dimension": "Format ouvert 26,5 x 13,5 cm",
+            "prices": {
+              "250 ex": "924,00 € (3,70 € / pc)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "pochettes-gomme-longe",
+        "title": "Pochettes Véhicule - Gomme expansée 12/10e (1,20 mm Luxe)",
+        "name": "Gomme expansée 12/10e",
+        "quantities": [
+          "250 ex"
+        ],
+        "rows": [
+          {
+            "format": "1 couleur",
+            "dimension": "Toucher soft capitonné",
+            "prices": {
+              "250 ex": "827,00 € (3,31 € / pc)"
+            }
+          },
+          {
+            "format": "2 couleurs",
+            "dimension": "Toucher soft capitonné",
+            "prices": {
+              "250 ex": "998,00 € (3,99 € / pc)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ruban-adhesif": {
+    "title": "Ruban adhésif personnalisé",
+    "source": "https://www.impressionflyers.com/impression_ruban_adhesif.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.291Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS"
+      ],
+      "quality": "Vectoriel ou 300 DPI",
+      "bleed": "Répétition au pas selon cylindre",
+      "technicalCheck": "Bon à tirer numérique inclus",
+      "production": "8 à 12 jours ouvrés",
+      "shipping": "24/48h France et Europe",
+      "express": "Sur demande"
+    },
+    "categories": [
+      {
+        "id": "ruban-pp-hotmelt",
+        "title": "Ruban Adhésif Polypropylène Hot Melt (50 mm x 66 m)",
+        "name": "PP Hot Melt 50 mm",
+        "quantities": [
+          "36 rlx",
+          "76 rlx",
+          "100 rlx",
+          "360 rlx",
+          "540 rlx"
+        ],
+        "rows": [
+          {
+            "format": "1 couleur",
+            "dimension": "50 mm x 66 m",
+            "prices": {
+              "36 rlx": "249,00 € (6,92 € / rlx)",
+              "76 rlx": "371,00 € (4,88 € / rlx)",
+              "100 rlx": "423,00 € (4,23 € / rlx)",
+              "360 rlx": "1039,00 € (2,88 € / rlx)",
+              "540 rlx": "1338,00 € (2,48 € / rlx)"
+            }
+          },
+          {
+            "format": "2 couleurs",
+            "dimension": "50 mm x 66 m",
+            "prices": {
+              "36 rlx": "261,00 €",
+              "76 rlx": "395,00 €",
+              "100 rlx": "454,00 €",
+              "360 rlx": "1146,00 €",
+              "540 rlx": "1496,00 €"
+            }
+          },
+          {
+            "format": "3 couleurs",
+            "dimension": "50 mm x 66 m",
+            "prices": {
+              "36 rlx": "273,00 €",
+              "76 rlx": "419,00 €",
+              "100 rlx": "470,00 €",
+              "360 rlx": "1252,00 €",
+              "540 rlx": "1644,00 €"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "cadres-aluminium-textiles-tendus": {
+    "title": "Cadres aluminium et textiles tendus",
+    "source": "https://www.impressionflyers.com/impression_cadres_alu.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.291Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS",
+        "TIFF"
+      ],
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
+    },
+    "categories": [
+      {
+        "id": "cadres-aluminium-textiles-tendus-configurations",
+        "title": "Modèles & Configurations disponibles pour Cadres aluminium et textiles tendus",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Cadre en alu ZEN Basic 80 x 100 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Cadre en alu ZEN Basic 100 x 100 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Cadre en alu ZEN Basic 100 x 200 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Cadre en alu ZEN Basic 200 x 200 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Cadre textile rétroéclairé LED sur-mesure",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drapeaux-supporters": {
+    "title": "Drapeaux supporters personnalisés",
+    "source": "https://www.impressionflyers.com/impression_supporters.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS",
+        "TIFF"
+      ],
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
+    },
+    "categories": [
+      {
+        "id": "drapeaux-supporters-configurations",
+        "title": "Modèles & Configurations disponibles pour Drapeaux supporters personnalisés",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Drapeau supporter 30 × 20 cm avec tige PVC",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Drapeau supporter 45 × 30 cm avec hampe",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Drapeau supporter 60 × 40 cm tribune",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Drapeau supporter 150 × 100 cm grand format",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "films-magnetiques": {
+    "title": "Films magnétiques",
+    "source": "https://www.impressionflyers.com/impression_films_magnetiques.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS",
+        "TIFF"
+      ],
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
+    },
+    "categories": [
+      {
+        "id": "films-magnetiques-configurations",
+        "title": "Modèles & Configurations disponibles pour Films magnétiques",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Film magnétique 80 µ spécial véhicule",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Film magnétique 100 µ avec lamination anti-rayures UV",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Découpe droite ou à la forme sur-mesure dès 1 m²",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "plv-carton": {
+    "title": "PLV carton",
+    "source": "https://www.impressionflyers.com/impression_presentoirs_cartons.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS",
+        "TIFF"
+      ],
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
+    },
+    "categories": [
+      {
+        "id": "plv-carton-configurations",
+        "title": "Modèles & Configurations disponibles pour PLV carton",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Arche publicitaire carton taille S / M / XL",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Bac à fouille carton 32,4 x 21,8 x 69,8 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Silhouette carton découpée à taille réelle",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Présentoir de comptoir avec porte-flyers A5/A4",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "stands-parapluies-presentoirs": {
+    "title": "Stands parapluies et présentoirs",
+    "source": "https://www.impressionflyers.com/impression_stands_presentoirs.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS",
+        "TIFF"
+      ],
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
+    },
+    "categories": [
+      {
+        "id": "stands-parapluies-presentoirs-configurations",
+        "title": "Modèles & Configurations disponibles pour Stands parapluies et présentoirs",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Easy Light 300 × 200 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Easy Light Pop-up 100 × 200 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Europa Straight 250 × 230 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Europa Straight 400 × 230 cm",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Comptoir d'accueil pliable avec étagère",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "tentes-publicitaires": {
+    "title": "Tentes publicitaires personnalisées",
+    "source": "https://www.impressionflyers.com/impression_tentes_publicitaires.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS",
+        "TIFF"
+      ],
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
+    },
+    "categories": [
+      {
+        "id": "tentes-publicitaires-configurations",
+        "title": "Modèles & Configurations disponibles pour Tentes publicitaires personnalisées",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Tente 3 × 3 m sans parois (toit personnalisé)",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Tente 3 × 3 m avec 3 parois imprimées",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Tente 3 × 4,5 m avec parois",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Tente 3 × 6 m grand événement",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Poids de lestage 15 kg et sac de transport à roulettes",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "tifos-personnalises": {
+    "title": "Tifos personnalisés pour clubs et événements",
+    "source": "https://www.impressionflyers.com/impression_tifos.cfm",
+    "scrapedAt": "2026-11-04T22:19:45.292Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF vectoriel",
+        "AI",
+        "EPS",
+        "TIFF"
+      ],
+      "quality": "300 DPI ou vectoriel",
+      "bleed": "3 à 20 mm selon gabarit",
+      "technicalCheck": "Contrôle technique PAO et BAT virtuel inclus",
+      "production": "5 à 10 jours ouvrés selon volume",
+      "shipping": "Livraison express suivie en France et Europe",
+      "express": "Étudié au cas par cas lors du devis"
+    },
+    "categories": [
+      {
+        "id": "tifos-personnalises-configurations",
+        "title": "Modèles & Configurations disponibles pour Tifos personnalisés pour clubs et événements",
+        "name": "Sur devis personnalisé",
+        "quantities": [
+          "Tarif"
+        ],
+        "rows": [
+          {
+            "format": "Tifo Basic — Forme Maillot",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Tifo Basic — Forme Rectangle géant",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Tifo Basic — Forme Cercle",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          },
+          {
+            "format": "Tifo Premium tissu ignifugé M1 stade",
+            "dimension": "Sur-mesure selon cahier des charges",
+            "prices": {
+              "Tarif": "Sur devis"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "panneaux-immobiliers": {
+    "title": "PANNEAUX IMMO",
+    "source": "https://www.impressionflyers.com/impression_panneaux_immobiliers_v_a_vendre_a_louer.cfm",
+    "scrapedAt": "2026-06-21T00:41:51.793Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF",
+        "JPG",
+        "TIF",
+        "EPS",
+        "AI",
+        "BMP"
+      ],
+      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
+      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
+      "technicalCheck": "Vérification technique gratuite du fichier.",
+      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
+      "shipping": "1 à 3 jours ouvrables.",
+      "express": "Production express possible avec supplément."
+    },
+    "categories": [
+      {
+        "id": "polypropyl-ne-3-5-mm-recto",
+        "title": "Panneaux Immo - Polypropylène 3.5 mm - Recto",
+        "name": "Polypropylène 3.5 mm - Recto",
+        "quantities": [
+          "10 ex",
+          "25 ex",
+          "50 ex",
+          "100 ex"
+        ],
+        "rows": [
+          {
+            "format": "Panneau en V",
+            "dimension": "55x80 ferm² (+pattes) - 80x120 cm ouvert",
+            "prices": {
+              "10 ex": "285 €",
+              "25 ex": "395 €",
+              "50 ex": "540 €",
+              "100 ex": "931 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "polypropyl-ne-3-5mm-avec-double-face-recto",
+        "title": "Panneaux Immo - Polypropylène 3.5mm avec double face - Recto",
+        "name": "Polypropylène 3.5mm avec double face - Recto",
+        "quantities": [
+          "10 ex",
+          "25 ex",
+          "50 ex",
+          "100 ex"
+        ],
+        "rows": [
+          {
+            "format": "Panneau en V",
+            "dimension": "55x80 ferm² (+pattes) - 80x120 cm ouvert",
+            "prices": {
+              "10 ex": "289 €",
+              "25 ex": "419 €",
+              "50 ex": "585 €",
+              "100 ex": "1021 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "polypropyl-ne-4-mm-recto",
+        "title": "Panneaux Immo - Polypropylène 4 mm - Recto",
+        "name": "Polypropylène 4 mm - Recto",
+        "quantities": [
+          "10 ex",
+          "25 ex",
+          "50 ex",
+          "100 ex"
+        ],
+        "rows": [
+          {
+            "format": "Panneau en V",
+            "dimension": "35x60 ferm² (+2x 5 cm de pattes) - 80x60 ouvert",
+            "prices": {
+              "10 ex": "185 €",
+              "25 ex": "318 €",
+              "50 ex": "425 €",
+              "100 ex": "743 €"
+            }
+          },
+          {
+            "format": "Panneau en V",
+            "dimension": "45x70 cm ferm² (+2x 5 cm de pattes) - 70x100 ouvert",
+            "prices": {
+              "10 ex": "243 €",
+              "25 ex": "403 €",
+              "50 ex": "470 €",
+              "100 ex": "790 €"
+            }
+          },
+          {
+            "format": "Panneau en V",
+            "dimension": "65x100 cm ferm² (+2x 5 cm de pattes) - 100x140 ouvert",
+            "prices": {
+              "10 ex": "328 €",
+              "25 ex": "668 €",
+              "50 ex": "760 €",
+              "100 ex": "1332 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "polypropyl-ne-4-mm-avec-double-face-recto",
+        "title": "Panneaux Immo - Polypropylène 4 mm avec double face - Recto",
+        "name": "Polypropylène 4 mm avec double face - Recto",
+        "quantities": [
+          "10 ex",
+          "25 ex",
+          "50 ex",
+          "100 ex"
+        ],
+        "rows": [
+          {
+            "format": "Panneau en V",
+            "dimension": "35x60 ferm² (+2x 5 cm de pattes) - 80x60 ouvert",
+            "prices": {
+              "10 ex": "200 €",
+              "25 ex": "349 €",
+              "50 ex": "463 €",
+              "100 ex": "812 €"
+            }
+          },
+          {
+            "format": "Panneau en V",
+            "dimension": "45x70 cm ferm² (+2x 5 cm de pattes) - 70x100 ouvert",
+            "prices": {
+              "10 ex": "267 €",
+              "25 ex": "426 €",
+              "50 ex": "510 €",
+              "100 ex": "570 €"
+            }
+          },
+          {
+            "format": "Panneau en V",
+            "dimension": "65x100 cm ferm² (+2x 5 cm de pattes) - 100x140 ouvert",
+            "prices": {
+              "10 ex": "333 €",
+              "25 ex": "705 €",
+              "50 ex": "805 €",
+              "100 ex": "1411 €"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "papier-en-tete": {
+    "title": "Papier entête",
+    "source": "https://www.impressionflyers.com/impression_papier_entete.cfm",
+    "scrapedAt": "2026-06-21T00:41:52.560Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF",
+        "JPG",
+        "TIF",
+        "EPS",
+        "AI",
+        "BMP"
+      ],
+      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
+      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
+      "technicalCheck": "Vérification technique gratuite du fichier.",
+      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
+      "shipping": "1 à 3 jours ouvrables.",
+      "express": "Production express possible avec supplément."
+    },
+    "categories": [
+      {
+        "id": "80grs-m-recto",
+        "title": "Papier entête - 80grs / m² - Recto",
+        "name": "80grs / m² - Recto",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "60 €",
+              "1000 ex": "59 €",
+              "2000 ex": "73 €",
+              "5000 ex": "92 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "70 €",
+              "1000 ex": "70 €",
+              "2000 ex": "83 €",
+              "5000 ex": "113 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "75 €",
+              "1000 ex": "75 €",
+              "2000 ex": "97 €",
+              "5000 ex": "160 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "80grs-m-recto-verso",
+        "title": "Papier entête - 80grs / m² - Recto / Verso",
+        "name": "80grs / m² - Recto / Verso",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "67 €",
+              "1000 ex": "73 €",
+              "2000 ex": "78 €",
+              "5000 ex": "106 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "78 €",
+              "1000 ex": "85 €",
+              "2000 ex": "97 €",
+              "5000 ex": "134 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "99 €",
+              "1000 ex": "110 €",
+              "2000 ex": "128 €",
+              "5000 ex": "217 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "90grs-m-recto",
+        "title": "Papier entête - 90grs / m² - Recto",
+        "name": "90grs / m² - Recto",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "60 €",
+              "1000 ex": "62 €",
+              "2000 ex": "70 €",
+              "5000 ex": "97 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "70 €",
+              "1000 ex": "70 €",
+              "2000 ex": "88 €",
+              "5000 ex": "119 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "75 €",
+              "1000 ex": "82 €",
+              "2000 ex": "101 €",
+              "5000 ex": "163 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "90grs-m-recto-verso",
+        "title": "Papier entête - 90grs / m² - Recto / Verso",
+        "name": "90grs / m² - Recto / Verso",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "67 €",
+              "1000 ex": "70 €",
+              "2000 ex": "80 €",
+              "5000 ex": "110 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "78 €",
+              "1000 ex": "88 €",
+              "2000 ex": "99 €",
+              "5000 ex": "138 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "101 €",
+              "1000 ex": "105 €",
+              "2000 ex": "130 €",
+              "5000 ex": "220 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "120-grs-m-recto",
+        "title": "Papier entête - 120 grs/m² - Recto",
+        "name": "120 grs/m² - Recto",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "73 €",
+              "1000 ex": "78 €",
+              "2000 ex": "90 €",
+              "5000 ex": "132 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "88 €",
+              "1000 ex": "90 €",
+              "2000 ex": "107 €",
+              "5000 ex": "168 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "119 €",
+              "1000 ex": "142 €",
+              "2000 ex": "172 €",
+              "5000 ex": "294 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "120-grs-m-recto-verso",
+        "title": "Papier entête - 120 grs/m² - Recto / Verso",
+        "name": "120 grs/m² - Recto / Verso",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "85 €",
+              "1000 ex": "90 €",
+              "2000 ex": "106 €",
+              "5000 ex": "150 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "99 €",
+              "1000 ex": "105 €",
+              "2000 ex": "130 €",
+              "5000 ex": "198 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "154 €",
+              "1000 ex": "191 €",
+              "2000 ex": "239 €",
+              "5000 ex": "352 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "80grs-m-papier-recycl-recto",
+        "title": "Papier entête - 80grs / m² - Papier recyclé - Recto",
+        "name": "80grs / m² - Papier recyclé - Recto",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "75 €",
+              "1000 ex": "83 €",
+              "2000 ex": "94 €",
+              "5000 ex": "132 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "85 €",
+              "1000 ex": "94 €",
+              "2000 ex": "111 €",
+              "5000 ex": "168 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "87 €",
+              "1000 ex": "92 €",
+              "2000 ex": "111 €",
+              "5000 ex": "198 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "80grs-m-papier-recycl-recto-verso",
+        "title": "Papier entête - 80grs / m² - Papier recyclé - Recto / Verso",
+        "name": "80grs / m² - Papier recyclé - Recto / Verso",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2000 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "83 €",
+              "1000 ex": "92 €",
+              "2000 ex": "110 €",
+              "5000 ex": "154 €"
+            }
+          },
+          {
+            "format": "A5",
+            "dimension": "14,8 x 21 cm",
+            "prices": {
+              "500 ex": "101 €",
+              "1000 ex": "111 €",
+              "2000 ex": "136 €",
+              "5000 ex": "202 €"
+            }
+          },
+          {
+            "format": "A4",
+            "dimension": "21 x 29,7 cm",
+            "prices": {
+              "500 ex": "122 €",
+              "1000 ex": "140 €",
+              "2000 ex": "169 €",
+              "5000 ex": "284 €"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sous-bocks": {
+    "title": "Sous-boc",
+    "source": "https://www.impressionflyers.com/impression_sous_boc.cfm",
+    "scrapedAt": "2026-06-21T00:41:53.182Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF",
+        "JPG",
+        "TIF",
+        "EPS",
+        "AI",
+        "BMP"
+      ],
+      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
+      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
+      "technicalCheck": "Vérification technique gratuite du fichier.",
+      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
+      "shipping": "1 à 3 jours ouvrables.",
+      "express": "Production express possible avec supplément."
+    },
+    "categories": [
+      {
+        "id": "boc-carton-blanc-epaisseur-1-4-mm-recto",
+        "title": "Sous-boc - Carton blanc - Epaisseur : 1,4 mm - Recto",
+        "name": "boc - Carton blanc - Epaisseur : 1,4 mm - Recto",
+        "quantities": [
+          "100 ex",
+          "300 ex",
+          "500 ex",
+          "1000 ex"
+        ],
+        "rows": [
+          {
+            "format": "Rond",
+            "dimension": "10,3 cm de diam?tre",
+            "prices": {
+              "100 ex": "116 €",
+              "300 ex": "149 €",
+              "500 ex": "184 €",
+              "1000 ex": null
+            }
+          },
+          {
+            "format": "Carré",
+            "dimension": "9,3 x 9,3 cm",
+            "prices": {
+              "100 ex": "100 €",
+              "300 ex": "125 €",
+              "500 ex": "154 €",
+              "1000 ex": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "boc-carton-blanc-epaisseur-1-4-mm-recto-verso",
+        "title": "Sous-boc - Carton blanc - Epaisseur : 1,4 mm - Recto / Verso",
+        "name": "boc - Carton blanc - Epaisseur : 1,4 mm - Recto / Verso",
+        "quantities": [
+          "100 ex",
+          "300 ex",
+          "500 ex",
+          "1000 ex"
+        ],
+        "rows": [
+          {
+            "format": "Rond",
+            "dimension": "10,3 cm de diam?tre",
+            "prices": {
+              "100 ex": "119 €",
+              "300 ex": "152 €",
+              "500 ex": "185 €",
+              "1000 ex": null
+            }
+          },
+          {
+            "format": "Carré",
+            "dimension": "9,3 x 9,3 cm",
+            "prices": {
+              "100 ex": "104 €",
+              "300 ex": "130 €",
+              "500 ex": "156 €",
+              "1000 ex": null
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "tickets-entree": {
+    "title": "Tickets entrées",
+    "source": "https://www.impressionflyers.com/impression_tickets_entree_securise_numerotation_perfores.cfm",
+    "scrapedAt": "2026-06-21T00:41:54.676Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF",
+        "JPG",
+        "TIF",
+        "EPS",
+        "AI",
+        "BMP"
+      ],
+      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
+      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
+      "technicalCheck": "Vérification technique gratuite du fichier.",
+      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
+      "shipping": "1 à 3 jours ouvrables.",
+      "express": "Production express possible avec supplément."
+    },
+    "categories": [
+      {
+        "id": "300-gr-m-1-num-rotation-recto-verso",
+        "title": "Tickets Entrées - 300 gr / m² - 1 Numérotation - Recto / Verso",
+        "name": "300 gr / m² - 1 Numérotation - Recto / Verso",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2500 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "A7",
+            "dimension": "10,5 x 7,4 cm",
+            "prices": {
+              "500 ex": "116 €",
+              "1000 ex": "120 €",
+              "2500 ex": "154 €",
+              "5000 ex": "197 €"
+            }
+          },
+          {
+            "format": "A6",
+            "dimension": "10,5 x 14,8 cm",
+            "prices": {
+              "500 ex": "129 €",
+              "1000 ex": "163 €",
+              "2500 ex": "227 €",
+              "5000 ex": "307 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "300-gr-m-1-perforation-recto-verso",
+        "title": "Tickets Entrées - 300 gr / m² - 1 Perforation - Recto / Verso",
+        "name": "300 gr / m² - 1 Perforation - Recto / Verso",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2500 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "A7",
+            "dimension": "10,5 x 7,4 cm",
+            "prices": {
+              "500 ex": "219 €",
+              "1000 ex": "222 €",
+              "2500 ex": "262 €",
+              "5000 ex": "302 €"
+            }
+          },
+          {
+            "format": "A6",
+            "dimension": "10,5 x 14,8 cm",
+            "prices": {
+              "500 ex": "215 €",
+              "1000 ex": "255 €",
+              "2500 ex": "337 €",
+              "5000 ex": "398 €"
+            }
+          },
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "274 €",
+              "1000 ex": "305 €",
+              "2500 ex": "412 €",
+              "5000 ex": "550 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "300-gr-m-1-perforation-2-num-rotations-recto-verso",
+        "title": "Tickets Entrées - 300 gr / m² - 1 Perforation + 2 Numérotations - Recto / Verso",
+        "name": "300 gr / m² - 1 Perforation + 2 Numérotations - Recto / Verso",
+        "quantities": [
+          "500 ex",
+          "1000 ex",
+          "2500 ex",
+          "5000 ex"
+        ],
+        "rows": [
+          {
+            "format": "A7",
+            "dimension": "10,5 x 7,4 cm",
+            "prices": {
+              "500 ex": "247 €",
+              "1000 ex": "250 €",
+              "2500 ex": "310 €",
+              "5000 ex": "366 €"
+            }
+          },
+          {
+            "format": "A6",
+            "dimension": "10,5 x 14,8 cm",
+            "prices": {
+              "500 ex": "262 €",
+              "1000 ex": "274 €",
+              "2500 ex": "347 €",
+              "5000 ex": "431 €"
+            }
+          },
+          {
+            "format": "US",
+            "dimension": "10,5 x 21 cm",
+            "prices": {
+              "500 ex": "290 €",
+              "1000 ex": "347 €",
+              "2500 ex": "431 €",
+              "5000 ex": "604 €"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "objets-publicitaires": {
+    "title": "Objets pub.",
+    "source": "https://www.impressionflyers.com/objets_publicitaires_gourdes_porte-clefs.cfm",
+    "scrapedAt": "2026-06-21T00:41:51.285Z",
+    "fileGuidelines": {
+      "acceptedFormats": [
+        "PDF",
+        "JPG",
+        "TIF",
+        "EPS",
+        "AI",
+        "BMP"
+      ],
+      "quality": "300 DPI de préférence, couleurs CMJN recommandées.",
+      "bleed": "Bord perdu idéal de 2 mm et texte à au moins 3 mm de chaque bord.",
+      "technicalCheck": "Vérification technique gratuite du fichier.",
+      "production": "2 jours ouvrables, sauf vernis ou pelliculage + 2 jours ouvrables.",
+      "shipping": "1 à 3 jours ouvrables.",
+      "express": "Production express possible avec supplément."
+    },
+    "categories": [
+      {
+        "id": "cl-s-mo8664",
+        "title": "Porte-Clés - MO8664",
+        "name": "Clés - MO8664",
+        "quantities": [
+          "100 ex",
+          "250 ex",
+          "500 ex",
+          "1000 ex"
+        ],
+        "rows": [
+          {
+            "format": "Gravure laser",
+            "dimension": "",
+            "prices": {
+              "100 ex": "290 €",
+              "250 ex": "460 €",
+              "500 ex": "785 €",
+              "1000 ex": "1310 €"
+            }
+          },
+          {
+            "format": "Tampographie 1 coul./1 position",
+            "dimension": "",
+            "prices": {
+              "100 ex": "317 €",
+              "250 ex": "528 €",
+              "500 ex": "819 €",
+              "1000 ex": "1331 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mo9350",
+        "title": "Gourdes - MO9350",
+        "name": "MO9350",
+        "quantities": [
+          "100 ex",
+          "250 ex",
+          "500 ex",
+          "1000 ex"
+        ],
+        "rows": [
+          {
+            "format": "Roundscreen 1 coul./1 position",
+            "dimension": "",
+            "prices": {
+              "100 ex": "644 €",
+              "250 ex": "1314 €",
+              "500 ex": "2366 €",
+              "1000 ex": "4382 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mo9805",
+        "title": "Gourdes - MO9805",
+        "name": "MO9805",
+        "quantities": [
+          "100 ex",
+          "250 ex",
+          "500 ex",
+          "1000 ex"
+        ],
+        "rows": [
+          {
+            "format": "Roundscreen 1 coul./1 position",
+            "dimension": "",
+            "prices": {
+              "100 ex": "552 €",
+              "250 ex": "1096 €",
+              "500 ex": "1946 €",
+              "1000 ex": "3566 €"
+            }
+          }
+        ]
+      },
+      {
+        "id": "c-ramique-recto",
+        "title": "Objets pub. - Céramique - Recto",
+        "name": "Céramique - Recto",
+        "quantities": [
+          "10 ex",
+          "25 ex",
+          "50 ex",
+          "100 ex"
+        ],
+        "rows": [
+          {
+            "format": "Mug - Impression quadri",
+            "dimension": "Zone impression 19x8 cm - Diam?tre 8,2 x 9,9 cm",
+            "prices": {
+              "10 ex": "195 €",
+              "25 ex": "239 €",
+              "50 ex": "329 €",
+              "100 ex": "629 €"
             }
           }
         ]
