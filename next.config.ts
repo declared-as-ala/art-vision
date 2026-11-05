@@ -17,6 +17,57 @@ const nextConfig: NextConfig = {
       "./src/lib/certificates/fonts/**",
     ],
   },
+  async redirects() {
+    return [
+      // 301 Permanent Redirects for legacy /en/ and /ar/ paths reported by Google Search Console
+      {
+        source: "/en/impression-cartes-de-visite",
+        destination: "/impression/cartes-de-visite",
+        permanent: true,
+      },
+      {
+        source: "/en/impression-affiches",
+        destination: "/impression/affiches",
+        permanent: true,
+      },
+      {
+        source: "/ar/impression-affiches",
+        destination: "/impression/affiches",
+        permanent: true,
+      },
+      {
+        source: "/en/community-management",
+        destination: "/community-management",
+        permanent: true,
+      },
+      {
+        source: "/ar/design-graphique",
+        destination: "/identite-visuelle",
+        permanent: true,
+      },
+      {
+        source: "/en/agence-graphique-france",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/ar/agence-graphique-lyon",
+        destination: "/",
+        permanent: true,
+      },
+      // Generic fallback for any other legacy /en/* or /ar/* URLs
+      {
+        source: "/en/:path*",
+        destination: "/:path*",
+        permanent: true,
+      },
+      {
+        source: "/ar/:path*",
+        destination: "/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
