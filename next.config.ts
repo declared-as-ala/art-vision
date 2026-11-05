@@ -66,6 +66,42 @@ const nextConfig: NextConfig = {
         destination: "/:path*",
         permanent: true,
       },
+      // 301 Redirects for obsolete legacy URLs reported in GSC "Exclue par la balise noindex"
+      {
+        source: "/creation-design-graphique",
+        destination: "/design-graphique",
+        permanent: true,
+      },
+      {
+        source: "/impression-pro",
+        destination: "/impression",
+        permanent: true,
+      },
+      {
+        source: "/impression/affiche",
+        destination: "/impression/affiches",
+        permanent: true,
+      },
+      {
+        source: "/impression-lille",
+        destination: "/impression",
+        permanent: true,
+      },
+      {
+        source: "/impression-nantes",
+        destination: "/impression",
+        permanent: true,
+      },
+      {
+        source: "/conception-3d-design-produit",
+        destination: "/rendu-3d-produit",
+        permanent: true,
+      },
+      {
+        source: "/community-management-reseaux",
+        destination: "/community-management",
+        permanent: true,
+      },
     ];
   },
 };
