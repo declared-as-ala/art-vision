@@ -1,122 +1,182 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, Suspense } from "react";
+import React, { useState, useEffect, useCallback, useMemo, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { StudioDesign, StudioElement, StudioTemplate } from "@/components/studio/studioTypes";
 import {
-  StudioDesign,
-  StudioElement,
-  StudioTemplate,
-} from "@/components/studio/studioTypes";
-import {
-  DEFAULT_BUSINESS_CARD_DESIGN,
-  STUDIO_TEMPLATES,
-} from "@/components/studio/StudioTemplates";
+  createBlankDesign,
+  designHasContent,
+  getProduct,
+  previousDraftKey,
+  readDraft,
+  specFromParams,
+  specToQuery,
+  writeDraft,
+  type StudioSpec,
+} from "@/components/studio/studioProducts";
+import { findTemplate, getTemplatesFor } from "@/components/studio/StudioTemplateGenerators";
 import StudioCanvas from "@/components/studio/StudioCanvas";
 import StudioSidebar from "@/components/studio/StudioSidebar";
-import StudioToolbar from "@/components/studio/StudioToolbar";
+import StudioToolbar, { type SaveState } from "@/components/studio/StudioToolbar";
 import StudioPrintModal from "@/components/studio/StudioPrintModal";
 import StudioCardPreview from "@/components/studio/StudioCardPreview";
-import { X, Loader2 } from "lucide-react";
+import { X, Loader2, History } from "lucide-react";
 
-function StudioEditorContent() {
+/** Normalise a design so it always carries the metadata of the spec it belongs to. */
+function withSpec(design: StudioDesign, spec: StudioSpec): StudioDesign {
+  const product = getProduct(spec.productId)!;
+  return {
+    ...design,
+    productSlug: product.orderSlug,
+    productName: product.name,
+    formatName: `${spec.title} — ${spec.dimensionsLabel}`,
+    widthMm: spec.widthMm,
+    heightMm: spec.heightMm,
+    bleedMm: spec.bleedMm,
+    safeMarginMm: spec.safeMarginMm,
+    formatId: spec.formatId,
+    orientation: spec.orientation,
+    singleSided: !product.hasVerso,
+  };
+}
+
+interface Resolved {
+  key: string;
+  design: StudioDesign;
+  notice: "replaced" | null;
+}
+
+/** Decides which document to open (draft / template / blank) for the requested support. */
+function StudioEditorLoader() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const spec = useMemo(() => specFromParams(searchParams), [searchParams]);
+  const templateId = searchParams.get("template");
+  const blank = searchParams.get("blank") === "1";
+  const productParam = searchParams.get("product");
+  const [resolved, setResolved] = useState<Resolved | null>(null);
 
-  const productSlug = searchParams.get("product") || "cartes-de-visite";
-  const initialTemplateId = searchParams.get("template");
-
-  // Initial design resolution
-  const getInitialDesign = (): StudioDesign => {
-    if (initialTemplateId) {
-      const found = STUDIO_TEMPLATES.find((t) => t.id === initialTemplateId);
-      if (found) return JSON.parse(JSON.stringify(found.design));
+  const specKey = spec?.key ?? null;
+  useEffect(() => {
+    if (!spec) {
+      // Incomplete link (e.g. old /studio/editor?product=flyers): go choose the format
+      router.replace(getProduct(productParam) ? `/studio/nouveau?product=${productParam}` : "/studio");
+      return;
     }
-    return JSON.parse(JSON.stringify(DEFAULT_BUSINESS_CARD_DESIGN));
-  };
+    const existing = readDraft(spec);
 
-  const [design, setDesign] = useState<StudioDesign>(getInitialDesign);
+    let design: StudioDesign | null = null;
+    let notice: Resolved["notice"] = null;
+
+    if (templateId || blank) {
+      const template = templateId ? findTemplate(spec, templateId) : null;
+      if (templateId && !template) {
+        // Unknown / mismatching template for this format: never silently open the wrong document
+        router.replace(`/studio/nouveau?${specToQuery(spec)}`);
+        return;
+      }
+      design = withSpec(JSON.parse(JSON.stringify(template ? template.design : createBlankDesign(spec))), spec);
+      if (existing && designHasContent(existing)) {
+        // Keep a copy of the creation that is about to be replaced
+        try {
+          localStorage.setItem(previousDraftKey(spec), JSON.stringify({ design: existing, savedAt: Date.now() }));
+          notice = "replaced";
+        } catch {
+          /* storage full: nothing to keep */
+        }
+      }
+      writeDraft(spec, design);
+      // Clean the URL so a refresh restores the draft instead of re-applying the template
+      router.replace(`/studio/editor?${specToQuery(spec)}`);
+    } else if (existing) {
+      design = withSpec(existing, spec);
+    } else {
+      router.replace(`/studio/nouveau?${specToQuery(spec)}`);
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setResolved({ key: spec.key, design, notice });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [specKey, templateId, blank]);
+
+  if (!spec || !resolved || resolved.key !== spec.key) {
+    return (
+      <div className="h-dvh w-screen bg-[#070512] flex items-center justify-center text-white">
+        <Loader2 className="animate-spin text-av-orange mr-2" />
+        <span>Chargement du Studio de création...</span>
+      </div>
+    );
+  }
+  return <StudioEditor key={resolved.key} spec={spec} initialDesign={resolved.design} initialNotice={resolved.notice} />;
+}
+
+function StudioEditor({
+  spec,
+  initialDesign,
+  initialNotice,
+}: {
+  spec: StudioSpec;
+  initialDesign: StudioDesign;
+  initialNotice: "replaced" | null;
+}) {
+  const [design, setDesign] = useState<StudioDesign>(initialDesign);
   const [activeSide, setActiveSide] = useState<"recto" | "verso">("recto");
   const [selectedElementId, setSelectedElementId] = useState<string | null>(null);
   const [showGuides, setShowGuides] = useState(true);
   const [zoom, setZoom] = useState(1.0);
+  const [notice, setNotice] = useState<"replaced" | null>(initialNotice);
 
   // Undo / Redo history
-  const [history, setHistory] = useState<StudioDesign[]>([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [history, setHistory] = useState<StudioDesign[]>([initialDesign]);
+  const [historyIndex, setHistoryIndex] = useState(0);
 
-  // Auto-save flag
-  const [isSaved, setIsSaved] = useState(true);
+  // Real save state
+  const [saveState, setSaveState] = useState<SaveState>("saved");
+  const [savedAt, setSavedAt] = useState<number | null>(null);
 
   // Modals
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  const LOCAL_STORAGE_KEY = `art_vision_studio_draft_${productSlug}`;
-
-  // 1. Load draft from localStorage if present
+  // Virtual keyboard (phones): follow the visual viewport so the document stays visible
+  const [viewportHeight, setViewportHeight] = useState<number | null>(null);
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (saved && !initialTemplateId) {
-        const parsed = JSON.parse(saved);
-        if (parsed.recto && parsed.verso) {
-          setDesign(parsed);
-          setHistory([parsed]);
-          setHistoryIndex(0);
-          return;
-        }
-      }
-    } catch (e) {
-      console.warn("Could not load local draft:", e);
-    }
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const onResize = () => setViewportHeight(vv.height < window.innerHeight - 120 ? vv.height : null);
+    vv.addEventListener("resize", onResize);
+    return () => vv.removeEventListener("resize", onResize);
+  }, []);
 
-    const init = getInitialDesign();
-    setDesign(init);
-    setHistory([init]);
-    setHistoryIndex(0);
-  }, [productSlug, initialTemplateId]);
+  const templates = useMemo(() => getTemplatesFor(spec), [spec]);
+  const product = getProduct(spec.productId)!;
 
   const persistDraft = useCallback(
     (value: StudioDesign) => {
-      try {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(value));
-        setIsSaved(true);
-      } catch (e) {
-        console.warn("Storage save error:", e);
-      }
+      const ok = writeDraft(spec, value);
+      setSaveState(ok ? "saved" : "error");
+      if (ok) setSavedAt(Date.now());
     },
-    [LOCAL_STORAGE_KEY]
+    [spec]
   );
 
-  // 2. Save design to state with history snapshot
+  // Save design to state with a history snapshot
   const commitDesignChange = useCallback(
     (newDesign: StudioDesign) => {
       setDesign(newDesign);
-      setIsSaved(false);
-
-      // Save to localStorage
-      try {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newDesign));
-        setIsSaved(true);
-      } catch (e) {
-        console.warn("Storage save error:", e);
-      }
-
-      // Add to history stack
+      persistDraft(newDesign);
       setHistory((prev) => {
         const sliced = prev.slice(0, historyIndex + 1);
         return [...sliced, JSON.parse(JSON.stringify(newDesign))];
       });
       setHistoryIndex((prev) => prev + 1);
     },
-    [historyIndex, LOCAL_STORAGE_KEY]
+    [historyIndex, persistDraft]
   );
 
-  // Undo / Redo
   const handleUndo = () => {
     if (historyIndex > 0) {
-      const target = history[historyIndex - 1];
-      const restored = JSON.parse(JSON.stringify(target));
+      const restored = JSON.parse(JSON.stringify(history[historyIndex - 1]));
       setDesign(restored);
       persistDraft(restored);
       setHistoryIndex(historyIndex - 1);
@@ -126,8 +186,7 @@ function StudioEditorContent() {
 
   const handleRedo = () => {
     if (historyIndex < history.length - 1) {
-      const target = history[historyIndex + 1];
-      const restored = JSON.parse(JSON.stringify(target));
+      const restored = JSON.parse(JSON.stringify(history[historyIndex + 1]));
       setDesign(restored);
       persistDraft(restored);
       setHistoryIndex(historyIndex + 1);
@@ -135,19 +194,19 @@ function StudioEditorContent() {
     }
   };
 
+  const sideKey = activeSide === "recto" ? "recto" : "verso";
+
   // Element actions
   const handleAddElement = (element: StudioElement) => {
     const newDesign = JSON.parse(JSON.stringify(design));
-    const side = activeSide === "recto" ? newDesign.recto : newDesign.verso;
-    side.elements.push(element);
+    newDesign[sideKey].elements.push(element);
     commitDesignChange(newDesign);
     setSelectedElementId(element.id);
   };
 
   const handleUpdateElement = (id: string, updates: Partial<StudioElement>) => {
     const newDesign = JSON.parse(JSON.stringify(design));
-    const side = activeSide === "recto" ? newDesign.recto : newDesign.verso;
-    const target = side.elements.find((el: StudioElement) => el.id === id);
+    const target = newDesign[sideKey].elements.find((el: StudioElement) => el.id === id);
     if (target) {
       Object.assign(target, updates);
       commitDesignChange(newDesign);
@@ -156,74 +215,80 @@ function StudioEditorContent() {
 
   const handleDeleteElement = (id: string) => {
     const newDesign = JSON.parse(JSON.stringify(design));
-    const side = activeSide === "recto" ? newDesign.recto : newDesign.verso;
-    side.elements = side.elements.filter((el: StudioElement) => el.id !== id);
+    newDesign[sideKey].elements = newDesign[sideKey].elements.filter((el: StudioElement) => el.id !== id);
     commitDesignChange(newDesign);
     if (selectedElementId === id) setSelectedElementId(null);
   };
 
   const handleDuplicateElement = (id: string) => {
     const newDesign = JSON.parse(JSON.stringify(design));
-    const side = activeSide === "recto" ? newDesign.recto : newDesign.verso;
-    const target = side.elements.find((el: StudioElement) => el.id === id);
+    const target = newDesign[sideKey].elements.find((el: StudioElement) => el.id === id);
     if (target) {
+      const offset = Math.max(2, Math.min(design.widthMm, design.heightMm) * 0.04);
       const copy: StudioElement = {
         ...JSON.parse(JSON.stringify(target)),
         id: `el-${Date.now()}`,
-        x: target.x + 3,
-        y: target.y + 3,
+        x: target.x + offset,
+        y: target.y + offset,
       };
-      side.elements.push(copy);
+      newDesign[sideKey].elements.push(copy);
       commitDesignChange(newDesign);
       setSelectedElementId(copy.id);
     }
   };
 
-  const handleBringForward = (id: string) => {
+  const moveLayer = (id: string, delta: 1 | -1) => {
     const newDesign = JSON.parse(JSON.stringify(design));
-    const side = activeSide === "recto" ? newDesign.recto : newDesign.verso;
-    const idx = side.elements.findIndex((el: StudioElement) => el.id === id);
-    if (idx < side.elements.length - 1) {
-      const temp = side.elements[idx];
-      side.elements[idx] = side.elements[idx + 1];
-      side.elements[idx + 1] = temp;
-      commitDesignChange(newDesign);
-    }
-  };
-
-  const handleSendBackward = (id: string) => {
-    const newDesign = JSON.parse(JSON.stringify(design));
-    const side = activeSide === "recto" ? newDesign.recto : newDesign.verso;
-    const idx = side.elements.findIndex((el: StudioElement) => el.id === id);
-    if (idx > 0) {
-      const temp = side.elements[idx];
-      side.elements[idx] = side.elements[idx - 1];
-      side.elements[idx - 1] = temp;
-      commitDesignChange(newDesign);
-    }
+    const els: StudioElement[] = newDesign[sideKey].elements;
+    const idx = els.findIndex((el) => el.id === id);
+    const to = idx + delta;
+    if (idx < 0 || to < 0 || to >= els.length) return;
+    [els[idx], els[to]] = [els[to], els[idx]];
+    commitDesignChange(newDesign);
   };
 
   const handleUpdateBackgroundColor = (color: string) => {
     const newDesign = JSON.parse(JSON.stringify(design));
-    if (activeSide === "recto") newDesign.recto.backgroundColor = color;
-    else newDesign.verso.backgroundColor = color;
+    newDesign[sideKey].backgroundColor = color;
     commitDesignChange(newDesign);
   };
 
   const handleApplyTemplate = (template: StudioTemplate) => {
-    const cloned = JSON.parse(JSON.stringify(template.design));
+    const cloned = withSpec(JSON.parse(JSON.stringify(template.design)), spec);
     commitDesignChange(cloned);
     setSelectedElementId(null);
   };
 
-  // Keyboard shortcuts (Ctrl+Z, Ctrl+Y, Delete, arrows to nudge, Esc to deselect)
+  const handleCopyRectoToVerso = () => {
+    const newDesign = JSON.parse(JSON.stringify(design)) as StudioDesign;
+    newDesign.verso = JSON.parse(JSON.stringify(newDesign.recto));
+    newDesign.verso.elements = newDesign.verso.elements.map((el, i) => ({ ...el, id: `v${i}-${Date.now()}-${el.id}` }));
+    commitDesignChange(newDesign);
+    setActiveSide("verso");
+    setSelectedElementId(null);
+  };
+
+  const handleRestorePrevious = () => {
+    try {
+      const raw = localStorage.getItem(previousDraftKey(spec));
+      const prev = raw ? (JSON.parse(raw) as { design?: StudioDesign }).design : null;
+      if (prev) {
+        commitDesignChange(withSpec(prev, spec));
+        localStorage.removeItem(previousDraftKey(spec));
+        setSelectedElementId(null);
+      }
+    } catch {
+      /* ignore */
+    }
+    setNotice(null);
+  };
+
+  // Keyboard shortcuts — ignored while typing in a field or directly on the document
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const targetEl = e.target as HTMLElement;
       const tag = targetEl.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || targetEl.isContentEditable) {
-        return;
-      }
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || targetEl.isContentEditable) return;
       if (isPrintModalOpen || isPreviewOpen) return;
 
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z" && !e.shiftKey) {
@@ -243,8 +308,7 @@ function StudioEditorContent() {
       } else if (e.key === "Escape") {
         setSelectedElementId(null);
       } else if (selectedElementId && e.key.startsWith("Arrow")) {
-        const side = activeSide === "recto" ? design.recto : design.verso;
-        const target = side.elements.find((el) => el.id === selectedElementId);
+        const target = design[sideKey].elements.find((el) => el.id === selectedElementId);
         if (!target) return;
         e.preventDefault();
         const step = e.shiftKey ? 2 : 0.5;
@@ -261,11 +325,16 @@ function StudioEditorContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [historyIndex, history, selectedElementId, design, activeSide, isPrintModalOpen, isPreviewOpen]);
 
+  const keyboardOpen = viewportHeight !== null;
+
   return (
-    <div className="flex flex-col h-dvh w-screen overflow-hidden bg-[#070512]">
-      {/* 1. Header Toolbar */}
+    <div
+      className="flex flex-col h-dvh w-screen overflow-hidden bg-[#070512]"
+      style={keyboardOpen ? { height: viewportHeight ?? undefined } : undefined}
+    >
       <StudioToolbar
         design={design}
+        spec={spec}
         activeSide={activeSide}
         onSwitchSide={(side) => {
           setActiveSide(side);
@@ -275,24 +344,46 @@ function StudioEditorContent() {
         canRedo={historyIndex < history.length - 1}
         onUndo={handleUndo}
         onRedo={handleRedo}
-        isSaved={isSaved}
+        saveState={saveState}
+        savedAt={savedAt}
         onContinueToPrint={() => setIsPrintModalOpen(true)}
         onPreview={() => setIsPreviewOpen(true)}
+        onCopyRectoToVerso={handleCopyRectoToVerso}
+        hasVerso={product.hasVerso}
+        rectoHasContent={design.recto.elements.length > 0}
       />
 
-      {/* 2. Main Workspace: Sidebar (Left) + Interactive Canvas (Center) */}
+      {notice === "replaced" && (
+        <div role="status" className="shrink-0 flex flex-wrap items-center justify-between gap-2 bg-av-orange/15 border-b border-av-orange/30 px-4 py-2 text-xs text-white">
+          <span className="flex items-center gap-2">
+            <History size={14} className="text-av-orange shrink-0" />
+            Votre précédente création pour ce format a été conservée.
+          </span>
+          <span className="flex items-center gap-2">
+            <button onClick={handleRestorePrevious} className="font-bold text-av-orange hover:text-white transition cursor-pointer">
+              Restaurer la version précédente
+            </button>
+            <button onClick={() => setNotice(null)} className="p-1 text-white/60 hover:text-white cursor-pointer" aria-label="Fermer">
+              <X size={14} />
+            </button>
+          </span>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden relative">
         <StudioSidebar
           design={design}
           activeSide={activeSide}
           selectedElementId={selectedElementId}
+          templates={templates}
+          keyboardOpen={keyboardOpen}
           onSelectElement={setSelectedElementId}
           onAddElement={handleAddElement}
           onUpdateElement={handleUpdateElement}
           onDeleteElement={handleDeleteElement}
           onDuplicateElement={handleDuplicateElement}
-          onBringForward={handleBringForward}
-          onSendBackward={handleSendBackward}
+          onBringForward={(id) => moveLayer(id, 1)}
+          onSendBackward={(id) => moveLayer(id, -1)}
           onUpdateBackgroundColor={handleUpdateBackgroundColor}
           onApplyTemplate={handleApplyTemplate}
         />
@@ -305,8 +396,8 @@ function StudioEditorContent() {
           onUpdateElement={handleUpdateElement}
           onDeleteElement={handleDeleteElement}
           onDuplicateElement={handleDuplicateElement}
-          onBringForward={handleBringForward}
-          onSendBackward={handleSendBackward}
+          onBringForward={(id) => moveLayer(id, 1)}
+          onSendBackward={(id) => moveLayer(id, -1)}
           showGuides={showGuides}
           onToggleGuides={() => setShowGuides(!showGuides)}
           zoom={zoom}
@@ -314,66 +405,59 @@ function StudioEditorContent() {
         />
       </div>
 
-      {/* 3. Print Options & Order Modal */}
-      <StudioPrintModal
-        isOpen={isPrintModalOpen}
-        onClose={() => setIsPrintModalOpen(false)}
-        design={design}
-      />
+      <StudioPrintModal isOpen={isPrintModalOpen} onClose={() => setIsPrintModalOpen(false)} design={design} spec={spec} />
 
-      {/* 4. Full Preview Modal */}
+      {/* Clean preview: no guides, no selection */}
       {isPreviewOpen && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Aperçu recto / verso"
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
+          aria-label="Aperçu"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-black/80 backdrop-blur-md"
           onClick={() => setIsPreviewOpen(false)}
         >
           <div
-            className="studio-pop relative w-full max-w-4xl my-auto bg-[#0c081e] border border-white/10 rounded-3xl p-5 md:p-8 space-y-6 shadow-[0_40px_120px_-30px_rgba(108,43,217,0.6)]"
+            className="studio-pop relative flex max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-3rem)] w-full max-w-4xl flex-col bg-[#0c081e] border border-white/10 rounded-3xl shadow-[0_40px_120px_-30px_rgba(108,43,217,0.6)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setIsPreviewOpen(false)}
-              className="absolute top-4 right-4 p-2 rounded-full text-white/50 hover:text-white hover:bg-white/10 transition cursor-pointer"
-              aria-label="Fermer l'aperçu"
-            >
-              <X size={20} />
-            </button>
-
-            <div className="pr-10">
-              <h3 className="text-lg md:text-xl font-bold text-white">Aperçu recto / verso de vos cartes de visite</h3>
-              <p className="text-xs text-white/55 mt-1">
-                Format fini : {design.widthMm} × {design.heightMm} mm. Vérifiez l&apos;alignement et la lisibilité avant
-                impression.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 py-2">
-              {(
-                [
-                  ["Face Recto (A)", "text-av-orange", design.recto],
-                  ["Face Verso (B)", "text-av-magenta", design.verso],
-                ] as const
-              ).map(([title, color, side]) => (
-                <div key={title} className="space-y-3">
-                  <span className={`text-[11px] font-extrabold uppercase tracking-[0.14em] ${color}`}>{title}</span>
-                  <StudioCardPreview
-                    side={side}
-                    widthMm={design.widthMm}
-                    heightMm={design.heightMm}
-                    paper
-                    className="w-full"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-end gap-3 pt-2">
+            <div className="flex items-start justify-between gap-4 p-5 md:px-8 md:pt-6 shrink-0">
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-white">Aperçu · {spec.title}</h3>
+                <p className="text-xs text-white/55 mt-1">
+                  Format fini : {spec.dimensionsLabel}. Sans repères techniques, tel qu&apos;imprimé.
+                </p>
+              </div>
               <button
                 onClick={() => setIsPreviewOpen(false)}
-                className="px-5 py-2.5 rounded-full text-xs font-semibold text-white/70 hover:text-white hover:bg-white/10 transition cursor-pointer"
+                className="p-2 rounded-full text-white/50 hover:text-white hover:bg-white/10 transition cursor-pointer shrink-0"
+                aria-label="Fermer l'aperçu"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 md:px-8 pb-4">
+              <div className={`grid gap-6 md:gap-8 py-2 ${product.hasVerso ? "md:grid-cols-2" : "grid-cols-1"}`}>
+                {(
+                  [
+                    ["Recto", "text-av-orange", design.recto],
+                    ...(product.hasVerso ? [["Verso", "text-av-magenta", design.verso] as const] : []),
+                  ] as const
+                ).map(([title, color, side]) => (
+                  <div key={title} className="space-y-3 flex flex-col items-center">
+                    <span className={`text-[11px] font-extrabold uppercase tracking-[0.14em] ${color}`}>{title}</span>
+                    <div className={design.heightMm > design.widthMm ? "w-[min(100%,320px)]" : "w-full"}>
+                      <StudioCardPreview side={side} widthMm={design.widthMm} heightMm={design.heightMm} paper className="w-full" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap justify-end gap-3 p-4 md:px-8 border-t border-white/10 shrink-0">
+              <button
+                onClick={() => setIsPreviewOpen(false)}
+                className="px-5 h-11 rounded-full text-xs font-semibold text-white/70 hover:text-white hover:bg-white/10 transition cursor-pointer"
               >
                 Continuer l&apos;édition
               </button>
@@ -382,7 +466,7 @@ function StudioEditorContent() {
                   setIsPreviewOpen(false);
                   setIsPrintModalOpen(true);
                 }}
-                className="bg-gradient-to-r from-av-orange to-av-magenta hover:brightness-110 text-white px-6 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition active:scale-95 shadow-lg shadow-av-orange/25 cursor-pointer"
+                className="h-11 px-6 rounded-full bg-gradient-to-r from-av-orange to-av-magenta hover:brightness-110 text-white text-xs font-extrabold uppercase tracking-wider transition active:scale-95 shadow-lg shadow-av-orange/25 cursor-pointer"
               >
                 Passer à l&apos;impression →
               </button>
@@ -399,13 +483,12 @@ export default function StudioEditorPage() {
     <Suspense
       fallback={
         <div className="h-dvh w-screen bg-[#070512] flex items-center justify-center text-white">
-          <Loader2 className="animate-spin text-brand-orange mr-2" />
+          <Loader2 className="animate-spin text-av-orange mr-2" />
           <span>Chargement du Studio de création...</span>
         </div>
       }
     >
-      <StudioEditorContent />
+      <StudioEditorLoader />
     </Suspense>
   );
 }
-

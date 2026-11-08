@@ -158,63 +158,35 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* 1.2 NEW STUDIO PROMOTIONAL BANNER */}
-          <div className="mt-16 w-full">
-            <Link href="/studio" className="block w-full group">
-              <div className="relative overflow-hidden rounded-3xl p-8 md:p-12 border border-[#D72888]/40 shadow-[0_0_40px_rgba(215,40,136,0.3)] bg-gradient-to-br from-[#1c0836] via-[#0e041e] to-[#070112] hover:border-brand-orange/60 transition-all duration-300 hover:scale-[1.01]">
-                {/* Background lighting */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(108,43,217,0.4)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(255,106,0,0.25)_0%,transparent_50%)] pointer-events-none" />
+          {/* 1.2 STUDIO BANNER (compact) */}
+          <div className="mt-10 w-full">
+            <Link href="/studio" className="block w-full group" aria-label="Créer mon visuel : choisir un support">
+              <div className="relative overflow-hidden rounded-2xl border border-[#D72888]/40 bg-gradient-to-r from-[#1c0836] via-[#0e041e] to-[#150a2e] px-5 py-5 sm:px-8 sm:py-6 md:min-h-[176px] md:max-h-[220px] flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8 shadow-[0_0_30px_rgba(215,40,136,0.2)] hover:border-brand-orange/60 transition-colors duration-300">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_40%,rgba(108,43,217,0.35)_0%,transparent_50%),radial-gradient(circle_at_90%_60%,rgba(255,106,0,0.2)_0%,transparent_45%)] pointer-events-none" />
 
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left">
-                  {/* Text Column */}
-                  <div className="lg:col-span-7 space-y-4 text-center lg:text-left">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/15 border border-brand-orange/30 text-brand-orange text-xs font-bold uppercase tracking-wider">
-                      <Sparkles size={14} className="text-brand-orange" />
-                      <span>Studio Graphique & Impression en ligne</span>
-                    </div>
-
-                    <h2 className="text-2xl sm:text-4xl lg:text-5xl font-montserrat font-extrabold text-white tracking-tight leading-tight">
-                      Créez votre visuel, on s’occupe de l’impression.
-                    </h2>
-
-                    <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed max-w-xl">
-                      Personnalisez un modèle ou laissez parler votre créativité. Ajoutez vos textes, votre logo et vos images, puis commandez votre support imprimé chez Art Vision.
-                    </p>
-
-                    <div className="pt-2 flex flex-col sm:flex-row items-center sm:items-start gap-3">
-                      <div>
-                        <span className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF6A00] to-[#D72888] hover:from-[#e55f00] hover:to-[#c22077] text-white px-8 py-3.5 rounded-full text-xs font-extrabold uppercase tracking-widest transition shadow-lg shadow-brand-orange/30 group-hover:scale-105">
-                          <span>Créer mon visuel</span>
-                          <ChevronRight size={14} />
-                        </span>
-                        <span className="text-[11px] text-white/60 block mt-2 font-medium text-center sm:text-left">
-                          Création en ligne incluse avec votre commande d’impression.
-                        </span>
-                      </div>
-                    </div>
+                <div className="relative z-10 text-center md:text-left space-y-3">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-montserrat font-extrabold text-white tracking-tight leading-tight">
+                    Créez votre visuel. Nous l&apos;imprimons.
+                  </h2>
+                  <div className="flex flex-col sm:flex-row items-center md:items-center gap-x-4 gap-y-2 justify-center md:justify-start">
+                    <span className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-gradient-to-r from-[#FF6A00] to-[#D72888] text-white text-xs font-extrabold uppercase tracking-widest shadow-lg shadow-brand-orange/25 group-hover:brightness-110 transition">
+                      Créer mon visuel
+                    </span>
+                    <span className="text-[11px] text-white/60 font-medium">
+                      Création incluse avec votre impression.
+                    </span>
                   </div>
+                </div>
 
-                  {/* Visual Mockup Column */}
-                  <div className="lg:col-span-5 flex items-center justify-center">
-                    <div className="relative w-full max-w-sm aspect-[85/55] rounded-2xl p-4 bg-[#140e2b]/90 border border-brand-purple/40 shadow-2xl flex flex-col justify-between transform group-hover:rotate-1 group-hover:scale-105 transition-all duration-500 overflow-hidden">
-                      <div className="flex justify-between items-start">
-                        <div className="space-y-1">
-                          <div className="h-3 w-28 bg-gradient-to-r from-brand-orange to-brand-magenta rounded" />
-                          <div className="h-2 w-36 bg-white/30 rounded" />
-                        </div>
-                        <span className="text-[10px] font-bold text-white/50 bg-white/10 px-2 py-0.5 rounded">
-                          85 × 55 mm
-                        </span>
-                      </div>
-                      <div className="space-y-1.5 pt-4">
-                        <div className="h-1.5 w-44 bg-white/20 rounded" />
-                        <div className="h-1.5 w-32 bg-white/20 rounded" />
-                      </div>
-                      <div className="flex justify-between items-center pt-2 border-t border-white/10 text-[10px]">
-                        <span className="text-emerald-400 font-semibold">✓ Normes PAO certifiées</span>
-                        <span className="text-brand-orange font-bold uppercase">Recto / Verso</span>
-                      </div>
+                {/* Small illustration */}
+                <div className="relative z-10 hidden sm:block shrink-0 w-40 md:w-44" aria-hidden>
+                  <div className="absolute inset-0 translate-x-3 -translate-y-2 rotate-6 rounded-lg bg-gradient-to-br from-[#6C2BD9] to-[#D72888] opacity-70" />
+                  <div className="relative aspect-[85/55] rounded-lg bg-[#140e2b] border border-white/15 p-3 flex flex-col justify-between shadow-xl group-hover:-rotate-2 transition-transform duration-500">
+                    <div className="space-y-1">
+                      <div className="h-2 w-20 rounded bg-gradient-to-r from-[#FF6A00] to-[#D72888]" />
+                      <div className="h-1.5 w-14 rounded bg-white/30" />
                     </div>
+                    <div className="h-1 w-24 rounded bg-white/20" />
                   </div>
                 </div>
               </div>

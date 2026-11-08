@@ -8,7 +8,12 @@ import { formatEuros } from "@/lib/money";
 const orderSchema = z.object({
   productSlug: z.string().min(1).max(120),
   productName: z.string().max(160),
-  format: z.string().max(80),
+  format: z.string().max(120),
+  formatId: z.string().max(40).optional(),
+  orientation: z.enum(["portrait", "landscape"]).optional(),
+  orderMode: z.enum(["instant", "quote"]).optional().default("instant"),
+  deliveryNote: z.string().max(600).optional(),
+  exportInfo: z.string().max(200).optional(),
   sides: z.enum(["recto", "recto-verso"]),
   paperId: z.string().max(120),
   paperTitle: z.string().max(160),
@@ -32,6 +37,15 @@ const orderSchema = z.object({
       city: z.string().min(2).max(100),
       country: z.string().default("France"),
     }),
+    billingAddress: z
+      .object({
+        name: z.string().max(160).optional(),
+        street: z.string().min(3).max(200),
+        zipCode: z.string().min(2).max(20),
+        city: z.string().min(2).max(100),
+        country: z.string().max(80).default("France"),
+      })
+      .optional(),
     notes: z.string().max(2000).optional(),
   }),
 });
@@ -64,10 +78,50 @@ export async function POST(req: Request) {
       console.warn("Price discrepancy detected, clamping to server-calculated TTC:", computedTtc, d.priceTtcCents);
     }
 
+    // Keep the print-ready PDF: Vercel Blob when configured, otherwise DB-backed media
+    let pdfUrl: string | null = null;
+    if (d.pdfBase64) {
+      try {
+        const base64 = d.pdfBase64.replace(/^data:application\/pdf;base64,/, "");
+        const buffer = Buffer.from(base64, "base64");
+        const safeName = `studio-${d.productSlug}-${Date.now()}.pdf`;
+        if (process.env.BLOB_READ_WRITE_TOKEN) {
+          const { put } = await import("@vercel/blob");
+          const blob = await put(`studio-orders/${safeName}`, buffer, { access: "public", contentType: "application/pdf" });
+          pdfUrl = blob.url;
+        } else {
+          const media = await prisma.media.create({
+            data: {
+              url: "",
+              data: buffer,
+              fileName: safeName,
+              fileType: "FILE",
+              mimeType: "application/pdf",
+              size: buffer.length,
+              width: 0,
+              height: 0,
+              altText: "Fichier commande Studio",
+            },
+          });
+          pdfUrl = `/api/media/${media.id}/${safeName}`;
+          await prisma.media.update({ where: { id: media.id }, data: { url: pdfUrl } });
+        }
+      } catch (pdfErr) {
+        console.error("Studio PDF storage failed:", pdfErr);
+      }
+    }
+
     // Construct detailed options payload
     const optionsPayload = {
       orderSource: "STUDIO_ONLINE",
       format: d.format,
+      formatId: d.formatId || null,
+      orientation: d.orientation || null,
+      orderMode: d.orderMode,
+      deliveryNote: d.deliveryNote || null,
+      exportInfo: d.exportInfo || null,
+      pdfUrl,
+      billingAddress: d.client.billingAddress || null,
       sides: d.sides,
       paperId: d.paperId,
       paperTitle: d.paperTitle,
@@ -77,7 +131,7 @@ export async function POST(req: Request) {
       notes: d.client.notes || null,
       batStatus: "BAT_PENDING",
       previewRecto: d.previewRecto ? d.previewRecto.slice(0, 500) + "..." : null, // preview indicator
-      hasPdf: Boolean(d.pdfBase64),
+      hasPdf: Boolean(pdfUrl),
       designSummary: {
         product: d.productName,
         sides: d.sides,
@@ -88,13 +142,13 @@ export async function POST(req: Request) {
     const order = await prisma.printQuoteRequest.create({
       data: {
         productSlug: d.productSlug,
-        productName: `${d.productName} (Création Studio)`,
+        productName: `${d.productName} (${d.orderMode === "quote" ? "Devis Studio" : "Création Studio"})`,
         options: JSON.stringify(optionsPayload),
         estimatedTtcCents: d.priceTtcCents,
         name: d.client.name,
         email: d.client.email.toLowerCase(),
         phone: d.client.phone,
-        message: `Commande Studio - ${d.productName}\nOptions: ${d.paperTitle} - ${d.quantity} - ${d.sides}\nLivraison: ${d.client.shippingAddress.street}, ${d.client.shippingAddress.zipCode} ${d.client.shippingAddress.city}\nNotes client: ${d.client.notes || "Aucune"}`,
+        message: `Commande Studio - ${d.productName}\nOptions: ${d.paperTitle} - ${d.quantity} - ${d.sides}\nFormat: ${d.format}\nLivraison: ${d.client.shippingAddress.street}, ${d.client.shippingAddress.zipCode} ${d.client.shippingAddress.city}, ${d.client.shippingAddress.country}${d.client.billingAddress ? `\nFacturation: ${d.client.billingAddress.name || ""} ${d.client.billingAddress.street}, ${d.client.billingAddress.zipCode} ${d.client.billingAddress.city}, ${d.client.billingAddress.country}` : ""}\nFichier: ${pdfUrl || "non enregistré"} (${d.exportInfo || "n/a"})\nNotes client: ${d.client.notes || "Aucune"}`,
         status: "NEW",
       },
     });
@@ -118,7 +172,13 @@ export async function POST(req: Request) {
             "Quantité": d.quantity,
             "Total TTC": formatEuros(d.priceTtcCents),
             "Entreprise": d.client.company || "Particulier / Non renseigné",
-            "Adresse de livraison": `${d.client.shippingAddress.street}, ${d.client.shippingAddress.zipCode} ${d.client.shippingAddress.city}`,
+            "Adresse de livraison": `${d.client.shippingAddress.street}, ${d.client.shippingAddress.zipCode} ${d.client.shippingAddress.city}, ${d.client.shippingAddress.country}`,
+            "Adresse de facturation": d.client.billingAddress
+              ? `${d.client.billingAddress.name || ""} ${d.client.billingAddress.street}, ${d.client.billingAddress.zipCode} ${d.client.billingAddress.city}, ${d.client.billingAddress.country}`
+              : "Identique à la livraison",
+            "Mode": d.orderMode === "quote" ? "Demande de devis (estimation)" : "Commande au tarif catalogue",
+            "Fichier PDF": pdfUrl ? (pdfUrl.startsWith("http") ? pdfUrl : `${process.env.SITE_URL || "https://art-visions.fr"}${pdfUrl}`) : "non enregistré",
+            "Export": d.exportInfo || "n/a",
           },
         },
         metadata: {

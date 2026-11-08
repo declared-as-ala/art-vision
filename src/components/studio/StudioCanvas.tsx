@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Eye, EyeOff, Magnet, Maximize2, ZoomIn, ZoomOut } from "lucide-react";
 import { StudioDesign, StudioElement, StudioSide } from "./studioTypes";
 import { MM_TO_PX } from "./studioUtils";
@@ -94,6 +94,147 @@ function resizeRect(o: Rect, handle: Handle, dx: number, dy: number, lockRatio: 
 const PAPER_GRAIN =
   "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")";
 
+function subscribeMobile(cb: () => void) {
+  const mq = window.matchMedia("(max-width: 767px)");
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+function useIsMobile() {
+  return useSyncExternalStore(
+    subscribeMobile,
+    () => window.matchMedia("(max-width: 767px)").matches,
+    () => false
+  );
+}
+
+type CaretDoc = Document & {
+  caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node; offset: number } | null;
+  caretRangeFromPoint?: (x: number, y: number) => Range | null;
+};
+
+/**
+ * In-place text editor. The content is injected once (uncontrolled) so React re-renders
+ * never move the caret; changes are pushed up (debounced) and flushed on blur.
+ */
+function EditableText({
+  initial,
+  caret,
+  style,
+  onCommit,
+  onDone,
+}: {
+  initial: string;
+  caret: { x: number; y: number } | null;
+  style: React.CSSProperties;
+  onCommit: (value: string) => void;
+  onDone: () => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const last = useRef(initial);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const read = () => (ref.current?.innerText ?? "").replace(/\n$/, "");
+  const flush = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+    const value = read();
+    if (value !== last.current) {
+      last.current = value;
+      onCommit(value);
+    }
+  };
+
+  useLayoutEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    node.textContent = initial;
+    node.focus({ preventScroll: false });
+    const range = document.createRange();
+    let placed = false;
+    if (caret) {
+      try {
+        const doc = document as CaretDoc;
+        if (doc.caretPositionFromPoint) {
+          const pos = doc.caretPositionFromPoint(caret.x, caret.y);
+          if (pos && node.contains(pos.offsetNode)) {
+            range.setStart(pos.offsetNode, pos.offset);
+            placed = true;
+          }
+        } else if (doc.caretRangeFromPoint) {
+          const r = doc.caretRangeFromPoint(caret.x, caret.y);
+          if (r && node.contains(r.startContainer)) {
+            range.setStart(r.startContainer, r.startOffset);
+            placed = true;
+          }
+        }
+      } catch {
+        /* fall back to end of text */
+      }
+    }
+    if (!placed) {
+      range.selectNodeContents(node);
+      range.collapse(false);
+    } else {
+      range.collapse(true);
+    }
+    const sel = window.getSelection();
+    sel?.removeAllRanges();
+    sel?.addRange(range);
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+    // content is injected once on purpose
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      contentEditable="plaintext-only"
+      suppressContentEditableWarning
+      spellCheck={false}
+      role="textbox"
+      aria-label="Modifier le texte"
+      aria-multiline="true"
+      onPointerDown={(e) => e.stopPropagation()}
+      onDoubleClick={(e) => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
+      onInput={() => {
+        if (timer.current) clearTimeout(timer.current);
+        timer.current = setTimeout(flush, 450);
+      }}
+      onBlur={() => {
+        flush();
+        onDone();
+      }}
+      onKeyDown={(e) => {
+        e.stopPropagation();
+        if (e.key === "Escape") {
+          e.preventDefault();
+          ref.current?.blur();
+        }
+      }}
+      className="w-full h-full whitespace-pre-wrap leading-tight overflow-visible flex items-start select-text cursor-text outline-none"
+      style={{ ...style, userSelect: "text", WebkitUserSelect: "text" }}
+    />
+  );
+}
+
+function textStyleOf(el: StudioElement): React.CSSProperties {
+  return {
+    fontFamily: el.fontFamily ? `"${el.fontFamily}", sans-serif` : "Montserrat, sans-serif",
+    fontSize: `${(el.fontSize || 12) * (MM_TO_PX / 3.78)}px`,
+    fontWeight: el.fontWeight || "normal",
+    fontStyle: el.fontStyle || "normal",
+    color: el.color || "#000000",
+    textAlign: el.textAlign || "left",
+    letterSpacing: el.letterSpacing ? `${el.letterSpacing * 0.5}px` : undefined,
+    lineHeight: el.lineHeight || 1.3,
+    justifyContent:
+      el.textAlign === "center" ? "center" : el.textAlign === "right" ? "flex-end" : "flex-start",
+  };
+}
+
 export default function StudioCanvas({
   design,
   activeSide,
@@ -125,21 +266,23 @@ export default function StudioCanvas({
   const stageH = cardHeightPx + bleedPx * 2 + STAGE_TOP + STAGE_BOTTOM;
 
   // Auto-fit: keeps the whole card visible on phones, enlarges it on big screens
+  const isMobile = useIsMobile();
   const [fit, setFit] = useState(1);
+  const mobileBarReserve = isMobile && selectedElementId ? 112 : 0;
   useLayoutEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const compute = () => {
       const availW = el.clientWidth - 16;
-      const availH = el.clientHeight - 56; // zoom bar
+      const availH = el.clientHeight - 56 - mobileBarReserve; // zoom bar + mobile format bar
       if (availW <= 0 || availH <= 0) return;
-      setFit(Math.max(0.45, Math.min(1.75, availW / stageW, availH / stageH)));
+      setFit(Math.max(0.002, Math.min(1.75, availW / stageW, availH / stageH)));
     };
     compute();
     const ro = new ResizeObserver(compute);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [stageW, stageH]);
+  }, [stageW, stageH, mobileBarReserve]);
 
   const eff = zoom * fit;
 
@@ -149,6 +292,8 @@ export default function StudioCanvas({
   const [activeMode, setActiveMode] = useState<"drag" | Handle | null>(null);
   const [snapEnabled, setSnapEnabled] = useState(true);
   const suppressClick = useRef(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editCaret, setEditCaret] = useState<{ x: number; y: number } | null>(null);
 
   const latest = useRef({ eff, design, elements: currentSide.elements, snapEnabled, onUpdateElement });
   useLayoutEffect(() => {
@@ -435,9 +580,19 @@ export default function StudioCanvas({
                     <div
                       key={el.id}
                       data-element-id={el.id}
-                      onPointerDown={(e) => beginInteraction(e, el, "drag")}
+                      onPointerDown={(e) => {
+                        if (editingId === el.id) return;
+                        beginInteraction(e, el, "drag");
+                      }}
+                      onDoubleClick={(e) => {
+                        if (el.type !== "text") return;
+                        e.stopPropagation();
+                        onSelectElement(el.id);
+                        setEditCaret({ x: e.clientX, y: e.clientY });
+                        setEditingId(el.id);
+                      }}
                       className={`absolute touch-none select-none ${
-                        activeMode === "drag" && isSelected ? "cursor-grabbing" : "cursor-move"
+                        editingId === el.id ? "cursor-text" : activeMode === "drag" && isSelected ? "cursor-grabbing" : "cursor-move"
                       } ${isSelected ? "" : "hover:outline hover:outline-1 hover:outline-av-magenta/70"}`}
                       style={{
                         left: r.x * MM_TO_PX,
@@ -483,29 +638,23 @@ export default function StudioCanvas({
                         />
                       )}
 
-                      {el.type === "text" && (
-                        <div
-                          className="w-full h-full pointer-events-none whitespace-pre-wrap leading-tight overflow-visible flex items-start"
-                          style={{
-                            fontFamily: el.fontFamily || "Montserrat, sans-serif",
-                            fontSize: `${(el.fontSize || 12) * (MM_TO_PX / 3.78)}px`,
-                            fontWeight: el.fontWeight || "normal",
-                            fontStyle: el.fontStyle || "normal",
-                            color: el.color || "#000000",
-                            textAlign: el.textAlign || "left",
-                            letterSpacing: el.letterSpacing ? `${el.letterSpacing * 0.5}px` : undefined,
-                            lineHeight: el.lineHeight || 1.3,
-                            justifyContent:
-                              el.textAlign === "center"
-                                ? "center"
-                                : el.textAlign === "right"
-                                ? "flex-end"
-                                : "flex-start",
-                          }}
-                        >
-                          {el.text}
-                        </div>
-                      )}
+                      {el.type === "text" &&
+                        (editingId === el.id && isSelected ? (
+                          <EditableText
+                            initial={el.text || ""}
+                            caret={editCaret}
+                            style={textStyleOf(el)}
+                            onCommit={(value) => onUpdateElement(el.id, { text: value })}
+                            onDone={() => setEditingId(null)}
+                          />
+                        ) : (
+                          <div
+                            className="w-full h-full pointer-events-none whitespace-pre-wrap leading-tight overflow-visible flex items-start"
+                            style={textStyleOf(el)}
+                          >
+                            {el.text}
+                          </div>
+                        ))}
 
                       {el.type === "image" && (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -627,8 +776,8 @@ export default function StudioCanvas({
                       </div>
                     )}
 
-                    {/* Floating inspector */}
-                    {!live && inspectorStyle && (
+                    {/* Floating inspector (desktop) */}
+                    {!isMobile && !live && !editingId && inspectorStyle && (
                       <div data-keep-selection className="absolute pointer-events-auto" style={inspectorStyle}>
                         <StudioFloatingInspector
                           element={selectedElement}
@@ -637,6 +786,10 @@ export default function StudioCanvas({
                           onDuplicate={() => onDuplicateElement?.(selectedElement.id)}
                           onBringForward={() => onBringForward?.(selectedElement.id)}
                           onSendBackward={() => onSendBackward?.(selectedElement.id)}
+                          onEditText={() => {
+                            setEditCaret(null);
+                            setEditingId(selectedElement.id);
+                          }}
                         />
                       </div>
                     )}
@@ -664,6 +817,45 @@ export default function StudioCanvas({
           </p>
         </div>
       </div>
+
+      {/* Contextual hint */}
+      {!(isMobile && selectedElement) && (
+        <p
+          className="pointer-events-none absolute left-3 bottom-3 z-20 max-w-[70%] rounded-full bg-black/40 px-3 py-1.5 text-[11px] text-white/70 backdrop-blur"
+          aria-live="polite"
+        >
+          {editingId
+            ? "Échap ou clic ailleurs pour terminer."
+            : selectedElement?.type === "text"
+            ? isMobile
+              ? "Touchez « Modifier le texte »."
+              : "Double-cliquez pour modifier ce texte."
+            : isMobile
+            ? "Touchez deux fois un texte pour le modifier."
+            : "Double-cliquez sur un texte pour le modifier."}
+        </p>
+      )}
+
+      {/* Dedicated format bar on phones: always fully visible, never clipped */}
+      {isMobile && selectedElement && !live && (
+        <div data-keep-selection className="absolute inset-x-2 bottom-2 z-30 flex justify-center pointer-events-none">
+          <div className="pointer-events-auto max-w-full">
+            <StudioFloatingInspector
+              element={selectedElement}
+              compact
+              onUpdate={(updates) => onUpdateElement(selectedElement.id, updates)}
+              onDelete={() => onDeleteElement?.(selectedElement.id)}
+              onDuplicate={() => onDuplicateElement?.(selectedElement.id)}
+              onBringForward={() => onBringForward?.(selectedElement.id)}
+              onSendBackward={() => onSendBackward?.(selectedElement.id)}
+              onEditText={() => {
+                setEditCaret(null);
+                setEditingId(selectedElement.id);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

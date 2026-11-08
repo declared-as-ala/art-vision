@@ -74,11 +74,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between gap-4 h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
-            <img src="/logo-titre.svg" alt="Art Vision" className="h-6 md:h-7 w-auto object-contain" />
+            <img src="/logo-titre.svg" alt="Art Vision" className="h-5 md:h-[22px] w-auto object-contain" />
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-5 xl:space-x-8 whitespace-nowrap">
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-7 whitespace-nowrap">
             <Link
               href="/"
               className={`hover:text-brand-magenta font-medium text-sm transition ${
@@ -177,8 +177,7 @@ export default function Navbar() {
               href="/studio"
               className="group relative overflow-hidden whitespace-nowrap bg-gradient-to-r from-[#D72888] to-[#6C2BD9] hover:brightness-110 text-white h-9 px-3.5 xl:px-4 rounded-full font-bold text-[11px] uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md shadow-brand-magenta/25 flex items-center gap-1.5"
             >
-              <Sparkles size={13} className="text-brand-orange animate-pulse" />
-              <span>Créer <span className="hidden xl:inline">et </span>imprimer</span>
+              <span>Créer et imprimer</span>
             </Link>
             <Link
               href="/devis-sur-mesure"
@@ -219,7 +218,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between mb-8 mt-4">
           <div className="flex items-center">
-            <img src="/logo-titre.svg" alt="Art Vision" className="h-6 w-auto object-contain" />
+            <img src="/logo-titre.svg" alt="Art Vision" className="h-5 w-auto object-contain" />
           </div>
           <button
             onClick={() => setIsOpen(false)}

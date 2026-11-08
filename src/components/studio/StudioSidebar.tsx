@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { StudioDesign, StudioElement, StudioTemplate } from "./studioTypes";
-import { STUDIO_TEMPLATES } from "./StudioTemplates";
 import StudioCardPreview from "./StudioCardPreview";
 import {
   DPI_COLORS,
@@ -21,6 +20,7 @@ import {
   Bold,
   Check,
   ChevronDown,
+  ChevronRight,
   Circle,
   Copy,
   Image as ImageIcon,
@@ -50,6 +50,10 @@ interface StudioSidebarProps {
   onSendBackward: (id: string) => void;
   onUpdateBackgroundColor: (color: string) => void;
   onApplyTemplate: (template: StudioTemplate) => void;
+  /** Templates sized for the document being edited */
+  templates: StudioTemplate[];
+  /** Virtual keyboard open on a phone: hide the bottom sheet */
+  keyboardOpen?: boolean;
 }
 
 type SidebarTab = "templates" | "text" | "shapes" | "images" | "background" | "layers";
@@ -63,14 +67,14 @@ const TABS: { id: SidebarTab; label: string; icon: React.ComponentType<{ size?: 
   { id: "layers", label: "Calques", icon: Layers },
 ];
 
-const CATEGORIES = [
-  { id: "all", label: "Tous" },
-  { id: "artisan", label: "Artisans" },
-  { id: "restaurant", label: "Restaurants" },
-  { id: "commerce", label: "Commerces" },
-  { id: "beaute", label: "Beauté" },
-  { id: "freelance", label: "Studios" },
-];
+const CATEGORY_LABELS: Record<string, string> = {
+  artisan: "Artisans",
+  restaurant: "Restaurants",
+  commerce: "Commerces",
+  beaute: "Beauté",
+  freelance: "Studios",
+};
+const templateFilterKey = (t: StudioTemplate) => (t.category === "promo" ? t.categoryLabel : t.category);
 
 const BACKGROUNDS = [
   { name: "Nuit pure", color: "#08051F" },
@@ -88,6 +92,24 @@ const field =
 const label = "text-[10px] font-semibold uppercase tracking-wider text-white/45";
 
 /* ───────────────────────── Sub-components ───────────────────────── */
+
+function Advanced({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.02]">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="w-full flex items-center justify-between px-3 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white/60 hover:text-white transition cursor-pointer"
+      >
+        Options avancées
+        <ChevronRight size={14} className={`transition-transform ${open ? "rotate-90" : ""}`} />
+      </button>
+      {open && <div className="space-y-4 px-3 pb-3">{children}</div>}
+    </div>
+  );
+}
 
 function PanelTitle({ title, hint }: { title: string; hint?: string }) {
   return (
@@ -351,6 +373,8 @@ export default function StudioSidebar({
   onSendBackward,
   onUpdateBackgroundColor,
   onApplyTemplate,
+  templates,
+  keyboardOpen = false,
 }: StudioSidebarProps) {
   const [activeTab, setActiveTab] = useState<SidebarTab>("templates");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -361,6 +385,17 @@ export default function StudioSidebar({
 
   const currentSide = activeSide === "recto" ? design.recto : design.verso;
   const selectedElement = currentSide.elements.find((el) => el.id === selectedElementId) || null;
+
+  // Selecting an element opens its properties automatically
+  const [lastSelected, setLastSelected] = useState<string | null>(null);
+  if (lastSelected !== selectedElementId) {
+    setLastSelected(selectedElementId);
+    if (selectedElement) {
+      setActiveTab(selectedElement.type === "text" ? "text" : selectedElement.type === "image" ? "images" : "shapes");
+    }
+  }
+
+  const filterKeys = Array.from(new Set(templates.map(templateFilterKey)));
   const imageElements = currentSide.elements.filter((el) => el.type === "image");
 
   // Image import (click or drag & drop)
@@ -418,7 +453,7 @@ export default function StudioSidebar({
       className={`order-2 md:order-1 shrink-0 flex flex-col md:flex-row bg-[#0a0618] border-t md:border-t-0 md:border-r border-white/10 z-20 overflow-hidden
         md:h-full md:w-[340px]
         max-md:transition-[height] max-md:duration-300 max-md:ease-[cubic-bezier(0.32,0.72,0,1)]
-        ${sheetOpen ? "max-md:h-[52dvh]" : "max-md:h-[92px]"}`}
+        ${keyboardOpen ? "max-md:hidden" : sheetOpen ? "max-md:h-[52dvh]" : "max-md:h-[92px]"}`}
       aria-label="Outils de création"
     >
       {/* Mobile drag handle */}
@@ -488,10 +523,10 @@ export default function StudioSidebar({
           {/* ── TEMPLATES ── */}
           {activeTab === "templates" && (
             <>
-              <PanelTitle title="Modèles professionnels" hint="Choisissez un point de départ, tout reste modifiable." />
+              <PanelTitle title="Modèles pour ce format" hint={`Dimensions exactes : ${design.widthMm / 10 >= 100 ? design.widthMm / 10 + " × " + design.heightMm / 10 + " cm" : design.widthMm + " × " + design.heightMm + " mm"}. Appliquer un modèle remplace votre création (annulable).`} />
 
               <div className="flex flex-wrap gap-1.5">
-                {CATEGORIES.map((c) => {
+                {(filterKeys.length > 1 ? ["all", ...filterKeys] : []).map((id) => ({ id, label: id === "all" ? "Tous" : CATEGORY_LABELS[id] ?? id })).map((c) => {
                   const active = selectedCategory === c.id;
                   return (
                     <button
@@ -553,7 +588,7 @@ export default function StudioSidebar({
               </AnimatePresence>
 
               <div className="grid grid-cols-1 gap-3">
-                {STUDIO_TEMPLATES.filter((t) => selectedCategory === "all" || t.category === selectedCategory).map(
+                {templates.filter((t) => selectedCategory === "all" || templateFilterKey(t) === selectedCategory).map(
                   (t) => (
                     <button
                       key={t.id}
@@ -561,13 +596,15 @@ export default function StudioSidebar({
                       onClick={() => setPendingTemplate(t)}
                       className="group text-left rounded-2xl border border-white/10 bg-white/[0.03] p-2.5 hover:border-av-orange/70 hover:bg-white/[0.06] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-12px_rgba(255,106,0,0.35)] transition-all duration-200 cursor-pointer"
                     >
-                      <StudioCardPreview
-                        side={t.design.recto}
-                        widthMm={t.design.widthMm}
-                        heightMm={t.design.heightMm}
-                        paper
-                        className="w-full"
-                      />
+                      <div className={`flex justify-center ${t.design.heightMm > t.design.widthMm ? "py-1" : ""}`}>
+                        <StudioCardPreview
+                          side={t.design.recto}
+                          widthMm={t.design.widthMm}
+                          heightMm={t.design.heightMm}
+                          paper
+                          className={t.design.heightMm > t.design.widthMm ? "w-[55%]" : "w-full"}
+                        />
+                      </div>
                       <div className="flex items-center justify-between gap-2 pt-2.5 px-0.5">
                         <span className="text-xs font-bold text-white group-hover:text-av-orange transition truncate">
                           {t.name}
@@ -586,7 +623,7 @@ export default function StudioSidebar({
           {/* ── TEXT ── */}
           {activeTab === "text" && (
             <>
-              <PanelTitle title="Ajouter du texte" hint={`Un clic ajoute un bloc sur le ${activeSide}.`} />
+              <PanelTitle title="Ajouter du texte" hint="Double-cliquez sur un texte du document pour l'écrire directement." />
 
               <div className="space-y-2">
                 {[
@@ -658,7 +695,7 @@ export default function StudioSidebar({
                   <SectionLabel>Propriétés du texte</SectionLabel>
 
                   <div className="space-y-1.5">
-                    <span className={label}>Contenu</span>
+                    <span className={label}>Contenu (synchronisé avec le document)</span>
                     <textarea
                       rows={2}
                       value={selectedElement.text || ""}
@@ -747,6 +784,34 @@ export default function StudioSidebar({
                     value={selectedElement.color || "#ffffff"}
                     onChange={(c) => onUpdateElement(selectedElement.id, { color: c })}
                   />
+
+                  <Advanced>
+                    <RangeField
+                      title="Interligne"
+                      value={selectedElement.lineHeight ?? 1.3}
+                      min={0.9}
+                      max={2}
+                      step={0.05}
+                      onChange={(v) => onUpdateElement(selectedElement.id, { lineHeight: Math.round(v * 100) / 100 })}
+                    />
+                    <RangeField
+                      title="Espacement des lettres"
+                      value={selectedElement.letterSpacing ?? 0}
+                      min={0}
+                      max={8}
+                      step={0.5}
+                      onChange={(v) => onUpdateElement(selectedElement.id, { letterSpacing: v })}
+                    />
+                    <RangeField
+                      title="Opacité"
+                      value={Math.round((selectedElement.opacity ?? 1) * 100)}
+                      min={10}
+                      max={100}
+                      step={5}
+                      suffix=" %"
+                      onChange={(v) => onUpdateElement(selectedElement.id, { opacity: v / 100 })}
+                    />
+                  </Advanced>
                 </div>
               )}
             </>
@@ -856,7 +921,8 @@ export default function StudioSidebar({
                       onChange={(c) => onUpdateElement(selectedElement.id, { stroke: c })}
                     />
 
-                    <RangeField
+                    <Advanced>
+                      <RangeField
                       title="Épaisseur du contour"
                       value={selectedElement.strokeWidth || 0}
                       min={0}
@@ -866,7 +932,7 @@ export default function StudioSidebar({
                       onChange={(v) => onUpdateElement(selectedElement.id, { strokeWidth: v })}
                     />
 
-                    <RangeField
+                      <RangeField
                       title="Opacité"
                       value={Math.round((selectedElement.opacity ?? 1) * 100)}
                       min={10}
@@ -875,6 +941,7 @@ export default function StudioSidebar({
                       suffix=" %"
                       onChange={(v) => onUpdateElement(selectedElement.id, { opacity: v / 100 })}
                     />
+                    </Advanced>
                   </div>
                 )}
             </>

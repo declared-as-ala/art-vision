@@ -50,16 +50,21 @@ export interface StudioDesign {
   verso: StudioSide;
   activeSide: "recto" | "verso";
   lastSavedAt?: string;
+  formatId?: string;
+  orientation?: "portrait" | "landscape";
+  singleSided?: boolean;
 }
 
 export interface StudioTemplate {
   id: string;
   name: string;
-  category: "artisan" | "restaurant" | "commerce" | "beaute" | "freelance";
+  category: "artisan" | "restaurant" | "commerce" | "beaute" | "freelance" | "promo" | "evenement" | "cadeau" | "bache";
   categoryLabel: string;
   productSlug: string;
   thumbnailUrl: string;
   design: StudioDesign;
+  /** Formats (see studioProducts) this template is designed for */
+  formatIds?: string[];
 }
 
 export interface PrintOptionItem {
@@ -98,6 +103,20 @@ export interface StudioOrderSubmission {
       country: string;
     };
     notes?: string;
+    billingAddress?: {
+      name?: string;
+      street: string;
+      zipCode: string;
+      city: string;
+      country: string;
+    };
   };
+  formatId?: string;
+  orientation?: "portrait" | "landscape";
+  orderMode?: "instant" | "quote";
+  /** Production / delivery conditions shown to the customer */
+  deliveryNote?: string;
+  /** Technical export information (resolution, page size…) */
+  exportInfo?: string;
 }
 

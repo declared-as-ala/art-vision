@@ -11,6 +11,7 @@ import {
   Copy,
   Italic,
   Minus,
+  Pencil,
   Plus,
   Trash2,
 } from "lucide-react";
@@ -24,6 +25,10 @@ interface StudioFloatingInspectorProps {
   onDuplicate: () => void;
   onBringForward: () => void;
   onSendBackward: () => void;
+  /** Start in-place text editing (text elements). */
+  onEditText?: () => void;
+  /** Phone layout: wraps instead of overflowing, popovers open upwards. */
+  compact?: boolean;
 }
 
 const btn =
@@ -42,6 +47,8 @@ export default function StudioFloatingInspector({
   onDuplicate,
   onBringForward,
   onSendBackward,
+  onEditText,
+  compact = false,
 }: StudioFloatingInspectorProps) {
   const [colorOpen, setColorOpen] = useState(false);
   const colorKey = getColorKey(element);
@@ -50,12 +57,26 @@ export default function StudioFloatingInspector({
 
   return (
     <div
-      className="studio-pop relative flex items-center gap-0.5 p-1 rounded-2xl bg-[#120c28]/90 backdrop-blur-xl border border-white/10 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.8),0_0_0_1px_rgba(108,43,217,0.25)] text-white select-none touch-none"
+      className={`studio-pop relative flex items-center gap-0.5 p-1 rounded-2xl ${compact ? "flex-wrap justify-center max-w-[calc(100vw-1rem)]" : ""} bg-[#120c28]/90 backdrop-blur-xl border border-white/10 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.8),0_0_0_1px_rgba(108,43,217,0.25)] text-white select-none touch-none`}
       onPointerDown={(e) => e.stopPropagation()}
       onClick={(e) => e.stopPropagation()}
     >
       {element.type === "text" && (
         <>
+          {onEditText && (
+            <>
+              <button
+                type="button"
+                className={`${btn} gap-1.5 px-2.5 text-[11px] font-bold ${compact ? "!bg-gradient-to-br from-av-violet to-av-magenta !text-white" : ""}`}
+                title="Modifier le texte (double-clic)"
+                onClick={onEditText}
+              >
+                <Pencil size={13} />
+                <span className={compact ? "" : "hidden xl:inline"}>Modifier le texte</span>
+              </button>
+              <Divider />
+            </>
+          )}
           <div className="flex items-center">
             <button
               type="button"
@@ -133,7 +154,7 @@ export default function StudioFloatingInspector({
               />
             </button>
             {colorOpen && (
-              <div className="studio-pop absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[196px] p-2.5 rounded-2xl bg-[#120c28]/95 backdrop-blur-xl border border-white/10 shadow-2xl z-50">
+              <div className={`studio-pop absolute left-1/2 -translate-x-1/2 ${compact ? "bottom-full mb-2" : "top-full mt-2"} w-[196px] p-2.5 rounded-2xl bg-[#120c28]/95 backdrop-blur-xl border border-white/10 shadow-2xl z-50`}>
                 <div className="grid grid-cols-7 gap-1.5">
                   {STUDIO_PALETTE.map((c) => (
                     <button
