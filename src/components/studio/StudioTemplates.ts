@@ -1,4 +1,5 @@
 import { StudioDesign, StudioTemplate } from "./studioTypes";
+import { PREMIUM_TEMPLATES } from "./StudioTemplatesPremium";
 
 // Business Card base dimensions in mm (85 x 55 mm)
 export const DEFAULT_BUSINESS_CARD_DESIGN: StudioDesign = {
@@ -142,7 +143,7 @@ export const DEFAULT_BUSINESS_CARD_DESIGN: StudioDesign = {
   },
 };
 
-export const STUDIO_TEMPLATES: StudioTemplate[] = [
+const BASE_TEMPLATES: StudioTemplate[] = [
   // 1. Artisan / BTP
   {
     id: "template-artisan-btp",
@@ -707,3 +708,4 @@ export const STUDIO_TEMPLATES: StudioTemplate[] = [
   },
 ];
 
+export const STUDIO_TEMPLATES: StudioTemplate[] = [...PREMIUM_TEMPLATES, ...BASE_TEMPLATES];
