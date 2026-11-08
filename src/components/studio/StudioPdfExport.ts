@@ -153,10 +153,30 @@ async function renderElement(ctx: CanvasRenderingContext2D, el: StudioElement) {
 /**
  * Generate a 300 DPI Print-Ready PDF with Recto and Verso pages.
  */
+/** Make sure every typeface used by the design is loaded before drawing on canvas. */
+async function ensureFontsLoaded(design: StudioDesign) {
+  if (typeof document === "undefined" || !document.fonts) return;
+  const used = new Set<string>();
+  for (const side of [design.recto, design.verso]) {
+    for (const el of side.elements) {
+      if (el.type === "text") used.add(el.fontFamily || "Montserrat");
+    }
+  }
+  try {
+    await Promise.all(Array.from(used).flatMap((f) => [
+      document.fonts.load(`400 24px "${f}"`),
+      document.fonts.load(`700 24px "${f}"`),
+    ]));
+  } catch {
+    // fall back to system fonts if a face fails to load
+  }
+}
+
 export async function generatePrintPdf(
   design: StudioDesign,
   includeBleed: boolean = true
 ): Promise<{ pdfBlob: Blob; previewRecto: string; previewVerso: string }> {
+  await ensureFontsLoaded(design);
   const bleedMm = includeBleed ? design.bleedMm : 0;
   const totalW = design.widthMm + bleedMm * 2;
   const totalH = design.heightMm + bleedMm * 2;
@@ -206,3 +226,4 @@ export async function generatePrintPdf(
     previewVerso: dataUrlVerso,
   };
 }
+

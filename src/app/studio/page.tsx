@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Metadata } from "next";
 import {
   Sparkles,
@@ -7,15 +8,18 @@ import {
   FileText,
   Gift,
   CheckCircle2,
-  Printer,
   ShieldCheck,
   Truck,
   ArrowRight,
   Palette,
   Layers,
   Clock,
+  BadgeCheck,
+  Star,
 } from "lucide-react";
 import { STUDIO_TEMPLATES } from "@/components/studio/StudioTemplates";
+import StudioHeroCard from "@/components/studio/StudioHeroCard";
+import StudioTemplateGallery from "@/components/studio/StudioTemplateGallery";
 
 export const metadata: Metadata = {
   title: "Studio de création graphique en ligne | Art Vision",
@@ -33,247 +37,293 @@ export const metadata: Metadata = {
   },
 };
 
+const PRODUCTS = [
+  {
+    id: "cartes-de-visite",
+    slug: "cartes-de-visite",
+    title: "Cartes de visite professionnelles",
+    format: "85 × 55 mm",
+    sides: "Recto / Verso",
+    badge: "Le plus populaire",
+    badgeIcon: Star,
+    description:
+      "Le support incontournable pour vos rendez-vous. Formats standard, papier 300g à 400g, finitions Soft-Touch et vernis sélectif.",
+    image: "/images/impression/16-cartes-de-visite-art-vision.webp",
+    icon: CreditCard,
+    startingPrice: "Dès 46 € HT",
+    chips: ["Soft-Touch velours", "Vernis 3D sélectif", "Kraft recyclé", "300 g → 400 g"],
+  },
+  {
+    id: "flyers",
+    slug: "flyers",
+    title: "Flyers & Prospectus publicitaires",
+    format: "A5 (148 × 210 mm) & A6",
+    sides: "Recto / Verso",
+    badge: "Grand impact",
+    badgeIcon: Sparkles,
+    description:
+      "Faites la promotion de vos événements, ouvertures ou menus. Papiers couché brillant ou mat de 130g à 350g.",
+    image: "/images/impression/29-flyers-art-vision.webp",
+    icon: FileText,
+    startingPrice: "Dès 49 € HT",
+    chips: ["Couché brillant ou mat", "130 g → 350 g", "A5 & A6", "Recto / Verso"],
+  },
+  {
+    id: "bons-cadeaux",
+    slug: "cartes-de-visite", // shares the studio card engine
+    title: "Bons & Chèques cadeaux",
+    format: "210 × 100 mm & A6",
+    sides: "Recto / Verso",
+    badge: "Fêtes & Boutiques",
+    badgeIcon: Gift,
+    description:
+      "Idéal pour instituts, boutiques, restaurants et spas. Papier inscriptible pour montant et message personnalisé.",
+    image: "/images/impression/17-cartes-de-voeux-art-vision.webp",
+    icon: Gift,
+    startingPrice: "Dès 55 € HT",
+    chips: ["Papier inscriptible", "210 × 100 mm", "A6", "Recto / Verso"],
+  },
+];
+
+const TRUST = [
+  { icon: Clock, title: "BAT sous 24h", text: "Votre Bon à Tirer numérique par e-mail" },
+  { icon: ShieldCheck, title: "Contrôle PAO offert", text: "Fonds perdus et résolution vérifiés" },
+  { icon: BadgeCheck, title: "Impression certifiée", text: "Papiers FSC et fichiers aux normes PAO" },
+  { icon: Truck, title: "Livraison suivie", text: "France et Europe, numéro de suivi inclus" },
+];
+
+const HERO_TEMPLATE =
+  STUDIO_TEMPLATES.find((t) => t.id === "template-freelance-premium") ?? STUDIO_TEMPLATES[0];
+
 export default function StudioHubPage() {
-  const products = [
-    {
-      id: "cartes-de-visite",
-      slug: "cartes-de-visite",
-      title: "Cartes de visite professionnelles",
-      format: "85 × 55 mm",
-      sides: "Recto / Verso",
-      badge: "⭐ Le plus populaire",
-      description:
-        "Le support incontournable pour vos rendez-vous. Formats standard, papier 300g à 400g, finitions Soft-Touch et vernis sélectif.",
-      image: "/images/impression/16-cartes-de-visite-art-vision.webp",
-      icon: CreditCard,
-      active: true,
-      startingPrice: "Dès 46 € HT",
-    },
-    {
-      id: "flyers",
-      slug: "flyers",
-      title: "Flyers & Prospectus publicitaires",
-      format: "A5 (148 × 210 mm) & A6",
-      sides: "Recto / Verso",
-      badge: "Grand impact",
-      description:
-        "Faites la promotion de vos événements, ouvertures ou menus. Papiers couché brillant ou mat de 130g à 350g.",
-      image: "/images/impression/29-flyers-art-vision.webp",
-      icon: FileText,
-      active: true,
-      startingPrice: "Dès 49 € HT",
-    },
-    {
-      id: "bons-cadeaux",
-      slug: "cartes-de-visite", // shares the studio card engine
-      title: "Bons & Chèques cadeaux",
-      format: "210 × 100 mm & A6",
-      sides: "Recto / Verso",
-      badge: "Fêtes & Boutiques",
-      description:
-        "Idéal pour instituts, boutiques, restaurants et spas. Papier inscriptible pour montant et message personnalisé.",
-      image: "/images/impression/17-cartes-de-voeux-art-vision.webp",
-      icon: Gift,
-      active: true,
-      startingPrice: "Dès 55 € HT",
-    },
-  ];
-
   return (
-    <main className="min-h-screen bg-[#070512] text-white pt-28 pb-20 relative overflow-hidden">
-      {/* Background Ambient Glows */}
-      <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-brand-purple/20 rounded-full filter blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-40 right-1/4 w-[450px] h-[450px] bg-brand-magenta/15 rounded-full filter blur-[140px] pointer-events-none -z-10" />
+    <main className="min-h-screen bg-av-night text-white pt-28 pb-24 relative overflow-hidden">
+      {/* Ambient background */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-20 left-[10%] w-[560px] h-[560px] bg-av-violet/25 rounded-full blur-[150px]" />
+        <div className="absolute top-40 right-[5%] w-[480px] h-[480px] bg-av-magenta/18 rounded-full blur-[150px]" />
+        <div
+          className="absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1.2px)",
+            backgroundSize: "26px 26px",
+            maskImage: "radial-gradient(ellipse 70% 55% at 50% 22%, #000 30%, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(ellipse 70% 55% at 50% 22%, #000 30%, transparent 75%)",
+          }}
+        />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {/* 1. HERO BANNER */}
-        <section className="text-center space-y-6 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full bg-brand-purple/30 border border-brand-purple/40 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-orange">
-            <Sparkles size={14} className="text-brand-orange" />
-            <span>Nouveau • Studio de création en ligne</span>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+        {/* 1. HERO */}
+        <section className="grid lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-8 items-center">
+          <div className="space-y-7 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 rounded-full bg-av-violet/20 border border-av-violet/40 px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-av-orange backdrop-blur">
+              <Sparkles size={14} />
+              <span>Nouveau • Studio de création en ligne</span>
+            </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-montserrat tracking-tight leading-tight">
-            Créez votre visuel,{" "}
-            <span className="bg-gradient-to-r from-brand-orange via-brand-magenta to-brand-purple bg-clip-text text-transparent">
-              on s'occupe de l'impression.
-            </span>
-          </h1>
+            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.05]">
+              Créez votre visuel,{" "}
+              <span className="bg-gradient-to-r from-av-orange via-av-magenta to-av-violet bg-clip-text text-transparent">
+                on s&apos;occupe de l&apos;impression.
+              </span>
+            </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
-            Personnalisez un modèle ou laissez parler votre créativité. Ajoutez vos textes, votre logo et vos images,
-            puis commandez votre support imprimé haute définition chez Art Vision.
-          </p>
-
-          {/* Principle highlight box */}
-          <div className="inline-block bg-[#160f2e]/90 border border-brand-magenta/40 px-6 py-3 rounded-2xl shadow-xl shadow-brand-magenta/10">
-            <p className="text-xs sm:text-sm font-bold text-white flex items-center justify-center gap-2">
-              <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-              <span>Création en ligne incluse avec votre commande d'impression chez Art Vision.</span>
+            <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Personnalisez un modèle ou laissez parler votre créativité. Ajoutez vos textes, votre logo et vos images,
+              puis commandez votre support imprimé haute définition chez Art Vision.
             </p>
-            <span className="text-[11px] text-white/50 block mt-0.5">
-              Sans inscription préalable • Aperçu temps réel • Fichiers certifiés aux normes PAO
-            </span>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+              <Link
+                href="/studio/editor?product=cartes-de-visite"
+                className="group relative overflow-hidden inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-av-orange to-av-magenta px-7 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-xl shadow-av-orange/25 hover:shadow-av-magenta/40 hover:brightness-110 active:scale-95 transition-all"
+              >
+                <span className="pointer-events-none absolute inset-y-0 -left-full w-1/2 bg-white/25 -skew-x-[18deg] group-hover:animate-[studio-shine_0.9s_ease]" />
+                <span className="relative">Créer ma carte maintenant</span>
+                <ArrowRight size={15} className="relative transition-transform group-hover:translate-x-1" />
+              </Link>
+              <a
+                href="#modeles"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white/90 transition active:scale-95"
+              >
+                Voir les modèles
+              </a>
+            </div>
+
+            <div className="inline-flex items-start gap-3 text-left bg-white/[0.04] backdrop-blur-xl border border-white/10 px-5 py-3.5 rounded-2xl">
+              <CheckCircle2 size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs sm:text-sm font-bold text-white">
+                  Création en ligne incluse avec votre commande d&apos;impression chez Art Vision.
+                </p>
+                <span className="text-[11px] text-white/50 block mt-0.5">
+                  Sans inscription préalable • Aperçu temps réel • Fichiers certifiés aux normes PAO
+                </span>
+              </div>
+            </div>
           </div>
+
+          <StudioHeroCard design={HERO_TEMPLATE.design} />
         </section>
 
-        {/* 2. PRODUCT SELECTION GRID */}
-        <section className="space-y-8">
-          <div className="text-left space-y-2">
-            <h2 className="text-2xl font-bold font-montserrat text-white">
-              1. Choisissez votre support à personnaliser
+        {/* 1b. TRUST BAR */}
+        <section aria-label="Nos garanties" className="-mt-12">
+          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-3xl overflow-hidden border border-white/10 bg-white/10 backdrop-blur-xl">
+            {TRUST.map((t) => {
+              const Icon = t.icon;
+              return (
+                <li
+                  key={t.title}
+                  className="group flex items-center gap-3 sm:gap-4 bg-[#0c081e]/90 hover:bg-[#140d2e] transition-colors p-4 sm:p-5"
+                >
+                  <span className="shrink-0 w-11 h-11 rounded-2xl bg-gradient-to-br from-av-violet/40 to-av-magenta/20 border border-white/10 flex items-center justify-center text-av-orange group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                    <Icon size={20} />
+                  </span>
+                  <span className="min-w-0">
+                    <strong className="block text-xs sm:text-sm font-bold text-white">{t.title}</strong>
+                    <span className="block text-[11px] text-white/50 leading-snug">{t.text}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        {/* 2. PRODUCTS */}
+        <section className="space-y-10">
+          <div className="max-w-2xl space-y-2">
+            <span className="text-xs font-bold text-av-magenta uppercase tracking-wider">1. Votre support</span>
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+              Choisissez ce que vous voulez personnaliser
             </h2>
-            <p className="text-xs sm:text-sm text-white/60">
-              Sélectionnez un produit ci-dessous pour lancer immédiatement l'éditeur interactif.
+            <p className="text-sm text-white/60">
+              Sélectionnez un produit pour lancer immédiatement l&apos;éditeur interactif.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {products.map((p) => {
+            {PRODUCTS.map((p) => {
               const Icon = p.icon;
+              const BadgeIcon = p.badgeIcon;
               return (
-                <div
-                  key={p.id}
-                  className="group relative rounded-3xl bg-[#0f0b24] border border-brand-purple/20 hover:border-brand-magenta/50 transition-all duration-300 p-6 flex flex-col justify-between hover:shadow-2xl hover:shadow-brand-purple/20 hover:-translate-y-1 text-left"
-                >
-                  <div className="space-y-4">
-                    {/* Badge & Icon */}
+                <article key={p.id} className="group relative">
+                  {/* gradient border */}
+                  <div className="absolute -inset-px rounded-[28px] bg-gradient-to-br from-white/15 via-white/5 to-white/0 group-hover:from-av-orange group-hover:via-av-magenta group-hover:to-av-violet transition-colors duration-500" />
+                  <div className="relative h-full rounded-[27px] bg-[#0e0a22] p-5 flex flex-col group-hover:-translate-y-1.5 group-hover:shadow-[0_30px_70px_-30px_rgba(215,40,136,0.55)] transition-all duration-500">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-brand-orange bg-brand-orange/10 border border-brand-orange/20 px-2.5 py-0.5 rounded-full">
+                      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-av-orange bg-av-orange/10 border border-av-orange/25 px-2.5 py-1 rounded-full group-hover:bg-av-orange group-hover:text-white transition-colors">
+                        <BadgeIcon size={11} />
                         {p.badge}
                       </span>
-                      <div className="p-2 rounded-xl bg-brand-purple/20 text-brand-magenta">
-                        <Icon size={20} />
-                      </div>
+                      <span className="p-2 rounded-xl bg-av-violet/20 text-av-magenta group-hover:bg-av-magenta group-hover:text-white transition-colors">
+                        <Icon size={18} />
+                      </span>
                     </div>
 
-                    {/* Image Preview */}
-                    <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#160f2e] border border-white/5 p-3 flex items-center justify-center">
-                      <img
+                    {/* Visual */}
+                    <div className="relative mt-4 aspect-[16/10] rounded-2xl overflow-hidden bg-[radial-gradient(ellipse_at_50%_60%,rgba(108,43,217,0.4),#120c28_70%)] border border-white/5">
+                      <Image
                         src={p.image}
                         alt={p.title}
-                        className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                        className="object-contain p-4 transition-transform duration-700 ease-out group-hover:scale-110 group-hover:-rotate-2"
                       />
+                      {/* light sweep */}
+                      <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/3 bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-[18deg] opacity-0 group-hover:opacity-100 group-hover:animate-[studio-shine_1.1s_ease]" />
                     </div>
 
-                    <div>
-                      <h3 className="text-lg font-bold font-montserrat text-white group-hover:text-brand-magenta transition">
-                        {p.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-[11px] text-brand-orange font-semibold mt-1">
-                        <span>Format {p.format}</span>
-                        <span>•</span>
-                        <span>{p.sides}</span>
+                    <div className="mt-5 flex-1">
+                      <h3 className="text-lg font-bold text-white">{p.title}</h3>
+                      <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                        <span className="text-[10px] font-semibold text-white/75 bg-white/[0.06] border border-white/10 rounded-full px-2.5 py-0.5 hover:border-av-orange/50 transition-colors">
+                          {p.format}
+                        </span>
+                        <span className="text-[10px] font-semibold text-white/75 bg-white/[0.06] border border-white/10 rounded-full px-2.5 py-0.5 hover:border-av-orange/50 transition-colors">
+                          {p.sides}
+                        </span>
                       </div>
-                      <p className="text-xs text-white/60 mt-2 leading-relaxed">
-                        {p.description}
-                      </p>
+                      <p className="text-xs text-white/60 mt-3 leading-relaxed">{p.description}</p>
+
+                      {/* hover-revealed spec chips (always visible on touch screens) */}
+                      <div className="grid grid-rows-[1fr] md:grid-rows-[0fr] md:group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-500">
+                        <div className="overflow-hidden">
+                          <div className="flex flex-wrap gap-1.5 pt-3">
+                            {p.chips.map((c) => (
+                              <span
+                                key={c}
+                                className="text-[10px] font-medium text-white/70 rounded-full border border-av-violet/40 bg-av-violet/10 px-2 py-0.5"
+                              >
+                                {c}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-5 mt-5 border-t border-white/10 flex items-center justify-between gap-3">
+                      <div>
+                        <span className="text-[10px] text-white/40 block">Tarif atelier</span>
+                        <strong className="text-sm font-extrabold text-white">{p.startingPrice}</strong>
+                      </div>
+                      <Link
+                        href={`/studio/editor?product=${p.slug}`}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-av-orange to-av-magenta px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-av-orange/20 hover:brightness-110 active:scale-95 transition"
+                      >
+                        <span>Personnaliser</span>
+                        <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                      </Link>
                     </div>
                   </div>
-
-                  <div className="pt-6 border-t border-brand-purple/15 mt-6 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] text-white/40 block">Tarif atelier :</span>
-                      <strong className="text-sm font-extrabold text-white">{p.startingPrice}</strong>
-                    </div>
-
-                    <Link
-                      href={`/studio/editor?product=${p.slug}`}
-                      className="bg-brand-orange hover:bg-brand-orange/90 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 shadow-md shadow-brand-orange/20"
-                    >
-                      <span>Personnaliser</span>
-                      <ArrowRight size={13} />
-                    </Link>
-                  </div>
-                </div>
+                </article>
               );
             })}
           </div>
         </section>
 
-        {/* 3. READY-TO-USE TEMPLATES GALLERY */}
-        <section className="space-y-6 pt-4">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-left">
-            <div>
-              <span className="text-xs font-bold text-brand-magenta uppercase tracking-wider block">
+        {/* 3. TEMPLATE GALLERY */}
+        <section id="modeles" className="space-y-8 scroll-mt-28">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="space-y-2 max-w-2xl">
+              <span className="text-xs font-bold text-av-magenta uppercase tracking-wider">
                 2. Démarrez en quelques secondes
               </span>
-              <h2 className="text-2xl font-bold font-montserrat text-white mt-1">
-                Ou partez directement d'un modèle adapté à votre métier
+              <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+                Ou partez d&apos;un modèle adapté à votre métier
               </h2>
+              <p className="text-sm text-white/60">
+                Survolez une carte pour voir son verso. Tout reste modifiable dans l&apos;éditeur.
+              </p>
             </div>
 
             <Link
               href="/studio/editor?product=cartes-de-visite"
-              className="text-xs font-bold text-brand-orange hover:text-white flex items-center gap-1 transition"
+              className="group text-xs font-bold text-av-orange hover:text-white flex items-center gap-1.5 transition shrink-0"
             >
-              <span>+ Créer à partir d'une page blanche</span>
-              <ArrowRight size={14} />
+              <span>Partir d&apos;une page blanche</span>
+              <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {STUDIO_TEMPLATES.map((tpl) => (
-              <div
-                key={tpl.id}
-                className="group rounded-2xl bg-[#0f0b24] border border-brand-purple/20 hover:border-brand-orange p-5 flex flex-col justify-between transition-all hover:shadow-xl hover:shadow-brand-orange/10 text-left space-y-4"
-              >
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-white group-hover:text-brand-orange transition">
-                    {tpl.name}
-                  </span>
-                  <span className="text-[10px] text-white/50 bg-white/5 px-2 py-0.5 rounded-full">
-                    {tpl.categoryLabel}
-                  </span>
-                </div>
-
-                {/* Mockup Card */}
-                <div
-                  className="w-full aspect-[85/55] rounded-xl border border-white/10 p-4 flex flex-col justify-between shadow-lg"
-                  style={{ backgroundColor: tpl.design.recto.backgroundColor }}
-                >
-                  <div className="space-y-1">
-                    <div
-                      className="h-2.5 w-28 rounded-xs"
-                      style={{
-                        backgroundColor:
-                          tpl.design.recto.elements.find((el) => el.type === "text")?.color || "#ffffff",
-                      }}
-                    />
-                    <div className="h-1.5 w-36 bg-white/20 rounded-xs" />
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <div className="h-1.5 w-20 bg-white/30 rounded-xs" />
-                    <span className="text-[9px] text-brand-orange font-bold uppercase">Recto / Verso</span>
-                  </div>
-                </div>
-
-                <Link
-                  href={`/studio/editor?product=${tpl.productSlug}&template=${tpl.id}`}
-                  className="w-full bg-white/5 hover:bg-brand-purple/40 border border-brand-purple/30 text-white text-xs font-bold py-2.5 rounded-xl transition text-center block"
-                >
-                  Utiliser ce modèle →
-                </Link>
-              </div>
-            ))}
-          </div>
+          <StudioTemplateGallery />
         </section>
 
-        {/* 4. WORKFLOW STEP-BY-STEP */}
-        <section className="rounded-3xl bg-[#0d0922] border border-brand-purple/20 p-8 md:p-12 text-left">
-          <div className="max-w-3xl mb-10 space-y-2">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-wider">
-              Une expérience fluide & professionnelle
+        {/* 4. WORKFLOW */}
+        <section className="relative rounded-[32px] bg-gradient-to-b from-[#120b2e] to-[#0b0720] border border-white/10 p-7 md:p-12 overflow-hidden">
+          <div className="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full bg-av-magenta/15 blur-[100px]" />
+          <div className="relative max-w-3xl mb-10 space-y-2">
+            <span className="text-xs font-bold text-av-orange uppercase tracking-wider">
+              Une expérience fluide &amp; professionnelle
             </span>
-            <h2 className="text-2xl md:text-3xl font-extrabold font-montserrat text-white">
-              Comment fonctionne le Studio Art Vision ?
-            </h2>
-            <p className="text-xs sm:text-sm text-white/60">
-              De votre idée à la livraison de vos cartons d'impression sur votre lieu d'activité.
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">Comment fonctionne le Studio Art Vision ?</h2>
+            <p className="text-sm text-white/60">
+              De votre idée à la livraison de vos supports d&apos;impression sur votre lieu d&apos;activité.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <ol className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
                 step: "01",
@@ -302,17 +352,24 @@ export default function StudioHubPage() {
             ].map((s) => {
               const Icon = s.icon;
               return (
-                <div key={s.step} className="p-5 rounded-2xl bg-[#160f2e]/60 border border-brand-purple/15 space-y-3">
+                <li
+                  key={s.step}
+                  className="group p-5 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-av-violet/60 hover:bg-white/[0.06] hover:-translate-y-1 transition-all duration-300 space-y-3"
+                >
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-extrabold font-mono text-brand-magenta">{s.step}</span>
-                    <Icon size={20} className="text-brand-orange" />
+                    <span className="text-3xl font-extrabold font-mono bg-gradient-to-br from-av-orange to-av-magenta bg-clip-text text-transparent">
+                      {s.step}
+                    </span>
+                    <span className="w-9 h-9 rounded-xl bg-av-violet/20 flex items-center justify-center text-av-orange group-hover:scale-110 transition-transform">
+                      <Icon size={18} />
+                    </span>
                   </div>
-                  <h3 className="text-sm font-bold text-white font-montserrat">{s.title}</h3>
+                  <h3 className="text-sm font-bold text-white">{s.title}</h3>
                   <p className="text-xs text-white/60 leading-relaxed">{s.desc}</p>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </section>
       </div>
     </main>

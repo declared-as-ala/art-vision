@@ -706,3 +706,4 @@ export const STUDIO_TEMPLATES: StudioTemplate[] = [
     design: DEFAULT_BUSINESS_CARD_DESIGN,
   },
 ];
+

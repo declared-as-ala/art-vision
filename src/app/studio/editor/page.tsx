@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import {
   StudioDesign,
   StudioElement,
-  StudioSide,
   StudioTemplate,
 } from "@/components/studio/studioTypes";
 import {
@@ -16,7 +15,8 @@ import StudioCanvas from "@/components/studio/StudioCanvas";
 import StudioSidebar from "@/components/studio/StudioSidebar";
 import StudioToolbar from "@/components/studio/StudioToolbar";
 import StudioPrintModal from "@/components/studio/StudioPrintModal";
-import { Eye, X, Loader2 } from "lucide-react";
+import StudioCardPreview from "@/components/studio/StudioCardPreview";
+import { X, Loader2 } from "lucide-react";
 
 function StudioEditorContent() {
   const searchParams = useSearchParams();
@@ -76,6 +76,18 @@ function StudioEditorContent() {
     setHistoryIndex(0);
   }, [productSlug, initialTemplateId]);
 
+  const persistDraft = useCallback(
+    (value: StudioDesign) => {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(value));
+        setIsSaved(true);
+      } catch (e) {
+        console.warn("Storage save error:", e);
+      }
+    },
+    [LOCAL_STORAGE_KEY]
+  );
+
   // 2. Save design to state with history snapshot
   const commitDesignChange = useCallback(
     (newDesign: StudioDesign) => {
@@ -104,7 +116,9 @@ function StudioEditorContent() {
   const handleUndo = () => {
     if (historyIndex > 0) {
       const target = history[historyIndex - 1];
-      setDesign(JSON.parse(JSON.stringify(target)));
+      const restored = JSON.parse(JSON.stringify(target));
+      setDesign(restored);
+      persistDraft(restored);
       setHistoryIndex(historyIndex - 1);
       setSelectedElementId(null);
     }
@@ -113,37 +127,13 @@ function StudioEditorContent() {
   const handleRedo = () => {
     if (historyIndex < history.length - 1) {
       const target = history[historyIndex + 1];
-      setDesign(JSON.parse(JSON.stringify(target)));
+      const restored = JSON.parse(JSON.stringify(target));
+      setDesign(restored);
+      persistDraft(restored);
       setHistoryIndex(historyIndex + 1);
       setSelectedElementId(null);
     }
   };
-
-  // Keyboard shortcuts (Ctrl+Z, Ctrl+Y, Delete)
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement).tagName === "INPUT" || (e.target as HTMLElement).tagName === "TEXTAREA") {
-        return;
-      }
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z" && !e.shiftKey) {
-        e.preventDefault();
-        handleUndo();
-      } else if (
-        ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") ||
-        ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "z")
-      ) {
-        e.preventDefault();
-        handleRedo();
-      } else if (e.key === "Delete" || e.key === "Backspace") {
-        if (selectedElementId) {
-          e.preventDefault();
-          handleDeleteElement(selectedElementId);
-        }
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [historyIndex, history, selectedElementId]);
 
   // Element actions
   const handleAddElement = (element: StudioElement) => {
@@ -226,8 +216,53 @@ function StudioEditorContent() {
     setSelectedElementId(null);
   };
 
+  // Keyboard shortcuts (Ctrl+Z, Ctrl+Y, Delete, arrows to nudge, Esc to deselect)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const targetEl = e.target as HTMLElement;
+      const tag = targetEl.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || targetEl.isContentEditable) {
+        return;
+      }
+      if (isPrintModalOpen || isPreviewOpen) return;
+
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z" && !e.shiftKey) {
+        e.preventDefault();
+        handleUndo();
+      } else if (
+        ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") ||
+        ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "z")
+      ) {
+        e.preventDefault();
+        handleRedo();
+      } else if (e.key === "Delete" || e.key === "Backspace") {
+        if (selectedElementId) {
+          e.preventDefault();
+          handleDeleteElement(selectedElementId);
+        }
+      } else if (e.key === "Escape") {
+        setSelectedElementId(null);
+      } else if (selectedElementId && e.key.startsWith("Arrow")) {
+        const side = activeSide === "recto" ? design.recto : design.verso;
+        const target = side.elements.find((el) => el.id === selectedElementId);
+        if (!target) return;
+        e.preventDefault();
+        const step = e.shiftKey ? 2 : 0.5;
+        const dx = e.key === "ArrowLeft" ? -step : e.key === "ArrowRight" ? step : 0;
+        const dy = e.key === "ArrowUp" ? -step : e.key === "ArrowDown" ? step : 0;
+        handleUpdateElement(selectedElementId, {
+          x: Math.round((target.x + dx) * 10) / 10,
+          y: Math.round((target.y + dy) * 10) / 10,
+        });
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [historyIndex, history, selectedElementId, design, activeSide, isPrintModalOpen, isPreviewOpen]);
+
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-[#070512]">
+    <div className="flex flex-col h-dvh w-screen overflow-hidden bg-[#070512]">
       {/* 1. Header Toolbar */}
       <StudioToolbar
         design={design}
@@ -246,7 +281,7 @@ function StudioEditorContent() {
       />
 
       {/* 2. Main Workspace: Sidebar (Left) + Interactive Canvas (Center) */}
-      <div className="flex flex-1 overflow-hidden relative">
+      <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden relative">
         <StudioSidebar
           design={design}
           activeSide={activeSide}
@@ -268,6 +303,10 @@ function StudioEditorContent() {
           selectedElementId={selectedElementId}
           onSelectElement={setSelectedElementId}
           onUpdateElement={handleUpdateElement}
+          onDeleteElement={handleDeleteElement}
+          onDuplicateElement={handleDuplicateElement}
+          onBringForward={handleBringForward}
+          onSendBackward={handleSendBackward}
           showGuides={showGuides}
           onToggleGuides={() => setShowGuides(!showGuides)}
           zoom={zoom}
@@ -284,91 +323,68 @@ function StudioEditorContent() {
 
       {/* 4. Full Preview Modal */}
       {isPreviewOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-          <div className="relative w-full max-w-4xl bg-[#0c081e] border border-brand-purple/30 rounded-3xl p-6 md:p-8 space-y-6">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Aperçu recto / verso"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
+          onClick={() => setIsPreviewOpen(false)}
+        >
+          <div
+            className="studio-pop relative w-full max-w-4xl my-auto bg-[#0c081e] border border-white/10 rounded-3xl p-5 md:p-8 space-y-6 shadow-[0_40px_120px_-30px_rgba(108,43,217,0.6)]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               onClick={() => setIsPreviewOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-white/50 hover:text-white hover:bg-white/10"
+              className="absolute top-4 right-4 p-2 rounded-full text-white/50 hover:text-white hover:bg-white/10 transition cursor-pointer"
+              aria-label="Fermer l'aperçu"
             >
               <X size={20} />
             </button>
 
-            <div>
-              <h3 className="text-xl font-bold text-white font-montserrat">
-                Aperçu Recto / Verso de vos cartes de visite
-              </h3>
-              <p className="text-xs text-white/60">
-                Format fini : {design.widthMm} × {design.heightMm} mm. Vérifiez l'alignement et la lisibilité avant impression.
+            <div className="pr-10">
+              <h3 className="text-lg md:text-xl font-bold text-white">Aperçu recto / verso de vos cartes de visite</h3>
+              <p className="text-xs text-white/55 mt-1">
+                Format fini : {design.widthMm} × {design.heightMm} mm. Vérifiez l&apos;alignement et la lisibilité avant
+                impression.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center justify-center py-4">
-              {/* Recto Preview */}
-              <div className="space-y-2 text-center">
-                <span className="text-xs font-bold text-brand-orange uppercase">Face Recto (A)</span>
-                <div
-                  className="w-full aspect-[85/55] rounded-xl shadow-2xl p-4 flex flex-col justify-between border border-white/10 overflow-hidden"
-                  style={{ backgroundColor: design.recto.backgroundColor }}
-                >
-                  {design.recto.elements.map((el) => (
-                    <div
-                      key={el.id}
-                      style={{
-                        position: "relative",
-                        fontFamily: el.fontFamily,
-                        fontSize: el.fontSize ? `${el.fontSize * 0.85}px` : "12px",
-                        fontWeight: el.fontWeight,
-                        color: el.color || el.fill,
-                        textAlign: el.textAlign || "left",
-                      }}
-                    >
-                      {el.type === "text" && el.text}
-                      {el.type === "image" && el.src && (
-                        <img src={el.src} alt="" className="max-h-8 object-contain" />
-                      )}
-                    </div>
-                  ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 py-2">
+              {(
+                [
+                  ["Face Recto (A)", "text-av-orange", design.recto],
+                  ["Face Verso (B)", "text-av-magenta", design.verso],
+                ] as const
+              ).map(([title, color, side]) => (
+                <div key={title} className="space-y-3">
+                  <span className={`text-[11px] font-extrabold uppercase tracking-[0.14em] ${color}`}>{title}</span>
+                  <StudioCardPreview
+                    side={side}
+                    widthMm={design.widthMm}
+                    heightMm={design.heightMm}
+                    paper
+                    className="w-full"
+                  />
                 </div>
-              </div>
-
-              {/* Verso Preview */}
-              <div className="space-y-2 text-center">
-                <span className="text-xs font-bold text-brand-magenta uppercase">Face Verso (B)</span>
-                <div
-                  className="w-full aspect-[85/55] rounded-xl shadow-2xl p-4 flex flex-col justify-center items-center border border-white/10 overflow-hidden"
-                  style={{ backgroundColor: design.verso.backgroundColor }}
-                >
-                  {design.verso.elements.map((el) => (
-                    <div
-                      key={el.id}
-                      style={{
-                        position: "relative",
-                        fontFamily: el.fontFamily,
-                        fontSize: el.fontSize ? `${el.fontSize * 0.85}px` : "12px",
-                        fontWeight: el.fontWeight,
-                        color: el.color || el.fill,
-                        textAlign: el.textAlign || "center",
-                      }}
-                    >
-                      {el.type === "text" && el.text}
-                      {el.type === "image" && el.src && (
-                        <img src={el.src} alt="" className="max-h-8 object-contain" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className="flex justify-end gap-3 pt-2">
+              <button
+                onClick={() => setIsPreviewOpen(false)}
+                className="px-5 py-2.5 rounded-full text-xs font-semibold text-white/70 hover:text-white hover:bg-white/10 transition cursor-pointer"
+              >
+                Continuer l&apos;édition
+              </button>
               <button
                 onClick={() => {
                   setIsPreviewOpen(false);
                   setIsPrintModalOpen(true);
                 }}
-                className="bg-brand-orange hover:bg-brand-orange/90 text-white px-6 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition"
+                className="bg-gradient-to-r from-av-orange to-av-magenta hover:brightness-110 text-white px-6 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition active:scale-95 shadow-lg shadow-av-orange/25 cursor-pointer"
               >
-                Passer à l'impression →
+                Passer à l&apos;impression →
               </button>
             </div>
           </div>
@@ -382,7 +398,7 @@ export default function StudioEditorPage() {
   return (
     <Suspense
       fallback={
-        <div className="h-screen w-screen bg-[#070512] flex items-center justify-center text-white">
+        <div className="h-dvh w-screen bg-[#070512] flex items-center justify-center text-white">
           <Loader2 className="animate-spin text-brand-orange mr-2" />
           <span>Chargement du Studio de création...</span>
         </div>
@@ -392,3 +408,4 @@ export default function StudioEditorPage() {
     </Suspense>
   );
 }
+

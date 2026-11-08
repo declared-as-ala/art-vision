@@ -10,6 +10,13 @@
   --color-brand-gray-light: #EDEDED;
   --color-brand-text-dark: #171625;
 
+  /* Art Vision Studio palette */
+  --color-av-night: #08051F;
+  --color-av-ink: #0c081e;
+  --color-av-violet: #6C2BD9;
+  --color-av-magenta: #D72888;
+  --color-av-orange: #FF6A00;
+
   --font-sans: var(--font-montserrat);
 }
 
@@ -265,3 +272,38 @@ input:focus, select:focus, textarea:focus {
 .cms-rich-content tr:last-child td { border-bottom: none; }
 .cms-rich-content tr:hover td { background: rgba(255, 255, 255, 0.03); }
 
+
+
+/* ───────── Art Vision Studio ───────── */
+.studio-workspace {
+  background-color: #070512;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(108, 43, 217, 0.16), transparent 70%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.11) 1px, transparent 1.2px);
+  background-size: 100% 100%, 22px 22px;
+  background-position: 0 0, 0 0;
+}
+.studio-paper {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 1px 1px rgba(0, 0, 0, 0.3),
+    0 2px 2px rgba(0, 0, 0, 0.25),
+    0 4px 4px rgba(0, 0, 0, 0.22),
+    0 8px 8px rgba(0, 0, 0, 0.2),
+    0 16px 16px rgba(0, 0, 0, 0.18),
+    0 32px 32px rgba(0, 0, 0, 0.16),
+    0 0 60px rgba(108, 43, 217, 0.18);
+}
+@keyframes studio-pop {
+  from { opacity: 0; transform: translateY(6px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.studio-pop { animation: studio-pop 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes studio-shine {
+  from { transform: translateX(-120%) skewX(-18deg); }
+  to { transform: translateX(260%) skewX(-18deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .studio-pop { animation: none; }
+}
