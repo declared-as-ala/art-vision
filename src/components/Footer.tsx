@@ -17,6 +17,7 @@ export default function Footer() {
   ];
 
   const tools = [
+    { name: "Studio de création — Créer et imprimer", href: "/studio" },
     { name: "Créer un CV Gratuit", href: "/outils-gratuits/cv-gratuit" },
     { name: "Créer une Carte de Visite", href: "/outils-gratuits/carte-de-visite-gratuite" },
     { name: "Estimation Impression", href: "/impression" },

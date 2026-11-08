@@ -25,7 +25,17 @@ interface Order {
   options: string; estimatedTtcCents?: number; status: string; notes?: string; createdAt: string;
 }
 
-const STATUS_LABEL: Record<string, string> = { NEW: "Nouveau", CONTACTED: "Contacté", CONFIRMED: "Confirmé", IN_PRODUCTION: "En production", DELIVERED: "Livré", CANCELLED: "Annulé" };
+const STATUS_LABEL: Record<string, string> = {
+  NEW: "Nouveau",
+  FILE_CHECK: "Contrôle du fichier",
+  BAT_PENDING: "BAT à valider",
+  PAYMENT_PENDING: "Paiement en attente",
+  PAID: "Payé",
+  IN_PRODUCTION: "En production",
+  SHIPPED: "Expédié",
+  DELIVERED: "Livré",
+  CANCELLED: "Annulé",
+};
 const input = "w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-magenta";
 
 export default function AdminPrintPage() {
@@ -358,16 +368,79 @@ function OrdersTab() {
           <table className="w-full text-left text-xs min-w-[760px]">
             <thead><tr className="border-b border-brand-purple/15 text-white/40 uppercase text-[10px] tracking-wider"><th className="p-3">Contact</th><th className="p-3">Produit</th><th className="p-3">Estimation</th><th className="p-3">Date</th><th className="p-3">Statut</th><th className="p-3"></th></tr></thead>
             <tbody className="divide-y divide-white/5">
-              {orders.map((o) => (
-                <tr key={o.id} className="hover:bg-white/[0.02] align-top">
-                  <td className="p-3"><strong className="text-white block">{o.name || "—"}</strong><span className="text-[10px] text-white/40 block">{o.email}</span><span className="text-[10px] text-white/30">{o.phone}</span></td>
-                  <td className="p-3 text-white/70">{o.productName}<details className="mt-1"><summary className="text-[10px] text-brand-magenta cursor-pointer">options</summary><pre className="text-[9px] text-white/50 mt-1 max-w-[200px] whitespace-pre-wrap">{(() => { try { return JSON.stringify(JSON.parse(o.options), null, 1); } catch { return o.options; } })()}</pre></details></td>
-                  <td className="p-3 text-brand-orange font-bold">{formatEuros(o.estimatedTtcCents)}</td>
-                  <td className="p-3 text-white/50">{new Date(o.createdAt).toLocaleDateString("fr-FR")}</td>
-                  <td className="p-3"><select value={o.status} onChange={(e) => upd(o.id, { status: e.target.value })} className="bg-brand-navy border border-brand-purple/25 rounded px-2 py-1 text-[10px] text-white">{Object.entries(STATUS_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></td>
-                  <td className="p-3 text-right"><button onClick={() => del(o.id)} className="text-white/40 hover:text-red-400 cursor-pointer"><Trash2 size={13} /></button></td>
-                </tr>
-              ))}
+              {orders.map((o) => {
+                let parsedOpts: any = {};
+                try {
+                  parsedOpts = JSON.parse(o.options);
+                } catch {
+                  parsedOpts = {};
+                }
+                const isStudio = parsedOpts?.orderSource === "STUDIO_ONLINE";
+
+                return (
+                  <tr key={o.id} className="hover:bg-white/[0.02] align-top">
+                    <td className="p-3">
+                      <div className="flex items-center gap-2">
+                        <strong className="text-white block">{o.name || "—"}</strong>
+                        {isStudio && (
+                          <span className="text-[9px] bg-brand-magenta/20 text-brand-magenta border border-brand-magenta/30 px-1.5 py-0.5 rounded font-bold uppercase">
+                            Studio
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-white/50 block">{o.email}</span>
+                      <span className="text-[10px] text-white/40 block">{o.phone}</span>
+                      {parsedOpts?.shippingAddress && (
+                        <span className="text-[9px] text-white/30 block mt-1">
+                          📍 {parsedOpts.shippingAddress.street}, {parsedOpts.shippingAddress.zipCode} {parsedOpts.shippingAddress.city}
+                        </span>
+                      )}
+                    </td>
+                    <td className="p-3 text-white/70">
+                      <strong className="text-xs text-white block">{o.productName}</strong>
+                      {parsedOpts?.paperTitle && (
+                        <span className="text-[10px] text-brand-orange block">
+                          {parsedOpts.paperTitle} ({parsedOpts.quantity})
+                        </span>
+                      )}
+                      <details className="mt-1">
+                        <summary className="text-[10px] text-brand-magenta cursor-pointer">Détails techniques</summary>
+                        <pre className="text-[9px] text-white/50 mt-1 max-w-[260px] whitespace-pre-wrap bg-black/40 p-2 rounded">
+                          {JSON.stringify(parsedOpts, null, 1)}
+                        </pre>
+                      </details>
+                    </td>
+                    <td className="p-3 text-brand-orange font-bold text-sm">
+                      {formatEuros(o.estimatedTtcCents)}
+                    </td>
+                    <td className="p-3 text-white/50 text-[11px]">
+                      {new Date(o.createdAt).toLocaleDateString("fr-FR")}
+                    </td>
+                    <td className="p-3">
+                      <select
+                        value={o.status}
+                        onChange={(e) => upd(o.id, { status: e.target.value })}
+                        className="bg-brand-navy border border-brand-purple/25 rounded px-2 py-1 text-[10px] text-white focus:outline-none focus:border-brand-magenta"
+                      >
+                        {Object.entries(STATUS_LABEL).map(([k, v]) => (
+                          <option key={k} value={k}>
+                            {v}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="p-3 text-right">
+                      <button
+                        onClick={() => del(o.id)}
+                        className="text-white/40 hover:text-red-400 transition cursor-pointer"
+                        title="Supprimer"
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}

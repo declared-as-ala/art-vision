@@ -171,11 +171,18 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* Desktop CTA Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
+            <Link
+              href="/studio"
+              className="bg-gradient-to-r from-[#D72888] to-[#6C2BD9] hover:from-[#c22077] hover:to-[#5822b3] text-white px-4 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all duration-300 transform hover:scale-105 shadow-md shadow-brand-magenta/20 flex items-center space-x-1.5"
+            >
+              <Sparkles size={13} className="text-brand-orange animate-pulse" />
+              <span>Créer et imprimer</span>
+            </Link>
             <Link
               href="/devis-sur-mesure"
-              className="bg-brand-orange hover:bg-brand-orange/95 text-white px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 transform hover:scale-105 shadow-md shadow-brand-orange/20 flex items-center space-x-2"
+              className="bg-brand-orange hover:bg-brand-orange/95 text-white px-4 py-2 rounded-full font-medium text-xs uppercase tracking-wider transition-all duration-300 transform hover:scale-105 shadow-md shadow-brand-orange/20 flex items-center space-x-1.5"
             >
               <span>Demander un devis</span>
             </Link>
@@ -305,7 +312,13 @@ export default function Navbar() {
             Contact
           </Link>
 
-          <div className="pt-6">
+          <div className="pt-6 space-y-2">
+            <Link
+              href="/studio"
+              className="block text-center bg-gradient-to-r from-[#D72888] to-[#6C2BD9] text-white py-3 rounded-full font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-brand-magenta/20"
+            >
+              Créer et imprimer
+            </Link>
             <Link
               href="/devis-sur-mesure"
               className="block text-center bg-brand-orange hover:bg-brand-orange/95 text-white py-3 rounded-full font-medium transition-all shadow-md shadow-brand-orange/20"

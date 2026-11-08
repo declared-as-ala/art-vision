@@ -158,25 +158,65 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Promotional Card / Banner */}
+          {/* 1.2 NEW STUDIO PROMOTIONAL BANNER */}
           <div className="mt-16 w-full">
-            <Link href="/outils-gratuits/carte-de-visite-gratuite" className="block w-full">
-              <div className="relative overflow-hidden rounded-3xl p-8 md:p-10 flex flex-col items-center justify-center text-center gap-6 hover:scale-[1.01] transition-all duration-300 border border-[#D72888]/30 shadow-[0_0_35px_rgba(215,40,136,0.35)] bg-gradient-to-br from-[#1b0530] via-[#0b0314] to-[#07010f] bg-opacity-95">
-                {/* Micro lights particles backdrop */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(108,43,217,0.35)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(215,40,136,0.35)_0%,transparent_50%)] pointer-events-none -z-10"></div>
-                
-                <div className="space-y-3">
-                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-montserrat font-extrabold text-white tracking-tight drop-shadow-[0_0_15px_rgba(215,40,136,0.85)]">
-                    CARTE DE VISITE GRATUITE
-                  </h2>
-                  <p className="text-xs sm:text-sm md:text-lg font-extrabold text-white/90 uppercase tracking-widest flex items-center justify-center gap-2 flex-wrap">
-                    <span className="text-brand-magenta text-lg">•</span> Découvrez notre nouvel outil de création
-                  </p>
+            <Link href="/studio" className="block w-full group">
+              <div className="relative overflow-hidden rounded-3xl p-8 md:p-12 border border-[#D72888]/40 shadow-[0_0_40px_rgba(215,40,136,0.3)] bg-gradient-to-br from-[#1c0836] via-[#0e041e] to-[#070112] hover:border-brand-orange/60 transition-all duration-300 hover:scale-[1.01]">
+                {/* Background lighting */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(108,43,217,0.4)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(255,106,0,0.25)_0%,transparent_50%)] pointer-events-none" />
+
+                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left">
+                  {/* Text Column */}
+                  <div className="lg:col-span-7 space-y-4 text-center lg:text-left">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/15 border border-brand-orange/30 text-brand-orange text-xs font-bold uppercase tracking-wider">
+                      <Sparkles size={14} className="text-brand-orange" />
+                      <span>Studio Graphique & Impression en ligne</span>
+                    </div>
+
+                    <h2 className="text-2xl sm:text-4xl lg:text-5xl font-montserrat font-extrabold text-white tracking-tight leading-tight">
+                      Créez votre visuel, on s’occupe de l’impression.
+                    </h2>
+
+                    <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed max-w-xl">
+                      Personnalisez un modèle ou laissez parler votre créativité. Ajoutez vos textes, votre logo et vos images, puis commandez votre support imprimé chez Art Vision.
+                    </p>
+
+                    <div className="pt-2 flex flex-col sm:flex-row items-center sm:items-start gap-3">
+                      <div>
+                        <span className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF6A00] to-[#D72888] hover:from-[#e55f00] hover:to-[#c22077] text-white px-8 py-3.5 rounded-full text-xs font-extrabold uppercase tracking-widest transition shadow-lg shadow-brand-orange/30 group-hover:scale-105">
+                          <span>Créer mon visuel</span>
+                          <ChevronRight size={14} />
+                        </span>
+                        <span className="text-[11px] text-white/60 block mt-2 font-medium text-center sm:text-left">
+                          Création en ligne incluse avec votre commande d’impression.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Visual Mockup Column */}
+                  <div className="lg:col-span-5 flex items-center justify-center">
+                    <div className="relative w-full max-w-sm aspect-[85/55] rounded-2xl p-4 bg-[#140e2b]/90 border border-brand-purple/40 shadow-2xl flex flex-col justify-between transform group-hover:rotate-1 group-hover:scale-105 transition-all duration-500 overflow-hidden">
+                      <div className="flex justify-between items-start">
+                        <div className="space-y-1">
+                          <div className="h-3 w-28 bg-gradient-to-r from-brand-orange to-brand-magenta rounded" />
+                          <div className="h-2 w-36 bg-white/30 rounded" />
+                        </div>
+                        <span className="text-[10px] font-bold text-white/50 bg-white/10 px-2 py-0.5 rounded">
+                          85 × 55 mm
+                        </span>
+                      </div>
+                      <div className="space-y-1.5 pt-4">
+                        <div className="h-1.5 w-44 bg-white/20 rounded" />
+                        <div className="h-1.5 w-32 bg-white/20 rounded" />
+                      </div>
+                      <div className="flex justify-between items-center pt-2 border-t border-white/10 text-[10px]">
+                        <span className="text-emerald-400 font-semibold">✓ Normes PAO certifiées</span>
+                        <span className="text-brand-orange font-bold uppercase">Recto / Verso</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                
-                <span className="bg-[#D95200] hover:bg-[#B84200] text-white px-8 py-3 rounded-full text-xs font-extrabold uppercase tracking-widest transition shadow-md shadow-[#D95200]/25 mt-2">
-                  J'en profite
-                </span>
               </div>
             </Link>
           </div>

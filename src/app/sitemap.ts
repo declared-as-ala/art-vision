@@ -26,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 1. Static Core Public Routes (excluding redirects & admin)
   const staticRoutes = [
     "",
+    "/studio",
     "/portfolio",
     "/blog",
     "/contact",

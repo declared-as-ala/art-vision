@@ -418,22 +418,35 @@ export default async function ImpressionProductPage({ params }: { params: Promis
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Link
-                  href={`/devis-sur-mesure?prefill=impression&product=${encodeURIComponent(label)}`}
-                  className="bg-brand-orange hover:bg-brand-orange/95 text-white px-7 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition shadow-lg shadow-brand-orange/20"
-                >
-                  Demander un devis immédiat
-                </Link>
-                {isBusinessCard && (
+              {/* 3 Possibilités de commande */}
+              <div className="space-y-3 pt-2">
+                <span className="text-[11px] font-bold text-white/50 uppercase tracking-wider block">
+                  3 façons de concrétiser votre projet :
+                </span>
+                <div className="flex flex-wrap gap-2.5">
                   <Link
-                    href="/outils-gratuits/carte-de-visite-gratuite"
-                    className="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider transition flex items-center gap-1.5"
+                    href={`/studio/editor?product=${encodeURIComponent(canonicalSlug === "carte-de-visite" ? "cartes-de-visite" : canonicalSlug)}`}
+                    className="bg-gradient-to-r from-[#D72888] to-[#FF6A00] hover:from-[#c22077] hover:to-[#e55f00] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition shadow-lg shadow-brand-magenta/25 flex items-center gap-1.5 transform hover:scale-105"
                   >
-                    <Sparkles size={14} className="text-brand-magenta" />
-                    Créer ma maquette gratuite
+                    <Sparkles size={14} className="animate-pulse" />
+                    <span>Personnaliser un modèle</span>
                   </Link>
-                )}
+
+                  <Link
+                    href={`/devis-sur-mesure?prefill=impression&product=${encodeURIComponent(label)}&mode=file_ready`}
+                    className="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-4 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition flex items-center gap-1.5"
+                  >
+                    <Printer size={13} />
+                    <span>Envoyer mon fichier prêt</span>
+                  </Link>
+
+                  <Link
+                    href={`/devis-sur-mesure?prefill=design&product=${encodeURIComponent(label)}`}
+                    className="bg-brand-purple/20 hover:bg-brand-purple/40 border border-brand-purple/30 text-white/80 hover:text-white px-4 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider transition"
+                  >
+                    <span>Confier à un graphiste</span>
+                  </Link>
+                </div>
               </div>
             </div>
 
