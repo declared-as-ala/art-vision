@@ -16,7 +16,7 @@ import {
   Trash2,
 } from "lucide-react";
 import type { StudioElement } from "./studioTypes";
-import { STUDIO_PALETTE, getColorKey, getElementColor, getImageDpi, DPI_COLORS } from "./studioUtils";
+import { STUDIO_PALETTE, getColorKey, getElementColor, getImageDpi, DPI_COLORS, formatPt, pxToPt, ptToPx, roundPt } from "./studioUtils";
 
 interface StudioFloatingInspectorProps {
   element: StudioElement;
@@ -25,6 +25,8 @@ interface StudioFloatingInspectorProps {
   onDuplicate: () => void;
   onBringForward: () => void;
   onSendBackward: () => void;
+  /** Allowed text size range in pt for this document */
+  fontRangePt?: { min: number; max: number };
   /** Start in-place text editing (text elements). */
   onEditText?: () => void;
   /** Phone layout: wraps instead of overflowing, popovers open upwards. */
@@ -48,6 +50,7 @@ export default function StudioFloatingInspector({
   onBringForward,
   onSendBackward,
   onEditText,
+  fontRangePt = { min: 3, max: 120 },
   compact = false,
 }: StudioFloatingInspectorProps) {
   const [colorOpen, setColorOpen] = useState(false);
@@ -82,19 +85,27 @@ export default function StudioFloatingInspector({
               type="button"
               className={btn}
               title="Réduire la taille"
-              onClick={() => onUpdate({ fontSize: Math.max(4, (element.fontSize || 12) - 0.5) })}
+              onClick={() => {
+                const pt = pxToPt(element.fontSize || 12);
+                const step = Math.max(0.5, roundPt(pt * 0.06));
+                onUpdate({ fontSize: Math.round(ptToPx(Math.max(fontRangePt.min, pt - step)) * 100) / 100 });
+              }}
             >
               <Minus size={13} />
             </button>
-            <span className="w-9 text-center text-[11px] font-bold tabular-nums">
-              {element.fontSize || 12}
+            <span className="min-w-9 px-0.5 text-center text-[11px] font-bold tabular-nums">
+              {formatPt(element.fontSize || 12)}
               <span className="text-white/40 font-medium">pt</span>
             </span>
             <button
               type="button"
               className={btn}
               title="Augmenter la taille"
-              onClick={() => onUpdate({ fontSize: Math.min(60, (element.fontSize || 12) + 0.5) })}
+              onClick={() => {
+                const pt = pxToPt(element.fontSize || 12);
+                const step = Math.max(0.5, roundPt(pt * 0.06));
+                onUpdate({ fontSize: Math.round(ptToPx(Math.min(fontRangePt.max, pt + step)) * 100) / 100 });
+              }}
             >
               <Plus size={13} />
             </button>

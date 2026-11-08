@@ -8,7 +8,12 @@ import {
   DPI_COLORS,
   STUDIO_FONTS,
   STUDIO_PALETTE,
+  fontSizeRangePt,
+  formatPt,
   getImageDpi,
+  pxToPt,
+  ptToPx,
+  roundPt,
 } from "./studioUtils";
 import {
   AlertTriangle,
@@ -315,6 +320,69 @@ function DpiGauge({ element, compact = false }: { element: StudioElement; compac
           </p>
         </>
       )}
+    </div>
+  );
+}
+
+/** Text size: numeric input (pt) + logarithmic slider, range adapted to the document. */
+function FontSizeField({
+  valuePx,
+  rangePt,
+  onChange,
+}: {
+  valuePx: number;
+  rangePt: { min: number; max: number };
+  onChange: (px: number) => void;
+}) {
+  const pt = pxToPt(valuePx);
+  const { min, max } = rangePt;
+  const clamped = Math.min(max, Math.max(min, pt));
+  const pos = Math.round((Math.log(clamped / min) / Math.log(max / min)) * 1000);
+  const [draft, setDraft] = useState<string | null>(null);
+  const commit = (raw: string) => {
+    const n = parseFloat(raw.replace(",", "."));
+    setDraft(null);
+    if (Number.isFinite(n)) onChange(ptToPx(Math.min(max, Math.max(min, n))));
+  };
+  return (
+    <div className="space-y-1.5">
+      <div className="flex justify-between items-center">
+        <span className={label}>Taille du texte</span>
+        <span className="flex items-center gap-1">
+          <input
+            type="text"
+            inputMode="decimal"
+            aria-label="Taille du texte en points"
+            value={draft ?? formatPt(valuePx)}
+            onFocus={(e) => e.currentTarget.select()}
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={(e) => commit(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+              if (e.key === "Escape") setDraft(null);
+            }}
+            className="w-16 rounded-lg bg-white/[0.06] border border-white/10 px-2 py-1 text-right text-xs font-bold text-white tabular-nums focus:outline-none focus:border-av-magenta"
+          />
+          <span className="text-[10px] text-white/45">pt</span>
+        </span>
+      </div>
+      <input
+        type="range"
+        min={0}
+        max={1000}
+        step={1}
+        value={pos}
+        aria-label="Taille du texte"
+        onChange={(e) => {
+          const v = min * Math.pow(max / min, parseFloat(e.target.value) / 1000);
+          onChange(ptToPx(roundPt(v)));
+        }}
+        className="w-full accent-[#D72888] cursor-pointer"
+      />
+      <div className="flex justify-between text-[9px] text-white/30">
+        <span>{min} pt</span>
+        <span>{max} pt</span>
+      </div>
     </div>
   );
 }
@@ -684,7 +752,7 @@ export default function StudioSidebar({
                   >
                     <span className={preset.cls}>{preset.title}</span>
                     <span className="flex items-center gap-1.5 text-[10px] text-white/40 shrink-0">
-                      {preset.size} pt <Plus size={13} className="text-av-orange" />
+                      {formatPt(preset.size)} pt <Plus size={13} className="text-av-orange" />
                     </span>
                   </button>
                 ))}
@@ -709,14 +777,10 @@ export default function StudioSidebar({
                     onChange={(name) => onUpdateElement(selectedElement.id, { fontFamily: name })}
                   />
 
-                  <RangeField
-                    title="Taille"
-                    value={selectedElement.fontSize || 12}
-                    min={4}
-                    max={40}
-                    step={0.5}
-                    suffix=" pt"
-                    onChange={(v) => onUpdateElement(selectedElement.id, { fontSize: v })}
+                  <FontSizeField
+                    valuePx={selectedElement.fontSize || 12}
+                    rangePt={fontSizeRangePt(design.widthMm, design.heightMm)}
+                    onChange={(px) => onUpdateElement(selectedElement.id, { fontSize: Math.round(px * 100) / 100 })}
                   />
 
                   <div className="grid grid-cols-2 gap-2">

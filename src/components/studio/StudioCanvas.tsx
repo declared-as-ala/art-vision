@@ -3,7 +3,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Eye, EyeOff, Magnet, Maximize2, ZoomIn, ZoomOut } from "lucide-react";
 import { StudioDesign, StudioElement, StudioSide } from "./studioTypes";
-import { MM_TO_PX } from "./studioUtils";
+import { MM_TO_PX, fontSizeRangePt } from "./studioUtils";
 import StudioFloatingInspector from "./StudioFloatingInspector";
 
 interface StudioCanvasProps {
@@ -781,6 +781,7 @@ export default function StudioCanvas({
                       <div data-keep-selection className="absolute pointer-events-auto" style={inspectorStyle}>
                         <StudioFloatingInspector
                           element={selectedElement}
+                          fontRangePt={fontSizeRangePt(design.widthMm, design.heightMm)}
                           onUpdate={(updates) => onUpdateElement(selectedElement.id, updates)}
                           onDelete={() => onDeleteElement?.(selectedElement.id)}
                           onDuplicate={() => onDuplicateElement?.(selectedElement.id)}
@@ -843,6 +844,7 @@ export default function StudioCanvas({
             <StudioFloatingInspector
               element={selectedElement}
               compact
+              fontRangePt={fontSizeRangePt(design.widthMm, design.heightMm)}
               onUpdate={(updates) => onUpdateElement(selectedElement.id, updates)}
               onDelete={() => onDeleteElement?.(selectedElement.id)}
               onDuplicate={() => onDuplicateElement?.(selectedElement.id)}

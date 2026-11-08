@@ -38,7 +38,7 @@ function withSpec(design: StudioDesign, spec: StudioSpec): StudioDesign {
     safeMarginMm: spec.safeMarginMm,
     formatId: spec.formatId,
     orientation: spec.orientation,
-    singleSided: !product.hasVerso,
+    singleSided: !spec.hasVerso,
   };
 }
 
@@ -413,7 +413,7 @@ function StudioEditor({
         onContinueToPrint={() => setIsPrintModalOpen(true)}
         onPreview={() => setIsPreviewOpen(true)}
         onCopyRectoToVerso={handleCopyRectoToVerso}
-        hasVerso={product.hasVerso}
+        hasVerso={spec.hasVerso}
         rectoHasContent={design.recto.elements.length > 0}
       />
 
@@ -511,11 +511,11 @@ function StudioEditor({
             </div>
 
             <div className="min-h-0 flex-1 overflow-y-auto px-5 md:px-8 pb-4">
-              <div className={`grid gap-6 md:gap-8 py-2 ${product.hasVerso ? "md:grid-cols-2" : "grid-cols-1"}`}>
+              <div className={`grid gap-6 md:gap-8 py-2 ${spec.hasVerso ? "md:grid-cols-2" : "grid-cols-1"}`}>
                 {(
                   [
                     ["Recto", "text-av-orange", design.recto],
-                    ...(product.hasVerso ? [["Verso", "text-av-magenta", design.verso] as const] : []),
+                    ...(spec.hasVerso ? [["Verso", "text-av-magenta", design.verso] as const] : []),
                   ] as const
                 ).map(([title, color, side]) => (
                   <div key={title} className="space-y-3 flex flex-col items-center">

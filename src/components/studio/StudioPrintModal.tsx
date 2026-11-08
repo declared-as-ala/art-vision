@@ -219,7 +219,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
   const isQuote = product.mode === "quote";
 
   const [step, setStep] = useState<"options" | "details" | "confirmation">("options");
-  const [selectedSides, setSelectedSides] = useState<"recto" | "recto-verso">(product.hasVerso ? "recto-verso" : "recto");
+  const [selectedSides, setSelectedSides] = useState<"recto" | "recto-verso">(spec.hasVerso ? "recto-verso" : "recto");
   const [selectedPaperId, setSelectedPaperId] = useState<string | null>(null);
   const [selectedQuantity, setSelectedQuantity] = useState<string>("500 ex");
   const [bacheQty, setBacheQty] = useState(1);
@@ -272,8 +272,8 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
   // Papers that exist for exactly this format (and both side variants if any)
   const papersForFormat = useMemo(() => (entry.papers ?? []).filter((p) => p.rows[spec.formatId]), [entry, spec.formatId]);
   const hasBothSides =
-    product.hasVerso && papersForFormat.some((p) => p.sides === "recto") && papersForFormat.some((p) => p.sides === "recto-verso");
-  const sidesInUse: "recto" | "recto-verso" = !product.hasVerso
+    spec.hasVerso && papersForFormat.some((p) => p.sides === "recto") && papersForFormat.some((p) => p.sides === "recto-verso");
+  const sidesInUse: "recto" | "recto-verso" = !spec.hasVerso
     ? "recto"
     : hasBothSides
     ? selectedSides
@@ -301,7 +301,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
   const quantityNumber = isQuote ? bacheQty : parseInt(effectiveQuantity, 10) || 1;
   const unitPrice = priceHt / quantityNumber;
 
-  const withVerso = product.hasVerso && sidesInUse === "recto-verso";
+  const withVerso = spec.hasVerso && sidesInUse === "recto-verso";
   const totalW = design.widthMm + design.bleedMm * 2;
   const totalH = design.heightMm + design.bleedMm * 2;
   const exportDpi = Math.round(getExportDpi(totalW, totalH));
@@ -444,7 +444,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
 
   const previewSides = [
     { title: "Recto", side: design.recto, printed: true },
-    ...(product.hasVerso ? [{ title: "Verso", side: design.verso, printed: withVerso }] : []),
+    ...(spec.hasVerso ? [{ title: "Verso", side: design.verso, printed: withVerso }] : []),
   ];
   const portrait = design.heightMm > design.widthMm;
 

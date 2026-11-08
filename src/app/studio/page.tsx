@@ -10,7 +10,7 @@ import StudioDrafts from "@/components/studio/StudioDrafts";
 export const metadata: Metadata = {
   title: "Studio de création graphique en ligne | Art Vision",
   description:
-    "Choisissez votre support (cartes de visite, flyers, bons cadeaux, bâches), personnalisez-le en ligne et commandez votre impression professionnelle chez Art Vision.",
+    "Choisissez votre support (cartes de visite, flyers, bons cadeaux, affiches, roll-up, bâches…), personnalisez-le en ligne et commandez votre impression professionnelle chez Art Vision.",
   alternates: {
     canonical: "https://art-visions.fr/studio",
   },
@@ -30,6 +30,10 @@ const FORMATS_LABEL: Record<string, string> = {
   "cartes-de-visite": "85 × 55 mm",
   flyers: "A6 · A5 · A4 · A3 · US",
   "bons-cadeaux": "A6 · US · A5",
+  "cartes-fidelite": "85 × 55 mm",
+  "cartes-postales": "A6 (148 × 105 mm)",
+  affiches: "A4 · A3 · A2 · A1",
+  "roll-up": "85 · 100 · 120 · 150 · 200 × 200 cm",
   baches: "Dimensions sur mesure (cm)",
 };
 

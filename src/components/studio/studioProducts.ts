@@ -1,6 +1,14 @@
 import type { StudioDesign, StudioSide } from "./studioTypes";
 
-export type StudioProductId = "cartes-de-visite" | "flyers" | "bons-cadeaux" | "baches";
+export type StudioProductId =
+  | "cartes-de-visite"
+  | "cartes-fidelite"
+  | "flyers"
+  | "bons-cadeaux"
+  | "cartes-postales"
+  | "affiches"
+  | "roll-up"
+  | "baches";
 export type Orientation = "portrait" | "landscape";
 
 export interface StudioFormat {
@@ -14,6 +22,10 @@ export interface StudioFormat {
   /** Natural orientation (the one widthMm × heightMm describes). */
   natural: Orientation;
   note?: string;
+  /** Title label when the generic label is not enough ("85 × 200 cm") */
+  shortLabel?: string;
+  /** false when the catalog offers this format single-sided only */
+  versoAvailable?: boolean;
 }
 
 export interface CustomSizeRule {
@@ -106,6 +118,80 @@ export const STUDIO_PRODUCTS: StudioProduct[] = [
     orderSlug: "bons-cadeaux",
   },
   {
+    id: "cartes-fidelite",
+    name: "Cartes de fidélité",
+    shortName: "Carte de fidélité",
+    description: "Cartes à tamponner ou à points, impression carton.",
+    image: "/images/impression/16-cartes-de-visite-art-vision.webp",
+    formats: [{ id: "cdv", label: "Carte de fidélité", widthMm: 85, heightMm: 55, orientable: false, natural: "landscape" }],
+    bleedMm: 2,
+    safeMarginMm: 3,
+    hasVerso: true,
+    catalogKey: "cartes-fidelite",
+    catalogSlug: "cartes-de-visite",
+    mode: "instant",
+    orderSlug: "cartes-fidelite",
+  },
+  {
+    id: "cartes-postales",
+    name: "Cartes postales",
+    shortName: "Carte postale",
+    description: "Cartes postales A6 recto / verso.",
+    image: "/images/impression/18-cartes-postales-art-vision.webp",
+    formats: [{ id: "a6", label: "A6", widthMm: 148, heightMm: 105, orientable: true, natural: "landscape" }],
+    bleedMm: 2,
+    safeMarginMm: 3,
+    hasVerso: true,
+    catalogKey: "cartes-postales",
+    catalogSlug: "cartes-postales",
+    mode: "instant",
+    orderSlug: "cartes-postales",
+  },
+  {
+    id: "affiches",
+    name: "Affiches",
+    shortName: "Affiche",
+    description: "Affiches du A4 au A1, papiers FSC ou recyclés.",
+    image: "/images/impression/01-affiches-art-vision.webp",
+    formats: [
+      { id: "a4", label: "A4", widthMm: 210, heightMm: 297, orientable: true, natural: "portrait", versoAvailable: false },
+      { id: "a3", label: "A3", widthMm: 297, heightMm: 420, orientable: true, natural: "portrait" },
+      { id: "a2", label: "A2", widthMm: 420, heightMm: 594, orientable: true, natural: "portrait" },
+      { id: "a1", label: "A1", widthMm: 594, heightMm: 841, orientable: true, natural: "portrait" },
+    ],
+    bleedMm: 2,
+    safeMarginMm: 3,
+    hasVerso: true,
+    catalogKey: "affiches",
+    catalogSlug: "affiches",
+    mode: "instant",
+    orderSlug: "affiches",
+  },
+  {
+    id: "roll-up",
+    name: "Roll-up",
+    shortName: "Roll-up",
+    description: "Roll-up enrouleur : toile vinyle 440 g ou tissu polyester.",
+    image: "/images/impression/38-roll-up-art-vision.webp",
+    formats: [
+      { id: "ru85", label: "85 × 200 cm", shortLabel: "85 × 200 cm", widthMm: 850, heightMm: 2000, orientable: false, natural: "portrait" },
+      { id: "ru100", label: "100 × 200 cm", shortLabel: "100 × 200 cm", widthMm: 1000, heightMm: 2000, orientable: false, natural: "portrait", versoAvailable: false },
+      { id: "ru120", label: "120 × 200 cm", shortLabel: "120 × 200 cm", widthMm: 1200, heightMm: 2000, orientable: false, natural: "portrait", versoAvailable: false },
+      { id: "ru150", label: "150 × 200 cm", shortLabel: "150 × 200 cm", widthMm: 1500, heightMm: 2000, orientable: false, natural: "portrait", versoAvailable: false },
+      { id: "ru200", label: "200 × 200 cm", shortLabel: "200 × 200 cm", widthMm: 2000, heightMm: 2000, orientable: false, natural: "portrait", versoAvailable: false },
+      { id: "tx200x220", label: "Tissu 200 × 220 cm", shortLabel: "tissu 200 × 220 cm", widthMm: 2000, heightMm: 2200, orientable: false, natural: "portrait", versoAvailable: false },
+      { id: "tx200x250", label: "Tissu 200 × 250 cm", shortLabel: "tissu 200 × 250 cm", widthMm: 2000, heightMm: 2500, orientable: false, natural: "portrait", versoAvailable: false },
+      { id: "tx200x300", label: "Tissu 200 × 300 cm", shortLabel: "tissu 200 × 300 cm", widthMm: 2000, heightMm: 3000, orientable: false, natural: "portrait", versoAvailable: false },
+    ],
+    bleedMm: 2,
+    safeMarginMm: 3,
+    hasVerso: true,
+    catalogKey: "roll-up",
+    catalogSlug: "roll-up",
+    mode: "instant",
+    orderSlug: "roll-up",
+  },
+  {
     id: "baches",
     name: "Bâches",
     shortName: "Bâche",
@@ -135,6 +221,8 @@ export interface StudioSpec {
   heightMm: number;
   bleedMm: number;
   safeMarginMm: number;
+  /** Whether a printed verso exists for this format */
+  hasVerso: boolean;
   /** "Flyer A5" */
   title: string;
   /** "148 × 210 mm · Portrait" */
@@ -144,6 +232,10 @@ export interface StudioSpec {
 }
 
 const fmt = (n: number) => String(Math.round(n * 10) / 10).replace(".", ",");
+/** "148 × 210 mm" — or in cm once a side reaches 1 m */
+export function dimensionsText(widthMm: number, heightMm: number): string {
+  return Math.max(widthMm, heightMm) >= 1000 ? `${fmt(widthMm / 10)} × ${fmt(heightMm / 10)} cm` : `${fmt(widthMm)} × ${fmt(heightMm)} mm`;
+}
 
 export function orientationLabel(o: Orientation) {
   return o === "portrait" ? "Portrait" : "Paysage";
@@ -165,6 +257,7 @@ export function buildSpec(
       productId: product.id,
       formatId: "custom",
       orientation: o,
+      hasVerso: false,
       widthMm: w * 10,
       heightMm: h * 10,
       bleedMm: product.bleedMm,
@@ -188,8 +281,9 @@ export function buildSpec(
     heightMm,
     bleedMm: product.bleedMm,
     safeMarginMm: product.safeMarginMm,
-    title: product.formats.length > 1 ? `${product.shortName} ${format.label.split(" ")[0]}` : product.shortName,
-    dimensionsLabel: `${fmt(widthMm)} × ${fmt(heightMm)} mm${format.orientable ? ` · ${orientationLabel(o)}` : ""}`,
+    hasVerso: product.hasVerso && (format.versoAvailable ?? true),
+    title: product.formats.length > 1 ? `${product.shortName} ${format.shortLabel ?? format.label.split(" ")[0]}` : product.shortName,
+    dimensionsLabel: `${dimensionsText(widthMm, heightMm)}${format.orientable ? ` · ${orientationLabel(o)}` : ""}`,
     key: `${product.id}:${format.id}:${o}`,
   };
 }
@@ -257,7 +351,7 @@ export function createBlankDesign(spec: StudioSpec): StudioDesign {
     activeSide: "recto",
     formatId: spec.formatId,
     orientation: spec.orientation,
-    singleSided: !product.hasVerso,
+    singleSided: !spec.hasVerso,
     recto: empty(),
     verso: empty(),
   };

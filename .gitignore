@@ -36,7 +36,6 @@ dev.db
 dev.db-journal
 
 # env files (can opt-in for committing if needed)
-.env*
 !.env.example
 
 # separate external application
@@ -59,3 +58,4 @@ temp_interactive_push.bat
 scratch/
 
 *.zip
+config.bat

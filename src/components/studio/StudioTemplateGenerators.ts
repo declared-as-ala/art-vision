@@ -1,6 +1,6 @@
 import type { StudioDesign, StudioElement, StudioSide, StudioTemplate } from "./studioTypes";
 import { STUDIO_TEMPLATES } from "./StudioTemplates";
-import { createBlankDesign, getProduct, type StudioSpec } from "./studioProducts";
+import { createBlankDesign, getProduct, type StudioProductId, type StudioSpec } from "./studioProducts";
 
 /** CSS px per mm used by the editor (font sizes are expressed in these px). */
 const PX = 3.7795;
@@ -190,34 +190,182 @@ function bannerLayout(t: Theme, W: number, H: number): { recto: StudioSide; vers
   return { recto: sideOf(t.bg, elements), verso: sideOf("#ffffff", []) };
 }
 
-const LAYOUTS = {
-  flyers: flyerLayout,
-  "bons-cadeaux": voucherLayout,
-  baches: bannerLayout,
-} as const;
+
+/** Bold colour block + headline (posters, flyers, roll-ups). */
+function splitLayout(t: Theme, W: number, H: number): { recto: StudioSide; verso: StudioSide } {
+  const b = Math.min(W, H);
+  const m = b * 0.08;
+  const portrait = H >= W;
+  const blockW = portrait ? W : W * 0.52;
+  const blockH = portrait ? H * 0.56 : H;
+  const fw = blockW - m * 2;
+  const headSize = Math.min(b * (portrait ? 0.15 : 0.16), fw / (8 * 0.74));
+  const infoX = portrait ? m : blockW + m;
+  const infoW = portrait ? W - m * 2 : W - blockW - m * 2;
+  const infoY = portrait ? blockH + H * 0.05 : H * 0.14;
+  const recto: StudioElement[] = [
+    rect("block", 0, 0, blockW, blockH, t.accent),
+    circle("deco", blockW - b * 0.28, blockH - b * 0.28, b * 0.5, t.accent2, { opacity: 0.35 }),
+    text("tag", m, portrait ? H * 0.06 : H * 0.08, fw, lineH(b * 0.035), "ÉVÉNEMENT · 12 JUIN", {
+      fontSize: fs(b * 0.032, 20, fw), fontWeight: "600", color: t.onAccent, letterSpacing: 3, fontFamily: t.body,
+    }),
+    text("title", m, portrait ? H * 0.16 : H * 0.28, fw, lineH(headSize, 3) * 0.95, "GRANDE\nSOIRÉE\nD'OUVERTURE", {
+      fontSize: headSize * PX, fontWeight: "800", color: t.onAccent, fontFamily: t.head, lineHeight: 1.04,
+    }),
+    text("sub", infoX, infoY, infoW, lineH(b * 0.05, 3), "Musique, animations et surprises\npour célébrer ce grand jour avec vous.", {
+      fontSize: fs(b * 0.042, 40, infoW), color: t.fg, fontFamily: t.body, lineHeight: 1.4,
+    }),
+    line("rule", infoX, infoY + lineH(b * 0.05, 3) + b * 0.03, b * 0.18, t.accent, Math.max(0.6, b * 0.008)),
+    text("when", infoX, infoY + lineH(b * 0.05, 3) + b * 0.06, infoW, lineH(b * 0.04, 2), "Samedi 12 juin · 19h\n12 rue Exemple, 75000 Ville", {
+      fontSize: fs(b * 0.04, 30, infoW), fontWeight: "bold", color: t.fg, fontFamily: t.body, lineHeight: 1.35,
+    }),
+    text("contact", infoX, H - m - lineH(b * 0.034, 2), infoW, lineH(b * 0.034, 2), "06 00 00 00 00\nvotre-site.fr", {
+      fontSize: fs(b * 0.034, 24, infoW), color: t.muted, fontFamily: t.body, lineHeight: 1.35,
+    }),
+  ];
+  const verso: StudioElement[] = [
+    rect("band", 0, 0, W, H * 0.12, t.accent),
+    text("title", m, H * 0.2, W - m * 2, lineH(b * 0.07), "Informations pratiques", {
+      fontSize: fs(b * 0.065, 24, W - m * 2), fontWeight: "800", color: t.fg, fontFamily: t.head,
+    }),
+    text("list", m, H * 0.2 + lineH(b * 0.07) + b * 0.04, W - m * 2, lineH(b * 0.045, 6), "• Horaires : 19h - 2h\n• Entrée libre\n• Parking à proximité\n• Réservation conseillée", {
+      fontSize: fs(b * 0.045, 40, W - m * 2), color: t.fg, fontFamily: t.body, lineHeight: 1.5,
+    }),
+  ];
+  return { recto: sideOf(t.bg, recto), verso: sideOf(t.bg, verso) };
+}
+
+function postcardLayout(t: Theme, W: number, H: number): { recto: StudioSide; verso: StudioSide } {
+  const b = Math.min(W, H);
+  const m = b * 0.1;
+  const landscape = W >= H;
+  const fw = W - m * 2;
+  const headSize = Math.min(b * 0.2, fw / (10 * 0.74));
+  const recto: StudioElement[] = [
+    circle("c1", W - b * 0.7, -b * 0.25, b * 0.95, t.accent, { opacity: 0.9 }),
+    circle("c2", W - b * 0.35, b * 0.55, b * 0.5, t.accent2, { opacity: 0.8 }),
+    text("title", m, H * 0.28, fw * 0.7, lineH(headSize, 2), "Bonjour\nde Paris", {
+      fontSize: headSize * PX, fontWeight: "800", color: t.fg, fontFamily: t.head, lineHeight: 1.05,
+    }),
+    text("sub", m, H * 0.28 + lineH(headSize, 2) + b * 0.04, fw * 0.7, lineH(b * 0.05), "VOTRE MARQUE · SOUVENIRS D'UN LIEU", {
+      fontSize: fs(b * 0.04, 34, fw * 0.7), fontWeight: "600", color: t.muted, letterSpacing: 2, fontFamily: t.body,
+    }),
+  ];
+  const verso: StudioElement[] = landscape
+    ? [
+        line("div", W * 0.55, m, H - m * 2, t.muted, 0.2),
+        ...[0, 1, 2, 3].map((i) => line(`msg-${i}`, m, H * 0.3 + i * H * 0.14, W * 0.55 - m * 1.6, t.muted, 0.2)),
+        text("hello", m, H * 0.12, W * 0.45, lineH(b * 0.05), "Cher(e) ami(e),", { fontSize: fs(b * 0.05, 16, W * 0.45), color: t.fg, fontFamily: t.body }),
+        rect("stamp", W - m - b * 0.2, m, b * 0.2, b * 0.25, "transparent", { stroke: t.muted, strokeWidth: 0.3 }),
+        ...[0, 1, 2].map((i) => line(`adr-${i}`, W * 0.6, H * 0.5 + i * H * 0.13, W * 0.4 - m, t.muted, 0.2)),
+        text("brand", W * 0.6, H - m - lineH(b * 0.035), W * 0.4 - m, lineH(b * 0.035), "votre-site.fr", { fontSize: fs(b * 0.035, 16, W * 0.4 - m), color: t.muted, fontFamily: t.body }),
+      ]
+    : [
+        line("div", m, H * 0.5, W - m * 2, t.muted, 0.2),
+        ...[0, 1, 2].map((i) => line(`msg-${i}`, m, H * 0.2 + i * H * 0.08, W - m * 2, t.muted, 0.2)),
+        rect("stamp", W - m - b * 0.22, m, b * 0.22, b * 0.28, "transparent", { stroke: t.muted, strokeWidth: 0.3 }),
+        ...[0, 1, 2].map((i) => line(`adr-${i}`, m, H * 0.62 + i * H * 0.08, W - m * 2, t.muted, 0.2)),
+      ];
+  return { recto: sideOf(t.bg, recto), verso: sideOf(t.bg === "#FF6A00" ? t.bg : t.bg, verso) };
+}
+
+function loyaltyLayout(t: Theme, W: number, H: number): { recto: StudioSide; verso: StudioSide } {
+  const m = W * 0.09;
+  const d = W * 0.13;
+  const gap = (W - m * 2 - d * 5) / 4;
+  const rowY = [H * 0.46, H * 0.46 + d + gap * 0.9];
+  const stamps: StudioElement[] = [];
+  for (let r = 0; r < 2; r++) {
+    for (let c = 0; c < 5; c++) {
+      const n = r * 5 + c + 1;
+      stamps.push(circle(`s-${n}`, m + c * (d + gap), rowY[r], d, "transparent", { stroke: t.accent === t.bg ? t.fg : t.accent, strokeWidth: 0.4 }));
+      if (n === 10) {
+        stamps.push(text("gift", m + c * (d + gap), rowY[r] + d * 0.3, d, lineH(d * 0.4), "★", { fontSize: fs(d * 0.4), color: t.accent2, textAlign: "center", fontWeight: "800" }));
+      }
+    }
+  }
+  const recto: StudioElement[] = [
+    rect("band", 0, 0, W, H * 0.04, t.accent),
+    text("brand", m, H * 0.1, W - m * 2, lineH(H * 0.1), "VOTRE ENSEIGNE", {
+      fontSize: fs(H * 0.095, 16, W - m * 2), fontWeight: "800", color: t.fg, fontFamily: t.head, letterSpacing: 2,
+    }),
+    text("sub", m, H * 0.1 + lineH(H * 0.1) + H * 0.01, W - m * 2, lineH(H * 0.05), "CARTE DE FIDÉLITÉ · 10 PASSAGES, LE 10e OFFERT", {
+      fontSize: fs(H * 0.045, 46, W - m * 2), fontWeight: "600", color: t.muted, letterSpacing: 1, fontFamily: t.body,
+    }),
+    ...stamps,
+  ];
+  const verso: StudioElement[] = [
+    text("title", m, H * 0.12, W - m * 2, lineH(H * 0.08), "Comment ça marche ?", {
+      fontSize: fs(H * 0.075, 20, W - m * 2), fontWeight: "800", color: t.fg, fontFamily: t.head,
+    }),
+    text("rules", m, H * 0.12 + lineH(H * 0.08) + H * 0.03, W - m * 2, lineH(H * 0.055, 3), "1 tampon à chaque achat.\nAu 10e tampon, votre cadeau est offert.", {
+      fontSize: fs(H * 0.055, 40, W - m * 2), color: t.fg, fontFamily: t.body, lineHeight: 1.45,
+    }),
+    text("name", m, H * 0.6, W - m * 2, lineH(H * 0.055), "Nom : ……………………………………", { fontSize: fs(H * 0.055, 30, W - m * 2), color: t.muted, fontFamily: t.body }),
+    text("contact", m, H * 0.82, W - m * 2, lineH(H * 0.045), "06 00 00 00 00 · votre-site.fr", { fontSize: fs(H * 0.045, 40, W - m * 2), color: t.muted, fontFamily: t.body }),
+  ];
+  return { recto: sideOf(t.bg, recto), verso: sideOf(t.bg, verso) };
+}
+
+type LayoutFn = (t: Theme, W: number, H: number) => { recto: StudioSide; verso: StudioSide };
+interface Variant {
+  id: string;
+  label: string;
+  fn: LayoutFn;
+  themes: string[];
+}
+const ALL_THEMES = THEMES.map((t) => t.id);
+
+const VARIANTS: Partial<Record<StudioProductId, Variant[]>> = {
+  flyers: [
+    { id: "promo", label: "Promotion", fn: flyerLayout, themes: ["nuit", "blanc", "or", "impact"] },
+    { id: "bloc", label: "Bloc couleur", fn: splitLayout, themes: ["nature", "rose", "nuit", "blanc"] },
+  ],
+  affiches: [
+    { id: "promo", label: "Promotion", fn: flyerLayout, themes: ["nuit", "blanc", "impact"] },
+    { id: "bloc", label: "Événement", fn: splitLayout, themes: ["nuit", "rose", "nature", "or"] },
+  ],
+  "roll-up": [
+    { id: "promo", label: "Promotion", fn: flyerLayout, themes: ["nuit", "blanc", "or"] },
+    { id: "bloc", label: "Bloc couleur", fn: splitLayout, themes: ["impact", "nature", "nuit"] },
+  ],
+  "bons-cadeaux": [{ id: "bon", label: "Bon cadeau", fn: voucherLayout, themes: ALL_THEMES }],
+  baches: [{ id: "banniere", label: "Bannière", fn: bannerLayout, themes: ALL_THEMES }],
+  "cartes-postales": [{ id: "carte", label: "Carte postale", fn: postcardLayout, themes: ALL_THEMES }],
+  "cartes-fidelite": [{ id: "tampons", label: "Cartes à tampons", fn: loyaltyLayout, themes: ALL_THEMES }],
+};
 
 /** Templates sized exactly for the given spec. */
 export function getTemplatesFor(spec: StudioSpec): StudioTemplate[] {
   if (spec.productId === "cartes-de-visite") return STUDIO_TEMPLATES;
   const product = getProduct(spec.productId);
-  if (!product) return [];
-  const layout = LAYOUTS[spec.productId as keyof typeof LAYOUTS];
+  const variants = VARIANTS[spec.productId];
+  if (!product || !variants) return [];
   const base = createBlankDesign(spec);
+  const multi = variants.length > 1;
 
-  return THEMES.map((theme) => {
-    const { recto, verso } = layout(theme, spec.widthMm, spec.heightMm);
-    const design: StudioDesign = { ...base, id: `gen-${spec.key}-${theme.id}`, recto, verso: product.hasVerso ? verso : sideOf("#ffffff", []) };
-    return {
-      id: `gen-${spec.productId}-${theme.id}`,
-      name: `${product.shortName} ${theme.name}`,
-      category: "promo" as const,
-      categoryLabel: theme.label,
-      productSlug: product.orderSlug,
-      thumbnailUrl: "",
-      design,
-      formatIds: [spec.formatId],
-    };
-  });
+  return variants.flatMap((variant) =>
+    variant.themes.map((themeId) => {
+      const theme = THEMES.find((t) => t.id === themeId)!;
+      const { recto, verso } = variant.fn(theme, spec.widthMm, spec.heightMm);
+      const design: StudioDesign = {
+        ...base,
+        id: `gen-${spec.key}-${variant.id}-${theme.id}`,
+        recto,
+        verso: spec.hasVerso ? verso : sideOf("#ffffff", []),
+      };
+      return {
+        id: `gen-${spec.productId}-${variant.id}-${theme.id}`,
+        name: `${product.shortName} ${variant.label} · ${theme.name}`,
+        category: "promo" as const,
+        categoryLabel: multi ? variant.label : theme.label,
+        productSlug: product.orderSlug,
+        thumbnailUrl: "",
+        design,
+        formatIds: [spec.formatId],
+      };
+    })
+  );
 }
 
 /** Look up a template by id for a spec (generated ones are rebuilt at the right size). */

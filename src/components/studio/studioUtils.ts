@@ -94,6 +94,27 @@ export const DPI_COLORS: Record<DpiLevel, { bar: string; text: string; glow: str
   low: { bar: "#ef4444", text: "text-red-300", glow: "rgba(239,68,68,0.45)" },
 };
 
+/**
+ * Font sizes are stored in CSS px (96 dpi, 3.78 px per mm) and shown to the user in real print points
+ * (1 pt = 1/72 in = 0.75 px) so what is displayed, what the slider sets and what is rendered always agree.
+ */
+export const pxToPt = (px: number) => px * 0.75;
+export const ptToPx = (pt: number) => pt / 0.75;
+export const formatPt = (px: number) => String(Math.round(pxToPt(px) * 10) / 10).replace(".", ",");
+
+/** Allowed text size range (pt) for a document: a headline can fill up to 60 % of the page height. */
+export function fontSizeRangePt(widthMm: number, heightMm: number): { min: number; max: number } {
+  const maxPx = Math.max(160, Math.max(widthMm, heightMm) * 3.78 * 0.6);
+  return { min: 3, max: Math.round(pxToPt(maxPx)) };
+}
+
+/** Rounded step that stays meaningful from 5 pt labels to 1000 pt banners. */
+export function roundPt(pt: number): number {
+  if (pt < 20) return Math.round(pt * 2) / 2;
+  if (pt < 100) return Math.round(pt);
+  return Math.round(pt / 2) * 2;
+}
+
 export function formatEuro(value: number): string {
   return value.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }

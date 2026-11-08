@@ -3,7 +3,7 @@ import { StudioDesign, StudioSide, StudioElement } from "./studioTypes";
 
 /** Target print resolution. Very large formats are rendered at a lower, still proportional, resolution. */
 const TARGET_DPI = 300;
-const MAX_PIXELS_PER_SIDE = 9_000_000;
+const MAX_PIXELS_PER_SIDE = 14_000_000;
 const MAX_SIDE_PX = 9000;
 
 type LetterSpacingCtx = CanvasRenderingContext2D & { letterSpacing?: string };
@@ -219,13 +219,13 @@ async function ensureFontsLoaded(design: StudioDesign) {
 }
 
 /** JPEG data URL kept under a byte budget (quality, then resolution, are reduced as needed). */
-function encodeUnder(canvas: HTMLCanvasElement, maxBytes: number): string {
+function encodeUnder(canvas: HTMLCanvasElement, maxBytes: number): { url: string; width: number; height: number } {
   const qualities = [0.92, 0.85, 0.78, 0.7, 0.6, 0.5];
   let source = canvas;
   for (let pass = 0; pass < 3; pass++) {
     for (const q of qualities) {
       const url = source.toDataURL("image/jpeg", q);
-      if ((url.length * 3) / 4 <= maxBytes) return url;
+      if ((url.length * 3) / 4 <= maxBytes) return { url, width: source.width, height: source.height };
     }
     const smaller = document.createElement("canvas");
     smaller.width = Math.round(source.width * 0.8);
@@ -233,7 +233,7 @@ function encodeUnder(canvas: HTMLCanvasElement, maxBytes: number): string {
     smaller.getContext("2d")!.drawImage(source, 0, 0, smaller.width, smaller.height);
     source = smaller;
   }
-  return source.toDataURL("image/jpeg", 0.5);
+  return { url: source.toDataURL("image/jpeg", 0.5), width: source.width, height: source.height };
 }
 
 function thumbnail(canvas: HTMLCanvasElement, maxDim = 640): string {
@@ -281,14 +281,15 @@ export async function generatePrintPdf(
   const budget = (options.maxImageBytes ?? 2_600_000) / (withVerso ? 2 : 1);
 
   const canvasRecto = await renderSideToCanvas(design.recto, design.widthMm, design.heightMm, includeBleed, design.bleedMm, dpi);
-  const dataUrlRecto = encodeUnder(canvasRecto, budget);
+  const encodedRecto = encodeUnder(canvasRecto, budget);
+  const dataUrlRecto = encodedRecto.url;
   const previewRecto = thumbnail(canvasRecto);
 
   let dataUrlVerso = "";
   let previewVerso = "";
   if (withVerso) {
     const canvasVerso = await renderSideToCanvas(design.verso, design.widthMm, design.heightMm, includeBleed, design.bleedMm, dpi);
-    dataUrlVerso = encodeUnder(canvasVerso, budget);
+    dataUrlVerso = encodeUnder(canvasVerso, budget).url;
     previewVerso = thumbnail(canvasVerso);
   }
 
@@ -309,9 +310,10 @@ export async function generatePrintPdf(
       pageWidthMm: Math.round(totalW * 10) / 10,
       pageHeightMm: Math.round(totalH * 10) / 10,
       pages: withVerso ? 2 : 1,
-      dpi,
-      pixelWidth: canvasRecto.width,
-      pixelHeight: canvasRecto.height,
+      // effective resolution of the image actually embedded in the PDF
+      dpi: Math.round((encodedRecto.width / (totalW / 25.4)) * 10) / 10,
+      pixelWidth: encodedRecto.width,
+      pixelHeight: encodedRecto.height,
       bleedMm,
       bytes: pdfBlob.size,
     },
