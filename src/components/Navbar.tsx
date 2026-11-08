@@ -71,14 +71,14 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between gap-4 h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center shrink-0">
             <img src="/logo-titre.svg" alt="Art Vision" className="h-6 md:h-7 w-auto object-contain" />
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-5 xl:space-x-8 whitespace-nowrap">
             <Link
               href="/"
               className={`hover:text-brand-magenta font-medium text-sm transition ${
@@ -172,19 +172,19 @@ export default function Navbar() {
           </div>
 
           {/* Desktop CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-3">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
             <Link
               href="/studio"
-              className="bg-gradient-to-r from-[#D72888] to-[#6C2BD9] hover:from-[#c22077] hover:to-[#5822b3] text-white px-4 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all duration-300 transform hover:scale-105 shadow-md shadow-brand-magenta/20 flex items-center space-x-1.5"
+              className="group relative overflow-hidden whitespace-nowrap bg-gradient-to-r from-[#D72888] to-[#6C2BD9] hover:brightness-110 text-white h-9 px-3.5 xl:px-4 rounded-full font-bold text-[11px] uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md shadow-brand-magenta/25 flex items-center gap-1.5"
             >
               <Sparkles size={13} className="text-brand-orange animate-pulse" />
-              <span>Créer et imprimer</span>
+              <span>Créer <span className="hidden xl:inline">et </span>imprimer</span>
             </Link>
             <Link
               href="/devis-sur-mesure"
-              className="bg-brand-orange hover:bg-brand-orange/95 text-white px-4 py-2 rounded-full font-medium text-xs uppercase tracking-wider transition-all duration-300 transform hover:scale-105 shadow-md shadow-brand-orange/20 flex items-center space-x-1.5"
+              className="whitespace-nowrap bg-[#FF6A00] hover:brightness-110 text-white h-9 px-3.5 xl:px-4 rounded-full font-bold text-[11px] uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md shadow-[#FF6A00]/25 flex items-center"
             >
-              <span>Demander un devis</span>
+              <span>Devis<span className="hidden xl:inline"> gratuit</span></span>
             </Link>
           </div>
 
