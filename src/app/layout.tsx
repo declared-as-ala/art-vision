@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import GoogleTrackers from "@/components/trackers/GoogleTrackers";
 import PublicShell from "@/components/PublicShell";
@@ -13,9 +13,10 @@ const getSettings = () =>
 const getSeo = () =>
   cached("seoSettings", 60_000, () => prisma.sEOSettings.findUnique({ where: { id: "default" } }));
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+// Self-hosted (variable, latin) so the build never depends on fetching Google Fonts
+const montserrat = localFont({
+  src: "./fonts/montserrat-latin-wght-normal.woff2",
+  weight: "300 800",
   display: "swap",
   variable: "--font-montserrat",
 });
