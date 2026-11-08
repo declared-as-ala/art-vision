@@ -184,7 +184,7 @@ export default function Navbar() {
               href="/devis-sur-mesure"
               className="whitespace-nowrap bg-[#FF6A00] hover:brightness-110 text-white h-9 px-3.5 xl:px-4 rounded-full font-bold text-[11px] uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md shadow-[#FF6A00]/25 flex items-center"
             >
-              <span>Devis<span className="hidden xl:inline"> gratuit</span></span>
+              <span>{"Devis"}<span className="hidden xl:inline">{" sur mesure"}</span></span>
             </Link>
           </div>
 
