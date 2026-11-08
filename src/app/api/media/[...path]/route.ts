@@ -14,7 +14,8 @@ export async function GET(_req: Request, ctx: { params: Promise<{ path: string[]
     if (!id) return new NextResponse("Not found", { status: 404 });
 
     const media = await prisma.media.findUnique({ where: { id } });
-    if (!media) return new NextResponse("Not found", { status: 404 });
+    // Studio order files are private: only served via /api/studio/files (admin session or signed link)
+    if (!media || media.fileType === "STUDIO_FILE") return new NextResponse("Not found", { status: 404 });
 
     // If the file lives elsewhere (disk/blob), send the client there.
     if (!media.data) {

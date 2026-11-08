@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo, Suspense } from "reac
 import { useSearchParams, useRouter } from "next/navigation";
 import { StudioDesign, StudioElement, StudioTemplate } from "@/components/studio/studioTypes";
 import {
+  buildSpec,
   createBlankDesign,
   designHasContent,
   getProduct,
@@ -20,6 +21,7 @@ import StudioSidebar from "@/components/studio/StudioSidebar";
 import StudioToolbar, { type SaveState } from "@/components/studio/StudioToolbar";
 import StudioPrintModal from "@/components/studio/StudioPrintModal";
 import StudioCardPreview from "@/components/studio/StudioCardPreview";
+import { resolveArchiveAssets } from "@/components/studio/studioArchive";
 import { X, Loader2, History } from "lucide-react";
 
 /** Normalise a design so it always carries the metadata of the spec it belongs to. */
@@ -44,6 +46,9 @@ interface Resolved {
   key: string;
   design: StudioDesign;
   notice: "replaced" | null;
+  spec?: StudioSpec;
+  archiveOf?: string;
+  versionRef?: string | null;
 }
 
 /** Decides which document to open (draft / template / blank) for the requested support. */
@@ -54,10 +59,40 @@ function StudioEditorLoader() {
   const templateId = searchParams.get("template");
   const blank = searchParams.get("blank") === "1";
   const productParam = searchParams.get("product");
+  const archiveId = searchParams.get("archive");
+  const archiveToken = searchParams.get("t");
   const [resolved, setResolved] = useState<Resolved | null>(null);
+  const [archiveError, setArchiveError] = useState<string | null>(null);
+
+  // Archived project of an order (print shop / customer link): opened as a local copy, never written back
+  useEffect(() => {
+    if (!archiveId) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const q = archiveToken ? `?t=${encodeURIComponent(archiveToken)}` : "";
+        const res = await fetch(`/api/studio/files/${archiveId}/project${q}`);
+        if (!res.ok) throw new Error(res.status === 404 ? "Projet introuvable ou accès non autorisé." : "Projet illisible.");
+        const project = await res.json();
+        const product = getProduct(project.spec?.productId);
+        const aSpec = product
+          ? buildSpec(product, project.spec.formatId, project.spec.orientation, product.custom ? { w: project.spec.widthMm / 10, h: project.spec.heightMm / 10 } : undefined)
+          : null;
+        if (!aSpec) throw new Error("Format du projet non reconnu.");
+        const design = resolveArchiveAssets(project.design as StudioDesign, (name) => `/api/studio/files/${archiveId}/asset/${encodeURIComponent(name)}${q}`);
+        if (!cancelled) setResolved({ key: `archive:${archiveId}`, design: withSpec(design, aSpec), notice: null, spec: aSpec, archiveOf: archiveId, versionRef: project.versionRef ?? null });
+      } catch (e) {
+        if (!cancelled) setArchiveError(e instanceof Error ? e.message : "Projet illisible.");
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [archiveId, archiveToken]);
 
   const specKey = spec?.key ?? null;
   useEffect(() => {
+    if (archiveId) return;
     if (!spec) {
       // Incomplete link (e.g. old /studio/editor?product=flyers): go choose the format
       router.replace(getProduct(productParam) ? `/studio/nouveau?product=${productParam}` : "/studio");
@@ -97,7 +132,27 @@ function StudioEditorLoader() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setResolved({ key: spec.key, design, notice });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [specKey, templateId, blank]);
+  }, [specKey, templateId, blank, archiveId]);
+
+  if (archiveId) {
+    if (archiveError) {
+      return (
+        <div className="h-dvh w-screen bg-[#070512] flex flex-col items-center justify-center gap-3 text-white p-6 text-center">
+          <p className="font-bold">{archiveError}</p>
+          <a href="/admin/print?tab=orders" className="text-av-orange text-sm underline">Retour aux commandes</a>
+        </div>
+      );
+    }
+    if (!resolved?.archiveOf || !resolved.spec) {
+      return (
+        <div className="h-dvh w-screen bg-[#070512] flex items-center justify-center text-white">
+          <Loader2 className="animate-spin text-av-orange mr-2" />
+          <span>Ouverture du projet archivé…</span>
+        </div>
+      );
+    }
+    return <StudioEditor key={resolved.key} spec={resolved.spec} initialDesign={resolved.design} initialNotice={null} archiveOf={resolved.archiveOf} versionRef={resolved.versionRef ?? null} />;
+  }
 
   if (!spec || !resolved || resolved.key !== spec.key) {
     return (
@@ -114,10 +169,14 @@ function StudioEditor({
   spec,
   initialDesign,
   initialNotice,
+  archiveOf,
+  versionRef,
 }: {
   spec: StudioSpec;
   initialDesign: StudioDesign;
   initialNotice: "replaced" | null;
+  archiveOf?: string;
+  versionRef?: string | null;
 }) {
   const [design, setDesign] = useState<StudioDesign>(initialDesign);
   const [activeSide, setActiveSide] = useState<"recto" | "verso">("recto");
@@ -153,11 +212,16 @@ function StudioEditor({
 
   const persistDraft = useCallback(
     (value: StudioDesign) => {
+      if (archiveOf) {
+        // archived order project: local working copy only, never saved over the customer's draft or the order
+        setSaveState("archive");
+        return;
+      }
       const ok = writeDraft(spec, value);
       setSaveState(ok ? "saved" : "error");
       if (ok) setSavedAt(Date.now());
     },
-    [spec]
+    [spec, archiveOf]
   );
 
   // Save design to state with a history snapshot
@@ -352,6 +416,16 @@ function StudioEditor({
         hasVerso={product.hasVerso}
         rectoHasContent={design.recto.elements.length > 0}
       />
+
+      {archiveOf && (
+        <div role="status" className="shrink-0 flex flex-wrap items-center gap-2 bg-av-violet/20 border-b border-av-violet/40 px-4 py-2 text-xs text-white">
+          <History size={14} className="text-av-orange shrink-0" />
+          <span>
+            Projet archivé de la commande{versionRef ? <strong className="font-mono"> {versionRef}</strong> : null}. Copie de travail : vos modifications ne sont
+            pas enregistrées et ne changent pas la version commandée.
+          </span>
+        </div>
+      )}
 
       {notice === "replaced" && (
         <div role="status" className="shrink-0 flex flex-wrap items-center justify-between gap-2 bg-av-orange/15 border-b border-av-orange/30 px-4 py-2 text-xs text-white">

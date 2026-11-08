@@ -7,7 +7,7 @@ import { AlertTriangle, ArrowLeft, Check, ChevronDown, CopyPlus, Eye, Printer, R
 import { StudioDesign } from "./studioTypes";
 import { specToQuery, type StudioSpec } from "./studioProducts";
 
-export type SaveState = "saved" | "error";
+export type SaveState = "saved" | "error" | "archive";
 
 interface StudioToolbarProps {
   design: StudioDesign;
@@ -217,21 +217,25 @@ export default function StudioToolbar({
           className={`flex items-center gap-1.5 text-[11px] px-2 py-1 rounded-full border shrink-0 ${
             saveState === "saved"
               ? "text-emerald-300/90 bg-emerald-500/10 border-emerald-500/20"
+              : saveState === "archive"
+              ? "text-sky-300 bg-sky-500/10 border-sky-500/30"
               : "text-red-300 bg-red-500/10 border-red-500/30"
           }`}
           role="status"
           aria-live="polite"
           title={
-            saveState === "saved"
+            saveState === "archive"
+              ? "Copie de travail du projet archivé : non enregistrée."
+              : saveState === "saved"
               ? time
                 ? `Enregistré sur cet appareil à ${time}`
                 : "Brouillon enregistré sur cet appareil"
               : "L'enregistrement automatique est impossible (stockage du navigateur plein ou bloqué). Exportez votre travail avant de quitter."
           }
         >
-          {saveState === "saved" ? <Check size={12} /> : <AlertTriangle size={12} />}
+          {saveState === "error" ? <AlertTriangle size={12} /> : <Check size={12} />}
           <span className="hidden sm:inline">
-            {saveState === "saved" ? (time ? `Enregistré à ${time}` : "Brouillon enregistré") : "Non enregistré — stockage bloqué"}
+            {saveState === "archive" ? "Copie locale" : saveState === "saved" ? (time ? `Brouillon enregistré à ${time}` : "Brouillon enregistré") : "Non enregistré — stockage bloqué"}
           </span>
         </div>
       </div>

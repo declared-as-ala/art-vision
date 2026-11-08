@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { formatEuros } from "@/lib/money";
+import { describeStudioOrder } from "@/lib/studio/files";
 
 const STATUSES = ["NEW", "CONTACTED", "CONFIRMED", "IN_PRODUCTION", "DELIVERED", "CANCELLED"];
 
@@ -20,7 +21,11 @@ export async function GET(req: Request) {
     const csv = "﻿" + [head.map(cell).join(","), ...lines].join("\r\n");
     return new NextResponse(csv, { headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="devis-impression-${Date.now()}.csv"` } });
   }
-  return NextResponse.json({ success: true, orders });
+  // Studio orders: verified file state + short summaries (never the raw option strings)
+  const enriched = await Promise.all(
+    orders.map(async (o) => ({ ...o, studio: await describeStudioOrder(o.options).catch(() => null) }))
+  );
+  return NextResponse.json({ success: true, orders: enriched });
 }
 
 export async function PATCH(req: Request) {

@@ -4,7 +4,10 @@ import prisma from "@/lib/prisma";
 // GET: List all media items
 export async function GET() {
   try {
+    // Studio order files are private (served via /api/studio/files); never ship raw bytes in a list
     const mediaList = await prisma.media.findMany({
+      where: { NOT: { fileType: "STUDIO_FILE" } },
+      omit: { data: true },
       orderBy: { createdAt: "desc" }
     });
     return NextResponse.json({ success: true, mediaList });

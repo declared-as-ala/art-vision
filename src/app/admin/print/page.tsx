@@ -6,6 +6,8 @@ import {
   Package, ClipboardList, Percent, Loader2,
 } from "lucide-react";
 import { centsToInput, formatEuros } from "@/lib/money";
+import StudioOrderPanel from "@/components/admin/StudioOrderPanel";
+import type { StudioOrderView } from "@/lib/studio/files";
 
 type Tab = "products" | "prices" | "orders";
 
@@ -23,6 +25,7 @@ interface PriceRow {
 interface Order {
   id: string; productName?: string; name?: string; email?: string; phone?: string;
   options: string; estimatedTtcCents?: number; status: string; notes?: string; createdAt: string;
+  studio?: StudioOrderView | null;
 }
 
 const STATUS_LABEL: Record<string, string> = {
@@ -40,6 +43,10 @@ const input = "w-full bg-brand-navy border border-brand-purple/30 rounded-lg px-
 
 export default function AdminPrintPage() {
   const [tab, setTab] = useState<Tab>("products");
+  useEffect(() => {
+    // deep link from the order notification e-mail: /admin/print?tab=orders&order=<id>
+    if (new URLSearchParams(window.location.search).get("tab") === "orders") setTab("orders"); // eslint-disable-line react-hooks/set-state-in-effect
+  }, []);
   return (
     <div className="space-y-6 text-left">
       <div>
@@ -340,6 +347,7 @@ function OrdersTab() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("all");
+  const highlight = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("order") : null;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -348,6 +356,9 @@ function OrdersTab() {
     setLoading(false);
   }, [status]);
   useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    if (highlight && orders.length) document.getElementById(`order-${highlight}`)?.scrollIntoView({ block: "center" });
+  }, [highlight, orders.length]);
 
   const upd = async (id: string, patch: any) => { await fetch("/api/admin/print/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, ...patch }) }); load(); };
   const del = async (id: string) => { if (!confirm("Supprimer cette demande ?")) return; await fetch(`/api/admin/print/orders?id=${id}`, { method: "DELETE" }); load(); };
@@ -378,7 +389,7 @@ function OrdersTab() {
                 const isStudio = parsedOpts?.orderSource === "STUDIO_ONLINE";
 
                 return (
-                  <tr key={o.id} className="hover:bg-white/[0.02] align-top">
+                  <tr key={o.id} id={`order-${o.id}`} className={`hover:bg-white/[0.02] align-top ${highlight === o.id ? "bg-brand-magenta/10 ring-1 ring-brand-magenta/40" : ""}`}>
                     <td className="p-3">
                       <div className="flex items-center gap-2">
                         <strong className="text-white block">{o.name || "—"}</strong>
@@ -396,19 +407,30 @@ function OrdersTab() {
                         </span>
                       )}
                     </td>
-                    <td className="p-3 text-white/70">
+                    <td className="p-3 text-white/70 min-w-[300px] max-w-[400px] break-words">
                       <strong className="text-xs text-white block">{o.productName}</strong>
                       {parsedOpts?.paperTitle && (
                         <span className="text-[10px] text-brand-orange block">
                           {parsedOpts.paperTitle} ({parsedOpts.quantity})
                         </span>
                       )}
-                      <details className="mt-1">
-                        <summary className="text-[10px] text-brand-magenta cursor-pointer">Détails techniques</summary>
-                        <pre className="text-[9px] text-white/50 mt-1 max-w-[260px] whitespace-pre-wrap bg-black/40 p-2 rounded">
-                          {JSON.stringify(parsedOpts, null, 1)}
-                        </pre>
-                      </details>
+                      {isStudio && o.studio ? (
+                        <StudioOrderPanel
+                          orderId={o.id}
+                          productName={o.productName}
+                          clientEmail={o.email}
+                          clientName={o.name}
+                          studio={o.studio}
+                          rawOptions={o.options}
+                        />
+                      ) : (
+                        <details className="mt-1">
+                          <summary className="text-[10px] text-brand-magenta cursor-pointer">Détails techniques</summary>
+                          <pre className="text-[9px] text-white/50 mt-1 max-w-[260px] max-h-48 overflow-auto whitespace-pre-wrap break-all bg-black/40 p-2 rounded">
+                            {JSON.stringify(parsedOpts, null, 1).slice(0, 4000)}
+                          </pre>
+                        </details>
+                      )}
                     </td>
                     <td className="p-3 text-brand-orange font-bold text-sm">
                       {formatEuros(o.estimatedTtcCents)}

@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, animate, motion, useReducedMotion } from "framer-motion";
 import { StudioDesign, StudioOrderSubmission } from "./studioTypes";
 import { generatePrintPdf, getExportDpi } from "./StudioPdfExport";
+import { buildProjectPackage, dataUrlToBlob, hashString, newSubmissionId, uploadSubmissionFile } from "./studioArchive";
 import StudioCardPreview from "./StudioCardPreview";
 import { formatEuro } from "./studioUtils";
 import { getProduct, type StudioSpec } from "./studioProducts";
@@ -243,14 +244,20 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [orderId, setOrderId] = useState<string | null>(null);
+  const [stage, setStage] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [archive, setArchive] = useState<{ versionRef: string | null; downloadUrl: string | null; emailStatus: string | null; duplicate: boolean } | null>(null);
+  // One submission id per (design + options): a retry reuses it so nothing is duplicated server-side
+  const submissionRef = useRef<{ id: string; hash: string } | null>(null);
 
   const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<() => void>(() => {});
 
   // Close on Escape + lock page scroll while open
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && !loading) onClose();
+      if (e.key === "Escape" && !loading) closeRef.current();
     };
     window.addEventListener("keydown", onKey);
     const previous = document.body.style.overflow;
@@ -260,7 +267,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = previous;
     };
-  }, [isOpen, loading, onClose]);
+  }, [isOpen, loading]);
 
   // Papers that exist for exactly this format (and both side variants if any)
   const papersForFormat = useMemo(() => (entry.papers ?? []).filter((p) => p.rows[spec.formatId]), [entry, spec.formatId]);
@@ -305,6 +312,16 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
 
   const missingCatalog = !isQuote && (!currentPaper || !effectiveQuantity);
 
+  const closeModal = () => {
+    if (loading) return;
+    if (step === "confirmation") {
+      setStep("options");
+      setOrderId(null);
+      setArchive(null);
+    }
+    onClose();
+  };
+
   const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !phone || !street || !city || !zipCode || !country) {
@@ -318,23 +335,50 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
 
     setLoading(true);
     setError(null);
+    setFailed(false);
 
     try {
-      // 1. Print-ready PDF (real size + bleed) and small previews
+      const optionsKey = `${currentPaper?.id ?? "bache"}|${effectiveQuantity}|${bacheQty}|${sidesInUse}`;
+      const hash = hashString(`${JSON.stringify(design)}|${optionsKey}`);
+      if (!submissionRef.current || submissionRef.current.hash !== hash) {
+        submissionRef.current = { id: newSubmissionId(), hash };
+      }
+      const submissionId = submissionRef.current.id;
+      const versionRef = `AV-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${submissionId.replace(/-/g, "").slice(0, 8).toUpperCase()}`;
+
+      // 1. Print-ready PDF (real size + bleed) and previews, built in the browser
+      setStage("Préparation du PDF…");
       const { pdfBlob, previewRecto, previewVerso, info } = await generatePrintPdf(design, true, { includeVerso: withVerso });
+      if (pdfBlob.size < 800) throw new Error("Le PDF généré est vide. Réessayez.");
 
-      const pdfBase64 = await new Promise<string>((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.readAsDataURL(pdfBlob);
-      });
+      // 2. Editable project + image assets (archived with the order)
+      setStage("Archivage de votre projet…");
+      const { projectBlob, assets } = await buildProjectPackage(design, spec, submissionId, versionRef);
 
+      // 3. Upload every file and verify it was stored (size echoed back by the server)
+      const total = 3 + (withVerso ? 1 : 0) + assets.length;
+      let done = 0;
+      const step_ = async (label: string, run: () => Promise<unknown>) => {
+        setStage(`${label} (${++done}/${total})…`);
+        await run();
+      };
+      const safeSlug = design.productSlug.replace(/[^a-z0-9-]/gi, "");
+      const pdfName = `${versionRef}_${safeSlug}_${spec.formatId}.pdf`;
+      await step_("Envoi du PDF", () => uploadSubmissionFile(submissionId, "pdf", pdfBlob, pdfName));
+      await step_("Envoi du projet modifiable", () => uploadSubmissionFile(submissionId, "project", projectBlob, `${versionRef}-projet.json`));
+      await step_("Envoi de l'aperçu recto", () => uploadSubmissionFile(submissionId, "preview-recto", dataUrlToBlob(previewRecto), `${versionRef}-recto.jpg`));
+      if (withVerso) await step_("Envoi de l'aperçu verso", () => uploadSubmissionFile(submissionId, "preview-verso", dataUrlToBlob(previewVerso), `${versionRef}-verso.jpg`));
+      for (const a of assets) await step_(`Envoi de ${a.name}`, () => uploadSubmissionFile(submissionId, "asset", a.blob, a.name));
+
+      // 4. Create the order (no heavy payload: the server re-reads and validates the stored files)
+      setStage("Enregistrement de la commande…");
       const paperTitle = isQuote ? entry.material || "Bâche PVC 510 g" : currentPaper!.fullName;
       const quantityLabel = isQuote
         ? `${bacheQty} bâche${bacheQty > 1 ? "s" : ""} (${totalAreaM2.toFixed(2).replace(".", ",")} m²)`
         : effectiveQuantity;
 
-      const submission: StudioOrderSubmission = {
+      const submission = {
+        submissionId,
         productSlug: design.productSlug,
         productName: design.productName,
         format: `${spec.title} — ${spec.dimensionsLabel}`,
@@ -351,9 +395,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
         deliveryCents: 0, // delivery fees are confirmed with the BAT
         deliveryNote,
         exportInfo: `PDF ${info.pages} page${info.pages > 1 ? "s" : ""} · ${fmtMm(info.pageWidthMm)} × ${fmtMm(info.pageHeightMm)} mm · ${Math.round(info.dpi)} DPI`,
-        previewRecto,
-        previewVerso,
-        designData: design,
+        dims: { widthMm: design.widthMm, heightMm: design.heightMm, bleedMm: design.bleedMm },
         client: {
           name,
           email,
@@ -368,23 +410,28 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
       const res = await fetch("/api/studio/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...submission, pdfBase64 }),
+        body: JSON.stringify(submission),
       });
-
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.success) {
         throw new Error(data.error || "Une erreur est survenue lors de l'enregistrement de votre commande.");
       }
 
       setOrderId(data.orderId);
+      setArchive({ versionRef: data.versionRef ?? versionRef, downloadUrl: data.downloadUrl ?? null, emailStatus: data.emailStatus ?? null, duplicate: Boolean(data.duplicate) });
+      submissionRef.current = null; // the next order starts a new archive
       setStep("confirmation");
     } catch (err: unknown) {
       console.error("Order submission error:", err);
+      setFailed(true);
       setError(err instanceof Error ? err.message : "Erreur lors de la commande.");
     } finally {
+      setStage(null);
       setLoading(false);
     }
   };
+
+  closeRef.current = closeModal;
 
   if (!isOpen) return null;
 
@@ -407,7 +454,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
       aria-modal="true"
       aria-labelledby="print-modal-title"
       className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-black/80 backdrop-blur-md"
-      onClick={() => !loading && onClose()}
+      onClick={closeModal}
     >
       <div
         ref={dialogRef}
@@ -453,7 +500,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
             </h2>
           </div>
           <button
-            onClick={onClose}
+            onClick={closeModal}
             disabled={loading}
             className="shrink-0 p-2 -mr-1 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition cursor-pointer disabled:opacity-40"
             aria-label="Fermer la fenêtre"
@@ -698,9 +745,21 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
                       </ol>
                     </div>
 
+                    <p className="text-[11px] text-white/50 leading-relaxed rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                      <strong className="text-white/80">Brouillon et commande :</strong> votre brouillon reste enregistré sur cet appareil et modifiable.
+                      À l&apos;envoi, une copie complète (PDF, projet, aperçus) est archivée avec votre commande : la modifier ensuite ne change pas la
+                      version transmise à l&apos;atelier.
+                    </p>
+
+                    {loading && stage && (
+                      <div role="status" className="flex items-center gap-2 rounded-xl border border-av-violet/40 bg-av-violet/10 p-3 text-xs text-white/85">
+                        <Loader2 size={14} className="animate-spin shrink-0" /> {stage}
+                      </div>
+                    )}
                     {error && (
-                      <div role="alert" className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl text-xs text-red-300">
-                        {error}
+                      <div role="alert" className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl text-xs text-red-300 space-y-1">
+                        <p>{error}</p>
+                        {failed && <p className="text-red-200/80">Votre création est conservée. Cliquez sur « Réessayer l&apos;envoi » : le fichier est regénéré sans créer de commande en double.</p>}
                       </div>
                     )}
                   </motion.form>
@@ -727,6 +786,24 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
                         </div>
                       ))}
                     </div>
+                    {archive && (
+                      <div className="max-w-lg mx-auto rounded-2xl border border-emerald-500/25 bg-emerald-500/10 p-4 text-left text-xs text-white/85 space-y-2">
+                        <p>
+                          <strong className="text-white">Création archivée avec votre commande</strong>
+                          {archive.versionRef && <span className="ml-1 font-mono text-emerald-300">{archive.versionRef}</span>}
+                          {archive.duplicate && " (commande déjà enregistrée : aucun doublon créé)"}.
+                        </p>
+                        <p className="text-white/65">
+                          Votre brouillon reste modifiable sur cet appareil sans affecter la version transmise à l&apos;atelier.
+                          {archive.emailStatus === "failed" && " L'e-mail de confirmation n'a pas pu être envoyé : notre équipe a bien reçu votre commande dans son tableau de bord."}
+                        </p>
+                        {archive.downloadUrl && (
+                          <a href={archive.downloadUrl} className="inline-flex items-center gap-1.5 font-bold text-av-orange hover:text-white transition">
+                            Télécharger le PDF de ma commande
+                          </a>
+                        )}
+                      </div>
+                    )}
                     <div className="p-4 bg-white/[0.04] rounded-2xl border border-white/10 max-w-lg mx-auto text-left text-xs space-y-2 text-white/80">
                       <h4 className="font-bold uppercase text-[11px] tracking-wider text-av-magenta">Prochaines étapes</h4>
                       <p>• Contrôle de votre fichier par notre service PAO (repères de coupe, résolution).</p>
@@ -839,13 +916,15 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
                 {loading ? (
                   <>
                     <Loader2 size={16} className="animate-spin" />
-                    <span>Envoi en cours…</span>
+                    <span>{stage ? "En cours…" : "Envoi en cours…"}</span>
                   </>
                 ) : (
                   <>
                     <Printer size={16} />
-                    <span className="hidden sm:inline">{isQuote ? "Envoyer ma demande de devis" : `Envoyer ma commande (${formatEuro(priceTtc)} € TTC)`}</span>
-                    <span className="sm:hidden">{isQuote ? "Envoyer ma demande" : "Envoyer ma commande"}</span>
+                    <span className="hidden sm:inline">
+                      {failed ? "Réessayer l'envoi" : isQuote ? "Envoyer ma demande de devis" : `Envoyer ma commande (${formatEuro(priceTtc)} € TTC)`}
+                    </span>
+                    <span className="sm:hidden">{failed ? "Réessayer" : isQuote ? "Envoyer ma demande" : "Envoyer ma commande"}</span>
                   </>
                 )}
               </button>
@@ -853,7 +932,7 @@ export default function StudioPrintModal({ isOpen, onClose, design, spec }: Stud
           )}
           {step === "confirmation" && (
             <button
-              onClick={onClose}
+              onClick={closeModal}
               className="ml-auto h-11 px-7 bg-av-violet hover:brightness-110 text-white rounded-full text-xs font-bold transition active:scale-95 cursor-pointer"
             >
               Retourner à mon projet
