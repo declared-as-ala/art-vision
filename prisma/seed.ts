@@ -57,8 +57,8 @@ async function main() {
       whatsapp: "+32 490 22 49 05",
       franceAddress: "5 Rue de Constantine, 72000 Le Mans",
       tunisiaAddress: "Rue Salem Bchir, 5000 Monastir, Tunisie",
-      googleAnalyticsId: "G-XXXXXXXXXX",
-      googleTagManagerId: "GTM-XXXXXXX",
+      googleAnalyticsId: "",
+      googleTagManagerId: "",
       searchConsoleVerification: "",
     },
   });

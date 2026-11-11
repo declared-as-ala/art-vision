@@ -68,3 +68,15 @@ export function trackPrintQuoteConversion(requestId: string | undefined | null):
     return false;
   }
 }
+
+/** Real GA4 measurement id (rejects empty values and "G-XXXXXXXXXX"-style placeholders). */
+export function cleanGaId(v?: string | null): string {
+  const s = (v || "").trim().toUpperCase();
+  return /^G-[A-Z0-9]{6,14}$/.test(s) && !/^G-X+$/.test(s) ? s : "";
+}
+
+/** Real GTM container id (rejects empty values and "GTM-XXXXXXX"-style placeholders). */
+export function cleanGtmId(v?: string | null): string {
+  const s = (v || "").trim().toUpperCase();
+  return /^GTM-[A-Z0-9]{5,10}$/.test(s) && !/^GTM-X+$/.test(s) ? s : "";
+}

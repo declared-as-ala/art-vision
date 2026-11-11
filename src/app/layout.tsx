@@ -1,3 +1,4 @@
+import { cleanGaId, cleanGtmId } from "@/lib/ads-tracking";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -63,8 +64,8 @@ export default async function RootLayout({
   let gtmId = "";
   try {
     const settings = await getSettings();
-    gaId = settings?.googleAnalyticsId || "";
-    gtmId = settings?.googleTagManagerId || "";
+    gaId = cleanGaId(settings?.googleAnalyticsId);
+    gtmId = cleanGtmId(settings?.googleTagManagerId);
   } catch {
     // Fail silently in build phase
   }
