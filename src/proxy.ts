@@ -26,6 +26,17 @@ function isTokenExpired(token: string): boolean {
   }
 }
 
+/**
+ * Redirect while keeping the visitor's query string (gclid, gbraid, wbraid, utm_*…) so ad attribution
+ * survives canonical/legacy redirects. Parameters already present on the target win.
+ */
+function redirectKeepingQuery(target: URL, request: NextRequest, status?: number) {
+  request.nextUrl.searchParams.forEach((value, key) => {
+    if (!target.searchParams.has(key)) target.searchParams.append(key, value);
+  });
+  return NextResponse.redirect(target, status);
+}
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -79,8 +90,8 @@ export async function proxy(request: NextRequest) {
   //     Google indexes a single URL instead of excluding duplicates.
   if (pathname.startsWith("/services/") || pathname.startsWith("/seo/")) {
     const slug = pathname.split("/")[2];
-    if (slug) return NextResponse.redirect(new URL(`/${slug}`, request.url), 301);
-    return NextResponse.redirect(new URL("/", request.url), 301);
+    if (slug) return redirectKeepingQuery(new URL(`/${slug}`, request.url), request, 301);
+    return redirectKeepingQuery(new URL("/", request.url), request, 301);
   }
 
   // Known legacy / cannibalizing routes consolidation
@@ -102,7 +113,7 @@ export async function proxy(request: NextRequest) {
 
   const normalizedPath = pathname.replace(/\/$/, "") || "/";
   if (staticCanonicalMap[normalizedPath]) {
-    return NextResponse.redirect(new URL(staticCanonicalMap[normalizedPath], request.url), 301);
+    return redirectKeepingQuery(new URL(staticCanonicalMap[normalizedPath], request.url), request, 301);
   }
 
   // 2. Perform dynamic redirect checks without recursively fetching this app.
@@ -122,7 +133,7 @@ export async function proxy(request: NextRequest) {
         const targetUrl = redirect.targetUrl.startsWith("http")
           ? new URL(redirect.targetUrl)
           : new URL(redirect.targetUrl, request.url);
-        return NextResponse.redirect(targetUrl, redirect.statusCode);
+        return redirectKeepingQuery(targetUrl, request, redirect.statusCode);
       }
     } catch (e) {
       console.error("Proxy redirects query failed:", e);

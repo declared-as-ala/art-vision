@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { trackPrintQuoteConversion } from "@/lib/ads-tracking";
 import {
   Sparkles,
   Send,
@@ -207,6 +208,8 @@ function SinglePageQuoteForm() {
 
       if (res.ok && data.success) {
         setSuccess(true);
+        // Google Ads conversion: only after the server confirmed the request, only for print quotes
+        if (service === "Impression publicitaire") trackPrintQuoteConversion(data.quoteId);
       } else {
         setErrorMessage(
           data.error ||
