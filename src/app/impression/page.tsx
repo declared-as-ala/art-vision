@@ -66,22 +66,18 @@ export default function ImpressionCatalogPage() {
               Catalogue impression professionnelle
             </div>
             <h1 className="mt-5 text-[clamp(1.75rem,5vw,3.5rem)] font-extrabold leading-[1.05] text-white font-montserrat tracking-tight">
-              Tous vos supports imprimés,<br />
-              <span className="text-brand-magenta">qualité atelier, finitions luxe et sur-mesure</span>
+              Imprimez vos supports,<br />
+              <span className="text-brand-magenta">avec des tarifs clairs</span>
             </h1>
-            <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-white/70">
-              Découvrez nos 48 gammes d'imprimés publicitaires, commerciaux et événementiels.
-              Formats variés, papiers certifiés FSC, contrôle PAO gratuit avant tirage et livraison rapide suivie partout en France et en Europe.
-            </p>
           </div>
 
           {/* Reassurance pills */}
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl">
             {[
-              { icon: Printer, value: "48 catégories", label: "supports d'impression" },
-              { icon: FileCheck2, value: "Contrôle PAO", label: "vérification fichiers incluse" },
-              { icon: Sparkles, value: "Finitions Luxe", label: "dorure, vernis 3D, soft touch" },
-              { icon: Truck, value: "Livraison Suivie", label: "France métropolitaine & Europe" },
+              { icon: Printer, value: "48 supports", label: "catalogue d'impression" },
+              { icon: FileCheck2, value: "Fichier vérifié", label: "contrôle technique gratuit" },
+              { icon: Sparkles, value: "Prix HT", label: "par format et quantité" },
+              { icon: Truck, value: "1 à 3 jours", label: "de livraison après production" },
             ].map((stat, i) => (
               <div
                 key={stat.label}
@@ -156,7 +152,7 @@ export default function ImpressionCatalogPage() {
       </div>
 
       {/* ===== CATALOG GRID ===== */}
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
+      <main id="catalogue" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 scroll-mt-32">
         {filtered.length > 0 ? (
           <section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-3.5 sm:gap-4.5 mt-6">
             {filtered.map((product, idx) => {

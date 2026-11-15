@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Imprimerie en Ligne & Impression Professionnelle | Art Vision",
+  title: "Impression : cartes de visite, flyers, bâches — tarifs HT | Art Vision",
   description:
-    "Impression professionnelle au meilleur prix : cartes de visite, flyers, affiches, dépliants, brochures, bâches, roll-up et panneaux. Contrôle PAO gratuit et livraison rapide.",
+    "Catalogue d'impression Art Vision : cartes de visite, flyers, dépliants, bâches, roll-up et panneaux. Tarifs HT par format et quantité, commande avec votre fichier ou création graphique sur devis.",
   alternates: {
     canonical: "https://art-visions.fr/impression",
   },
   openGraph: {
-    title: "Imprimerie en Ligne & Impression Professionnelle | Art Vision",
+    title: "Impression : cartes de visite, flyers, bâches — tarifs HT | Art Vision",
     description:
-      "Tous vos supports de communication imprimés en atelier haute définition : cartes de visite, flyers, affiches, bâches et signalétique.",
+      "Choisissez votre support, consultez les tarifs HT et commandez avec votre fichier ou demandez une création graphique.",
     url: "https://art-visions.fr/impression",
     type: "website",
     images: [{ url: "https://art-visions.fr/logo.png" }],

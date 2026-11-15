@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import prisma from "@/lib/prisma";
 import PortfolioCarousel from "@/components/PortfolioCarousel";
+import PopularPrints from "@/components/PopularPrints";
 import {
   Palette,
   PenTool,
@@ -94,7 +95,7 @@ export default async function HomePage() {
   return (
     <div className="relative hero-gradient overflow-x-hidden">
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[88vh] flex items-center pt-28 sm:pt-32 pb-16 overflow-hidden">
+      <section className="relative flex items-center pt-28 sm:pt-32 pb-6 sm:pb-8 overflow-hidden">
         {/* Vector Background grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(108,43,217,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(108,43,217,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] -z-10"></div>
 
@@ -106,42 +107,46 @@ export default async function HomePage() {
                 Agence de design graphique, vidéo & impression en France
               </span>
 
-              <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-montserrat font-extrabold text-white leading-[1.05] tracking-tight">
-                CRÉATION, DESIGN <br />
-                <span className="text-white">ET PRODUCTION</span>
+              <h1 className="mt-6 text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-montserrat font-extrabold text-white leading-[1.08] tracking-tight">
+                Votre image mérite <span className="text-brand-orange">une belle impression.</span>
               </h1>
 
-              <p className="mt-6 text-xs sm:text-sm text-white/80 max-w-xl leading-relaxed">
-                Art Vision est une agence de communication visuelle en France spécialisée en graphisme, publicité, design 3D, audiovisuel et impression. Nous aidons les marques à donner vie à leurs idées à travers des créations percutantes et innovantes.
+              <p className="mt-6 text-sm sm:text-base text-white/80 max-w-xl leading-relaxed">
+                Cartes de visite, flyers, dépliants, bâches, panneaux : choisissez votre support, nous imprimons. Création graphique possible selon vos besoins.
               </p>
 
-              <div className="mt-8 flex flex-col gap-3.5 w-full sm:w-80">
+              <div className="mt-8 flex flex-col gap-3 w-full sm:max-w-md">
                 <Link
-                  href="/devis-sur-mesure"
-                  className="bg-[#D95200] hover:bg-[#B84200] text-white px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-102 shadow-lg shadow-[#D95200]/25 text-center block"
+                  href="/impression"
+                  data-tracking="cta_click"
+                  className="bg-[#D95200] hover:bg-[#B84200] text-white w-full px-4 sm:px-8 py-3.5 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wide sm:tracking-wider whitespace-nowrap transition-all duration-300 transform hover:scale-102 shadow-lg shadow-[#D95200]/25 text-center block"
                 >
-                  Demander un devis
+                  Voir les impressions et tarifs
                 </Link>
-                <Link
-                  href="/portfolio"
-                  className="border-2 border-white/30 hover:border-brand-magenta hover:bg-brand-magenta/15 text-white px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider transition-all duration-300 transform hover:scale-102 text-center block backdrop-blur-sm"
-                >
-                  Voir nos réalisations
-                </Link>
-                <a
-                  href="https://wa.me/32490224905"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:text-emerald-200 hover:bg-emerald-500/25 transition text-xs font-semibold tracking-wide text-center"
-                >
-                  <MessageSquare size={15} className="text-emerald-400 shrink-0" />
-                  <span>WhatsApp direct : +32 490 22 49 05</span>
-                </a>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link
+                    href="/devis-sur-mesure"
+                    data-tracking="cta_click"
+                    className="border-2 border-white/30 hover:border-brand-magenta hover:bg-brand-magenta/15 text-white px-2 sm:px-3 py-3 rounded-full font-bold text-[11px] sm:text-sm uppercase tracking-normal sm:tracking-wide whitespace-nowrap transition-all duration-300 text-center backdrop-blur-sm"
+                  >
+                    Demander un devis
+                  </Link>
+                  <a
+                    href="https://wa.me/32490224905"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp direct : +32 490 22 49 05"
+                    className="inline-flex items-center justify-center gap-2 px-2 sm:px-3 py-3 rounded-full bg-emerald-500/15 border-2 border-emerald-500/40 text-emerald-300 hover:text-emerald-200 hover:bg-emerald-500/25 transition text-[11px] sm:text-sm font-bold uppercase tracking-normal sm:tracking-wide whitespace-nowrap"
+                  >
+                    <MessageSquare size={16} className="text-emerald-400 shrink-0" aria-hidden />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Hero Right Visual: Art Vision AV monogram */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-end items-center select-none">
+            <div className="lg:col-span-5 hidden sm:flex justify-center lg:justify-end items-center select-none">
               <div className="relative animate-logo-float">
                 {/* Rotating light arc */}
                 <div className="absolute -inset-10 -z-20 rounded-full logo-ring" aria-hidden></div>
@@ -158,42 +163,44 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* 1.2 STUDIO BANNER (compact) */}
-          <div className="mt-10 w-full">
-            <Link href="/studio" className="block w-full group" aria-label="Créer mon visuel : choisir un support">
-              <div className="relative overflow-hidden rounded-2xl border border-[#D72888]/40 bg-gradient-to-r from-[#1c0836] via-[#0e041e] to-[#150a2e] px-5 py-5 sm:px-8 sm:py-6 md:min-h-[176px] md:max-h-[220px] flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8 shadow-[0_0_30px_rgba(215,40,136,0.2)] hover:border-brand-orange/60 transition-colors duration-300">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_40%,rgba(108,43,217,0.35)_0%,transparent_50%),radial-gradient(circle_at_90%_60%,rgba(255,106,0,0.2)_0%,transparent_45%)] pointer-events-none" />
+            {/* 1.2 STUDIO BANNER (compact) */}
+            <div className="mt-10 w-full">
+              <Link href="/studio" className="block w-full group" aria-label="Créer mon visuel : choisir un support">
+                <div className="relative overflow-hidden rounded-2xl border border-[#D72888]/40 bg-gradient-to-r from-[#1c0836] via-[#0e041e] to-[#150a2e] px-5 py-5 sm:px-8 sm:py-6 md:min-h-[176px] md:max-h-[220px] flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8 shadow-[0_0_30px_rgba(215,40,136,0.2)] hover:border-brand-orange/60 transition-colors duration-300">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_40%,rgba(108,43,217,0.35)_0%,transparent_50%),radial-gradient(circle_at_90%_60%,rgba(255,106,0,0.2)_0%,transparent_45%)] pointer-events-none" />
 
-                <div className="relative z-10 text-center md:text-left space-y-3">
-                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-montserrat font-extrabold text-white tracking-tight leading-tight">
-                    Créez votre visuel. Nous l&apos;imprimons.
-                  </h2>
-                  <div className="flex flex-col sm:flex-row items-center md:items-center gap-x-4 gap-y-2 justify-center md:justify-start">
-                    <span className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-gradient-to-r from-[#FF6A00] to-[#D72888] text-white text-xs font-extrabold uppercase tracking-widest shadow-lg shadow-brand-orange/25 group-hover:brightness-110 transition">
-                      Créer mon visuel
-                    </span>
-                    <span className="text-[11px] text-white/60 font-medium">
-                      Création incluse avec votre impression.
-                    </span>
-                  </div>
-                </div>
-
-                {/* Small illustration */}
-                <div className="relative z-10 hidden sm:block shrink-0 w-40 md:w-44" aria-hidden>
-                  <div className="absolute inset-0 translate-x-3 -translate-y-2 rotate-6 rounded-lg bg-gradient-to-br from-[#6C2BD9] to-[#D72888] opacity-70" />
-                  <div className="relative aspect-[85/55] rounded-lg bg-[#140e2b] border border-white/15 p-3 flex flex-col justify-between shadow-xl group-hover:-rotate-2 transition-transform duration-500">
-                    <div className="space-y-1">
-                      <div className="h-2 w-20 rounded bg-gradient-to-r from-[#FF6A00] to-[#D72888]" />
-                      <div className="h-1.5 w-14 rounded bg-white/30" />
+                  <div className="relative z-10 text-center md:text-left space-y-3">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-montserrat font-extrabold text-white tracking-tight leading-tight">
+                      Créez votre visuel. Nous l&apos;imprimons.
+                    </h2>
+                    <div className="flex flex-col sm:flex-row items-center md:items-center gap-x-4 gap-y-2 justify-center md:justify-start">
+                      <span className="inline-flex items-center justify-center h-11 px-7 rounded-full bg-gradient-to-r from-[#FF6A00] to-[#D72888] text-white text-xs font-extrabold uppercase tracking-widest shadow-lg shadow-brand-orange/25 group-hover:brightness-110 transition">
+                        Créer mon visuel
+                      </span>
+                      <span className="text-[11px] text-white/60 font-medium">
+                        Personnalisez un modèle en ligne, puis commandez son impression.
+                      </span>
                     </div>
-                    <div className="h-1 w-24 rounded bg-white/20" />
+                  </div>
+
+                  {/* Small illustration */}
+                  <div className="relative z-10 hidden sm:block shrink-0 w-40 md:w-44" aria-hidden>
+                    <div className="absolute inset-0 translate-x-3 -translate-y-2 rotate-6 rounded-lg bg-gradient-to-br from-[#6C2BD9] to-[#D72888] opacity-70" />
+                    <div className="relative aspect-[85/55] rounded-lg bg-[#140e2b] border border-white/15 p-3 flex flex-col justify-between shadow-xl group-hover:-rotate-2 transition-transform duration-500">
+                      <div className="space-y-1">
+                        <div className="h-2 w-20 rounded bg-gradient-to-r from-[#FF6A00] to-[#D72888]" />
+                        <div className="h-1.5 w-14 rounded bg-white/30" />
+                      </div>
+                      <div className="h-1 w-24 rounded bg-white/20" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          </div>
-        </div>
+              </Link>
+            </div>        </div>
       </section>
+
+      {/* 1.5 MOST REQUESTED PRINTS (prices come from the verified price tables) */}
+      <PopularPrints />
 
       {/* 2. SERVICES OVERVIEW */}
       <section id="services" className="py-16 md:py-24 relative border-t border-brand-purple/20">

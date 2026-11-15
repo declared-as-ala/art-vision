@@ -361,7 +361,11 @@ export default function AdminQuotesPage() {
                 {selectedQuote.fileUrl && (
                   <div className="flex items-center space-x-2 bg-brand-purple/10 border border-brand-purple/20 p-3 rounded-lg text-xs">
                     <FileText size={16} className="text-brand-orange" />
-                    <span>Fichier attaché : <strong>{selectedQuote.fileUrl}</strong></span>
+                    {selectedQuote.fileUrl.startsWith("/api/admin/quotes/file/") ? (
+                      <a href={selectedQuote.fileUrl} className="underline text-brand-orange font-semibold">Télécharger le fichier joint</a>
+                    ) : (
+                      <span>Fichier attaché : <strong>{selectedQuote.fileUrl}</strong></span>
+                    )}
                   </div>
                 )}
               </div>

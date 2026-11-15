@@ -1,7 +1,14 @@
 import Link from "next/link";
-import { ChevronRight, ArrowRight, HelpCircle } from "lucide-react";
+import { ChevronRight, ArrowRight, HelpCircle, Printer } from "lucide-react";
 import { ToolDef, toolsByOrder, toolUrl } from "@/lib/tools";
 import ToolIcon from "./ToolIcon";
+
+// Free tools that produce a print-ready visual: the natural next step is to have it printed.
+const PRINT_NEXT: Record<string, { product: string; format?: string; page: string }> = {
+  "carte-de-visite-gratuite": { product: "Cartes de visite", format: "Carte de crédit 85 x 55 mm", page: "/impression/carte-de-visite" },
+  "creer-flyer": { product: "Flyers", page: "/impression/flyer" },
+  "gabarit-impression": { product: "Impression sur mesure", page: "/impression" },
+};
 
 // Shared bottom-of-page block: SEO content → FAQ → CTA → related tools.
 // Used both by ToolPageFrame and by the CV / business-card wrapper pages.
@@ -44,6 +51,28 @@ export default function ToolFooter({
           </div>
         </section>
       )}
+
+      {PRINT_NEXT[tool.slug] && (() => {
+        const n = PRINT_NEXT[tool.slug];
+        const qs = new URLSearchParams({ prefill: "impression", mode: "file_ready", product: n.product, src: `tool-${tool.slug}` });
+        if (n.format) qs.set("format", n.format);
+        return (
+          <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+            <div className="rounded-2xl border border-brand-orange/30 bg-brand-orange/5 p-6 md:p-7 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+              <div>
+                <h2 className="text-lg font-montserrat font-extrabold text-white flex items-center gap-2"><Printer size={18} className="text-brand-orange" aria-hidden /> Faire imprimer ce visuel</h2>
+                <p className="mt-1.5 text-xs sm:text-sm text-white/65 max-w-xl leading-relaxed">
+                  Téléchargez votre création au format PDF, puis joignez-la à votre demande de devis : le support choisi est déjà indiqué. Le contrôle technique du fichier est gratuit.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 shrink-0">
+                <Link href={`/devis-sur-mesure?${qs.toString()}`} data-tracking="cta_click" className="rounded-full bg-brand-orange px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-brand-orange/90">Faire imprimer ce visuel</Link>
+                <Link href={n.page} className="rounded-full border border-white/25 px-5 py-2.5 text-xs font-semibold text-white transition hover:border-brand-magenta">Voir les tarifs</Link>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="relative overflow-hidden rounded-3xl border border-brand-magenta/25 p-8 md:p-10 text-center"

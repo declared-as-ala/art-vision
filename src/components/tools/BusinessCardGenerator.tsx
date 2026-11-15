@@ -753,7 +753,7 @@ END:VCARD`;
                   <span>Télécharger le PDF</span>
                 </button>
                 <a
-                  href="/devis-sur-mesure?prefill=impression"
+                  href="/devis-sur-mesure?prefill=impression&mode=file_ready&product=Cartes%20de%20visite&format=Carte%20de%20cr%C3%A9dit%2085%20x%2055%20mm&src=tool-card-export"
                   className="bg-white/10 hover:bg-white/20 border border-brand-purple/30 text-white px-6 py-3 rounded-lg text-sm font-semibold transition flex items-center justify-center space-x-2"
                 >
                   <Printer size={16} className="text-brand-magenta" />

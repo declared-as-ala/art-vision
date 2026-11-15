@@ -43,12 +43,18 @@ export default function Navbar() {
     { name: "Identité Visuelle", href: "/identite-visuelle" },
     { name: "Conception Logo", href: "/creation-logo-professionnel" },
     { name: "Projet Graphique", href: "/design-graphique" },
-    { name: "Impression", href: "/impression" },
     { name: "Projet Vidéo", href: "/video-publicitaire" },
     { name: "Motion Design", href: "/motion-design" },
     { name: "3D & Produit", href: "/modelisation-3d-rendu-produit" },
     { name: "Site Vitrine", href: "/creation-site-vitrine" },
     { name: "Community Management", href: "/community-management" },
+  ];
+
+  // Impression: the three ways in (catalogue + prices, Studio, quote)
+  const printLinks = [
+    { name: "Catalogue et tarifs", desc: "Supports, formats et prix HT", href: "/impression" },
+    { name: "Créer et imprimer", desc: "Studio : personnalisez un modèle", href: "/studio" },
+    { name: "Demander un devis", desc: "Avec votre fichier ou une création", href: "/devis-sur-mesure?prefill=impression" },
   ];
 
   // 6 flagship tools shown in nav — full hub at /outils-gratuits
@@ -79,14 +85,28 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-4 xl:space-x-7 whitespace-nowrap">
-            <Link
-              href="/"
-              className={`hover:text-brand-magenta font-medium text-sm transition ${
-                pathname === "/" ? "text-brand-magenta" : "text-brand-white"
-              }`}
-            >
-              Accueil
-            </Link>
+            {/* Impression — first-level entry */}
+            <div className="relative group">
+              <Link
+                href="/impression"
+                className={`flex items-center space-x-1 font-bold text-sm transition ${
+                  pathname.startsWith("/impression") || pathname.startsWith("/studio") ? "text-brand-magenta" : "text-brand-white hover:text-brand-magenta"
+                }`}
+              >
+                <span>Impression</span>
+                <ChevronDown size={16} />
+              </Link>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200">
+                <div className="glassmorphism rounded-xl shadow-2xl p-2">
+                  {printLinks.map((l) => (
+                    <Link key={l.href} href={l.href} className="block rounded-lg px-4 py-2.5 hover:bg-brand-purple/20 transition">
+                      <span className="block text-sm font-semibold text-white">{l.name}</span>
+                      <span className="block text-[11px] text-white/55">{l.desc}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {/* Services Dropdown */}
             <div className="relative group">
@@ -175,15 +195,16 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
             <Link
               href="/studio"
-              className="group relative overflow-hidden whitespace-nowrap bg-gradient-to-r from-[#D72888] to-[#6C2BD9] hover:brightness-110 text-white h-9 px-3.5 xl:px-4 rounded-full font-bold text-[11px] uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md shadow-brand-magenta/25 flex items-center gap-1.5"
+              className="group relative overflow-hidden whitespace-nowrap flex items-center justify-center h-10 px-5 xl:px-6 rounded-full bg-gradient-to-r from-[#D72888] via-[#B22FB0] to-[#6C2BD9] text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-brand-magenta/40 ring-1 ring-white/20 transition-all duration-300 hover:scale-105 hover:shadow-brand-magenta/60 active:scale-95"
             >
-              <span>Créer et imprimer</span>
+              <span aria-hidden className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent skew-x-12 transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="relative">Créer et imprimer</span>
             </Link>
             <Link
               href="/devis-sur-mesure"
-              className="whitespace-nowrap bg-[#FF6A00] hover:brightness-110 text-white h-9 px-3.5 xl:px-4 rounded-full font-bold text-[11px] uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md shadow-[#FF6A00]/25 flex items-center"
+              className="whitespace-nowrap bg-[#FF6A00] hover:brightness-110 text-white h-10 px-4 xl:px-5 rounded-full font-bold text-xs uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md shadow-[#FF6A00]/25 flex items-center"
             >
-              <span>{"Devis"}<span className="hidden xl:inline">{" sur mesure"}</span></span>
+              Devis
             </Link>
           </div>
 
@@ -237,6 +258,20 @@ export default function Navbar() {
           >
             Accueil
           </Link>
+
+          {/* Impression group */}
+          <div className="space-y-2">
+            <Link href="/impression" className="text-base font-bold text-brand-magenta block">
+              Impression
+            </Link>
+            <div className="pl-4 grid grid-cols-1 gap-2.5 border-l border-brand-purple/30">
+              {printLinks.map((l) => (
+                <Link key={l.href} href={l.href} className="text-sm text-white/85 hover:text-brand-magenta transition">
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+          </div>
 
           {/* Services Group */}
           <div className="space-y-2">

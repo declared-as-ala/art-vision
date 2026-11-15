@@ -55,6 +55,10 @@ function SinglePageQuoteForm() {
   const paramPaper = searchParams.get("paper") || searchParams.get("support") || "";
   const paramFinish = searchParams.get("finish") || searchParams.get("finition") || "";
   const paramTotal = searchParams.get("total") || "";
+  const paramPrice = searchParams.get("price") || ""; // catalogue price, already labelled HT
+  const paramMode = searchParams.get("mode") || ""; // file_ready = customer already has a print-ready file
+  const isDesignRequest = /design|graphi|creation|création/i.test(searchParams.get("service") || searchParams.get("prefill") || "");
+  const isFileReady = paramMode === "file_ready";
 
   // State
   const [name, setName] = useState("");
@@ -79,15 +83,17 @@ function SinglePageQuoteForm() {
 
   // Has print configuration
   const hasPrintConfig = useMemo(() => {
-    return Boolean(paramProduct || paramQty || paramFormat || (prefill && prefill.toLowerCase().includes("print")));
-  }, [paramProduct, paramQty, paramFormat, prefill]);
+    return Boolean(!isDesignRequest && (paramProduct || paramQty || paramFormat || (prefill && prefill.toLowerCase().includes("print"))));
+  }, [paramProduct, paramQty, paramFormat, prefill, isDesignRequest]);
 
   // Initial detection & pre-filling
   useEffect(() => {
     const rawTarget = (paramService || prefill || "").toLowerCase();
 
     // Map query to prestation
-    if (rawTarget.includes("motion") || rawTarget.includes("vitarena")) {
+    if (isDesignRequest) {
+      setService("Graphisme & Support de communication");
+    } else if (rawTarget.includes("motion") || rawTarget.includes("vitarena")) {
       setService("Motion design & Animation");
     } else if (rawTarget.includes("video") || rawTarget.includes("vidéo") || rawTarget.includes("montage")) {
       setService("Montage vidéo (Rushes fournis ou tournage)");
@@ -102,14 +108,26 @@ function SinglePageQuoteForm() {
     }
 
     // Build default description if parameters exist
-    if (paramProduct || paramQty || paramFormat || paramTotal) {
+    if (isDesignRequest) {
+      const cfg: string[] = [];
+      if (paramFormat) cfg.push(`Format : ${paramFormat}`);
+      if (paramPaper) cfg.push(`Support/Papier : ${paramPaper}`);
+      if (paramFinish) cfg.push(`Finitions : ${paramFinish}`);
+      if (paramQty) cfg.push(`Quantité : ${paramQty} ex.`);
+      if (paramPrice) cfg.push(`Tarif catalogue d'impression pour cette configuration : ${paramPrice}`);
+      const cfgText = cfg.length ? "\n\nConfiguration d'impression envisagée :\n" + cfg.join("\n") : "";
+      const intro = "Demande de création graphique" + (paramProduct ? " pour : " + paramProduct : "") + ".";
+      setDetails((prev) => prev || intro + cfgText + "\n\nVotre activité, le message à faire passer, vos éléments existants (logo, textes, photos) : ");
+    } else if (paramProduct || paramQty || paramFormat || paramTotal) {
       const parts: string[] = [];
       if (paramProduct) parts.push(`Produit : ${paramProduct}`);
       if (paramFormat) parts.push(`Format : ${paramFormat}`);
       if (paramQty) parts.push(`Quantité : ${paramQty} ex.`);
       if (paramPaper) parts.push(`Support/Papier : ${paramPaper}`);
       if (paramFinish) parts.push(`Finitions : ${paramFinish}`);
+      if (paramPrice) parts.push(`Tarif catalogue pour cette configuration : ${paramPrice}`);
       if (paramTotal) parts.push(`Estimation indicative : ${paramTotal} € TTC`);
+      if (isFileReady) parts.push("Parcours : j'ai déjà mon fichier prêt à imprimer (joint ci-dessous)");
 
       const printSummary = parts.join("\n");
       setDetails((prev) => {
@@ -122,7 +140,7 @@ function SinglePageQuoteForm() {
         return prev;
       });
     }
-  }, [prefill, paramService, paramPackage, paramProduct, paramQty, paramFormat, paramPaper, paramFinish, paramTotal]);
+  }, [prefill, paramService, paramPackage, paramProduct, paramQty, paramFormat, paramPaper, paramFinish, paramTotal, paramPrice, isFileReady, isDesignRequest]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -279,8 +297,20 @@ function SinglePageQuoteForm() {
               {paramProduct && <span className="mr-2">Produit : <strong className="text-white">{paramProduct}</strong></span>}
               {paramFormat && <span className="mr-2">• Format : <strong className="text-white">{paramFormat}</strong></span>}
               {paramQty && <span className="mr-2">• Quantité : <strong className="text-white">{paramQty} ex.</strong></span>}
+              {paramPaper && <span className="mr-2">• Papier : <strong className="text-white">{paramPaper}</strong></span>}
+              {paramPrice && <span className="mr-2">• Tarif catalogue : <strong className="text-brand-orange">{paramPrice}</strong></span>}
               {paramTotal && <span>• Estimation : <strong className="text-brand-orange">{paramTotal} € TTC</strong></span>}
             </p>
+          </div>
+        </div>
+      )}
+
+      {isDesignRequest && (
+        <div className="mb-6 p-4 rounded-2xl bg-brand-purple/30 border border-brand-purple/40 flex items-start gap-3">
+          <Sparkles size={20} className="text-brand-orange shrink-0 mt-0.5" />
+          <div className="text-xs md:text-sm">
+            <p className="font-bold text-white">Demande de création graphique{paramProduct ? <> — {paramProduct}</> : null}</p>
+            <p className="text-white/70 mt-0.5">La création sur mesure fait l&apos;objet d&apos;un devis : décrivez votre besoin, nous revenons vers vous avec une proposition chiffrée.</p>
           </div>
         </div>
       )}
@@ -453,9 +483,9 @@ function SinglePageQuoteForm() {
         <div>
           <div className="flex justify-between items-baseline mb-2">
             <span className="text-xs uppercase tracking-wider font-bold text-white/90">
-              Pièce jointe (logo, brief, exemple, maquette)
+              {isFileReady ? "Votre fichier à imprimer (PDF recommandé)" : "Pièce jointe (logo, brief, exemple, maquette)"}
             </span>
-            <span className="text-[11px] text-white/50 italic">Facultatif • Max 7 Mo</span>
+            <span className="text-[11px] text-white/50 italic">{isFileReady ? "Max 7 Mo — au-delà, envoi par lien après validation" : "Facultatif • Max 7 Mo"}</span>
           </div>
 
           {!fileName ? (
