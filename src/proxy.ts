@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 import { cached } from "@/lib/cache";
+import { verifyToken } from "@/lib/auth";
 
 // Load active redirects once and cache for 5 min, instead of a DB query on
 // every page navigation. Returns a Map keyed by source path.
@@ -40,10 +41,22 @@ function redirectKeepingQuery(target: URL, request: NextRequest, status?: number
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // 0. Admin API: every endpoint requires a validly signed session (login / logout excepted).
+  //    The matcher below lets /api/admin through to this check; other /api routes are untouched.
+  if (pathname.startsWith("/api/admin")) {
+    if (pathname === "/api/admin/login" || pathname === "/api/admin/logout") return NextResponse.next();
+    const token = request.cookies.get("art_vision_session")?.value;
+    if (!token || !verifyToken(token)) {
+      return NextResponse.json({ success: false, error: "Non autorisé." }, { status: 401, headers: { "Cache-Control": "no-store" } });
+    }
+    return NextResponse.next();
+  }
+
   // 1. Protect admin routes (obfuscate login and guard dashboard)
   if (pathname.startsWith("/admin")) {
     const session = request.cookies.get("art_vision_session")?.value;
-    const hasValidSession = Boolean(session && !isTokenExpired(session));
+    // signature AND expiry are checked (a hand-made token must not open the dashboard)
+    const hasValidSession = Boolean(session && !isTokenExpired(session) && verifyToken(session));
 
     if (pathname === "/admin/login") {
       // If already logged in, redirect directly to dashboard
@@ -147,12 +160,12 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
+     * - api (API routes), except /api/admin which is guarded above
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - logo.png (logo file)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|logo.png).*)",
+    "/((?!api/(?!admin(?:/|$))|api$|_next/static|_next/image|favicon.ico|logo.png).*)",
   ],
 };
