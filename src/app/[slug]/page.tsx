@@ -11,6 +11,8 @@ import { draftMode } from "next/headers";
 import { RichContent } from "@/components/cms/RichContent";
 import { sanitizeHtml } from "@/lib/cms";
 import { buildEffectiveTitle, buildEffectiveDescription } from "@/lib/seo-score";
+import { getLocalCityBySlug } from "@/data/local-cities";
+import LocalCityLanding from "@/components/local/LocalCityLanding";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -56,6 +58,30 @@ const SERVICE_PORTFOLIO_CATS: Record<string, string[]> = {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const { isEnabled: isPreview } = await draftMode();
+
+  const localCity = getLocalCityBySlug(slug);
+  if (localCity) {
+    const canonical = `https://art-visions.fr/${localCity.slug}`;
+    return {
+      title: localCity.seoTitle,
+      description: localCity.metaDescription,
+      alternates: { canonical },
+      robots: { index: !isPreview, follow: !isPreview },
+      openGraph: {
+        title: localCity.seoTitle,
+        description: localCity.metaDescription,
+        images: [{ url: `https://art-visions.fr${localCity.photo.path}` }],
+        url: canonical,
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: localCity.seoTitle,
+        description: localCity.metaDescription,
+        images: [`https://art-visions.fr${localCity.photo.path}`],
+      },
+    };
+  }
 
   const page = await prisma.page.findUnique({ where: { slug } });
   if (page && ((page.status === "PUBLISHED" && page.isActive) || isPreview)) {
@@ -208,6 +234,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function DynamicSlugPage({ params }: PageProps) {
   const { slug } = await params;
   const { isEnabled: isPreview } = await draftMode();
+
+  const localCity = getLocalCityBySlug(slug);
+  if (localCity) {
+    return <LocalCityLanding data={localCity} />;
+  }
 
   const page = await prisma.page.findUnique({ where: { slug } });
   if (page && ((page.status === "PUBLISHED" && page.isActive) || isPreview)) {

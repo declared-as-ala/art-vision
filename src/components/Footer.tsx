@@ -27,6 +27,9 @@ export default function Footer() {
     { name: "Le Mans", href: "/agence-graphique-le-mans" },
     { name: "Paris", href: "/agence-graphique-paris" },
     { name: "Lyon", href: "/agence-graphique-lyon" },
+    { name: "Marseille", href: "/agence-graphique-marseille" },
+    { name: "Toulouse", href: "/agence-graphique-toulouse" },
+    { name: "Bordeaux", href: "/agence-graphique-bordeaux" },
     { name: "Lille", href: "/agence-graphique-lille" },
     { name: "Nantes", href: "/agence-graphique-nantes" },
   ];
@@ -103,6 +106,12 @@ export default function Footer() {
                   {city.name}
                 </Link>
               ))}
+              <Link
+                href="/zones-desservies"
+                className="text-xs bg-brand-purple/25 border border-brand-purple/40 text-brand-orange px-2.5 py-1 rounded hover:bg-brand-purple/40 hover:text-white transition font-semibold"
+              >
+                Toutes les villes (21) →
+              </Link>
             </div>
           </div>
 

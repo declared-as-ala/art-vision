@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import prisma from "@/lib/prisma";
 import { toolsByOrder } from "@/lib/tools";
 import impressionCatalog from "@/data/impression-catalog.json";
+import { getAllLocalCitySlugs } from "@/data/local-cities";
 
 const PRODUCTION_URL = "https://art-visions.fr";
 
@@ -33,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/devis-sur-mesure",
     "/impression",
     "/outils-gratuits",
+    "/zones-desservies",
     "/belgique",
     "/belgique/creation-logo",
     "/belgique/impression",
@@ -189,9 +191,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {}
 
+  const localCityRoutes: MetadataRoute.Sitemap = getAllLocalCitySlugs().map((slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.85,
+  }));
+
   // Consolidate & Deduplicate
   const allRoutes = [
     ...routes,
+    ...localCityRoutes,
     ...dedicatedPrintingRoutes,
     ...catalogImpressionRoutes,
     ...toolRoutes,

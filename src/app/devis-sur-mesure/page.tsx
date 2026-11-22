@@ -57,6 +57,8 @@ function SinglePageQuoteForm() {
   const paramTotal = searchParams.get("total") || "";
   const paramPrice = searchParams.get("price") || ""; // catalogue price, already labelled HT
   const paramMode = searchParams.get("mode") || ""; // file_ready = customer already has a print-ready file
+  const paramCity = searchParams.get("city") || searchParams.get("ville") || "";
+  const paramSource = searchParams.get("source") || "";
   const isDesignRequest = /design|graphi|creation|création/i.test(searchParams.get("service") || searchParams.get("prefill") || "");
   const isFileReady = paramMode === "file_ready";
 
@@ -108,6 +110,11 @@ function SinglePageQuoteForm() {
     }
 
     // Build default description if parameters exist
+    const cityContext: string[] = [];
+    if (paramCity) cityContext.push(`Ville : ${paramCity}`);
+    if (paramSource) cityContext.push(`Page d'origine : https://art-visions.fr${paramSource.startsWith("/") ? paramSource : `/${paramSource}`}`);
+    const cityPrefix = cityContext.length ? cityContext.join(" | ") + "\n" : "";
+
     if (isDesignRequest) {
       const cfg: string[] = [];
       if (paramFormat) cfg.push(`Format : ${paramFormat}`);
@@ -117,9 +124,10 @@ function SinglePageQuoteForm() {
       if (paramPrice) cfg.push(`Tarif catalogue d'impression pour cette configuration : ${paramPrice}`);
       const cfgText = cfg.length ? "\n\nConfiguration d'impression envisagée :\n" + cfg.join("\n") : "";
       const intro = "Demande de création graphique" + (paramProduct ? " pour : " + paramProduct : "") + ".";
-      setDetails((prev) => prev || intro + cfgText + "\n\nVotre activité, le message à faire passer, vos éléments existants (logo, textes, photos) : ");
+      setDetails((prev) => prev || cityPrefix + intro + cfgText + "\n\nVotre activité, le message à faire passer, vos éléments existants (logo, textes, photos) : ");
     } else if (paramProduct || paramQty || paramFormat || paramTotal) {
       const parts: string[] = [];
+      if (paramCity) parts.push(`Ville : ${paramCity}`);
       if (paramProduct) parts.push(`Produit : ${paramProduct}`);
       if (paramFormat) parts.push(`Format : ${paramFormat}`);
       if (paramQty) parts.push(`Quantité : ${paramQty} ex.`);
@@ -128,6 +136,7 @@ function SinglePageQuoteForm() {
       if (paramPrice) parts.push(`Tarif catalogue pour cette configuration : ${paramPrice}`);
       if (paramTotal) parts.push(`Estimation indicative : ${paramTotal} € TTC`);
       if (isFileReady) parts.push("Parcours : j'ai déjà mon fichier prêt à imprimer (joint ci-dessous)");
+      if (paramSource) parts.push(`Page d'origine : https://art-visions.fr${paramSource.startsWith("/") ? paramSource : `/${paramSource}`}`);
 
       const printSummary = parts.join("\n");
       setDetails((prev) => {
@@ -136,11 +145,16 @@ function SinglePageQuoteForm() {
       });
     } else if (paramPackage) {
       setDetails((prev) => {
-        if (!prev) return `Demande concernant l'offre / formule : ${paramPackage}.\n\nPrécisions sur votre projet : `;
+        if (!prev) return `${cityPrefix}Demande concernant l'offre / formule : ${paramPackage}.\n\nPrécisions sur votre projet : `;
+        return prev;
+      });
+    } else if (paramCity || paramSource) {
+      setDetails((prev) => {
+        if (!prev) return `${cityPrefix}Précisions sur votre besoin d'impression ou de création graphique : `;
         return prev;
       });
     }
-  }, [prefill, paramService, paramPackage, paramProduct, paramQty, paramFormat, paramPaper, paramFinish, paramTotal, paramPrice, isFileReady, isDesignRequest]);
+  }, [prefill, paramService, paramPackage, paramProduct, paramQty, paramFormat, paramPaper, paramFinish, paramTotal, paramPrice, paramCity, paramSource, isFileReady, isDesignRequest]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
